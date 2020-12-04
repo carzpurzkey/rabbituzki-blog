@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Spring-AOP-学习笔记</title>
+    <title>Spring AOP 学习笔记</title>
     <url>/2020/12/04/Spring-AOP-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h1>Spring AOP 学习笔记</h1>
 <hr>
@@ -174,6 +174,16 @@
 <p>这些都是 Spring 容器启动时为我们自动创建的注入了 Aspect 的子类，它取代了原始的 <code>UserService</code>（原始的 <code>UserService</code> 实例作为内部变量隐藏在 <code>UserServiceAopProxy</code> 中）。如果我们打印从 Spring 容器获取的 <code>UserService</code> 实例类型，它类似 <code>UserService$$EnhancerBySpringCGLIB$$1f44e01c</code>，实际上是 Spring 使用 CGLIB 动态创建的子类，但对于调用方来说，感觉不到任何区别。</p>
 <p>Spring 对接口类型使用 JDK 动态代理，对普通类使用 CGLIB 创建子类。如果一个Bean 的 class 是 <code>final</code>，Spring 将无法为其创建子类。</p>
 ]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>编程语言</tag>
+        <tag>Web</tag>
+        <tag>Java</tag>
+        <tag>Spring</tag>
+        <tag>AOP</tag>
+      </tags>
   </entry>
   <entry>
     <title>Ubuntu 下 138a:0090、138a:0097 和 06cb:009a 指纹识别器驱动及指纹认证</title>
@@ -7375,8 +7385,8 @@ glob 运算符经常用于测试模块 <code>tests</code> 中，这时会将所�
         <category>教程</category>
       </categories>
       <tags>
-        <tag>bash</tag>
         <tag>Linux</tag>
+        <tag>bash</tag>
       </tags>
   </entry>
   <entry>
@@ -8527,9 +8537,9 @@ while循环可用于读取键盘信息。下面的例子中，输入信息被设
       </categories>
       <tags>
         <tag>编程语言</tag>
+        <tag>Linux</tag>
         <tag>Shell</tag>
         <tag>bash</tag>
-        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
