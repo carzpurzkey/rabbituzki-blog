@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    使用SSH config文件 |
+    
+    六加的博客</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-使用SSH-config文件" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      使用SSH config文件
+    </h1>
+  
+  
+
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/10/24/%E4%BD%BF%E7%94%A8SSH-config%E6%96%87%E4%BB%B6/" class="article-date">
+  <time datetime="2018-10-23T16:00:00.000Z" itemprop="datePublished">2018-10-24</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+  </div>
+
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+  <div class="article-gallery">
+    <div class="article-gallery-photos">
+      
+        
+          <img src="/images/ssh.png" itemprop="image">
+        
+      
+    </div>
+  </div>
+
+
+      
+      <h1>使用SSH config文件</h1>
+<hr>
+<p>[TOC]</p>
+<hr>
+<p>ssh的介绍及使用参看：<a href="http://daemon369.github.io/ssh/2015/03/16/01-brief-introduction-for-ssh" target="_blank" rel="noopener">SSH简介</a>、<a href="http://daemon369.github.io/ssh/2015/03/08/generating-ssh-keys" target="_blank" rel="noopener">创建SSH密钥对</a>。</p>
+<h2 id="配置文件"><a class="header-anchor" href="#配置文件">¶</a>配置文件</h2>
+<p><code>ssh</code>程序可以从以下途径获取配置参数：</p>
+<ol>
+<li>命令行选项</li>
+<li>用户配置文件 (~/.ssh/config)</li>
+<li>系统配置文件(/etc/ssh/ssh_config)</li>
+</ol>
+<p>配置文件可分为多个配置区段，每个配置区段使用<code>host</code>来区分。我们可以在命令行中输入不同的<code>host</code>来加载不同的配置段。</p>
+<p>对每一个配置项来说，首次获取的参数值将被采用，因此通用的设置应该放到文件的后面，特定<code>host</code>相关的配置项应放到文件的前面。</p>
+<hr>
+<h2 id="常用配置项"><a class="header-anchor" href="#常用配置项">¶</a>常用配置项</h2>
+<p>下面介绍一些常用的<code>SSH</code>配置项：</p>
+<h3 id="Host"><a class="header-anchor" href="#Host">¶</a>Host</h3>
+<p><code>Host</code>配置项标识了一个配置区段。</p>
+<p><code>ssh</code>配置项参数值可以使用通配符：<code>*</code>代表0～n个非空白字符，<code>?</code>代表一个非空白字符，<code>!</code>表示例外通配。</p>
+<p>我们可以在系统配置文件中看到一个匹配所有<code>host</code>的默认配置区段：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cat /etc/ssh/ssh_config | grep <span class="string">'^Host'</span></span><br><span class="line">Host *</span><br></pre></td></tr></table></figure>
+<p>这里有一些默认配置项，我们可以在用户配置文件中覆盖这些默认配置。</p>
+<h3 id="GlobalKnownHostsFile"><a class="header-anchor" href="#GlobalKnownHostsFile">¶</a>GlobalKnownHostsFile</h3>
+<p>指定一个或多个全局认证主机缓存文件，用来缓存通过认证的远程主机的密钥，多个文件用空格分隔。默认缓存文件为：/etc/ssh/ssh_known_hosts, /etc/ssh/ssh_known_hosts2.</p>
+<h3 id="HostName"><a class="header-anchor" href="#HostName">¶</a>HostName</h3>
+<p>指定远程主机名，可以直接使用数字IP地址。如果主机名中包含 ‘%h’ ，则实际使用时会被命令行中的主机名替换。</p>
+<h3 id="IdentityFile"><a class="header-anchor" href="#IdentityFile">¶</a>IdentityFile</h3>
+<p>指定密钥认证使用的私钥文件路径。默认为 ~/.ssh/id_dsa, ~/.ssh/id_ecdsa, ~/.ssh/id_ed25519 或 ~/.ssh/id_rsa 中的一个。文件名称可以使用以下转义符：</p>
+<pre><code>'%d' 本地用户目录
+'%u' 本地用户名称
+'%l' 本地主机名
+'%h' 远程主机名
+'%r' 远程用户名
+</code></pre>
+<p>可以指定多个密钥文件，在连接的过程中会依次尝试这些密钥文件。</p>
+<h3 id="Port"><a class="header-anchor" href="#Port">¶</a>Port</h3>
+<p>指定远程主机端口号，默认为 22 。</p>
+<h3 id="User"><a class="header-anchor" href="#User">¶</a>User</h3>
+<p>指定登录用户名。</p>
+<p>UserKnownHostsFile<br>
+指定一个或多个用户认证主机缓存文件，用来缓存通过认证的远程主机的密钥，多个文件用空格分隔。默认缓存文件为： ~/.ssh/known_hosts, ~/.ssh/known_hosts2.</p>
+<p>还有更多参数的介绍，可以参看用户手册：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ man ssh config</span><br></pre></td></tr></table></figure>
+<h2 id="示例"><a class="header-anchor" href="#示例">¶</a>示例</h2>
+<p>以下连接为例：</p>
+<pre><code>SSH 服务器： ssh.test.com
+端口号： 2200
+账户： user
+密钥文件： ~/.ssh/id_rsa_test
+</code></pre>
+<p>1. 密码认证登录方式为：</p>
+<pre><code>$ ssh -p 2200 -i ~/.ssh/id_rsa_test user@ssh.test.com
+user@ssh.test.com's password:
+</code></pre>
+<p>2. 密钥认证登录方式：</p>
+<pre><code>$ ssh-copy-id -i ~/.ssh/id_rsa_test user@ssh.test.com
+/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+user@ssh.test.com's password:
+
+Number of key(s) added: 1
+
+Now try logging into the machine, with:   &quot;ssh 'user@ssh.test.com'&quot;
+and check to make sure that only the key(s) you wanted were added.
+
+$ ssh user@ssh.test.com
+</code></pre>
+<p>3. 使用配置文件方式</p>
+<p>有如下配置文件：</p>
+<pre><code>$ vim ~/.ssh/config
+Host sshtest
+    HostName ssh.test.com
+    User user
+    Port 2200
+    IdentityFile ~/.ssh/id_rsa_test
+
+Host ssttest2
+    HostName ssh.test2.com
+    User user2
+    Port 2345
+    IdentityFile ~/.ssh/id_rsa_test2
+</code></pre>
+<p>使用配置文件登录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh sshtest</span><br></pre></td></tr></table></figure>
+<h2 id="环境"><a class="header-anchor" href="#环境">¶</a>环境</h2>
+<ul>
+<li>Ubuntu</li>
+<li>macOs High Sierra(10.13.2)</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.rabbituzki.com.cn/2018/10/24/%E4%BD%BF%E7%94%A8SSH-config%E6%96%87%E4%BB%B6/" data-id="ckidvv5d700243sv4bdx6cgnu" class="article-share-link">
+        分享
+      </a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2018/10/24/mod_wsgi%E5%87%BA%E7%8E%B0503-service-temporarily-unavailable%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            mod_wsgi出现503 service temporarily unavailable解决办法
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2018/10/24/%E5%88%A9%E7%94%A8gitlab-pages%E5%92%8Chexo%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">利用gitlab pages和hexo搭建一个个人博客</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2020 六加的博客</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="六加的博客"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>

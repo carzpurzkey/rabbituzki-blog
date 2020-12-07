@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    《C语言程序设计·现代方法（第二版）》学习笔记 -- 之一 |
+    
+    六加的博客</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-《C语言程序设计·现代方法（第二版）》学习笔记一" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      《C语言程序设计·现代方法（第二版）》学习笔记 -- 之一
+    </h1>
+  
+  
+
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/10/18/%E3%80%8AC%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%C2%B7%E7%8E%B0%E4%BB%A3%E6%96%B9%E6%B3%95%EF%BC%88%E7%AC%AC%E4%BA%8C%E7%89%88%EF%BC%89%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80/" class="article-date">
+  <time datetime="2018-10-17T16:00:00.000Z" itemprop="datePublished">2018-10-18</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+  </div>
+
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+  <div class="article-gallery">
+    <div class="article-gallery-photos">
+      
+        
+          <img src="/images/CModern.jpg" itemprop="image">
+        
+      
+    </div>
+  </div>
+
+
+      
+      <h1>《C语言程序设计现代方法第二版》学习笔记一</h1>
+<hr>
+<p>[toc]</p>
+<hr>
+<h2 id="第二章-C语言基本概念"><a class="header-anchor" href="#第二章-C语言基本概念">¶</a>第二章 C语言基本概念</h2>
+<h3 id="2-4-变量和赋值"><a class="header-anchor" href="#2-4-变量和赋值">¶</a>2.4 变量和赋值</h3>
+<h4 id="2-4-5-初始化（P15）"><a class="header-anchor" href="#2-4-5-初始化（P15）">¶</a>2.4.5 初始化（P15）</h4>
+<p>  当程序开始执行时，某些变量会被自动设置为0，而大多数变量则不会。如果试图访问未初始化的变量，可能会得到不可预知的结果。</p>
+<h3 id="2-7-标识符（P19）"><a class="header-anchor" href="#2-7-标识符（P19）">¶</a>2.7 标识符（P19）</h3>
+<p>  标准库中函数的名字只能包含小写字母。</p>
+<h3 id="第二章FAQ（P22-P23）"><a class="header-anchor" href="#第二章FAQ（P22-P23）">¶</a>第二章FAQ（P22~P23）</h3>
+<ol>
+<li>（在C99中）如果main函数声明中的返回类型是<code>int</code>，程序会向操作系统返回0;否则程序会返回一个不确定的值。</li>
+<li>依据C标准，编译器必须用一个空格字符替换每条注释语句。</li>
+<li>传统风格的注释（<code>/*...*/</code>）不允许嵌套;C99注释（以<code>//</code>开头）可以嵌套在传统风格的注释中。</li>
+</ol>
+<hr>
+<h2 id="第三章-格式化输入-输出"><a class="header-anchor" href="#第三章-格式化输入-输出">¶</a>第三章 格式化输入/输出</h2>
+<h3 id="3-1-printf函数"><a class="header-anchor" href="#3-1-printf函数">¶</a>3.1 <code>printf</code>函数</h3>
+<h4 id="3-1-1-转换说明（P28）"><a class="header-anchor" href="#3-1-1-转换说明（P28）">¶</a>3.1.1 转换说明（P28）</h4>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">float</span> x;</span><br><span class="line">    </span><br><span class="line">    i = <span class="number">40</span>;</span><br><span class="line">    x = <span class="number">839.21f</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"|%d|%5d|%-5d|%5.3d|n"</span>, i, i, i, );</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"|%10.3f|%10.3e|%-10g|\n"</span>, x, x, x);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<p>|40|   40|40   |  040|</p>
+<p>|   839.210| 8.392e+02|839.21    |</p>
+<h4 id="3-2-1-scanf的工作方法（P30）"><a class="header-anchor" href="#3-2-1-scanf的工作方法（P30）">¶</a>3.2.1 <code>scanf</code>的工作方法（P30）</h4>
+<p>  对于格式串中的第一个转换说明，<code>scanf</code>函数从输入的数据中定位适当类型的项，并在必要时跳过空格。然后，<code>scanf</code>函数诗篇数据项，并且在遇到 <strong>不可能属于此项的字符（笔记：如果不可能属于此项的字符为本次读取的第一个字符，则<code>scanf</code>立即停止。否则将此字符放回原位，在下次读取时作为第一个读取的字符。参考P31例子）</strong> 时停止。如果读入数据项成功，那么<code>scanf</code>函数会继续处理格式串的剩余部分；如果某一项不能成功读入，那么<code>scanf</code>函数将不再查看格式串的剩余部分（或余下的输入数据）而立即返回。</p>
+<p>  在寻找数的起始位置时，<code>scanf</code>函数会忽略空白字符。因此，我们可以把数字放在同一行或者分散在几行内输入。</p>
+<h4 id="3-2-3易混淆的printf函数和scanf函数（P32）"><a class="header-anchor" href="#3-2-3易混淆的printf函数和scanf函数（P32）">¶</a>3.2.3易混淆的<code>printf</code>函数和<code>scanf</code>函数（P32）</h4>
+<p>  <code>printf</code>格式串结党以<code>\n</code>结尾，但是在<code>scanf</code>格式串末尾旋转换行符通常是一个坏主意。对<code>scanf</code>函数来说，格式串中的换行符等价于空格，两者都会引发<code>scanf</code>函数提前进入下一个非空白字符。例如，如果格式串是&quot;<code>%d\n</code>&quot;，那么函数将跳过空白字符，读取一个整数，然后跳到下一个非空白字符处。像这样的格式串可能会导致交互式程序一直“挂起”直到用户输入一个非空白字符为止。</p>
+<h3 id="第三章FAQ（P33）"><a class="header-anchor" href="#第三章FAQ（P33）">¶</a>第三章FAQ（P33）</h3>
+<p>  <code>%i</code>与<code>%d</code>区别：<code>%i</code>可以为十进制、八进制（0开头）、十六进制（0x或0X开头）的数，<code>%d</code>只识别十进制数。</p>
+<hr>
+<h2 id="第四章-表达式"><a class="header-anchor" href="#第四章-表达式">¶</a>第四章 表达式</h2>
+<h3 id="4-2-赋值运算符"><a class="header-anchor" href="#4-2-赋值运算符">¶</a>4.2 赋值运算符</h3>
+<h4 id="4-2-1简单赋值（P40）"><a class="header-anchor" href="#4-2-1简单赋值（P40）">¶</a>4.2.1简单赋值（P40）</h4>
+<p>  大多数C语言运算符不会改变操作数的值，但是也有一些会改变。由于这类运算符所做的不再仅仅是计算出值，所以称它们有副作用。如<code>i = 0</code>求值产生的结果为0，并（作为副作用）把0值赋给i。</p>
+<h4 id="4-2-3复合赋值（P41）"><a class="header-anchor" href="#4-2-3复合赋值（P41）">¶</a>4.2.3复合赋值（P41）</h4>
+<ol>
+<li>
+<p>在极少数情况下，由于v自身的副作用，<code>v += e</code>不等同于<code>v = v + e</code> <strong>（笔记：<code>v += e</code>中v的值只计算一次，而<code>v = v + e</code>中v的值会计算两次。如：<code>a[i++] += 2</code>中i会自增一次，<code>a[i++] = a[i++] + 2</code>中i会自增两次）</strong>。类似的说明也适用于其它复合赋值运算符。</p>
+</li>
+<li>
+<p>复合赋值运算符有着和=运算符一样的特性。特别是，它们都是右结合的，所以</p>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">i += j += k</span><br></pre></td></tr></table></figure>
+<p>意味着</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">i += (j += k)</span><br></pre></td></tr></table></figure>
+<h3 id="4-5表达式语句（P45）"><a class="header-anchor" href="#4-5表达式语句（P45）">¶</a>4.5表达式语句（P45）</h3>
+<p>  任何表达式都可以用作语句。<code>i * j - 1</code>因为i和j没有变化，所以这条语句没有任何作用。</p>
+<hr>
+<h2 id="第五章-选择语句"><a class="header-anchor" href="#第五章-选择语句">¶</a>第五章 选择语句</h2>
+<h3 id="5-2-if语句"><a class="header-anchor" href="#5-2-if语句">¶</a>5.2 <code>if</code>语句</h3>
+<h4 id="5-2-4-“悬空else”的问题（P56）"><a class="header-anchor" href="#5-2-4-“悬空else”的问题（P56）">¶</a>5.2.4 “悬空<code>else</code>”的问题（P56）</h4>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (y != <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">if</span> (x != <span class="number">0</span>)</span><br><span class="line">        result = x / y;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Error: y is equal to 0\n"</span>);</span><br></pre></td></tr></table></figure>
+<p>  C语言遵循的规则是<code>else</code>子句应该属于离它最近的且还未和其它<code>else</code>匹配的<code>if</code>语句。</p>
+<h4 id="5-2-7-C99中的布尔值（P58）"><a class="header-anchor" href="#5-2-7-C99中的布尔值（P58）">¶</a>5.2.7 C99中的布尔值（P58）</h4>
+<p>  在C99中提供了<code>_Bool</code>型，<font color=red><strong><code>_Bool</code>是无符号整型，但只能赋值为0或1，一般来说，往<code>_Bool</code>变量中存储非零值会导致变量赋值为1</strong></font>。<br>
+  除了<code>_Bool</code>类型的宝座，C99还提供了一个新的头&lt;stdbool.h&gt;。该问提供了<code>bool</code>宏来代表<code>_Bool</code>，<code>true</code>来代表1，<code>false</code>来代表0。</p>
+<h3 id="5-3-switch语句"><a class="header-anchor" href="#5-3-switch语句">¶</a>5.3 <code>switch</code>语句</h3>
+<ol>
+<li><code>switch</code>后边必须跟着由圆括号括起来的<font color=red><strong>整型</strong></font>表达式，不能用浮点数和字符串。</li>
+<li><code>case</code>后跟<font color=red><strong>常量表达式</strong></font>，如<code>5 + 10</code>。</li>
+</ol>
+<h3 id="第五章FAQ（P63-P64）"><a class="header-anchor" href="#第五章FAQ（P63-P64）">¶</a>第五章FAQ（P63~P64）</h3>
+<ol>
+<li>当<code>int</code>型和<code>float</code>型的值混合在一个条件表达式中时（如<code>i &gt; 0 ? i : f</code>）表达式类型为<code>float</code>型。如果<code>i &gt; 0</code>为真，那么变量i转化为<code>float</code>型后的值就是表达式的值。</li>
+<li>C89标准指出，以下划线后跟一个大写字母开头的名字是保留字，程序员不应该使用。</li>
+</ol>
+<hr>
+<h2 id="第六章-循环"><a class="header-anchor" href="#第六章-循环">¶</a>第六章 循环</h2>
+<h3 id="6-3-for语句"><a class="header-anchor" href="#6-3-for语句">¶</a>6.3 <code>for</code>语句</h3>
+<h4 id="6-3-4-逗号运算符（P76）"><a class="header-anchor" href="#6-3-4-逗号运算符（P76）">¶</a>6.3.4 逗号运算符（P76）</h4>
+<ol>
+<li>形式：表达式1, 表达式2</li>
+<li>实现方式：第一步，计算表达式1并且扔掉计算出的值。第二步，计算表达式2，把这个值作为整个表达式的值。</li>
+<li>例如：<code>i = 1</code>, <code>j = 2</code>, <code>k = i + j</code>解释为<code>((i = 1), (j = 2)), (k = (i + j))</code></li>
+</ol>
+<h3 id="6-4-退出循环"><a class="header-anchor" href="#6-4-退出循环">¶</a>6.4 退出循环</h3>
+<h4 id="6-4-3-goto语句（P79）"><a class="header-anchor" href="#6-4-3-goto语句（P79）">¶</a>6.4.3 <code>goto</code>语句（P79）</h4>
+<ol>
+<li><code>break</code>语句的目标是包含该语句的循环结束之<font color=red><strong>后</strong></font>的那一点，而<code>continue</code>语句的目标是循环结束之<font color=red><strong>前</strong></font>的那一点。</li>
+<li><code>goto</code>语句不可以用于绕过变长数组。</li>
+</ol>
+<h3 id="第六章FAQ（P83-P84）"><a class="header-anchor" href="#第六章FAQ（P83-P84）">¶</a>第六章FAQ（P83~P84）</h3>
+<ol>
+<li>早期编译器中无限循环<code>for(;;)</code>比<code>while(1)</code>高效；新编译器性能无差别。</li>
+<li>空语句可以有如下用途：</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">goto</span> end_of_stmt;</span><br><span class="line">    end_of_stmt: ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="第七章-基本类型"><a class="header-anchor" href="#第七章-基本类型">¶</a>第七章 基本类型</h2>
+<h3 id="7-1整数类型（P89"><a class="header-anchor" href="#7-1整数类型（P89">¶</a>7.1整数类型（P89)</h3>
+<p>  <code>short int</code>、<code>int</code>、<code>long int</code>取值范围有可能是一样的。但C标准规定<code>int</code>取值范围不能比<code>short int</code>小，<code>long int</code>取值范围不能比<code>int</code>小。</p>
+<h4 id="7-1-4整数溢出（P91）"><a class="header-anchor" href="#7-1-4整数溢出（P91）">¶</a>7.1.4整数溢出（P91）</h4>
+<ol>
+<li>有符号整数溢出行为未定义。</li>
+<li>无符号整数溢出为对<code>2n</code>取模，其中<code>n</code>是用于存储结果的位数。例如，如果对无符号的16位数65535加1，其结果可以保证为0。</li>
+</ol>
+<h3 id="7-3字符类型"><a class="header-anchor" href="#7-3字符类型">¶</a>7.3字符类型</h3>
+<h4 id="7-3-1字符操作（P95）"><a class="header-anchor" href="#7-3-1字符操作（P95）">¶</a>7.3.1字符操作（P95）</h4>
+<p>  C语言把字符当作小整数进行处理。</p>
+<h4 id="7-3-7用getchar和putchar读-写字符"><a class="header-anchor" href="#7-3-7用getchar和putchar读-写字符">¶</a>7.3.7用<code>getchar</code>和<code>putchar</code>读/写字符</h4>
+<p>  在同一个程序中混合使用<code>getchr</code>函数和<code>scanf</code>函数时，要注意<code>scanf</code>函数倾向于遗留下它“扫视”过但未读取的字符（包括换行符）。考虑下面程序段：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">"Enter an integer: "</span>);</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;i);</span><br><span class="line"> </span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"Enter a command: "</span>);</span><br><span class="line"> </span><br><span class="line">command = getchar();</span><br></pre></td></tr></table></figure>
+<p>  在读入<code>i</code>的同时，<code>scanf</code>函数调用将会留下没有消耗掉的任意字符，包括（但不限于）换行符。<code>getchar</code>函数随后将取回第一个剩余字符，但这不是我们所希望的结果。</p>
+<h3 id="7-4类型转换（P100）"><a class="header-anchor" href="#7-4类型转换（P100）">¶</a>7.4类型转换（P100）</h3>
+<p>  当发生下列情况时会进行隐匿转换。</p>
+<ul>
+<li>当算术表达式或逻辑表达式中操作数的类型不相同时。（C语言执行所谓的常用算术转换）</li>
+<li>当赋值运算符右侧表达式的类型和左侧变量的类型不匹配时。</li>
+<li>当函数调用中的实参类型与其对应的形参类型不匹配时。</li>
+<li>当<code>return</code>语句中表达式的类型和函数返回值的类型不匹配时。</li>
+</ul>
+<h4 id="7-4-1常用算术转换（P101）"><a class="header-anchor" href="#7-4-1常用算术转换（P101）">¶</a>7.4.1常用算术转换（P101）</h4>
+<ol>
+<li>
+<p>任一操作数是浮点类型的情况。</p>
+<pre><code>         long double
+               ^
+               |
+            double
+               ^
+               |
+             float
+</code></pre>
+</li>
+<li>
+<p>两个操作数的类型都不是浮点类型的情况。</p>
+<pre><code>        unsigned long int
+                 ^
+                 |
+              long int
+                 ^
+                 |
+           unsigned int
+                 ^
+                 |
+                int
+</code></pre>
+</li>
+</ol>
+<p>  有一种特殊情况，只有在<code>long int</code>类型和<code>unsigned int</code>类型长度（比如32位）相同时才会发生。在这类情况下，如果一个操作数的类型是<code>long int</code>，而另一个的类型是<code>unsiged int</code>，那么两个操作数都会转换成<code>unsigned long int</code>类型。C语言把（类型名）视为一元运算符。一元运算符的优先级高于二元运算符，所以编译器会把表达。</p>
+<p>  当把有符号操作数和无符号操作数组合时，把有符号操作数“转换”成无符号的值。转换过程中需要加上或者减去<code>n + 1</code>的倍数，其中<code>n</code>是无符号类型能表示的最大值。这条规则可能会导致某此隐蔽的编程错误。</p>
+<p>  假设<code>int</code>类型的变量<code>i</code>的值为-10，而<code>unsigned int</code>类型的变量<code>u</code>的值为10。如果用&lt;运算符比较变量<code>i</code>和变量<code>u</code>，那么期望的结果应该是1（真）。但是，在比较前，变量<code>i</code>转换成为<code>unsigned int</code>类型。因为负数不能被表示成无符号整数，所以转换后的值不再为-10，而是加上4294967296的结果（假定4294967296是最大的无符号整数），即4294967286。因而<code>i &lt; u</code>比较的结果将为0。有些编译器会在程序试图比较有符号与无符号时给出一条类似“comparison between signed and unsigned”的警告消息。</p>
+<p>  由于此类陷阱的存在，所以最好尽量避免使用无符号整数，特别是不要把它和有符号整数混合使用。</p>
+<h4 id="7-4-2赋值过程中的转换（P102）"><a class="header-anchor" href="#7-4-2赋值过程中的转换（P102）">¶</a>7.4.2赋值过程中的转换（P102）</h4>
+<p>  把某种类型的值赋给类型更狭小的变量时，如果该值在变量类型范围之外，那么将会得到无意义的结果（甚至更糟）。<br>
+  如果浮点常量被赋值给<code>float</code>型变量时，一个很好的方法是在浮点常量尾部加上后辍<code>f</code>。</p>
+<h4 id="7-4-4强制类型转换（P103）"><a class="header-anchor" href="#7-4-4强制类型转换（P103）">¶</a>7.4.4强制类型转换（P103）</h4>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">float</span> quotient;</span><br><span class="line"><span class="keyword">int</span> dividend, divisor;</span><br><span class="line"> </span><br><span class="line">quotient = (<span class="keyword">float</span>) dividend / divisor;</span><br></pre></td></tr></table></figure>
+<p>  变量<code>divisor</code>不需要进行强制类型转换，因为把变量<code>dividend</code>强制錾成<code>float</code>类型会迫使编译器把<code>divisor</code>也转换成<code>float</code>类型。C语言把（类型名）视为一元运算符。一元运算符的优先级高于二元运算符，所以编译器会把表达式</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">float</span>) dividend / divisor</span><br></pre></td></tr></table></figure>
+<p>  解释为</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">((<span class="keyword">float</span>) dividend) / divisor</span><br></pre></td></tr></table></figure>
+<h3 id="7-6-sizeof运算符（P106）"><a class="header-anchor" href="#7-6-sizeof运算符（P106）">¶</a>7.6 <code>sizeof</code>运算符（P106）</h3>
+<p>  显示<code>sizeof</code>值时要注意，因为<code>sizeof</code>表达式的类型是<code>size_t</code>，这是一种由实现定义的类型。在C89中，最好在显示前把表达式的值转换成一种已知的类型。<code>size_t</code>一定是无符号整型，所以最安全的方法是把<code>sizeof</code>表达式强制转换成<code>unsigned long</code>类型。(C89中最大的无符号类型)，然后使用转换说明答题<code>%lu</code>显示。</p>
+<p>  在C99中，<code>size_t</code>类型可以比<code>unsigned long</code>更长。但C99中的<code>printf</code>可以直接显示<code>size_t</code>类型值而不需要强制转换。方法是在转换说明中的一般整数（通常用<code>u</code>）代码前使用字母<code>z</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">"Size of int: %zu\n"</span>, <span class="keyword">sizeof</span>(<span class="keyword">int</span>)); <span class="comment">/* C99 only */</span></span><br></pre></td></tr></table></figure>
+<h3 id="第七章FAQ（P107）"><a class="header-anchor" href="#第七章FAQ（P107）">¶</a>第七章FAQ（P107）</h3>
+<p>  只要有符号整数的值不是负值，就可以用<code>%o</code>和<code>%x</code>显示。这些转换导致<code>printf</code>函数把有符号整数看成无符号的；换句话说，<code>printf</code>函数将假设符号位是数的绝对值部分。只要符号位为0，就没问题。如果符号位为1，那么<code>printf</code>函数将显示出一个走出预期的大数。没有直接的方法可以书写负数的八进制或十六进制形式。幸运的是，需要这样做的情况非常少。当然，我们可以判定这个数是否是负数，然后自己显示一个负号：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (i &lt; <span class="number">0</span>)</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"-%x"</span>, -i);</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%x"</span>, i);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.rabbituzki.com.cn/2018/10/18/%E3%80%8AC%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%C2%B7%E7%8E%B0%E4%BB%A3%E6%96%B9%E6%B3%95%EF%BC%88%E7%AC%AC%E4%BA%8C%E7%89%88%EF%BC%89%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80/" data-id="ckidvv5d4001u3sv4hucth5ov" class="article-share-link">
+        分享
+      </a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" rel="tag">编程语言</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2018/10/18/Markdown-%E8%AF%AD%E6%B3%95%E6%89%8B%E5%86%8C/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            Markdown 语法手册
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2018/10/18/%E3%80%8AC%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%C2%B7%E7%8E%B0%E4%BB%A3%E6%96%B9%E6%B3%95%EF%BC%88%E7%AC%AC%E4%BA%8C%E7%89%88%EF%BC%89%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%8C/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">《C语言程序设计·现代方法（第二版）》学习笔记 -- 之二</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2020 六加的博客</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="六加的博客"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>

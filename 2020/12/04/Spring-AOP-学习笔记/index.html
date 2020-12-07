@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    Spring AOP 学习笔记 |
+    
+    六加的博客</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-Spring-AOP-学习笔记" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Spring AOP 学习笔记
+    </h1>
+  
+  
+
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/12/04/Spring-AOP-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time datetime="2020-12-03T16:00:00.000Z" itemprop="datePublished">2020-12-04</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+  </div>
+
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+  <div class="article-gallery">
+    <div class="article-gallery-photos">
+      
+        
+          <img src="/images/CModern.jpg" itemprop="image">
+        
+      
+    </div>
+  </div>
+
+
+      
+      <h1>Spring AOP 学习笔记</h1>
+<hr>
+<p>[TOC]</p>
+<hr>
+<h2 id="一、概述"><a class="header-anchor" href="#一、概述">¶</a>一、概述</h2>
+<ul>
+<li>设计模式：代理模式。</li>
+<li>基本概念：
+<ul>
+<li><strong>Aspect（切面）</strong>：即一个横跨多个核心逻辑的功能，或者称之为 <strong>系统关注点</strong>。<span style="border-width: 0 0 3px 0; border-style: double">（对哪些方法进行拦截，拦截后怎么处理）</span>；</li>
+<li><strong>Joinpoint（连接点）</strong>：即定义在应用程序流程的何处插入切面的执行。<span style="border-width: 0 0 3px 0; border-style: double">（被拦截到的点，因为 Spring 只支持方法类型的连接点，所以在 Spring 中连接点指的就是被拦截到的 <strong>方法</strong>，实际上连接点还可以是字段或者构造器）</span>；</li>
+<li><strong>Pointcut（切入点）</strong>：即一组连接点的集合。<span style="border-width: 0 0 3px 0; border-style: double">（对连接点进行拦截的定义，即 Pointcut 表达式）</span>；</li>
+<li><strong>Advice（增强）</strong>：指特定连接点上执行的动作；</li>
+<li><strong>Introduction（引介、引入）</strong>：指为一个已有的 Java 对象动态地增加新的接口。<span style="border-width: 0 0 3px 0; border-style: double">（在不修改代码的前提下，引入可以在 <strong>运行期</strong> 为类 <strong>动态</strong> 地添加一些方法或字段）</span>；</li>
+<li><strong>Weaving（织入）</strong>：指将切面整合到程序的执行流程中。<span style="border-width: 0 0 3px 0; border-style: double">（将切面应用到目标对象并导致代理对象创建的 <strong>过程</strong>）</span>；</li>
+<li><strong>Interceptor（拦截器）</strong>：是一种实现增强的方式；</li>
+<li><strong>Target Object（目标对象）</strong>：即真正执行业务的核心逻辑对象。<span style="border-width: 0 0 3px 0; border-style: double">（代理的目标对象）</span>；</li>
+<li><strong>AOP Proxy（AOP 代理）</strong>：是客户端持有的增强后的对象引用。</li>
+</ul>
+</li>
+<li>在 Java 平台上，对于 AOP 的织入，有 3 种方式：
+<ol>
+<li>编译期：在编译时，由编译器把切面调用编译进字节码，这种方式需要定义新的关键字并扩展编译器，AspectJ 就扩展了 Java 编译器，使用关键字 aspect 来实现织入；</li>
+<li>类加载器：在目标类被装载到 JVM 时，通过一个特殊的类加载器，对目标类的字节码重新“增强”；</li>
+<li>运行期：目标对象和切面都是普通 Java 类，通过 JVM 的动态代理功能或者第三方库实现运行期动态织入。</li>
+</ol>
+</li>
+</ul>
+<h2 id="二、装配-AOP"><a class="header-anchor" href="#二、装配-AOP">¶</a>二、装配 AOP</h2>
+<p>首先，我们通过 Maven 引入 Spring 对 AOP 的支持：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-aspects<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-切面定义"><a class="header-anchor" href="#1-切面定义">¶</a>1. 切面定义</h3>
+<p>首先，我们定义一个 <code>LoggingAspect</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoggingAspect</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 在执行UserService的每个方法前执行:</span></span><br><span class="line">    <span class="meta">@Before</span>(<span class="string">"execution(public * com.itranswarp.learnjava.service.UserService.*(..))"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doAccessCheck</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.err.println(<span class="string">"[Before] do access check..."</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在执行MailService的每个方法前后执行:</span></span><br><span class="line">    <span class="meta">@Around</span>(<span class="string">"execution(public * com.itranswarp.learnjava.service.MailService.*(..))"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">doLogging</span><span class="params">(ProceedingJoinPoint pjp)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        System.err.println(<span class="string">"[Around] start "</span> + pjp.getSignature());</span><br><span class="line">        Object retVal = pjp.proceed();</span><br><span class="line">        System.err.println(<span class="string">"[Around] done "</span> + pjp.getSignature());</span><br><span class="line">        <span class="keyword">return</span> retVal;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>观察 <code>doAccessCheck()</code> 方法，我们定义了一个 <code>@Before</code> 注解，后面的字符串是告诉 AspectJ 应该在何处执行该方法，这里写的意思是：执行 <code>UserService</code> 的每个 <code>public</code> 方法前执行 <code>doAccessCheck()</code> 代码。</p>
+</li>
+<li>
+<p>再观察 <code>doLogging()</code> 方法，我们定义了一个 <code>@Around</code> 注解，它和 <code>@Before</code> 不同，<code>@Around</code> 可以决定是否执行目标方法，因此，我们在 <code>doLogging()</code> 内部先打印日志，再调用方法，最后打印日志后返回结果。</p>
+</li>
+</ul>
+<p>在 <code>LoggingAspect</code> 类的声明处，除了用 <code>@Component</code> 表示它本身也是一个 Bean 外，我们再加上 <code>@Aspect</code> 注解，表示它的 <code>@Before</code> 标注的方法需要注入到 <code>UserService</code> 的每个 <code>public</code> 方法执行前，<code>@Around</code> 标注的方法需要注入到 <code>MailService</code> 的每个 <code>public</code> 方法执行前后。</p>
+<h3 id="2-装配-AOP"><a class="header-anchor" href="#2-装配-AOP">¶</a>2. 装配 AOP</h3>
+<p>紧接着，我们需要给 <code>@Configuration</code> 类加上一个 <code>@EnableAspectJAutoProxy</code> 注解：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ComponentScan</span></span><br><span class="line"><span class="meta">@EnableAspectJAutoProxy</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Spring 的 IoC 容器看到这个注解，就会自动查找带有 <code>@Aspect</code> 的 Bean，然后根据每个方法的 <code>@Before</code>、<code>@Around</code> 等注解把 AOP 注入到特定的 Bean 中。执行代码，我们可以看到以下输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[Before] do access check...</span><br><span class="line">[Around] start void com.itranswarp.learnjava.service.MailService.sendRegistrationMail(User)</span><br><span class="line">Welcome, test!</span><br><span class="line">[Around] done void com.itranswarp.learnjava.service.MailService.sendRegistrationMail(User)</span><br><span class="line">[Before] do access check...</span><br><span class="line">[Around] start void com.itranswarp.learnjava.service.MailService.sendLoginMail(User)</span><br><span class="line">Hi, Bob! You are logged in at 2020-02-14T23:13:52.167996+08:00[Asia&#x2F;Shanghai]</span><br><span class="line">[Around] done void com.itranswarp.learnjava.service.MailService.sendLoginMail(User)</span><br></pre></td></tr></table></figure>
+<h4 id="拦截器类型"><a class="header-anchor" href="#拦截器类型">¶</a>拦截器类型</h4>
+<p>顾名思义，拦截器有以下类型：</p>
+<ul>
+<li>
+<p><code>@Before</code>：这种拦截器先执行拦截代码，再执行目标代码。如果拦截器抛异常，那么目标代码就不执行了；</p>
+</li>
+<li>
+<p><code>@After</code>：这种拦截器先执行目标代码，再执行拦截器代码。无论目标代码是否抛异常，拦截器代码都会执行；</p>
+</li>
+<li>
+<p><code>@AfterReturning</code>：和 <code>@After</code> 不同的是，只有当目标代码正常返回时，才执行拦截器代码；</p>
+</li>
+<li>
+<p><code>@AfterThrowing</code>：和 <code>@After</code> 不同的是，只有当目标代码抛出了异常时，才执行拦截器代码；</p>
+</li>
+<li>
+<p><code>@Around</code>：能完全控制目标代码是否执行，并可以在执行前后、抛异常后执行任意拦截代码，可以说是包含了上面所有功能。</p>
+</li>
+</ul>
+<h2 id="三、Pointcut-表达式"><a class="header-anchor" href="#三、Pointcut-表达式">¶</a>三、Pointcut 表达式</h2>
+<h3 id="1-表达式类型"><a class="header-anchor" href="#1-表达式类型">¶</a>1. 表达式类型</h3>
+<p>标准的 AspectJ AOP 的 Pointcut 的表达式类型是很丰富的，但是 Spring AOP 只支持其中的 9 种，外加 Spring AOP 自己扩充的一种一共是 10 种类型的表达式，分别如下：</p>
+<ul>
+<li><strong><code>execution</code></strong>：一般用于指定方法的执行，用的最多。</li>
+<li><strong><code>within</code></strong>：指定某些类型的全部方法执行，也可用来指定一个包。</li>
+<li><strong><code>this</code></strong>：Spring AOP 是基于代理的，生成的 Bean 也是一个代理对象，<code>this</code> 就是这个代理对象，当这个对象可以转换为指定的类型时，对应的切入点就是它了，Spring AOP 将生效。</li>
+<li><strong><code>target</code></strong>：当被代理的对象可以转换为指定的类型时，对应的切入点就是它了，Spring AOP 将生效。</li>
+<li><strong><code>args</code></strong>：当执行的方法的参数是指定类型时生效。</li>
+<li><strong><code>@target</code></strong>：当代理的目标对象上拥有指定的注解时生效。</li>
+<li><strong><code>@args</code></strong>：当执行的方法参数类型上拥有指定的注解时生效。</li>
+<li><strong><code>@within</code></strong>：与 <code>@target</code> 类似，看官方文档和网上的说法都是 <code>@within</code> 只需要目标对象的类或者父类上有指定的注解，则 <code>@within</code> 会生效，而 <code>@target</code> 则是必须是目标对象的类上有指定的注解。而根据笔者的测试这两者都是只要目标类或父类上有指定的注解即可。</li>
+<li><strong><code>@annotation</code></strong>：当执行的方法上拥有指定的注解时生效。</li>
+<li><strong><code>bean</code></strong>：当调用的方法是指定的 Bean 的方法时生效。</li>
+</ul>
+<h3 id="2-使用示例"><a class="header-anchor" href="#2-使用示例">¶</a>2. 使用示例</h3>
+<h4 id="execution"><a class="header-anchor" href="#execution">¶</a><code>execution</code></h4>
+<p><code>execution</code> 是使用的最多的一种 Pointcut 表达式，表示某个方法的执行，其标准语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">execution(modifiers-pattern? ret-type-pattern declaring-type-pattern? name-pattern(param-pattern) throws-pattern?)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>modifiers-pattern</code> 表示方法的访问类型，<code>public</code> 等；</li>
+<li><code>ret-type-pattern</code> 表示方法的返回值类型，如 <code>String</code> 表示返回类型是<code>String</code>，“<code>*</code>” 表示所有的返回类型；</li>
+<li><code>declaring-type-pattern</code> 表示方法的声明类，如 “<code>com.elim..*</code>” 表示<code>com.elim</code> 包及其子包下面的所有类型；</li>
+<li><code>name-pattern</code> 表示方法的名称，如 “<code>add*</code>” 表示所有以 <code>add</code> 开头的方法名；</li>
+<li><code>param-pattern</code>表示方法参数的类型，<code>name-pattern(param-pattern)</code> 其实是一起的表示的方法集对应的参数类型，如 “<code>add()</code>” 表示不带参数的 <code>add</code> 方法，“<code>add(*)</code>” 表示带一个任意类型的参数的 <code>add</code> 方法，“<code>add(*,String)</code>” 则表示带两个参数，且第二个参数是 <code>String</code> 类型的 <code>add</code> 方法；</li>
+<li><code>throws-pattern</code> 表示异常类型；其中以问号结束的部分都是可以省略的。</li>
+</ul>
+<p>例如：</p>
+<ul>
+<li>“<code>execution(* add())</code>” 匹配所有的不带参数的 <code>add()</code> 方法。</li>
+<li>“<code>execution(public * com.elim..*.add*(..))</code>” 匹配所有 <code>com.elim</code> 包及其子包下所有类的以 <code>add</code> 开头的所有 <code>public</code> 方法。</li>
+<li>“<code>execution(* *(..) throws Exception)</code>” 匹配所有抛出 <code>Exception</code> 的方法。</li>
+</ul>
+<h4 id="within"><a class="header-anchor" href="#within">¶</a><code>within</code></h4>
+<p><code>within</code> 是用来指定类型的，指定类型中的所有方法将被拦截。如：</p>
+<ul>
+<li>“<code>within(com.elim.spring.aop.service.UserServiceImpl)</code>” 匹配<code>UserServiceImpl</code> 类对应对象的所有方法外部调用，而且这个对象只能是 <code>UserServiceImpl</code> 类型，不能是其子类型。</li>
+<li>“<code>within(com.elim..*)</code>” 匹配 <code>com.elim</code> 包及其子包下面所有的类的所有方法的外部调用。</li>
+</ul>
+<h4 id="this"><a class="header-anchor" href="#this">¶</a><code>this</code></h4>
+<p>Spring AOP 是基于代理的，<code>this</code> 就表示代理对象。<code>this</code> 类型的 Pointcut 表达式的语法是 <code>this(type)</code>，当生成的代理对象可以转换为 <code>type</code> 指定的类型时则表示匹配。基于 JDK 接口的代理和基于 CGLIB 的代理生成的代理对象是不一样的。如</p>
+<ul>
+<li>“<code>this(com.elim.spring.aop.service.IUserService)</code>” 匹配生成的代理对象是 <code>IUserService</code> 类型的所有方法的外部调用。</li>
+</ul>
+<h4 id="target"><a class="header-anchor" href="#target">¶</a><code>target</code></h4>
+<p>Spring AOP 是基于代理的，<code>target</code> 则表示被代理的目标对象。当被代理的目标对象可以被转换为指定的类型时则表示匹配。如：</p>
+<ul>
+<li>“<code>target(com.elim.spring.aop.service.IUserService)</code>” 则匹配所有被代理的目标对象能够转换为 <code>IUserService</code> 类型的所有方法的外部调用。</li>
+</ul>
+<h4 id="args"><a class="header-anchor" href="#args">¶</a><code>args</code></h4>
+<p><code>args</code> 用来匹配方法参数的。如：</p>
+<ul>
+<li>“<code>args()</code>” 匹配任何不带参数的方法。</li>
+<li>“<code>args(java.lang.String)</code>” 匹配任何只带一个参数，而且这个参数的类型是 <code>String</code> 的方法。</li>
+<li>“<code>args(..)</code>” 带任意参数的方法。</li>
+<li>“<code>args(java.lang.String,..)</code>” 匹配带任意个参数，但是第一个参数的类型是 <code>String</code> 的方法。</li>
+<li>“<code>args(..,java.lang.String)</code>” 匹配带任意个参数，但是最后一个参数的类型是 <code>String</code> 的方法。</li>
+</ul>
+<h4 id="target-v2"><a class="header-anchor" href="#target-v2">¶</a><code>@target</code></h4>
+<p><code>@target</code> 匹配当被代理的目标对象对应的类型及其父类型上拥有指定的注解时。如：</p>
+<ul>
+<li>“<code>@target(com.elim.spring.support.MyAnnotation)</code>” 匹配被代理的目标对象对应的类型上拥有 <code>MyAnnotation</code> 注解时。</li>
+</ul>
+<h4 id="args-v2"><a class="header-anchor" href="#args-v2">¶</a><code>@args</code></h4>
+<p><code>@args</code> 匹配被调用的方法上含有参数，且对应的参数类型上拥有指定的注解的情况。如：</p>
+<ul>
+<li>“<code>@args(com.elim.spring.support.MyAnnotation)</code>” 匹配方法参数类型上拥有 <code>MyAnnotation</code> 注解的方法调用。如我们有一个方法 <code>add(MyParam  param)</code> 接收一个 <code>MyParam</code> 类型的参数，而 <code>MyParam</code> 这个类是拥有注解 <code>MyAnnotation</code> 的，则它可以被 Pointcut 表达式 “<code>@args(com.elim.spring.support.MyAnnotation)</code>” 匹配上。</li>
+</ul>
+<h4 id="within-v2"><a class="header-anchor" href="#within-v2">¶</a><code>@within</code></h4>
+<p><code>@within</code> 用于匹配被代理的目标对象对应的类型或其父类型拥有指定的注解的情况，但只有在调用拥有指定注解的类上的方法时才匹配。如：</p>
+<ul>
+<li>“<code>@within(com.elim.spring.support.MyAnnotation)</code>” 匹配被调用的方法声明的类上拥有 <code>MyAnnotation</code> 注解的情况。比如有一个 <code>ClassA</code> 上使用了注解 <code>MyAnnotation</code> 标注，并且定义了一个方法 <code>a()</code>，那么在调用 <code>ClassA.a()</code> 方法时将匹配该 Pointcut；如果有一个 <code>ClassB</code> 上没有 <code>MyAnnotation</code> 注解，但是它继承自 <code>ClassA</code>，同时它上面定义了一个方法 <code>b()</code>，那么在调用 <code>ClassB().b()</code> 方法时不会匹配该 Pointcut，但是在调用 <code>ClassB().a()</code> 时将匹配该方法调用，因为 <code>a()</code> 是定义在父类型 <code>ClassA</code> 上的，且 <code>ClassA</code> 上使用了 <code>MyAnnotation</code> 注解。但是如果子类 <code>ClassB</code> 覆写了父类 <code>ClassA</code> 的 <code>a()</code> 方法，则调用 <code>ClassB.a()</code> 方法时也不匹配该 Pointcut。</li>
+</ul>
+<h4 id="annotation"><a class="header-anchor" href="#annotation">¶</a><code>@annotation</code></h4>
+<p><code>@annotation</code> 用于匹配方法上拥有指定注解的情况。如：</p>
+<ul>
+<li>“<code>@annotation(com.elim.spring.support.MyAnnotation)</code>” 匹配所有的方法上拥有 <code>MyAnnotation</code> 注解的方法外部调用。</li>
+</ul>
+<h4 id="bean"><a class="header-anchor" href="#bean">¶</a><code>bean</code></h4>
+<p><code>bean</code> 用于匹配当调用的是指定的 Spring 的某个 Bean 的方法时。</p>
+<ul>
+<li>1、“<code>bean(abc)</code>” 匹配 Spring Bean 容器中 id 或 name 为 <code>abc</code> 的 Bean 的方法调用。</li>
+<li>2、“<code>bean(user*)</code>” 匹配所有 id 或 name 为以 <code>user</code> 开头的 Bean 的方法调用。</li>
+</ul>
+<h3 id="3-表达式组合"><a class="header-anchor" href="#3-表达式组合">¶</a>3. 表达式组合</h3>
+<p>表达式的组合其实就是对应的表达式的逻辑运算，与、或、非。可以通过它们把多个表达式组合在一起。</p>
+<ul>
+<li>“<code>bean(userService) &amp;&amp; args()</code>” 匹配 id 或 name 为 <code>userService</code> 的 Bean 的所有无参方法。</li>
+<li>“<code>bean(userService) || @annotation(MyAnnotation)</code>” 匹配 id 或 name 为 <code>userService</code> 的 Bean 的方法调用，或者是方法上使用了 <code>MyAnnotation</code> 注解的方法调用。</li>
+<li>“<code>bean(userService) &amp;&amp; !args()</code>” 匹配 id 或 name 为 <code>userService</code> 的 Bean 的所有有参方法调用。</li>
+</ul>
+<h3 id="基于-AspectJ-注解的-Pointcut-表达式应用"><a class="header-anchor" href="#基于-AspectJ-注解的-Pointcut-表达式应用">¶</a>基于 AspectJ 注解的 Pointcut 表达式应用</h3>
+<p>在使用基于 AspectJ 注解的 Spring AOP 时，我们可以把通过 <code>@Pointcut</code> 注解定义 Pointcut，指定其表达式，然后在需要使用 Pointcut 表达式的时候直接指定 Pointcut。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAspect</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Pointcut</span>(<span class="string">"execution(* add(..))"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">beforeAdd</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Before</span>(<span class="string">"beforeAdd()"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">before</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"-----------before-----------"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的代码中我们就是在 <code>@Before()</code> 中直接指定使用当前类定义的 <code>beforeAdd()</code> 方法对应的 Pointcut 的表达式，如果我们需要指定的 Pointcut 定义不是在当前类中的，我们需要加上类名称，如下面这个示例中引用的就是定义在 <code>MyService</code> 中的 <code>add()</code> 方法上的 Pointcut 的表达式。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Before</span>(<span class="string">"com.elim.spring.aop.service.MyService.add()"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">before2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	System.out.println(<span class="string">"-----------before2-----------"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当然了，除了通过引用 Pointcut 定义间接的引用其对应的 Pointcut 表达式外，我们也可以直接使用 Pointcut 表达式的，如下面这个示例就直接在 <code>@Before</code> 中使用了 Pointcut 表达式。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 所有的add方法的外部执行时</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Before</span>(<span class="string">"execution(* add())"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">beforeExecution</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	System.out.println(<span class="string">"-------------before execution---------------"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="四、Spring-AOP-原理"><a class="header-anchor" href="#四、Spring-AOP-原理">¶</a>四、Spring AOP 原理</h2>
+<p>其实 AOP 的原理非常简单。我们以 <code>LoggingAspect.doAccessCheck()</code> 为例，要把它注入到 <code>UserService</code> 的每个 <code>public</code> 方法中，最简单的方法是编写一个子类，并持有原始实例的引用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> UserServiceAopProxy extends UserService &#123;</span><br><span class="line">    <span class="keyword">private</span> UserService target;</span><br><span class="line">    <span class="keyword">private</span> LoggingAspect aspect;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UserServiceAopProxy</span><span class="params">(UserService target, LoggingAspect aspect)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.target = target;</span><br><span class="line">        <span class="keyword">this</span>.aspect = aspect;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">login</span><span class="params">(String email, String password)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 先执行Aspect的代码:</span></span><br><span class="line">        aspect.doAccessCheck();</span><br><span class="line">        <span class="comment">// 再执行UserService的逻辑:</span></span><br><span class="line">        <span class="keyword">return</span> target.login(email, password);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">register</span><span class="params">(String email, String password, String name)</span> </span>&#123;</span><br><span class="line">        aspect.doAccessCheck();</span><br><span class="line">        <span class="keyword">return</span> target.register(email, password, name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这些都是 Spring 容器启动时为我们自动创建的注入了 Aspect 的子类，它取代了原始的 <code>UserService</code>（原始的 <code>UserService</code> 实例作为内部变量隐藏在 <code>UserServiceAopProxy</code> 中）。如果我们打印从 Spring 容器获取的 <code>UserService</code> 实例类型，它类似 <code>UserService$$EnhancerBySpringCGLIB$$1f44e01c</code>，实际上是 Spring 使用 CGLIB 动态创建的子类，但对于调用方来说，感觉不到任何区别。</p>
+<p>Spring 对接口类型使用 JDK 动态代理，对普通类使用 CGLIB 创建子类。如果一个Bean 的 class 是 <code>final</code>，Spring 将无法为其创建子类。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.rabbituzki.com.cn/2020/12/04/Spring-AOP-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckidvv5cm000n3sv4an8a32de" class="article-share-link">
+        分享
+      </a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AOP/" rel="tag">AOP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/" rel="tag">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" rel="tag">编程语言</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+    
+      <a href="/2020/07/15/Ubuntu-%E4%B8%8B-138a0090%E3%80%81138a0097-%E5%92%8C-06cb009a-%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%AB%E5%99%A8%E9%A9%B1%E5%8A%A8%E5%8F%8A%E6%8C%87%E7%BA%B9%E8%AE%A4%E8%AF%81/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">Ubuntu 下 138a:0090、138a:0097 和 06cb:009a 指纹识别器驱动及指纹认证</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2020 六加的博客</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="六加的博客"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>

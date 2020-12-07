@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    OpenSSL 自签发配置有多域名或 IP 地址的证书 |
+    
+    六加的博客</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-OpenSSL-自签发配置有多域名或-IP-地址的证书" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      OpenSSL 自签发配置有多域名或 IP 地址的证书
+    </h1>
+  
+  
+
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/19/OpenSSL-%E8%87%AA%E7%AD%BE%E5%8F%91%E9%85%8D%E7%BD%AE%E6%9C%89%E5%A4%9A%E5%9F%9F%E5%90%8D%E6%88%96-IP-%E5%9C%B0%E5%9D%80%E7%9A%84%E8%AF%81%E4%B9%A6/" class="article-date">
+  <time datetime="2020-02-18T16:00:00.000Z" itemprop="datePublished">2020-02-19</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+  </div>
+
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1>OpenSSL 自签发配置有多域名或 IP 地址的证书</h1>
+<hr>
+<p>[TOC]</p>
+<hr>
+<h2 id="概述"><a class="header-anchor" href="#概述">¶</a>概述</h2>
+<p>HTTPS 服务是工作在 SSL/TLS上 的 HTTP。<br>
+首先简单区分一下 HTTPS、SSL 、TLS 和 OpenSSL 这四者的关系：</p>
+<ul>
+<li>SSL：（Secure Socket Layer，安全套接字层）是在客户端和服务器之间建立一条 SSL 安全通道的安全协议；</li>
+<li>TLS：（Transport Layer Security，传输层安全协议），用于两个应用程序之间提供保密性和数据完整性；</li>
+<li>TLS 的前身是 SSL；</li>
+<li>OpenSSL 是 TLS/SSL 协议的开源实现，提供开发库和命令行程序；</li>
+<li>HTTPS 是 HTTP 的加密版，底层使用的加密协议是 TLS。</li>
+</ul>
+<p>结论：SSL/TLS 是协议，OpenSSL 是协议的代码实现。</p>
+<h3 id="用-OpenSSL-配置带有-SubjectAltName-的-SSL-请求"><a class="header-anchor" href="#用-OpenSSL-配置带有-SubjectAltName-的-SSL-请求">¶</a>用 OpenSSL 配置带有 SubjectAltName 的 SSL 请求</h3>
+<p>对于多域名，只需要一个证书就可以保护非常多的域名。</p>
+<p>SubjectAltName 是 X509 Version 3 (RFC 2459) 的扩展，允许 SSL 证书指定多个可以匹配的名称。</p>
+<p>SubjectAltName 可以包含 Email 地址，IP 地址，正则匹配 DNS 主机名，等等。SSL 这样的一个特性叫做：SubjectAlternativeName（简称：SAN）。</p>
+<h2 id="第一部分-生成证书"><a class="header-anchor" href="#第一部分-生成证书">¶</a>第一部分 生成证书</h2>
+<h3 id="第一步-生成证书请求文件"><a class="header-anchor" href="#第一步-生成证书请求文件">¶</a>第一步 生成证书请求文件</h3>
+<p>对于一个通用的 SSL 证书请求文件（CSR），OpenSSL 不需要很多操作。因为我们可能需要添加一个或者两个 SAN 到我们 CSR，我们需要在 OpenSSL 配置文件中添加一些东西：你需要告诉 OpenSSL 创建一个包含 x509 V3 扩展的 CSR，并且你也需要告诉 OpenSSL 在你的 CSR 中包含 SubjectAlternativeNames 列表。</p>
+<p>创建一个<code>OpenSSL</code>配置文件（<em>openssl.cnf</em>），并启用 SubjectAlternativeNames：</p>
+<ol>
+<li>
+<p>找到 <code>req</code> 段落。这段落的内容将会告诉 OpenSSL如何去处理证书请求（CSR）。</p>
+</li>
+<li>
+<p>在 <code>req</code> 段落中应该要包含一个以 <code>req_extensions</code> 开始的行。如下：</p>
+ <figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[req]</span></span><br><span class="line"><span class="attr">distinguished_name</span> = req_distinguished_name</span><br><span class="line"><span class="attr">req_extensions</span> = v3_req</span><br></pre></td></tr></table></figure>
+<p>这个配置是告诉  OpenSSL 在 CSR 中要包含 <code>v3_req</code> 段落的部分。</p>
+</li>
+<li>
+<p>现在我们来配置 <code>v3_req</code>，如下：</p>
+ <figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[req_distinguished_name]</span></span><br><span class="line"><span class="attr">countryName</span> = Country Name (<span class="number">2</span> letter code)</span><br><span class="line"><span class="attr">countryName_default</span> = US</span><br><span class="line"><span class="attr">stateOrProvinceName</span> = State or Province Name (full name)</span><br><span class="line"><span class="attr">stateOrProvinceName_default</span> = MN</span><br><span class="line"><span class="attr">localityName</span> = Locality Name (eg, city)</span><br><span class="line"><span class="attr">localityName_default</span> = Minneapolis</span><br><span class="line"><span class="attr">organizationalUnitName</span>  = Organizational Unit Name (eg, section)</span><br><span class="line"><span class="attr">organizationalUnitName_default</span>  = Domain Control Validated</span><br><span class="line"><span class="attr">commonName</span> = Internet Widgits Ltd</span><br><span class="line"><span class="attr">commonName_max</span>  = <span class="number">64</span></span><br><span class="line"></span><br><span class="line"><span class="section">[ v3_req ]</span></span><br><span class="line"><span class="comment"># Extensions to add to a certificate request</span></span><br><span class="line"><span class="attr">basicConstraints</span> = CA:<span class="literal">FALSE</span></span><br><span class="line"><span class="attr">keyUsage</span> = nonRepudiation, digitalSignature, keyEncipherment</span><br><span class="line"><span class="attr">subjectAltName</span> = @alt_names</span><br><span class="line"></span><br><span class="line"><span class="section">[alt_names]</span></span><br><span class="line"><span class="attr">DNS.1</span> = kb.example.com</span><br><span class="line"><span class="attr">DNS.2</span> = helpdesk.example.org</span><br><span class="line"><span class="attr">DNS.3</span> = systems.example.net</span><br><span class="line"><span class="attr">IP.1</span> = <span class="number">192.168</span>.<span class="number">1.1</span></span><br><span class="line"><span class="attr">IP.2</span> = <span class="number">192.168</span>.<span class="number">69.14</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>注意</strong>：</p>
+<hr>
+<p>无论 <code>v3_req</code> 放哪里，都是可以的，都会在所有生成的 CSR 中。<br>
+要是之后，你又想生成一个不同的 SAN 的 CSR 文件，你需要编辑这个配置文件，并改变 <code>DNS.x</code> 列表。</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="第二步-生成私钥"><a class="header-anchor" href="#第二步-生成私钥">¶</a>第二步 生成私钥</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">openssl genrsa -out san_domain_com.key 2048</span><br><span class="line"><span class="comment"># 如果是生成 ca 的使用，建议这样</span></span><br><span class="line">openssl genrsa -out ca.key 2048</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>注意</strong>：</p>
+<hr>
+<p>这里的 <code>san_domain_com</code>，是你正式使用的服务器的全称地址，这不是必须的，也就是说，你可以随便取名字；但是按照这个格式去，会更清晰点。</p>
+</blockquote>
+<h3 id="第三步-创建-CSR-文件"><a class="header-anchor" href="#第三步-创建-CSR-文件">¶</a>第三步 创建 CSR 文件</h3>
+<ol>
+<li>
+<p>执行下面语句：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">openssl req -new -out san_domain_com.csr -key san_domain_com.key -config openssl.cnf</span><br><span class="line"><span class="comment"># 注意这里指定了openssl.cnf，使用了上面我们创建的，因为默认是没有`san`。</span></span><br><span class="line"><span class="comment"># 如果之前创建的是ca.key</span></span><br><span class="line">openssl req -new -out ca.csr -key ca.key -config openssl.cnf</span><br></pre></td></tr></table></figure>
+<p>执行后，系统会提示你要你输入组织信息，并询问你是否想要包含密码（你可以不需要）。接着你将会看到 <em>san_domain_com.csr</em> 被创建。</p>
+</li>
+<li>
+<p>我们可以使用下面的命令来查看 CSR 包含的信息：</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">openssl req -text -noout -in san_domain_com.csr</span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果是ca.csr</span></span><br><span class="line">openssl req -text -noout -in ca.csr</span><br></pre></td></tr></table></figure>
+<p>你将会看到类似如下的信息：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Certificate Request:</span><br><span class="line">Data:</span><br><span class="line">Version: 0 (0x0)</span><br><span class="line">Subject: C&#x3D;US, ST&#x3D;Texas, L&#x3D;Fort Worth, O&#x3D;My Company, OU&#x3D;My Department, CN&#x3D;server.example</span><br><span class="line">Subject Public Key Info: Public Key Algorithm: rsaEncryption RSA Public Key: (2048 bit)</span><br><span class="line">Modulus (2048 bit): blahblahblah</span><br><span class="line">Exponent: 65537 (0x10001)</span><br><span class="line">Attributes:</span><br><span class="line">Requested Extensions: X509v3</span><br><span class="line">Basic Constraints: CA:FALSE</span><br><span class="line">X509v3 Key Usage: Digital Signature, Non Repudiation, Key Encipherment</span><br><span class="line">X509v3 Subject Alternative Name: DNS:kb.example.com, DNS:helpdesk.example.com</span><br><span class="line">Signature Algorithm: sha1WithRSAEncryption</span><br><span class="line">blahblahblah</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="第四步-自签名并创建证书"><a class="header-anchor" href="#第四步-自签名并创建证书">¶</a>第四步 自签名并创建证书</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -req -days 3650 -<span class="keyword">in</span> san_domain_com.csr -signkey san_domain_com.key</span><br><span class="line"> -out san_domain_com.crt -extensions v3_req -extfile openssl.cnf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果是ca.csr</span></span><br><span class="line">openssl x509 -req -days 3650 -<span class="keyword">in</span> ca.csr -signkey ca.key</span><br><span class="line"> -out ca.crt -extensions v3_req -extfile openssl.cnf</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>注意</strong>：</p>
+<hr>
+<p>上面的证书 有效期是 3650 天。</p>
+</blockquote>
+<h2 id="第二部分-使用-CA-证书签名客户端证书"><a class="header-anchor" href="#第二部分-使用-CA-证书签名客户端证书">¶</a>第二部分 使用 CA 证书签名客户端证书</h2>
+<h3 id="第一步-创建客户端私钥"><a class="header-anchor" href="#第一步-创建客户端私钥">¶</a>第一步 创建客户端私钥</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl genrsa -out client.key 1024</span><br></pre></td></tr></table></figure>
+<h3 id="第二步-创建证书请求文件-CSR"><a class="header-anchor" href="#第二步-创建证书请求文件-CSR">¶</a>第二步 创建证书请求文件 CSR</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -new -key client.key -out client.csr -config openssl.cnf -extensions v3_req</span><br></pre></td></tr></table></figure>
+<h3 id="第三步-利用-ca-crt-来签署-client-csr"><a class="header-anchor" href="#第三步-利用-ca-crt-来签署-client-csr">¶</a>第三步 利用 <em>ca.crt</em> 来签署 <em>client.csr</em></h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -req -sha256 -extfile v3.ext -CA ca.crt -CAkey ca.key -CAcreateserial -<span class="keyword">in</span> client.csr -out client.crt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者 把v3.ext 改为 openssl.cnf</span></span><br><span class="line">openssl x509 -req -sha256 -extfile openssl.cnf -CA ca.crt -CAkey ca.key -CAcreateserial -<span class="keyword">in</span> client.csr -out client.crt</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>注意</strong>：</p>
+<hr>
+<ol>
+<li><code>sha256</code> 是哈希算法</li>
+<li><code>v3.ext</code> 是要自己创建的</li>
+</ol>
+</blockquote>
+<p><em>v3.ext</em> 内容：</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">authorityKeyIdentifier</span>=keyid,issuer</span><br><span class="line"><span class="attr">basicConstraints</span>=CA:<span class="literal">FALSE</span></span><br><span class="line"><span class="attr">keyUsage</span>=digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment</span><br><span class="line"><span class="attr">subjectAltName</span>=@alt_names</span><br><span class="line"></span><br><span class="line"><span class="section">[alt_names]</span></span><br><span class="line"><span class="attr">DNS.1</span>=www.test.com</span><br><span class="line"><span class="attr">IP.1</span> = <span class="number">192.168</span>.<span class="number">1.1</span></span><br></pre></td></tr></table></figure>
+<h2 id="笔记"><a class="header-anchor" href="#笔记">¶</a>笔记</h2>
+<ul>
+<li>第一部分生成了服务端证书和 CA 证书，CA 证书可以不用配置 <code>v3_req</code>。</li>
+<li>对于服务端证书，将其导入客户端即可。</li>
+<li>对于 CA 证书，使用它按第二部分步骤签名服务端证书，然后在客户端导入 CA 证书即可信任以该 CA 证书签名的网站。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.rabbituzki.com.cn/2020/02/19/OpenSSL-%E8%87%AA%E7%AD%BE%E5%8F%91%E9%85%8D%E7%BD%AE%E6%9C%89%E5%A4%9A%E5%9F%9F%E5%90%8D%E6%88%96-IP-%E5%9C%B0%E5%9D%80%E7%9A%84%E8%AF%81%E4%B9%A6/" data-id="ckidvv5ch000a3sv42s1w05le" class="article-share-link">
+        分享
+      </a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenSSL/" rel="tag">OpenSSL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/" rel="tag">Web</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2020/03/21/C++-Primer-%E7%AC%AC%E4%BA%94%E7%89%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            《C++ Primer （第五版）》学习笔记 -- 之三
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/02/18/C++-Primer-%E7%AC%AC%E4%BA%94%E7%89%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">《C++ Primer （第五版）》学习笔记 -- 之一</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2020 六加的博客</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="六加的博客"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>

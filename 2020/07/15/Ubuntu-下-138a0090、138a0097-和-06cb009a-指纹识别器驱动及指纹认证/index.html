@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    Ubuntu 下 138a:0090、138a:0097 和 06cb:009a 指纹识别器驱动及指纹认证 |
+    
+    六加的博客</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-Ubuntu-下-138a0090、138a0097-和-06cb009a-指纹识别器驱动及指纹认证" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Ubuntu 下 138a:0090、138a:0097 和 06cb:009a 指纹识别器驱动及指纹认证
+    </h1>
+  
+  
+
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/07/15/Ubuntu-%E4%B8%8B-138a0090%E3%80%81138a0097-%E5%92%8C-06cb009a-%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%AB%E5%99%A8%E9%A9%B1%E5%8A%A8%E5%8F%8A%E6%8C%87%E7%BA%B9%E8%AE%A4%E8%AF%81/" class="article-date">
+  <time datetime="2020-07-14T16:00:00.000Z" itemprop="datePublished">2020-07-15</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a> / <a class="article-category-link" href="/categories/%E7%AC%94%E8%AE%B0/%E7%96%91%E9%9A%BE/">疑难</a>
+  </div>
+
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+  <div class="article-gallery">
+    <div class="article-gallery-photos">
+      
+        
+          <img src="/images/ubuntu.png" itemprop="image">
+        
+      
+    </div>
+  </div>
+
+
+      
+      <h1>Ubuntu 下 <code>138a:0090</code>、<code>138a:0097</code> 和 <code>06cb:009a</code> 指纹识别器驱动及指纹认证</h1>
+<p><code>06cb:009a</code> (Thinkpad L480、Thinkpad L580 及 Thinkpad T480 等设备所使用的指纹设备) 在 Ubuntu 20.04 和 Kubuntu 20.04 下测试通过。</p>
+<h2 id="1、安装驱动及-open-fprintd"><a class="header-anchor" href="#1、安装驱动及-open-fprintd">¶</a>1、安装驱动及 open-fprintd</h2>
+<p>项目地址：<a href="https://github.com/uunicorn/python-validity" target="_blank" rel="noopener">https://github.com/uunicorn/python-validity</a></p>
+<ol>
+<li>
+<p>卸载系统自带的 fprintd。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt remove fprintd</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>添加 open-fprintd 软件源。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo add-apt-repository ppa:uunicorn:open-fprintd</span><br><span class="line">$ sudo apt update</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>安装 open-fprintd、fprintd 客户端及 python3-validity (驱动程序)。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install open-fprintd fprintd-clients python3-validity</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>注册指纹，此处需将同一指纹进行多次录入。如要录入多个指纹，再运行此命令即可。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ fprintd-enroll</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p><strong>注意</strong></p>
+<hr>
+<p>如果注册指纹报错，可能需要运行下面命令将指纹识别器重置成出厂设置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> /usr/share/python3-validity/playground</span><br><span class="line">$ python3 ./factory-reset.py</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="2、设置指纹登录"><a class="header-anchor" href="#2、设置指纹登录">¶</a>2、设置指纹登录</h2>
+<blockquote>
+<p><strong>提示</strong>：</p>
+<hr>
+<p>项目已更新自动注册程序，指纹登录和其它基本指纹认证 (如第三步的 <code>su</code> 和 <code>sudo</code> 认证等) 可以在 <strong>注册指纹后</strong> 使用如下命令自动添加：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pam-auth-update</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>Gnome “设置” -&gt; “用户” -&gt; “指纹登录” -&gt; “启用”。</p>
+<h2 id="3、设置其它指纹认证"><a class="header-anchor" href="#3、设置其它指纹认证">¶</a>3、设置其它指纹认证</h2>
+<ol>
+<li>
+<p><code>su</code> 指纹认证。</p>
+<p>编辑 <em>/etc/pam.d/su</em> 文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vim /etc/pam.d/su</span><br></pre></td></tr></table></figure>
+<p>在文件开始处加入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auth sufficient pam_fprintd.so</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>sudo</code> 指纹认证。</p>
+<p>编辑 <em>/etc/pam.d/sudo</em> 文件：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vim /etc/pam.d/sudo</span><br></pre></td></tr></table></figure>
+<p>在文件开始处加入：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auth sufficient pam_fprintd.so</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p><strong>常见异常</strong>：</p>
+<hr>
+<p>如果 <code>fprintd-enroll</code> 命令返回 <code>list_devices failed:</code> 异常，那么请使用 <code>$ sudo systemctl status python3-validity</code> 查看 python3-validity 守护进程运行状态，如果未运行，则根据状态信息选择使用 <code>$ sudo systemctl enable python3-validity</code> 或 <code>$ sudo systemctl start python3-validity</code> 启用或启动守护进程。</p>
+<p>如果上一步守护进程状态显示 python3-validity 守护启动过程中发生错误，那么可能需要将指纹芯片恢复出厂设置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl stop python3-validity</span><br><span class="line">$ sudo validity-sensors-firmware</span><br><span class="line">$ sudo python3 /usr/share/python-validity/playground/factory-reset.py</span><br><span class="line"></span><br><span class="line"><span class="comment"># 上述步骤中可以会出现"device busy"异常，此时需要根据 systemctl 状态信息杀死相关进程，或重新运行 systemctl stop python3-validity 命令以防止其已重新运行或杀死其它相关进程。</span></span><br><span class="line"></span><br><span class="line">$ sudo systemctl start python3-validity</span><br><span class="line">$ fprintd-enroll</span><br></pre></td></tr></table></figure>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.rabbituzki.com.cn/2020/07/15/Ubuntu-%E4%B8%8B-138a0090%E3%80%81138a0097-%E5%92%8C-06cb009a-%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%AB%E5%99%A8%E9%A9%B1%E5%8A%A8%E5%8F%8A%E6%8C%87%E7%BA%B9%E8%AE%A4%E8%AF%81/" data-id="ckidvv5cq000t3sv41nbh4wgc" class="article-share-link">
+        分享
+      </a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%96%91%E9%9A%BE/" rel="tag">疑难</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2020/12/04/Spring-AOP-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            Spring AOP 学习笔记
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/07/15/Ubuntu-%E4%B8%8B-Wine-%E5%AE%89%E8%A3%85%E5%B9%B6%E8%BF%90%E8%A1%8C%E5%BE%AE%E4%BF%A1/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">Ubuntu 下 Wine 安装并运行微信</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2020 六加的博客</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="六加的博客"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>

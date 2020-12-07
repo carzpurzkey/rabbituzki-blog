@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    Flask IIS部署 |
+    
+    六加的博客</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-Flask-IIS部署" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Flask IIS部署
+    </h1>
+  
+  
+
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/04/24/Flask-IIS%E9%83%A8%E7%BD%B2/" class="article-date">
+  <time datetime="2019-04-23T16:00:00.000Z" itemprop="datePublished">2019-04-24</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+  </div>
+
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+  <div class="article-gallery">
+    <div class="article-gallery-photos">
+      
+        
+          <img src="/images/flask.png" itemprop="image">
+        
+      
+        
+          <img src="/images/IIS.png" itemprop="image">
+        
+      
+    </div>
+  </div>
+
+
+      
+      <h1>方案一：无 virtual environment (原文链接：<a href="https://segmentfault.com/a/1190000008909201" target="_blank" rel="noopener">https://segmentfault.com/a/1190000008909201</a>)</h1>
+<h2 id="安装-IIS，启用-CGI"><a class="header-anchor" href="#安装-IIS，启用-CGI">¶</a>安装 IIS，启用 CGI</h2>
+<p>在控制面板中找到打开或者关闭 Windows 功能，安装 IIS 和 CGI，如下图。</p>
+<p><img src="https://image-static.segmentfault.com/525/408/525408382-58e616a6eb691_articlex" alt="图1"></p>
+<h2 id="安装-URL-重写组件"><a class="header-anchor" href="#安装-URL-重写组件">¶</a>安装 URL 重写组件</h2>
+<p>IIS 需要安装 URL 重写组件，这个可以通过<a href="https://www.microsoft.com/web/downloads/platform.aspx" target="_blank" rel="noopener">Microsoft Web Platform Installer</a>搜索 <code>url</code> 来安装。也可以下载<a href="https://www.iis.net/downloads/microsoft/url-rewrite" target="_blank" rel="noopener">离线安装包</a>来安装。</p>
+<p><img src="https://image-static.segmentfault.com/314/450/3144503439-58e616a70556a_articlex" alt="Microsoft Web Platform Installer"></p>
+<blockquote>
+<p><em>注：据说 Windows10 上的 IIS 10 现在不支持 url 重写？待验证</em></p>
+</blockquote>
+<h2 id="安装-wfastcgi"><a class="header-anchor" href="#安装-wfastcgi">¶</a>安装 wfastcgi</h2>
+<p>通过pip就可以安装：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python <span class="literal">-m</span> pip install wfastcgi</span><br></pre></td></tr></table></figure>
+<h2 id="启用-wfastcgi"><a class="header-anchor" href="#启用-wfastcgi">¶</a>启用 wfastcgi</h2>
+<p>剩下的事情就只有一些配置了。首先以管理员身份运行 <code>wfastcgi-enable</code> 来在IIS上启用wfastcgi，这个命令位于_c:\python_dir\scripts_，也就是你需要确保此目录在系统的PATH里，或者你需要cd到这个目录后再执行。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cd to python_dir\scripts if it is not in PATH</span></span><br><span class="line">wfastcgi<span class="literal">-enable</span></span><br></pre></td></tr></table></figure>
+<p>记住命令执行成功后返回的信息：</p>
+<blockquote>
+<p>C:\Python34\Scripts&gt; wfastcgi-enable<br>
+Applied configuration changes to section “system.webServer/fastCgi” for “MACHINE/WEBROOT/APPHOST” at configuration commit path “MACHINE/WEBROOT/APPHOST”<br>
+“C:\Python34\python.exe|C:\Python34\lib\site-packages\<a href="http://wfastcgi.py" target="_blank" rel="noopener">wfastcgi.py</a>” can now be used as a FastCGI script processor<br>
+“C:\Python34python.exe|C:\<a href="http://Python34libsite-packageswfastcgi.py" target="_blank" rel="noopener">Python34libsite-packageswfastcgi.py</a>” 在下文的配置文件中需要使用。</p>
+</blockquote>
+<blockquote>
+<p>Tips:</p>
+<ol>
+<li>使用命令 <code>wfastcgi-disable</code> 可以将其移除。</li>
+<li>待验证：如果不使用 <code>wfastcgi-enable</code> 命令配置IIS，而用下面的 web.config 配置，并在其中将 <code>C:\\Python34python.exe|C:\\Python34libsite-packageswfastcgi.py</code> 部分换成 virtual environment 的目录，便可使用 virtual environment。</li>
+</ol>
+</blockquote>
+<h2 id="创建-web-config-文件"><a class="header-anchor" href="#创建-web-config-文件">¶</a>创建 web.config 文件</h2>
+<p>下面是一个 <em>web.config</em> 文件的例子，你只需要修改对应部分就可以使用。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">system.webServer</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">handlers</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- scriptProcessor 的值来自命令行工具 wfastcgi-enable --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">add</span> <span class="attr">name</span>=<span class="string">"FlaskFastCGI"</span> <span class="attr">path</span>=<span class="string">"*"</span> <span class="attr">verb</span>=<span class="string">"*"</span> <span class="attr">modules</span>=<span class="string">"FastCgiModule"</span> <span class="attr">scriptProcessor</span>=<span class="string">"C:\Python34\python.exe|C:\Python34\lib\site-packages\wfastcgi.py"</span> <span class="attr">resourceType</span>=<span class="string">"Unspecified"</span> <span class="attr">requireAccess</span>=<span class="string">"Script"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">handlers</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">security</span>&gt;</span> </span><br><span class="line">        <span class="comment">&lt;!-- URL 重写中的特殊字符，比如加号+等等 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">requestFiltering</span> <span class="attr">allowDoubleEscaping</span>=<span class="string">"true"</span>&gt;</span><span class="tag">&lt;/<span class="name">requestFiltering</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;/<span class="name">security</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">system.webServer</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">appSettings</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Required settings --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 在这里指定Falsk app在模块中的具体位置 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">add</span> <span class="attr">key</span>=<span class="string">"WSGI_HANDLER"</span> <span class="attr">value</span>=<span class="string">"hello.app"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">add</span> <span class="attr">key</span>=<span class="string">"PYTHONPATH"</span> <span class="attr">value</span>=<span class="string">"~/"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- Optional settings --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 需要先创建日志目录，否则报错 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">add</span> <span class="attr">key</span>=<span class="string">"WSGI_LOG"</span> <span class="attr">value</span>=<span class="string">"C:\logs\oboeqa_web.log"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">add</span> <span class="attr">key</span>=<span class="string">"WSGI_RESTART_FILE_REGEX"</span> <span class="attr">value</span>=<span class="string">""</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">appSettings</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="配置-IIS-目录及权限"><a class="header-anchor" href="#配置-IIS-目录及权限">¶</a>配置 IIS 目录及权限</h2>
+<p>假设你的 Flask 程序将部署在 <em>C:\websitehello</em> 下面，那么你的目录结构大致如此。</p>
+<blockquote>
+<p>C:\WEBSITE<br>
+└───hello<br>
+              <a href="http://hello.py" target="_blank" rel="noopener">hello.py</a><br>
+              web.config</p>
+</blockquote>
+<p>现在你需要让IIS用户拥有访问和执行你的网站脚本的权限，进入 <em>C:\website</em> 目录，执行下面两条命令：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd C:\website</span><br><span class="line">icacls . /grant <span class="string">"NT AUTHORITY\IUSR:(OI)(CI)(RX)"</span></span><br><span class="line">icacls . /grant <span class="string">"Builtin\IIS_IUSRS:(OI)(CI)(RX)"</span></span><br></pre></td></tr></table></figure>
+<h2 id="创建并访问你的网站"><a class="header-anchor" href="#创建并访问你的网站">¶</a>创建并访问你的网站</h2>
+<p>现在你离成功只差一步之遥，打开 IIS 管理面板，新建一个网站。</p>
+<p><img src="https://image-static.segmentfault.com/219/794/2197942092-58e6163fa0835_articlex" alt="图3"></p>
+<p>你只需要填上网站名称，物理地址和相应的端口号，点击确认。</p>
+<p><img src="https://image-static.segmentfault.com/199/581/1995815946-58e6163f99194_articlex" alt="图4"></p>
+<p>打开浏览器，就可以访问你配置好的网站。如果有错误，可以去检查 <em>web.config</em> 中配置的日志文件。</p>
+<p><img src="https://image-static.segmentfault.com/124/003/124003068-58e6163f7048d_articlex" alt="图5"></p>
+<h2 id="简单总结"><a class="header-anchor" href="#简单总结">¶</a>简单总结</h2>
+<p>写完之后发现其实要完成的步骤并不是特别复杂，但是从摸索到实践的过程确实不易。本文仅讨论了部署的主要步骤，其实真正的生产环境你要考虑的问题可能更多，比如使用 virtualenv 对网站进行隔离，安全问题，静态文件解析等等。</p>
+<h2 id="最后的惊喜"><a class="header-anchor" href="#最后的惊喜">¶</a>最后的惊喜</h2>
+<p><strong>据说</strong> 部署Python 网站到 IIS 还有更简单的办法，那就是安装宇宙最强的IDE - <a href="https://www.visualstudio.com/" target="_blank" rel="noopener">Visual Studio 2015</a> （VS2017 暂不支持 Python 开发），个人开发者可以免授权使用社区版。在 VS 中你可以使用 <a href="https://microsoft.github.io/PTVS/" target="_blank" rel="noopener">PTVS</a> 来快捷开发并部署Python 程序，真正让你一键无忧。</p>
+<p><img src="https://image-static.segmentfault.com/234/190/2341908542-58e61641a5209_articlex" alt="图6"></p>
+<p>PTVS 支持了常见的 Python Web 框架，比如 Flask，Django，Bottle，Jade 等等，调试的时候只需要按 F5，部署右键选择 publish，跟着向导一步两步你就可以完成魔鬼的步伐。</p>
+<h2 id="参考链接"><a class="header-anchor" href="#参考链接">¶</a>参考链接</h2>
+<ul>
+<li><a href="http://stackoverflow.com/questions/5072166/how-do-i-deploy-a-flask-application-in-iis" target="_blank" rel="noopener">http://stackoverflow.com/questions/5072166/how-do-i-deploy-a-flask-application-in-iis</a></li>
+<li><a href="http://stackoverflow.com/questions/20134329/how-to-deploy-a-flask-application-in-iis-8-windows-server-2012" target="_blank" rel="noopener">http://stackoverflow.com/questions/20134329/how-to-deploy-a-flask-application-in-iis-8-windows-server-2012</a></li>
+<li><a href="http://blog.csdn.net/firefox1/article/details/46438769" target="_blank" rel="noopener">http://blog.csdn.net/firefox1/article/details/46438769</a></li>
+<li><a href="http://www.cnblogs.com/liulixiang/p/4999608.html" target="_blank" rel="noopener">http://www.cnblogs.com/liulixiang/p/4999608.html</a></li>
+<li><a href="http://www.cnblogs.com/xiaolecn/p/5111076.html" target="_blank" rel="noopener">http://www.cnblogs.com/xiaolecn/p/5111076.html</a></li>
+</ul>
+<h1>方案二：有 virtual environment (原文链接：<a href="https://www.cnblogs.com/liluping860122/p/9203908.html" target="_blank" rel="noopener">https://www.cnblogs.com/liluping860122/p/9203908.html</a>)</h1>
+<h2 id="一、项目部署"><a class="header-anchor" href="#一、项目部署">¶</a>一、项目部署</h2>
+<ol>
+<li>
+<p>服务器安装 python3.6：根据自己系统位数下载安装： <a href="https://www.python.org/downloads/windows/" target="_blank" rel="noopener">https://www.python.org/downloads/windows/</a></p>
+<p><strong>由于 python3.6 已经安装好了 pip，所以剩下的工作就简单了。</strong></p>
+</li>
+<li>
+<p>安装 virtualenv 虚拟环境：</p>
+ <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install virtualenv</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>创建虚拟环境：</p>
+ <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">virtualenv env_36</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>配置虚拟环境模块：先激活虚拟环境，然后安装项目需要的模块。</p>
+ <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install <span class="literal">-r</span> requirements.txt</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>代码迁移，此处省略，然后在虚拟环境检查是否正常：</p>
+ <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py runserver -<span class="literal">-host</span> <span class="number">0.0</span>.<span class="number">0.0</span> -<span class="literal">-port</span> <span class="number">8000</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p><strong><font color="red">注：如果检查正常说明项目这些都没问题了，下面可以进行IIS相关的配置。</font></strong></p>
+</blockquote>
+<h2 id="二、IIS-和-wgastcgi-配置"><a class="header-anchor" href="#二、IIS-和-wgastcgi-配置">¶</a>二、IIS 和 wgastcgi 配置</h2>
+<ol>
+<li>
+<p>安装 wfastcgi：</p>
+ <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install wfastcgi</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><font color="red">注：这里是全局安装，不是在虚拟环境安装。</font></p>
+</blockquote>
+</li>
+<li>
+<p>在 python3.6 的安装目录：  <em>Lib/site-packages</em> 文件夹下，找到：<em><a href="http://wfastcgi.py" target="_blank" rel="noopener">wfastcgi.py</a></em> 这个文件。如图：</p>
+<p><img src="/images/Flask-IIS%E9%83%A8%E7%BD%B2/35314-20180620144521735-971439039.png" alt="图1"></p>
+</li>
+</ol>
+<p>把这个文件拷贝到你的项目根目录。如图：</p>
+<pre><code>![图2](/images/Flask-IIS部署/35314-20180620144615996-205738701.png)
+</code></pre>
+<ol start="3">
+<li>
+<p>IIS 添加应用：</p>
+<p><img src="/images/Flask-IIS%E9%83%A8%E7%BD%B2/35314-20180620144823448-748090275.png" alt="图3"></p>
+</li>
+<li>
+<p>在你的网站下面找到【处理程序映射】如图：双击打开：</p>
+<p><img src="/images/Flask-IIS%E9%83%A8%E7%BD%B2/35314-20180620144945315-1193833752.png" alt="图4"></p>
+</li>
+<li>
+<p>添加模块映射：<font color="red">大家注意图片中标注的第2条。(<em>D:\Python\ENV\DEV_36\Scripts\python.exe|D:\Python\PRO\cms\<a href="http://wfastcgi.py" target="_blank" rel="noopener">wfastcgi.py</a></em>) 前面部分为虚拟环境路径，<code>|</code> 号后面是项目里的 <em><a href="http://wfastcig.py" target="_blank" rel="noopener">wfastcig.py</a></em> 路径。</font></p>
+<p><img src="/images/Flask-IIS%E9%83%A8%E7%BD%B2/35314-20180620145449414-1255307354.png" alt="图5"></p>
+</li>
+<li>
+<p>请求限制中把（映射下面的 “√” 去掉）</p>
+<p><img src="/images/Flask-IIS%E9%83%A8%E7%BD%B2/35314-20180620145614871-1826673338.png" alt="图6"></p>
+</li>
+<li>
+<p>确认添加模块</p>
+<p><img src="/images/Flask-IIS%E9%83%A8%E7%BD%B2/35314-20180620145705313-916636073.png" alt="图7"></p>
+</li>
+<li>
+<p>这个时候你应该可以看见你的 FlaskFastCGI 程序了</p>
+<p><img src="/images/Flask-IIS%E9%83%A8%E7%BD%B2/35314-20180620145809096-27445421.png" alt="图8"></p>
+</li>
+<li>
+<p>回到 IIS 控制台，进入【FastCGI设置】如图：</p>
+<p><img src="/images/Flask-IIS%E9%83%A8%E7%BD%B2/35314-20180620145924073-706250573.png" alt="图9"></p>
+</li>
+<li>
+<p>双击打开你应该可以看见刚才添加的 FastCGI:</p>
+<p><img src="/images/Flask-IIS%E9%83%A8%E7%BD%B2/35314-20180620150050654-141759257.png" alt="图10"></p>
+</li>
+<li>
+<p>双击，编辑 —【环境变量】</p>
+<p><img src="/images/Flask-IIS%E9%83%A8%E7%BD%B2/35314-20180620150635034-1010093138.png" alt="图11"></p>
+<p>这里添加2个变量：<br>
+<code>PYTHONPATH</code>    值为：  项目路径：（如：<em>D:\Python\PRO\cms</em>）<br>
+<code>WSGI_HANDLER</code>  值为： 项目启动文件中的 <code>app</code>，如图，因为我是通过 <code>manage</code>启动。</p>
+</li>
+<li>
+<p>回收应用程序池，重启 IIS。</p>
+<p><img src="/images/Flask-IIS%E9%83%A8%E7%BD%B2/35314-20180620150948097-591061574.png" alt="图12"></p>
+</li>
+<li>
+<p>输入地址测试，不出问题应该是可以正常访问了。</p>
+<p><img src="/images/Flask-IIS%E9%83%A8%E7%BD%B2/35314-20180620151138737-242388206.png" alt="图13"></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.rabbituzki.com.cn/2019/04/24/Flask-IIS%E9%83%A8%E7%BD%B2/" data-id="ckidvv5ce00073sv48ncmf9j5" class="article-share-link">
+        分享
+      </a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Flask/" rel="tag">Flask</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IIS/" rel="tag">IIS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/" rel="tag">Windows</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2019/08/02/Python-%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            Python 编码规范
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/04/24/%E8%BF%81%E7%A7%BBWin10%E7%9A%84Linux%E5%AD%90%E7%B3%BB%E7%BB%9F/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">迁移Win10的Linux子系统</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2020 六加的博客</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="六加的博客"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>

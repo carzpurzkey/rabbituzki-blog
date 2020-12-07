@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    Ubuntu 下 Wine 安装并运行微信 |
+    
+    六加的博客</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-Ubuntu-下-Wine-安装并运行微信" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Ubuntu 下 Wine 安装并运行微信
+    </h1>
+  
+  
+
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/07/15/Ubuntu-%E4%B8%8B-Wine-%E5%AE%89%E8%A3%85%E5%B9%B6%E8%BF%90%E8%A1%8C%E5%BE%AE%E4%BF%A1/" class="article-date">
+  <time datetime="2020-07-14T16:00:00.000Z" itemprop="datePublished">2020-07-15</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a> / <a class="article-category-link" href="/categories/%E7%AC%94%E8%AE%B0/%E7%96%91%E9%9A%BE/">疑难</a>
+  </div>
+
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+  <div class="article-gallery">
+    <div class="article-gallery-photos">
+      
+        
+          <img src="/images/wechat.jpg" itemprop="image">
+        
+      
+    </div>
+  </div>
+
+
+      
+      <h1>Ubuntu 下 Wine 安装并运行微信</h1>
+<ol>
+<li>
+<p>安装 wine：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install wine</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>配置 wine：</p>
+<ul>
+<li>
+<p>运行 winecfg：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ winecfg</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>“应用程序”标签中，“Windows 版本”选择”Windows 7“。</p>
+<p><img src="/images/Wine-Wechat/1.png" alt="图1"></p>
+</li>
+<li>
+<p>”函数库“标签中，依图中所示添加函数库顶替：</p>
+<p><img src="/images/Wine-Wechat/2.png" alt="图2"></p>
+<blockquote>
+<p><strong>说明</strong></p>
+<hr>
+<ul>
+<li>
+<p>如果不配置 riched20 和 riched32 的话则安装好后微信或 TIM 后无法输入用户名。</p>
+</li>
+<li>
+<p>不停用 txplatform.exe 则微信或 TIM 无法完整退出，导致关掉重开后提示文件被占用。</p>
+</li>
+<li>
+<p>禁用 ntoskrnl.exe 是为了规避可能出现微信 或 TIM 无法启动的 bug。</p>
+</li>
+</ul>
+</blockquote>
+</li>
+<li>
+<p>”显示“标签中，屏幕分辨率设置为 120。(可选，主要解决 hidpi 笔记本文字过小问题)</p>
+<p><img src="/images/Wine-Wechat/3.png" alt="图3"></p>
+</li>
+<li>
+<p>拷贝喜欢的中文字体至 <em>$HOME/.wine/drive_c/windows/Fonts</em> 下，以 Noto Sans CJK Regular 为例 (文件名为 <em>NotoSansCJK-Regular.ttc</em>)。</p>
+</li>
+<li>
+<p>新建 <em>fonts.reg</em> 文件，内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">REGEDIT4</span><br><span class="line"> </span><br><span class="line">[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\FontLink\SystemLink]</span><br><span class="line">&quot;Lucida Sans Unicode&quot;&#x3D;&quot;NotoSansCJK-Regular.ttc&quot;</span><br><span class="line">&quot;Microsoft Sans Serif&quot;&#x3D;&quot;NotoSansCJK-Regular.ttc&quot;</span><br><span class="line">&quot;MS Sans Serif&quot;&#x3D;&quot;NotoSansCJK-Regular.ttc&quot;</span><br><span class="line">&quot;Tahoma&quot;&#x3D;&quot;NotoSansCJK-Regular.ttc&quot;</span><br><span class="line">&quot;Tahoma Bold&quot;&#x3D;&quot;NotoSansCJK-Regular.ttc&quot;</span><br><span class="line">&quot;SimSun&quot;&#x3D;&quot;NotoSansCJK-Regular.ttc&quot;</span><br><span class="line">&quot;Arial&quot;&#x3D;&quot;NotoSansCJK-Regular.ttc&quot;</span><br><span class="line">&quot;Arial Black&quot;&#x3D;&quot;NotoSansCJK-Regular.ttc&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>运行 Wine 的注册表编辑器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wine regedit</span><br></pre></td></tr></table></figure>
+<p>并将 <em>fonts.reg</em> 导入注册表。</p>
+</li>
+<li>
+<p><strong>下载 Windows 7 系统的 <em>riched20.dll</em> (<span style="border-bottom: 3px black double">32 位</span>) 和  <em>riched32.dll</em> (<span style="border-bottom: 3px black double">32 位</span>)，替换 <em>$HOME/.wine/drive_c/windows/<span style="border-bottom: 3px black double">syswow64</span></em> 下同名文件。</strong></p>
+<blockquote>
+<p><strong>注意</strong></p>
+<hr>
+<p>本步可解决微信输入文字无法显示的问题。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.rabbituzki.com.cn/2020/07/15/Ubuntu-%E4%B8%8B-Wine-%E5%AE%89%E8%A3%85%E5%B9%B6%E8%BF%90%E8%A1%8C%E5%BE%AE%E4%BF%A1/" data-id="ckidvv5cs00103sv4azp89cil" class="article-share-link">
+        分享
+      </a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%96%91%E9%9A%BE/" rel="tag">疑难</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2020/07/15/Ubuntu-%E4%B8%8B-138a0090%E3%80%81138a0097-%E5%92%8C-06cb009a-%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%AB%E5%99%A8%E9%A9%B1%E5%8A%A8%E5%8F%8A%E6%8C%87%E7%BA%B9%E8%AE%A4%E8%AF%81/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            Ubuntu 下 138a:0090、138a:0097 和 06cb:009a 指纹识别器驱动及指纹认证
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/04/18/Entity%20Framework%20Core%203.1%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">Entity Framework Core 3.1 教程</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2020 六加的博客</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="六加的博客"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    Python 编码规范 |
+    
+    六加的博客</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-Python-编码规范" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Python 编码规范
+    </h1>
+  
+  
+
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/08/02/Python-%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/" class="article-date">
+  <time datetime="2019-08-01T16:00:00.000Z" itemprop="datePublished">2019-08-02</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+  </div>
+
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+  <div class="article-gallery">
+    <div class="article-gallery-photos">
+      
+        
+          <img src="/images/python.png" itemprop="image">
+        
+      
+    </div>
+  </div>
+
+
+      
+      <p>[TOC]</p>
+<hr>
+<h1>Python 编码规范</h1>
+<h2 id="代码书写规范"><a class="header-anchor" href="#代码书写规范">¶</a>代码书写规范</h2>
+<h3 id="缩进"><a class="header-anchor" href="#缩进">¶</a>缩进</h3>
+<p>统一使用 4 个空格进行缩进，不要混合使用制表符和空格来缩进，也不要单独使用制表符 <code>tab</code>。对于行连接的情况，可以垂直对齐换行的元素。</p>
+<p><img src="https://p3.pstatp.com/large/pgc-image/07ad07f65bd548b5932f17533b90dfbf" alt="图1"></p>
+<h3 id="行宽"><a class="header-anchor" href="#行宽">¶</a>行宽</h3>
+<p>每行代码尽量不超过 80 个字符，在特殊情况下可以略微超过 80 ，如长的导入模块语句或注释里的 URL。<br>
+Python 会将圆括号、中括号和花括号中的行隐式的连接起来，可以利用这个特点，在表达式外围增加一对额外的圆括号，不要使用反斜杠连接行。<br>
+如果条件语句中条件过多，放在一行显得超长，可以使用圆括号来实现隐式连接，如下：</p>
+<p><img src="https://p3.pstatp.com/large/pgc-image/ea37480540e54e2ea17ea3877c8a0c22" alt="图2"></p>
+<p>如果一个文本字符串放在一行显得超长，可以使用圆括号来实现隐式行连接，如下：</p>
+<p><img src="https://p3.pstatp.com/large/pgc-image/86e79eb962b241efa183bc95418db556" alt="图3"></p>
+<h3 id="引号"><a class="header-anchor" href="#引号">¶</a>引号</h3>
+<p>自然语言使用双引号，机器标示使用单引号，因此代码里多数应该使用单引号。</p>
+<ul>
+<li>
+<p>自然语言使用双引号</p>
+<p><img src="https://p3.pstatp.com/large/pgc-image/8d2d82fc19224c2a994fd2f4ddd0f158" alt="图4"></p>
+</li>
+<li>
+<p>机器标识使用单引号</p>
+<p><img src="https://p3.pstatp.com/large/pgc-image/dd7cb92873134526b6d2821bb7b1d303" alt="图5"></p>
+</li>
+<li>
+<p>正则表达式使用双引号</p>
+<p><img src="https://p3.pstatp.com/large/pgc-image/9651f26cb26d4986aaaab1af8071142b" alt="图6"></p>
+</li>
+<li>
+<p>文档字符串 (Docstring) 使用三双引号</p>
+<p><img src="https://p3.pstatp.com/large/pgc-image/35c333c59b894938b9925a4a555843ea" alt="图7"></p>
+</li>
+</ul>
+<h3 id="空行"><a class="header-anchor" href="#空行">¶</a>空行</h3>
+<p>模块中类定义与函数之间空两行，类中各函数之间空一行，函数中可以使用空行分隔各逻辑代码块，使其更加清晰。</p>
+<p><img src="https://p3.pstatp.com/large/pgc-image/dd582d744d184c61b416a57c2c440974" alt="图8"></p>
+<h3 id="模块导入"><a class="header-anchor" href="#模块导入">¶</a>模块导入</h3>
+<p>每个独立模块导入应该独占一行，导入代码应该放在文件顶部，置于模块说明、文档字符串之后，全局变量、常量之前，模块导入建议顺序建议参考以一下顺序，每组之间使用一个空行分隔：</p>
+<pre><code>1. 标准库导入
+2. 第三方库导入
+3. 自定义库导入
+</code></pre>
+<p><img src="https://p3.pstatp.com/large/pgc-image/7d176cad05ce44de92494779a6f90aac" alt="图9"></p>
+<p>同时，导入模块应尽量使用绝对导入。</p>
+<p><img src="https://p3.pstatp.com/large/pgc-image/3290579bb9e7438796e24c0cfac61732" alt="图10"></p>
+<h3 id="空格"><a class="header-anchor" href="#空格">¶</a>空格</h3>
+<p>在二元操作符两边都加上一个空格，如 <code>=, ==, &lt;, &gt;, !=, &lt;&gt;, &lt;=, &gt;=, in, not in, is, is no，and, or, not</code>。额外注意的是，当 <code>=</code> 用于指示关键字参数或默认参数值时, 不要在其两侧使用空格。</p>
+<p><img src="https://p3.pstatp.com/large/pgc-image/cb68241c33c7459b81c454bdfb6b2076" alt="图11"></p>
+<p>函数的参数列表中 <code>,</code> 之后要有空格，但左括号之后，右括号之前不要加多余的空格。</p>
+<p><img src="https://p3.pstatp.com/large/pgc-image/f56964d2dcae4c08ac34d73207d53bad" alt="图12"></p>
+<h2 id="代码注释规范"><a class="header-anchor" href="#代码注释规范">¶</a>代码注释规范</h2>
+<h3 id="块注释"><a class="header-anchor" href="#块注释">¶</a>块注释</h3>
+<p><code>#</code> 号后空一格，段落间需要用空行分开。</p>
+<p><img src="https://p3.pstatp.com/large/pgc-image/cc6ac11b397a456daefe726e205da6f1" alt="图13"></p>
+<h3 id="行注释"><a class="header-anchor" href="#行注释">¶</a>行注释</h3>
+<p>行注释至少使用两个空格和语句分开。</p>
+<p><img src="https://p3.pstatp.com/large/pgc-image/2a8bfadf83894a379d9bfa08a73ce932" alt="图14"></p>
+<h3 id="文档注释——文档字符串-Docstring"><a class="header-anchor" href="#文档注释——文档字符串-Docstring">¶</a>文档注释——文档字符串 Docstring</h3>
+<p>Python 有一种独一无二的的注释方式：使用文档字符串。文档字符串是包，模块，类或函数里的第一个语句。这些字符串可以通过对象的 doc 成员被自动提取。并且被 pydoc 所用。(你可以在你的模块上运行 pydoc 试一把，看看它长什么样)。我们对文档字符串的惯例是使用三重双引号<code>&quot;&quot;&quot;</code>(PEP-257)。一个文档字符串应该这样组织：首先是一行以句号，问号或惊叹号结尾的概述(或者该文档字符串单纯只有一行)。接着是一个空行。接着是文档字符串剩下的部分，它应该与文档字符串的第一行的第一个引号对齐。下面有更多文档字符串的格式化规范。</p>
+<h3 id="模块"><a class="header-anchor" href="#模块">¶</a>模块</h3>
+<p>每个文件应该包含一个许可样板。根据项目使用的许可(例如, Apache 2.0, BSD, LGPL, GPL), 选择合适的样板。</p>
+<h3 id="函数和方法"><a class="header-anchor" href="#函数和方法">¶</a>函数和方法</h3>
+<p>下文所指的函数，包括函数，方法，以及生成器。<br>
+一个函数必须要有文档字符串，除非它满足以下条件：</p>
+<ul>
+<li>外部不可见</li>
+<li>非常短小</li>
+<li>简单明了</li>
+</ul>
+<p>文档字符串应该包含函数做什么，以及输入和输出的详细描述。通常，不应该描述“怎么做”， 除非是一些复杂的算法。文档字符串应该提供足够的信息，当别人编写代码调用该函数时，他不需要看一行代码，只要看文档字符串就可以了。对于复杂的代码，在代码旁边加注释会比使用文档字符串更有意义。<br>
+关于函数的几个方面应该在特定的小节中进行描述记录，这几个方面如下文所述，每节应该以一个标题行开始。标题行以冒号结尾。除标题行外，节的其他内容应被缩进2个空格。</p>
+<h4 id="Args"><a class="header-anchor" href="#Args">¶</a>Args</h4>
+<p>列出每个参数的名字，并在名字后使用一个冒号和一个空格，分隔对该参数的描述。如果描述太长超过了单行80字符，使用2或者4个空格的悬挂缩进(与文件其他部分保持一致)。描述应该包括所需的类型和含义。如果一个函数接受foo(可变长度参数列表)或者bar (任意关键字参数)，应该详细列出foo和bar。</p>
+<h4 id="Returns-或者-Yields-用于生成器"><a class="header-anchor" href="#Returns-或者-Yields-用于生成器">¶</a>Returns (或者 Yields: 用于生成器)</h4>
+<p>描述返回值的类型和语义。如果函数返回 <code>None</code>。这一部分可以省略。</p>
+<h4 id="Raises"><a class="header-anchor" href="#Raises">¶</a>Raises</h4>
+<p>列出与接口有关的所有异常。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fetch_bigtable_rows</span><span class="params">(big_table, keys, other_silly_variable=None)</span>:</span></span><br><span class="line">    <span class="string">"""Fetches rows from a Bigtable.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Retrieves rows pertaining to the given keys from the Table instance</span></span><br><span class="line"><span class="string">    represented by big_table.  Silly things may happen if</span></span><br><span class="line"><span class="string">    other_silly_variable is not None.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        big_table: An open Bigtable Table instance.</span></span><br><span class="line"><span class="string">        keys: A sequence of strings representing the key of each table row</span></span><br><span class="line"><span class="string">            to fetch.</span></span><br><span class="line"><span class="string">        other_silly_variable: Another optional variable, that has a much</span></span><br><span class="line"><span class="string">            longer name than the other args, and which does nothing.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        A dict mapping keys to the corresponding table row data</span></span><br><span class="line"><span class="string">        fetched. Each row is represented as a tuple of strings. For</span></span><br><span class="line"><span class="string">        example:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        &#123;'Serak': ('Rigel VII', 'Preparer'),</span></span><br><span class="line"><span class="string">         'Zim': ('Irk', 'Invader'),</span></span><br><span class="line"><span class="string">         'Lrrr': ('Omicron Persei 8', 'Emperor')&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        If a key from the keys argument is missing from the dictionary,</span></span><br><span class="line"><span class="string">        then that row was not found in the table.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Raises:</span></span><br><span class="line"><span class="string">        IOError: An error occurred accessing the bigtable.Table object.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<h3 id="类"><a class="header-anchor" href="#类">¶</a>类</h3>
+<p>类应该在其定义下有一个用于描述该类的文档字符串。如果你的类有公共属性(Attributes)，那么文档中应该有一个属性(Attributes)段。并且应该遵守和函数参数相同的格式。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SampleClass</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="string">"""Summary of class here.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Longer class information....</span></span><br><span class="line"><span class="string">    Longer class information....</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Attributes:</span></span><br><span class="line"><span class="string">        likes_spam: A boolean indicating if we like SPAM or not.</span></span><br><span class="line"><span class="string">        eggs: An integer count of the eggs we have laid.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, likes_spam=False)</span>:</span></span><br><span class="line">        <span class="string">"""Inits SampleClass with blah."""</span></span><br><span class="line">        self.likes_spam = likes_spam</span><br><span class="line">        self.eggs = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">public_method</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""Performs operation blah."""</span></span><br></pre></td></tr></table></figure>
+<h3 id="块注释和行注释"><a class="header-anchor" href="#块注释和行注释">¶</a>块注释和行注释</h3>
+<p>最需要写注释的是代码中那些技巧性的部分。如果你在下次代码审查的时候必须解释一下。那么你应该现在就给它写注释。对于复杂的操作，应该在其操作开始前写上若干行注释。对于不是一目了然的代码，应在其行尾添加注释。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># We use a weighted dictionary search to find out where i is in</span></span><br><span class="line"><span class="comment"># the array.  We extrapolate position based on the largest num</span></span><br><span class="line"><span class="comment"># in the array and the array size and then do binary search to</span></span><br><span class="line"><span class="comment"># get the exact number.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> i &amp; (i<span class="number">-1</span>) == <span class="number">0</span>:        <span class="comment"># true iff i is a power of 2</span></span><br></pre></td></tr></table></figure>
+<p>为了提高可读性。注释应该至少离开代码2个空格。<br>
+另一方面，绝不要描述代码。假设阅读代码的人比你更懂Python，他只是不知道你的代码要做什么。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># BAD COMMENT: Now go through the b array and make sure whenever i occurs</span></span><br><span class="line"><span class="comment"># the next element is i+1</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.rabbituzki.com.cn/2019/08/02/Python-%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/" data-id="ckidvv5cj000f3sv44r6u3pvw" class="article-share-link">
+        分享
+      </a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" rel="tag">编程语言</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2019/08/14/%E4%BD%BF%E7%94%A8%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90%E8%BF%90%E8%A1%8C-Windows-Terminal-%E5%B9%B6%E6%B7%BB%E5%8A%A0%E2%80%9C%E5%9C%A8%E6%AD%A4%E6%89%93%E5%BC%80%20-Windows-Terminal%E2%80%9D%E8%87%B3%E4%B8%8A%E4%B8%8B%E6%96%87%E8%8F%9C%E5%8D%95/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            使用管理员权限运行 Windows Terminal 并添加“在此打开 Windows Terminal”至上下文菜单
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/04/24/Flask-IIS%E9%83%A8%E7%BD%B2/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">Flask IIS部署</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2020 六加的博客</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="六加的博客"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>

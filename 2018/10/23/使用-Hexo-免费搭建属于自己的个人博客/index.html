@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    使用 Hexo 免费搭建属于自己的个人博客 |
+    
+    六加的博客</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-使用-Hexo-免费搭建属于自己的个人博客" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      使用 Hexo 免费搭建属于自己的个人博客
+    </h1>
+  
+  
+
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/10/23/%E4%BD%BF%E7%94%A8-Hexo-%E5%85%8D%E8%B4%B9%E6%90%AD%E5%BB%BA%E5%B1%9E%E4%BA%8E%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="article-date">
+  <time datetime="2018-10-22T16:00:00.000Z" itemprop="datePublished">2018-10-23</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a>
+  </div>
+
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+  <div class="article-gallery">
+    <div class="article-gallery-photos">
+      
+        
+          <img src="/images/hexo.jpg" itemprop="image">
+        
+      
+    </div>
+  </div>
+
+
+      
+      <h1>使用 Hexo 免费搭建属于自己的个人博客</h1>
+<hr>
+<p>[TOC]</p>
+<hr>
+<h2 id="安装搭建博客必须的环境"><a class="header-anchor" href="#安装搭建博客必须的环境">¶</a>安装搭建博客必须的环境</h2>
+<ol>
+<li>安装 Git<br>
+这里就不说怎么安装了，相信会看这篇文章的一般都已经装了。</li>
+<li>申请 GitHub 账号<br>
+<code>博客</code> 的 <code>远程创库</code>、<code>域名</code>、<code>服务器</code> 等都和 <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a> 有关，这个必须要。</li>
+<li>安装 Node.js<br>
+前往 <a href="https://nodejs.org/" target="_blank" rel="noopener">Node.js 官网</a> 下载最新版本的安装包安装即可。<br>
+<img src="https://upload-images.jianshu.io/upload_images/1930874-31fc3087c49f43af.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="安装Node.js"></li>
+<li>安装 Hexo<br>
+打开终端，输入以下命令安装 Hexo ，安装时间可能有点长，要多等一下。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
+<h2 id="开始搭建博客"><a class="header-anchor" href="#开始搭建博客">¶</a>开始搭建博客</h2>
+<p>以上环境必须全部安装完成后，才能开始搭建 <code>博客</code>。</p>
+<h3 id="1-创建-GitHub-仓库"><a class="header-anchor" href="#1-创建-GitHub-仓库">¶</a>1. 创建 GitHub 仓库</h3>
+<p>打开 GitHub 创建一个仓库，Repository name 为 <a href="http://xxx.github.io" target="_blank" rel="noopener">xxx.github.io</a>，xxx 处就是你 GitHub 的用户名，也就是前面 Owner 处显示的名字，命名必须这样，不能更改，这个仓库的名字也会是 博客 搭建完成后的域名。<br>
+<img src="https://upload-images.jianshu.io/upload_images/1930874-6fe8a4a5a643e017.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="创建GitHub仓库"></p>
+<h3 id="2-初始化-Hexo-博客"><a class="header-anchor" href="#2-初始化-Hexo-博客">¶</a>2. 初始化 Hexo 博客</h3>
+<p>打开终端，执行以下命令初始化 博客，初始化完成后，你的系统根目录中会多一个名为 Blog 的文件夹，Blog 也可以更改成自己喜欢的名字，初始化时间也比较久，耐心等一下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init Blog</span><br></pre></td></tr></table></figure>
+<h3 id="3-下载博客主题"><a class="header-anchor" href="#3-下载博客主题">¶</a>3. 下载博客主题</h3>
+<ul>
+<li>
+<p><code>博客</code> 初始化完成以后，会有一个自带的 <code>博客主题</code> ，在 <code>Blog / themes </code>文件夹下，但是比较丑，你可以下载一个自己喜欢的 <code>博客主题</code> 。</p>
+</li>
+<li>
+<p>这里是 <code>博客主题</code> 的 <a href="https://hexo.io/themes/" target="_blank" rel="noopener">下载地址</a> ，只需要到主题对应的 <code>GitHub</code> 仓库将主题 <code>clone</code> 下来即可，这是我使用的主题 <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank" rel="noopener">下载地址</a> 。</p>
+</li>
+<li>
+<p><code>clone</code> 完成后，将主题文件夹复制到 <code>Blog</code> 文件夹下的 <code>themes</code> 文件夹中。</p>
+</li>
+<li>
+<p>启用 About 页（限archer主题，其它主题查看相应文档）</p>
+<ul>
+<li>在<strong>hexo目录</strong>下执行</li>
+</ul>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page <span class="string">"about"</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>在hexo目录下<code>source/about/index.md</code>中添加字段<code>layout: about</code>（这个字段必须有且不可更改为其他），<code>title</code>字段修改为about页的标题（自行修改），正文为about页的内容（自行修改），例如：</li>
+</ul>
+  <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 这是自我介绍的题目</span><br><span class="line">layout: about</span><br><span class="line">---</span><br><span class="line">这是一段自我介绍</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在<strong>主题配置文件</strong>中添加以下字段，<code>enable</code>字段控制是否开启about，<code>image</code>字段内容为about页的banner图像地址，不填写则默认使用首页banner图像。</li>
+</ul>
+  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">about:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">'/intro/about-page.jpg'</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="4-修改博客配置文件"><a class="header-anchor" href="#4-修改博客配置文件">¶</a>4. 修改博客配置文件</h3>
+<ul>
+<li>
+<p>打开 <code>Blog</code> 文件夹下的 <code>_config.yml</code> 文件，修改其中的配置。</p>
+</li>
+<li>
+<p>下面把几个必须修改的配置列出来按需求修改即可，配置的键值之间一定要有空格，否则会报错，想了解更多配置点击 <a href="https://hexo.io/zh-cn/docs/configuration.html" target="_blank" rel="noopener">这里</a> 。</p>
+  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">title:</span> <span class="string">Jonzzs</span>  <span class="string">//博客的标题</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">个人博客</span> <span class="string">//博客的副标题</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">将来的你</span> <span class="string">一定会感激现在拼命的自己</span> <span class="string">//博客的描述</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">Jonzzs</span> <span class="string">//博客作者的名字</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-Hans</span> <span class="string">//语言中文</span></span><br><span class="line"></span><br><span class="line"><span class="attr">theme:</span> <span class="string">new-vno</span> <span class="string">//刚刚复制到</span> <span class="string">themes</span> <span class="string">文件夹下的主题名称</span></span><br><span class="line"></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">git</span> <span class="string">//使用</span> <span class="string">Git</span> <span class="string">发布</span></span><br><span class="line">    <span class="attr">repo:</span> <span class="string">https://github.com/Jonzzs/Jonzzs.github.io.git</span> <span class="string">//刚创建的</span> <span class="string">Github</span> <span class="string">仓库地址</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>关于主题的配置在各自主题文件夹下的 _config.yml 文件中修改。</p>
+</li>
+</ul>
+<h3 id="5-写博客文章"><a class="header-anchor" href="#5-写博客文章">¶</a>5. 写博客文章</h3>
+<ul>
+<li>
+<p>接下来可以开始写你的第一篇 <code>博客</code> 文章了，博客文章保存在 <code>Blog / source / _posts</code> 文件夹下，格式为 <code>MarkDown</code> 格式，也就是 <code>.md</code> 后缀的文件，编码格式为 <code>UTF-8</code> ，否则会显示乱码。<br>
+<strong>例如</strong>： 创建一个名为 <code>测试文章.md</code> 的文件，内容为：</p>
+  <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 测试文章 //文章的标题</span><br><span class="line">date: 2017-05-03 17:47 //文章的发布时间</span><br><span class="line">categories: 测试分类 //分类名称</span><br><span class="line">tags: 测试标签 //标签名称</span><br><span class="line">photos: http://jonzzs.cn/images/Jonzzs.jpg //需要展示的图片地址</span><br><span class="line">---</span><br><span class="line"><span class="code">    </span></span><br><span class="line"> &gt; 这是一篇测试文章。</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>：每一篇文章中，开头都必须有 — 之间的那些参数，参数 : 后面必须有空格，文章的 标题 是必填的，否则文章不会显示在博客中，其他参数看自己的需求填写，categories 、tags 、photos 这三个参数可填写多个，填写多个时用 [ xx, xx ] 格式区分，例如：</p>
+  <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 测试文章 //文章的标题</span><br><span class="line">date: 2017-05-03 17:47 //文章的发布时间</span><br><span class="line">categories: [测试分类1, 测试分类2, 测试分类3] //分类名称</span><br><span class="line">tags: [测试标签1, 测试标签2, 测试标签3] //标签名称</span><br><span class="line">photos: [http://jonzzs.cn/images/Jonzzs.jpg, http://jonzzs.cn/images/Jonzzs.jpg, http://jonzzs.cn/images/Jonzzs.jpg] //需要展示的图片地址</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>如果要在博客的首页显示每篇文章的 <code>摘要</code> ，只要在文章中加入以下 <code>分隔符</code> 即可，该 <code>分隔符</code> 之前的所有内容都会被自动截取为文章的 <code>摘要</code> 。</p>
+  <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- more --&gt;</span></span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="6-本地测试博客"><a class="header-anchor" href="#6-本地测试博客">¶</a>6. 本地测试博客</h3>
+<ul>
+<li>
+<p>打开终端 <code>cd</code> 到 <code>Blog</code> 目录下，输入以下命令：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>接着浏览器中输入 <a href="http://localhost:4000/" target="_blank" rel="noopener">http://localhost:4000/</a> 就能够看到 <code>博客</code> 的搭建效果。</p>
+</li>
+</ul>
+<h2 id="发布博客"><a class="header-anchor" href="#发布博客">¶</a>发布博客</h2>
+<p>本地显示没问题以后，就可以将 <code>博客</code> 发布到 <code>GitHub</code> 服务器上了。</p>
+<h3 id="1-安装自动部署发布插件"><a class="header-anchor" href="#1-安装自动部署发布插件">¶</a>1. 安装自动部署发布插件</h3>
+<p>第一次配置时需要安装 <code>hexo-deployer-git</code> 自动部署发布工具，打开终端 <code>cd</code> 到 <code>Blog</code> 目录下，执行以下命令安装。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<h3 id="2-发布博客到服务器"><a class="header-anchor" href="#2-发布博客到服务器">¶</a>2. 发布博客到服务器</h3>
+<ul>
+<li>打开终端 <code>cd</code> 到 <code>Blog</code> 目录下，输入以下命令：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果这是你的第一次，终端可能会让你输入 <code>Github</code> 的邮箱和密码，输入完成后，就会把你的 <code>博客</code> 自动上传至 <code>Github</code> 了。</li>
+<li>以后在每一次添加新的 <code>博客</code> 文章或者改变配置时，执行一下这个命令就可以直接发布了。<br>
+发布完成后，浏览器中输入之前创建的 <code>Github</code> 仓库名，就能访问到你搭建的 博客 了，我的是 <code>carzpurzkey.github.io</code> 。</li>
+</ul>
+<hr>
+<blockquote>
+<p>简单的 <code>博客</code> 搭建流程就是这样了，还有很多不错的 <a href="https://hexo.io/plugins/" target="_blank" rel="noopener">插件</a> ，比如 <code>评论</code>、<code>标签</code>、<code>统计</code> 等等，这些自己去研究并慢慢完善自己的博客吧。</p>
+</blockquote>
+<h2 id="使用-码云-来托管-Hexo-搭建的博客"><a class="header-anchor" href="#使用-码云-来托管-Hexo-搭建的博客">¶</a>使用 码云 来托管 Hexo 搭建的博客</h2>
+<ol>
+<li>
+<p>首先进入 <a href="https://gitee.com" target="_blank" rel="noopener">码云</a> 创建一个仓库，<code>仓库名称</code> 和 <code>仓库路径</code> 都必须和你的 <code>用户名</code> 也就是上面的 <code>归属</code> 一样。<br>
+<img src="https://upload-images.jianshu.io/upload_images/1930874-ef54f8b245f993a6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="创建仓库"></p>
+</li>
+<li>
+<p>打开本地 <code>博客</code> 下的 <code>_config.yml</code> 文件，将刚才创建的仓库 <code>Git</code> 地址配置进去。<br>
+<img src="https://upload-images.jianshu.io/upload_images/1930874-732a1474b74dae5d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/772/format/webp" alt="仓库Git地址"></p>
+</li>
+<li>
+<p>添加托管</p>
+</li>
+</ol>
+<ul>
+<li>
+<p>如果想使用 GitHub 和 码云 同时托管 博客 ，就这样配置：</p>
+  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">    <span class="attr">repo:</span></span><br><span class="line">        <span class="attr">github:</span> <span class="string">https://github.com/Jonzzs/Jonzzs.github.io.git</span></span><br><span class="line">        <span class="attr">oschina:</span> <span class="string">https://git.oschina.net/Jonzzs/Jonzzs.git</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>如果只想使用 码云 托管 博客 ，就这样配置：</p>
+  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">    <span class="attr">repo:</span> <span class="string">https://git.oschina.net/Jonzzs/Jonzzs.git</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol start="4">
+<li>
+<p>保存文件后打开终端 <code>cd</code> 到 <code>博客</code> 目录下，使用以下命令重新部署一下博客。</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>再次打开刚才 <code>码云</code> 上创建的仓库刷新一下，博客 的 <code>HTML</code> 页面应该已经传到仓库中了，打开 <code>服务</code> 中的 <code>Pages</code>，点击 <code>启动服务</code> 。<br>
+<img src="https://upload-images.jianshu.io/upload_images/1930874-4556b0dc9fa60ecd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="Pages"></p>
+</li>
+<li>
+<p>此时你就可以使用 <code>用户名.gitee.io</code> 来访问你的 <code>博客</code> 了。<br>
+<img src="https://upload-images.jianshu.io/upload_images/1930874-be5eeac4cb380f7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="jonzzs.gitee.io"></p>
+</li>
+</ol>
+<blockquote>
+<p>大功告成，使用 <code>码云</code> 托管 <code>博客</code> 后访问速度会快很多，大家块试试看吧。</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.rabbituzki.com.cn/2018/10/23/%E4%BD%BF%E7%94%A8-Hexo-%E5%85%8D%E8%B4%B9%E6%90%AD%E5%BB%BA%E5%B1%9E%E4%BA%8E%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" data-id="ckidvv5d600223sv4f7wob7w0" class="article-share-link">
+        分享
+      </a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/" rel="tag">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2018/10/24/%E5%88%A9%E7%94%A8gitlab-pages%E5%92%8Chexo%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            利用gitlab pages和hexo搭建一个个人博客
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2018/10/22/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">git 学习笔记</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2020 六加的博客</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="六加的博客"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>

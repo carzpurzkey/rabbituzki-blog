@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    Windows 下迁移 MariaDB 数据库文件 |
+    
+    六加的博客</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-Windows-下迁移-MariaDB-数据库文件" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Windows 下迁移 MariaDB 数据库文件
+    </h1>
+  
+  
+
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/07/Windows-%E4%B8%8B%E8%BF%81%E7%A7%BB-MariaDB-%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E4%BB%B6/" class="article-date">
+  <time datetime="2020-02-06T16:00:00.000Z" itemprop="datePublished">2020-02-07</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+  </div>
+
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+  <div class="article-gallery">
+    <div class="article-gallery-photos">
+      
+        
+          <img src="/images/MariaDB.png" itemprop="image">
+        
+      
+    </div>
+  </div>
+
+
+      
+      <h1>Windows 下迁移 MariaDB 数据库文件</h1>
+<ol>
+<li>
+<p>运行 MySQL Client (MariaDB 10.4 (x64))，输入密码后登录。</p>
+<p><img src="/images/Move-MariaDB-database-file-on-windows/1.PNG" alt="图1"></p>
+</li>
+<li>
+<p>执行语句 <code>show global variables like &quot;%datadir%&quot;;</code>，查询结果中的 <code>Value</code> 列所示即为 MariaDB 数据库文件存储位置。</p>
+<p><img src="/images/Move-MariaDB-database-file-on-windows/2.PNG" alt="图2"></p>
+</li>
+<li>
+<p>停止 MariaDB 服务。</p>
+<p><img src="/images/Move-MariaDB-database-file-on-windows/3.png" alt="图3"></p>
+</li>
+<li>
+<p>进入上一步数据库文件存储路径，将以数据库名命名的文件夹及 <em>mysql</em> 文件夹和以 <em>ib</em> 开头的文件复制至将要迁移的目标目录。</p>
+<p><img src="/images/Move-MariaDB-database-file-on-windows/4.PNG" alt="图4"></p>
+</li>
+<li>
+<p>(可选) 删除原始目录中上一步相应文件。</p>
+</li>
+<li>
+<p>启动数据库即完成迁移。</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.rabbituzki.com.cn/2020/02/07/Windows-%E4%B8%8B%E8%BF%81%E7%A7%BB-MariaDB-%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E4%BB%B6/" data-id="ckidvv5cr000w3sv4124y1s4l" class="article-share-link">
+        分享
+      </a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MariaDB/" rel="tag">MariaDB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2020/02/10/python3-%E5%88%9B%E5%BB%BA%E5%B8%A6%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%9A%84-Windows-%E6%9C%8D%E5%8A%A1%E7%A8%8B%E5%BA%8F/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            python3 创建带虚拟环境的 Windows 服务程序
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/02/04/%E5%9F%BA%E4%BA%8E-Hexo-Ocean-%E4%B8%BB%E9%A2%98%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">基于 Hexo Ocean 主题博客搭建</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2020 六加的博客</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="六加的博客"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>

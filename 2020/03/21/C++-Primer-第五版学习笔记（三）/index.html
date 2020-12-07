@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    《C++ Primer （第五版）》学习笔记 -- 之三 |
+    
+    六加的博客</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-C++-Primer-第五版学习笔记（三）" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      《C++ Primer （第五版）》学习笔记 -- 之三
+    </h1>
+  
+  
+
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/21/C++-Primer-%E7%AC%AC%E4%BA%94%E7%89%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/" class="article-date">
+  <time datetime="2020-03-20T16:00:00.000Z" itemprop="datePublished">2020-03-21</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+  </div>
+
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+  <div class="article-gallery">
+    <div class="article-gallery-photos">
+      
+        
+          <img src="/images/C++Primer.jpg" itemprop="image">
+        
+      
+    </div>
+  </div>
+
+
+      
+      <h1>C++ Primer 第五版学习笔记（三）</h1>
+<hr>
+<p>[TOC]</p>
+<hr>
+<h2 id="第三章-字符串、向量和数组"><a class="header-anchor" href="#第三章-字符串、向量和数组">¶</a>第三章 字符串、向量和数组</h2>
+<h3 id="3-1-命名空间的-using-声明"><a class="header-anchor" href="#3-1-命名空间的-using-声明">¶</a>3.1 命名空间的 <code>using</code> 声明</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="comment">// using 声明，当我们使用名字 cin 时，从命名空间 std 中获取它</span></span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cin</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; i;         <span class="comment">// 正确：cin 和 std::cin 含义相同</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; i;        <span class="comment">// 错误：没有对应的 using 声明，必须使用完整的名字</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; i;   <span class="comment">// 正确：显式地从 std 中使用 cout</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="第个名字都需要独立的-using-声明"><a class="header-anchor" href="#第个名字都需要独立的-using-声明">¶</a>第个名字都需要独立的 <code>using</code> 声明</h4>
+<p>用到的每个名字都必须有自己的声明语句，而且每句话都得以分号结束。</p>
+<h4 id="头文件不应该包含-using-声明"><a class="header-anchor" href="#头文件不应该包含-using-声明">¶</a>头文件不应该包含 <code>using</code> 声明</h4>
+<p>这是因为头文件的内容会拷贝到所有引用它的文件中去，如果头文件里有某个 <code>using</code> 声明，那么每个使用了该头文件的文件就都会有这个声明。对于某些程序来说，由于不经意间包含了一些名字，反而可能产生始料未及的名字冲突。</p>
+<h4 id="一点注意事项"><a class="header-anchor" href="#一点注意事项">¶</a>一点注意事项</h4>
+<p>略。见 P75。</p>
+<h4 id="3-1-节练习"><a class="header-anchor" href="#3-1-节练习">¶</a>3.1 节练习</h4>
+<ul>
+<li>
+<p>练习 3.1：使用恰当的 <code>using</code> 声明重做 1.4.1 节 (第 11 页) 和 2.6.2 节 (第 67 页) 的练习。</p>
+<p>解：</p>
+<ul>
+<li>
+<p>练习 1.9：编写程序，使用 <code>while</code> 循环将 50 到 100 的整数相加。</p>
+<p>解：</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cout</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>:<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> v = <span class="number">49</span>, sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(v &lt; <span class="number">100</span>) &#123;</span><br><span class="line">        sum += (++v);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The sum of 50 ~ 100 is "</span> &lt;&lt; sum &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>练习 1.10：除了 <code>++</code> 运算符将运算对象增加 <code>1</code> 之外，还有一个递减运算符 (<code>--</code>) 实现将值减少 <code>1</code>。编写程序，使用递减运算符在循环中顺序打印 <code>10</code> 到 <code>0</code> 之间的整数。</p>
+<p>解：</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cout</span>, <span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> v = <span class="number">11</span>;</span><br><span class="line">    <span class="keyword">while</span>(v &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; --v &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>练习 1.11：编写程序，提示用户输入两个整数，打印出这两个整数所指定的范围内的所有整数。</p>
+<p>解：</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cout</span>, <span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cin</span>, <span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> v_start = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> v_end = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Please enter start number: "</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; v_start;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Please enter end number: "</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; v_end;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="string">"The integers between "</span></span><br><span class="line">         &lt;&lt; v_start &lt;&lt; <span class="string">" and "</span> &lt;&lt; v_end &lt;&lt; <span class="string">" are: "</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>(v_end &gt;= v_start) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; v_start &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">        ++v_start;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>练习 2.41：使用你自己的 <code>Sales_data</code> 类重写 1.5.1 节 (P20)、1.5.2 节 (P21) 和 1.6 节 (P22) 的练习。眼下先把 <code>Sales_data</code> 类的定义和 <code>main</code> 函数放在同一个文件里。</p>
+<p>解：略。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-2-标准库类型-string"><a class="header-anchor" href="#3-2-标准库类型-string">¶</a>3.2 标准库类型 <code>string</code></h3>
+<p>标准库类型 <code>string</code> 表示 <strong>可变长</strong> 的字符序列，<strong>使用 <code>string</code> 类型必须首先包含 <em>string</em> 头文件</strong>。作为标准库的一部分，<strong><code>string</code> 定义在命名空间 <code>std</code> 中</strong>。</p>
+<blockquote>
+<p><strong>注意</strong>：</p>
+<hr>
+<p>C++ 标准一方面对库类型所提供的操作做了详细规定，另一方面也对库的实现者做出一些性能上的需求。因此，标准库类型对于一般应用场合来说有足够的效率。</p>
+</blockquote>
+<h4 id="3-2-1-定义和初始化-string-对象"><a class="header-anchor" href="#3-2-1-定义和初始化-string-对象">¶</a>3.2.1 定义和初始化 <code>string</code> 对象</h4>
+<p>一个类可以定义很多种初始化对象的方式，只不过这些方式之间必须有所区别：或者是初始值的数量不同，或者是初始值的类型不同：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> s1;               <span class="comment">// 默认初始化，s1 是一个空字符串</span></span><br><span class="line"><span class="built_in">string</span> s2 = s1;          <span class="comment">// s2 是 s1 的副本</span></span><br><span class="line"><span class="built_in">string</span> s3 = <span class="string">"hiya"</span>;      <span class="comment">// s3 是该字符串字面值的副本</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">s4</span><span class="params">(<span class="number">10</span>, <span class="string">'c'</span>)</span></span>;      <span class="comment">// s4 的内容是 cccccccccc</span></span><br></pre></td></tr></table></figure>
+<table>
+    <thead>
+        <tr>
+            <th colspan="2" style="text-align: center">表 3.1：初始化 string 对象的方式</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>string s1</td>
+            <td>默认初始化，s1 是一个空串</td>
+        </tr>
+        <tr>
+            <td>string s2(s1)</td>
+            <td>s2 是 s1 的副本</td>
+        </tr>
+        <tr>
+            <td>string s2 = s1</td>
+            <td>等价于 s2(s1)，s2 是 s1 的副本</td>
+        </tr>
+        <tr>
+            <td>string s3("value")</td>
+            <td>s3 是字面值 "value" 的副本，除了字面值最后的那个空字符外</td>
+        </tr>
+        <tr>
+            <td>string s3 = "value"</td>
+            <td>等价于 s3("value")，s3 是字面值 "value" 的副本</td>
+        </tr>
+        <tr>
+            <td>string s4(n, 'c')</td>
+            <td>把 s4 初始化为由连续 n 个字符 c 组成的串</td>
+        </tr>
+    </tbody>
+</table>
+<h5 id="直接初始化和拷贝初始化"><a class="header-anchor" href="#直接初始化和拷贝初始化">¶</a>直接初始化和拷贝初始化</h5>
+<p>由第 2.2.1 节 (P39) 的学习可知：</p>
+<ul>
+<li><strong>如果使用等号 (<code>=</code>) 初始化一个变量，实际上执行的是 <span style="border-bottom: 3px black double">拷贝初始化</span> (copy initialization)，编译器把等号右侧的初始值拷贝到新创建的对象中去</strong>。</li>
+<li>与之相反，如果不使用等号，则执行的是 <strong>直接初始化</strong> (direct initialization)。</li>
+</ul>
+<p>当初始值只有一个时，使用直接初始化或拷贝初始化都行。如果像上面的 <code>s4</code> 那样初始化要用到的值有多个，一般来说只能使用 <strong>直接初始化</strong> 的方式：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> s5 = <span class="string">"hiya"</span>;     <span class="comment">// 拷贝初始化</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">s6</span><span class="params">(<span class="string">"hiya"</span>)</span></span>;      <span class="comment">// 直接初始化</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">s7</span><span class="params">(<span class="number">10</span>, <span class="string">'c'</span>)</span></span>;     <span class="comment">// 直接初始化，s7 的内容是 cccccccccc</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.rabbituzki.com.cn/2020/03/21/C++-Primer-%E7%AC%AC%E4%BA%94%E7%89%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/" data-id="ckidvv5c900023sv4c2r51sz5" class="article-share-link">
+        分享
+      </a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" rel="tag">编程语言</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2020/04/18/Entity%20Framework%20Core%203.1%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            Entity Framework Core 3.1 教程
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/02/19/OpenSSL-%E8%87%AA%E7%AD%BE%E5%8F%91%E9%85%8D%E7%BD%AE%E6%9C%89%E5%A4%9A%E5%9F%9F%E5%90%8D%E6%88%96-IP-%E5%9C%B0%E5%9D%80%E7%9A%84%E8%AF%81%E4%B9%A6/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">OpenSSL 自签发配置有多域名或 IP 地址的证书</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2020 六加的博客</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="六加的博客"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>

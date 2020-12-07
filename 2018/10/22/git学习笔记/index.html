@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    git 学习笔记 |
+    
+    六加的博客</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-git学习笔记" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      git 学习笔记
+    </h1>
+  
+  
+
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/10/22/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time datetime="2018-10-21T16:00:00.000Z" itemprop="datePublished">2018-10-22</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+  </div>
+
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+  <div class="article-gallery">
+    <div class="article-gallery-photos">
+      
+        
+          <img src="/images/git.png" itemprop="image">
+        
+      
+    </div>
+  </div>
+
+
+      
+      <h1>git学习笔记</h1>
+<hr>
+<p>[TOC]</p>
+<hr>
+<h2 id="时光穿梭机"><a class="header-anchor" href="#时光穿梭机">¶</a>时光穿梭机</h2>
+<h3 id="版本回退"><a class="header-anchor" href="#版本回退">¶</a>版本回退</h3>
+<ol>
+<li><code>HEAD</code>指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令<code>git reset --hard commit_id</code>。此命令是将工作目录中的修改撤回到与本地版本库一致。</li>
+<li>穿梭前，用<code>git log</code>可以查看提交历史，以便确定要回退到哪个版本。</li>
+<li>要重返未来，用<code>git reflog</code>查看命令历史，以便确定要回到未来的哪个版本。</li>
+</ol>
+<h3 id="工作区与暂存区"><a class="header-anchor" href="#工作区与暂存区">¶</a>工作区与暂存区</h3>
+<ol>
+<li><code>git diff</code> 是你工作区跟仓库（仓库也叫版本库）的比较，这个时候可以看你开发过程中修改了哪些内容</li>
+<li><code>git diff --cached</code> 是看你stage区和仓库分支上的比较，你add后但是没有commit， 这个时候只是在stage中，可以确认下修改是否正确，如果正确无误可以commit合并到分支。</li>
+<li>在<code>git commit</code>后stage区并不会清空（原贴有错误）。</li>
+</ol>
+<h3 id="撤消修改"><a class="header-anchor" href="#撤消修改">¶</a>撤消修改</h3>
+<ul>
+<li>命令<code>git checkout -- readme.txt</code>意思就是，把readme.txt文件在工作区的修改（从版本库）全部撤销，这里有两种情况：</li>
+</ul>
+<p>1. 一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；</p>
+<pre><code>原布局：
+    workdir            stage                 master
+     test               test                  test
+
+修改后：
+    workdir            stage                 master
+    test_mod            test                  test
+
+git checkout -- readme.txt后：
+    workdir            stage                 master
+     test               test                  test
+</code></pre>
+<p>2. 一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。</p>
+<pre><code>原布局：
+    workdir            stage                 master
+     test               test                  test
+
+修改后并git add后又修改：
+    workdir            stage                 master
+    test_mod_mod      test_mod                test
+
+git checkout -- readme.txt后：
+    workdir            stage                 master
+    test_mod          test_mod                  test
+</code></pre>
+<p>  <strong>总之，就是让这个文件回到最近一次<code>git commit</code>（修改后未<code>git add</code>）或<code>git add</code>（修改后已<code>git add</code>）时的状态。</strong></p>
+<ul>
+<li>命令<code>git reset HEAD file</code>意思就是，可以把暂存区的修改撤销掉（unstage），重新放回工作区。</li>
+<li>小结：
+<ul>
+<li>场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令<code>git checkout -- file</code>。</li>
+<li>场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，<strong>分两步，第一步用命令<code>git reset HEAD &lt;file&gt;</code>，就回到了场景1，第二步按场景1操作</strong>。</li>
+<li>场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。</li>
+</ul>
+</li>
+</ul>
+<p>  笔记：</p>
+<ul>
+<li><code>git checkout -- file</code>是<strong>撤回</strong>，重点是使<strong>工作区</strong>文件与邻近的且不一致的区的文件一致。</li>
+<li><code>git reset HEAD file</code>是<strong>重置</strong>，重点是将<strong>暂存区</strong>文件重置成<code>git add</code>前的状态。</li>
+</ul>
+<h3 id="删除文件"><a class="header-anchor" href="#删除文件">¶</a>删除文件</h3>
+<ol>
+<li>如果你用的<code>rm</code>删除文件，那就相当于只删除了工作区的文件，如果想要恢复，直接用<code>git checkout -- &lt;file&gt;</code>就可以。</li>
+<li>如果你用的是<code>git rm</code>删除文件，那就相当于不仅删除了文件，而且还添加到了暂存区，需要先<code>git reset HEAD &lt;file&gt;</code>，然后再<code>git checkout -- &lt;file&gt;</code>。</li>
+<li>如果你想彻底把版本库的删除掉，先<code>git rm</code>，再<code>git commit</code>就ok了。</li>
+</ol>
+<h2 id="远程仓库"><a class="header-anchor" href="#远程仓库">¶</a>远程仓库</h2>
+<h3 id="添加远程库"><a class="header-anchor" href="#添加远程库">¶</a>添加远程库</h3>
+<ol>
+<li>要关联一个远程库，使用命令<code>git remote add origin git@server-name:path/repo-name.git</code>；</li>
+<li>关联后，使用命令<code>git push -u origin master</code>第一次推送<code>master</code>分支的所有内容；</li>
+<li>此后，每次本地提交后，只要有必要，就可以使用命令<code>git push origin master</code>推送最新修改；</li>
+</ol>
+<h2 id="分支管理"><a class="header-anchor" href="#分支管理">¶</a>分支管理</h2>
+<h3 id="创建与合并分支"><a class="header-anchor" href="#创建与合并分支">¶</a>创建与合并分支</h3>
+<ol>
+<li>把<code>dev</code>分支的工作成果合并到<code>master</code>分支上：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git merge dev</span><br></pre></td></tr></table></figure>
+<p>2. Git分支常用命令：</p>
+<ul>
+<li>查看分支：<code>git branch</code></li>
+<li>创建分支：<code>git branch &lt;name&gt;</code></li>
+<li>切换分支：<code>git checkout &lt;name&gt;</code></li>
+<li>创建+切换分支：<code>git checkout -b &lt;name&gt;</code></li>
+<li>合并某分支到当前分支：<code>git merge &lt;name&gt;</code></li>
+<li>删除分支：<code>git branch -d &lt;name&gt;</code></li>
+</ul>
+<h3 id="Bug分支"><a class="header-anchor" href="#Bug分支">¶</a>Bug分支</h3>
+<ol>
+<li>工作区和暂存区是一个公开的工作台，任何分支都会用到，并能看到工作台上最新的内容，只要在工作区、暂存区的改动未能够提交到某一个版本库（分支）中，那么在任何一个分支下都可以看得到这个工作区、暂存区的最新实时改动。</li>
+<li>使用<code>git stash</code>就可以将暂存区的修改藏匿起来，使整个工作台看起来都是干净的。所以要清理整个工作台，那么前提是必须先将工作区的内容都<code>git add</code>到暂存区中去。之后在干净的工作台上可以做另外一件紧急事件与藏匿起来的内容是完全独立的。</li>
+<li>如果是修改的文件不用<code>git add</code>依然可以<code>git stash</code>，只有新文件才需要<code>git add</code>。</li>
+</ol>
+<h3 id="Feature分支"><a class="header-anchor" href="#Feature分支">¶</a>Feature分支</h3>
+<ul>
+<li>如果要丢弃一个没有被合并过的分支，可以通过<code>git branch -D &lt;name&gt;</code>强行删除。</li>
+</ul>
+<h3 id="多人协作"><a class="header-anchor" href="#多人协作">¶</a>多人协作</h3>
+<ul>
+<li>查看远程库信息，使用<code>git remote -v</code>；</li>
+<li>本地新建的分支如果不推送到远程，对其他人就是不可见的；</li>
+<li>从本地推送分支，使用<code>git push origin branch-name</code>，如果推送失败，先用<code>git pull</code>抓取远程的新提交；</li>
+<li>在本地创建和远程分支对应的分支，使用<code>git checkout -b branch-name origin/branch-name</code>，本地和远程分支的名称最好一致；</li>
+<li>建立本地分支和远程分支的关联，使用<code>git branch --set-upstream-to=origin/branch-name branch-name</code>；</li>
+<li>从远程抓取分支，使用<code>git pull</code>，如果有冲突，要先处理冲突。</li>
+</ul>
+<h3 id="Rebase"><a class="header-anchor" href="#Rebase">¶</a>Rebase</h3>
+<ul>
+<li>只对尚未推送或分享给别人的本地修改执行变基操作清理历史；</li>
+<li>从不对已推送至别处的提交执行变基操作。</li>
+<li>在重放之前的提交的时候，Git会创建新的提交，也就是说即使你重放的提交与之前的一模一样Git也会将之当做新的独立的提交进行处理。</li>
+<li><code>git rebase</code>并不会删除老的提交，也就是说你在对某个分支执行了<code>git rebase</code>操作之后，老的提交仍然会存放在.git文件夹的objects目录下。如果你对于Git是如何存放你的提交不太了解的话可以参考这篇文章：<a href="https://medium.freecodecamp.com/understanding-git-for-real-by-exploring-the-git-directory-1e079c15b807#.6ylqa5e2w" target="_blank" rel="noopener">Understanding git for real by exploring the .git directory</a><br>
+<img src="https://image-static.segmentfault.com/206/854/2068544494-5783bdd025d80" alt="rebase"></li>
+<li>设你本地有个branch A，服务器上也有branch A，然后你在本地对branch A进行了<code>git rebase</code>，然后出于某种原因必须<code>git push</code>到服务器，那么你必须使用<code>git push --force</code>。
+<ol>
+<li>如果你能确认branch A没有被其他人<code>git pull</code>过，那么接下来就没什么事了。</li>
+<li>如果branch A已经被别人<code>git pull</code>过，那么你必须告诉那些人，在本地将branch A干掉：<code>git branch -D A</code>，然后<code>git fetch</code>，然后重新checkout：<code>git checkout A</code>。</li>
+<li>如果branch A已经被别人git pull过，而且那些人在本地对branch A做了几个commit，那么，你必须让他们先<code>git push</code>上去之后，你再<code>git rebase</code>，然后参考步骤2。</li>
+</ol>
+</li>
+</ul>
+<h2 id="标签管理"><a class="header-anchor" href="#标签管理">¶</a>标签管理</h2>
+<h3 id="创建标签"><a class="header-anchor" href="#创建标签">¶</a>创建标签</h3>
+<ul>
+<li>命令<code>git tag &lt;tagname&gt;</code>用于新建一个标签，默认为HEAD，也可以指定一个commit id；</li>
+<li><code>git tag -a &lt;tagname&gt; -m &quot;blablabla...&quot;</code>可以指定标签信息；</li>
+<li>命令<code>git tag</code>可以查看所有标签。</li>
+<li><strong>标签总是和某个commit挂钩。如果这个commit既出现在master分支，又出现在dev分支，那么在这两个分支上都可以看到这个标签。</strong></li>
+<li>用GPG签名tag：<code>git tab -s &lt;tagbane&gt; -m &quot;blablabla...&quot;</code>。<a href="http://arondight.me/2016/04/17/%E4%BD%BF%E7%94%A8GPG%E7%AD%BE%E5%90%8DGit%E6%8F%90%E4%BA%A4%E5%92%8C%E6%A0%87%E7%AD%BE/" target="_blank" rel="noopener">GPG详解</a></li>
+</ul>
+<h3 id="操作标签"><a class="header-anchor" href="#操作标签">¶</a>操作标签</h3>
+<ul>
+<li>命令<code>git push origin &lt;tagname&gt;</code>可以推送一个本地标签；</li>
+<li>命令<code>git push origin --tags</code>可以推送全部未推送过的本地标签；</li>
+<li>命令<code>git tag -d &lt;tagname&gt;</code>可以删除一个本地标签；</li>
+<li>命令<code>git push origin :refs/tags/&lt;tagname&gt;</code>可以删除一个远程标签。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.rabbituzki.com.cn/2018/10/22/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckidvv5cy001c3sv4195whbsu" class="article-share-link">
+        分享
+      </a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2018/10/23/%E4%BD%BF%E7%94%A8-Hexo-%E5%85%8D%E8%B4%B9%E6%90%AD%E5%BB%BA%E5%B1%9E%E4%BA%8E%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            使用 Hexo 免费搭建属于自己的个人博客
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2018/10/22/%E5%85%B3%E9%97%ADGNOME-activity%E9%A1%B5%E9%9D%A2%E5%B7%A6%E8%BE%B9%E7%9A%84dock/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">关闭GNOME activity页面左边的dock</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2020 六加的博客</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="六加的博客"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>

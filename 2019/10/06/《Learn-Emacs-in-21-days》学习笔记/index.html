@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    《Learn Emacs in 21 days》学习笔记 |
+    
+    六加的博客</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-《Learn-Emacs-in-21-days》学习笔记" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      《Learn Emacs in 21 days》学习笔记
+    </h1>
+  
+  
+
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/10/06/%E3%80%8ALearn-Emacs-in-21-days%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time datetime="2019-10-05T16:00:00.000Z" itemprop="datePublished">2019-10-06</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+  </div>
+
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+  <div class="article-gallery">
+    <div class="article-gallery-photos">
+      
+        
+          <img src="/images/Emacs.png" itemprop="image">
+        
+      
+        
+          <img src="/images/gnu.jpg" itemprop="image">
+        
+      
+    </div>
+  </div>
+
+
+      
+      <p>[TOC]</p>
+<hr>
+<h1>《Learn Emacs in 21 days》学习笔记</h1>
+<h2 id="第一天"><a class="header-anchor" href="#第一天">¶</a>第一天</h2>
+<h3 id="配置文件-init-el"><a class="header-anchor" href="#配置文件-init-el">¶</a>配置文件(init.el)</h3>
+<ul>
+<li>配置文件默认位置为 <em>$HOME/.emacs.d/init.el</em>
+<blockquote>
+<p>Windows 下需要设置环境变量<code>HOME</code>，若不设置，默认为 <em>%USERPROFILE%\.emacs.d\init.el</em> 或 <em>%APPDATA%\.emacs.d\init.el</em>。</p>
+</blockquote>
+</li>
+<li>手动指定配置文件位置<br>
+编辑 <em>$HOME/.emacs.d/init.el</em> (Windows 下为 <em>%USERPROFILE%\.emacs.d\init.el</em> 或 <em>%APPDATA%\.emacs.d\init.el</em>)：</li>
+</ul>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">;; This file is only for windows 7/8/8.1</span></span><br><span class="line"><span class="comment">;; The only thing it does is to set the HOME directories for emacs,</span></span><br><span class="line"><span class="comment">;; then trigger the init.el in the directory specified by HOME to</span></span><br><span class="line"><span class="comment">;; accomplish the true initialization</span></span><br><span class="line"><span class="comment">;; You should put this file in the default HOME directory right after</span></span><br><span class="line"><span class="comment">;; emacs is installed</span></span><br><span class="line">(<span class="name">setenv</span> <span class="string">"HOME"</span> <span class="string">"C:/Users/Carzpurzkey"</span>) <span class="comment">;; you can change this dir to the place you like</span></span><br><span class="line">(<span class="name">load</span> <span class="string">"~/.emacs.d/init.el"</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>基础配置</li>
+</ul>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">; 关闭工具栏</span></span><br><span class="line">(<span class="name">tool-bar-mode</span> <span class="number">-1</span>)</span><br><span class="line"><span class="comment">; 关闭滚动条</span></span><br><span class="line">(<span class="name">scroll-bar-mode</span> <span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line">(<span class="name">electric-indent-mode</span> <span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">; 关闭欢迎画面</span></span><br><span class="line">(<span class="name">setq</span> inhibit-splash-screen <span class="literal">t</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">; 启用全局行号</span></span><br><span class="line">(<span class="name">global-linum-mode</span> <span class="literal">t</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">; 启用全局company-mode</span></span><br><span class="line">(<span class="name">global-company-mode</span> <span class="literal">t</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">; 启用全局条状光标</span></span><br><span class="line">(<span class="name">setq-default</span> cursor-type 'bar)</span><br><span class="line"></span><br><span class="line"><span class="comment">; 禁用自动文件备份</span></span><br><span class="line">(<span class="name">setq</span> make-backup-files <span class="literal">nil</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="前缀键-Leading-Key"><a class="header-anchor" href="#前缀键-Leading-Key">¶</a>前缀键 (Leading Key)</h3>
+<ul>
+<li>
+<p><code>C-x</code> 执行快捷键命令</p>
+<ol>
+<li><code>C-x C-e</code>
+<ul>
+<li>立即执行光标所在位置 elisp 脚本（光标必须在 sexp 尾部）。</li>
+<li>运行上一个 sexp（即执行 <code>eval-last-sexp</code> 命令）。</li>
+</ul>
+</li>
+<li><code>C-x C-f</code> 打开文件。</li>
+<li><code>C-x C-s</code> 保存文件。</li>
+<li><code>C-x 2</code> 在下方新建窗口。</li>
+<li><code>C-x 3</code> 在右侧新建窗口。</li>
+<li><code>C-x 1</code> 关闭当前窗口之外的所有窗口。</li>
+<li><code>C-x b</code> 切换 buffers。</li>
+<li><code>C-x k</code> 删除当前buffer。</li>
+<li><code>C-x o</code> 切换窗口。</li>
+</ol>
+</li>
+<li>
+<p><code>C-h</code> 帮助</p>
+<ol>
+<li><code>C-h v</code> 查询变量信息。</li>
+<li><code>C-h f</code> 查询函数信息。</li>
+<li><code>C-h k</code> 查询键绑定信息。</li>
+</ol>
+</li>
+<li>
+<p><code>C-c</code> 自定义快捷键</p>
+<ul>
+<li>
+<p>org-mode：</p>
+<ul>
+<li>
+<p><code>C-c t</code> 切换 TODO 状态。</p>
+</li>
+<li>
+<p><code>C-c '</code> 当光标处于块</p>
+<pre><code>  <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#+BEGIN_SRC language</span><br><span class="line">#+END_SRC</span><br></pre></td></tr></table></figure>
+</code></pre>
+<p>中间时，按 <code>C-c '</code> 则会在新 <em>buffer</em> 中以 <code>language</code> minar mode 编辑块中内容。</p>
+</li>
+<li>
+<p><code>C-c C-s</code> 制定计划，指定开始时间。</p>
+</li>
+<li>
+<p><code>C-c C-d</code> 制定计划，指定 dead line。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><code>M-x</code> 在 <em>minibuffer</em> 执行文字命令。</p>
+</li>
+<li>
+<p>其它</p>
+<ol>
+<li><code>C-a</code> 定位至行首。</li>
+<li><code>C-e</code> 定位至行尾。</li>
+<li><code>C-f</code> 光标前移一个字符。</li>
+<li><code>C-p</code> 光标上移一行。</li>
+<li><code>C-n</code> 光标下移一行。</li>
+<li><code>C-s</code> 搜索。</li>
+<li><code>C-g</code> 终止一切未完成的操作。</li>
+<li><code>M-Enter</code> 自动修正序号。</li>
+</ol>
+</li>
+</ul>
+<h2 id="第二天"><a class="header-anchor" href="#第二天">¶</a>第二天</h2>
+<h3 id="继续定制配置文件"><a class="header-anchor" href="#继续定制配置文件">¶</a>继续定制配置文件</h3>
+<ol>
+<li>
+<p>org-mode：</p>
+<ul>
+<li>
+<p>启用：</p>
+<pre><code>  <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">require</span> 'org)</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+<li>
+<p>使块 <code>#+BEGIN_SRC</code> <code>#+END_SRC</code> 之间的代码有语法高亮：</p>
+<pre><code>  <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">require</span> 'org)</span><br><span class="line">(<span class="name">setq</span> org-src-fontify-natively <span class="literal">t</span>)</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+<li>
+<p><code>&lt;s</code> + <code>tab键</code> 自动插入 <code>#+BEGIN_SRC language</code> <code>#+END_SRC</code> 块。</p>
+</li>
+<li>
+<p>Agenda</p>
+<ul>
+<li>
+<p>启用及配置</p>
+  <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">setq</span> org-agenda-files '(<span class="string">"~/org-agenda"</span>))</span><br><span class="line">(<span class="name">global-set-key</span> (<span class="name">kbd</span> <span class="string">"C-c a"</span>) 'org-agenda)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>开启“最近打开的文件”功能：</p>
+ <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">require</span> 'recentf)</span><br><span class="line">(<span class="name">recentf-mode</span> <span class="literal">t</span>)</span><br><span class="line">(<span class="name">setq</span> recentf-max-menu-items <span class="number">25</span>)</span><br><span class="line">(<span class="name">global-set-key</span> <span class="string">"\C-x\ \C-r"</span> 'recentf-open-files)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>使选中区域切换为替换模式：</p>
+ <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">delete-selection-mode</span> <span class="literal">t</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>打开 Emacs 时自动全屏显示：</p>
+ <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">setq</span> initial-frame-alist (<span class="name">quote</span> ((fullscreen . maximized))))</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>高亮括号匹配：</p>
+ <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">add-hook</span> 'emacs-lisp-mode-hook 'show-parent-mode)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>高亮当前行：</p>
+ <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">global-hl-line-mode</span> <span class="literal">t</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>加载主题：</p>
+ <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">load-theme</span> 'dracula <span class="literal">t</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>hungry delete：</p>
+ <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">require</span> 'hungry-delete)</span><br><span class="line">(<span class="name">global-hungry-delete-mode</span> <span class="literal">t</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>smex：<br>
+smex 是 <code>M-x</code> 的扩展</p>
+ <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">require</span> 'smex)</span><br><span class="line">(<span class="name">smex-initialize</span>)</span><br><span class="line">(<span class="name">global-set-key</span> (<span class="name">kbd</span> <span class="string">"M-x"</span>) 'smex)</span><br><span class="line">(<span class="name">global-set-key</span> (<span class="name">kbd</span> <span class="string">"M-x"</span>) 'smex-major-mode-commands)</span><br><span class="line">(<span class="name">global-set-key</span> (<span class="name">kbd</span> <span class="string">"C-c C-c M-x"</span>) 'execute-extended-command)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>swiper：<br>
+swiper 是 <code>C-s</code> 的扩展：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">ivy-mode</span> <span class="literal">t</span>)</span><br><span class="line">(<span class="name">setq</span> ivy-use-virtual-buffers <span class="literal">t</span>)</span><br><span class="line">(<span class="name">global-set-key</span> <span class="string">"\C-s"</span> 'swiper)</span><br><span class="line">(<span class="name">global-set-key</span> (<span class="name">kbd</span> <span class="string">"C-c C-r"</span>) 'ivy-resume)</span><br><span class="line">(<span class="name">global-set-key</span> (<span class="name">kbd</span> <span class="string">"&lt;f6&gt;"</span>) 'ivy-resume)</span><br><span class="line">(<span class="name">global-set-key</span> (<span class="name">kbd</span> <span class="string">"M-x"</span>) 'counsel-M-x)</span><br><span class="line">(<span class="name">global-set-key</span> (<span class="name">kbd</span> <span class="string">"C-x C-f"</span>) 'counsel-find-file)</span><br><span class="line">(<span class="name">global-set-key</span> (<span class="name">kbd</span> <span class="string">"&lt;f1&gt; f"</span>) 'counsel-describe-function)</span><br><span class="line">(<span class="name">global-set-key</span> (<span class="name">kbd</span> <span class="string">"&lt;f1&gt; v"</span>) 'counsel-describe-variable)</span><br><span class="line">(<span class="name">global-set-key</span> (<span class="name">kbd</span> <span class="string">"C-c g"</span>) 'counsel-git)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>smartparens：<br>
+smartparens 可以自动补全括号及各种引号：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">smartparens-global-mode</span> <span class="literal">t</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>find-function</code> 和 <code>find-variable</code> 函数</p>
+</li>
+</ol>
+<ul>
+<li>
+<p><code>find-function</code> 函数查看函数定义。</p>
+</li>
+<li>
+<p><code>find-variable</code> 函数查看变量定义。</p>
+</li>
+<li>
+<p><code>find-function-on-key</code> 函数查看指定的快捷键绑定在了哪个函数上。</p>
+<p>定义以上函数快捷键：</p>
+  <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">global-set-key</span> (<span class="name">kbd</span> <span class="string">"C-h C-f"</span>) 'find-function)</span><br><span class="line">(<span class="name">global-set-key</span> (<span class="name">kbd</span> <span class="string">"C-h C-v"</span>) 'find-variable)</span><br><span class="line">(<span class="name">global-set-key</span> (<span class="name">kbd</span> <span class="string">"C-h C-k"</span>) 'find-function-on-key)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="require-命令"><a class="header-anchor" href="#require-命令">¶</a><code>require</code> 命令</h3>
+<ul>
+<li><code>require</code> 命令会从一个文件加载一个特性(feature)。如果未提供文件名，那么 <code>require</code> 命令会将第一个参数同时作为特性名和文件名。</li>
+<li><code>require</code> 命令内部调用的是 <code>load</code> 命令。</li>
+</ul>
+<h3 id="eval-buffer-命令"><a class="header-anchor" href="#eval-buffer-命令">¶</a><code>eval-buffer</code> 命令</h3>
+<p><code>eval-buffer</code> 命令会执行当前整个 <em>buffer</em> 中的所有命令。</p>
+<h3 id="hook"><a class="header-anchor" href="#hook">¶</a>hook</h3>
+<p><code>add-hook</code> 函数：</p>
+<p>使用：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">add-hook</span> 'hook-name 'hook-function-or-mode)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>hook-name</code> 代表将在哪个 mode 中添加 hook。例如 <code>emacs-lisp-mode-hook</code>。</p>
+</blockquote>
+<h3 id="改进-package-系统"><a class="header-anchor" href="#改进-package-系统">¶</a>改进 package 系统</h3>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">when</span> (<span class="name">&gt;=</span> emacs-major-version <span class="number">24</span>)</span><br><span class="line">    (<span class="name">require</span> 'package)</span><br><span class="line">    (<span class="name">package-initialize</span>)</span><br><span class="line">    (<span class="name">setq</span> package-archives '((<span class="string">"gnu"</span>   . <span class="string">"http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/"</span>)</span><br><span class="line">                             (<span class="string">"melpa"</span> . <span class="string">"http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/"</span>))))</span><br><span class="line"></span><br><span class="line"><span class="comment">;; cl - Common Lisp Extension</span></span><br><span class="line">(<span class="name">require</span> 'cl)</span><br><span class="line"><span class="comment">;; Add Packages</span></span><br><span class="line">(<span class="name">defvar</span> my/packages '(</span><br><span class="line">    ;; --- Auto-completion ---</span><br><span class="line">    company</span><br><span class="line"></span><br><span class="line">    ;; --- Better Editor ---</span><br><span class="line">    hungry-delete</span><br><span class="line">    swiper</span><br><span class="line">    counsel</span><br><span class="line">    smartparens</span><br><span class="line">	smex</span><br><span class="line"></span><br><span class="line">    ;; --- Major Mode ---</span><br><span class="line">    js2-mode</span><br><span class="line"></span><br><span class="line">	;; --- Minor Mode ---</span><br><span class="line">	nodejs-repl</span><br><span class="line">	exec-path-from-shell</span><br><span class="line"></span><br><span class="line">	;; --- Themes ---</span><br><span class="line">	;; monokai-theme</span><br><span class="line">	;; solarized-theme</span><br><span class="line">    dracula-theme</span><br><span class="line"></span><br><span class="line">	) <span class="string">"Default packages"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">;; 添加此行防止 package-autoremove 命令自动删除第三方 package</span></span><br><span class="line">(<span class="name">setq</span> package-selected-packages my/packages)</span><br><span class="line"></span><br><span class="line">(<span class="name">defun</span> my/packages-installed-p ()</span><br><span class="line">    (<span class="name">loop</span> for pkg in my/packages</span><br><span class="line">        when (<span class="name">not</span> (<span class="name">package-installed-p</span> pkg)) do (<span class="name">return</span> <span class="literal">nil</span>)</span><br><span class="line">        finally (<span class="name">return</span> <span class="literal">t</span>)))</span><br><span class="line"></span><br><span class="line">(<span class="name">unless</span> (<span class="name">my/packages-installed-p</span>)</span><br><span class="line">    (<span class="name">message</span> <span class="string">"%s"</span> <span class="string">"Refreshing package database..."</span>)</span><br><span class="line">    (<span class="name">package-refresh-contents</span>)</span><br><span class="line">    (<span class="name">dolist</span> (<span class="name">pkg</span> my/packages)</span><br><span class="line">        (<span class="name">when</span> (<span class="name">not</span> (<span class="name">package-installed-p</span> pkg))</span><br><span class="line">            (<span class="name">package-install</span> pkg))))</span><br></pre></td></tr></table></figure>
+<h3 id="package-list-packages-命令"><a class="header-anchor" href="#package-list-packages-命令">¶</a><code>package-list-packages</code> 命令</h3>
+<p>执行 <code>M-x package-list-packages</code> 命令后，会打开一个新的名为 <em>*Packages*</em> 的 <em>buffer</em> 。</p>
+<ul>
+<li>在 <em>*Packages*</em> <em>buffer</em> 中，按 <code>I</code> 标记将要被安装的包；按 <code>U</code> 取消被标记为将被安装的包；</li>
+<li>在 <em>*Packages*</em> <em>buffer</em> 中，按 <code>D</code> 标记将要卸载的包。</li>
+<li>在 <em>*Packages*</em> <em>buffer</em> 中，按 <code>U</code> 标记将要更新的包。</li>
+<li>在 <em>*Packages*</em> <em>buffer</em> 中，按 <code>X</code> 执行上述标记。</li>
+</ul>
+<h3 id="customize-group-命令"><a class="header-anchor" href="#customize-group-命令">¶</a><code>customize-group</code> 命令</h3>
+<p><code>customize-group</code> 命令用来以更直观的方式配置插件参数并保存至 emacs 配置文件。</p>
+<h3 id="更改默认-mode"><a class="header-anchor" href="#更改默认-mode">¶</a>更改默认 mode</h3>
+<p>通过更改 <code>auto-mode-alist</code> 变量可以改变自动加载的 mode：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">;; 将 Javascript 文件默认的 Javascript Major Mode 更改为 js2-mode</span></span><br><span class="line">(<span class="name">setq</span> auto-mode-alist</span><br><span class="line">    (<span class="name">append</span></span><br><span class="line">        '((<span class="string">"\\.js\\'"</span> . js2-mode))</span><br><span class="line">        auto-mode-alist))</span><br></pre></td></tr></table></figure>
+<h2 id="第三天"><a class="header-anchor" href="#第三天">¶</a>第三天</h2>
+<h3 id="继续定制配置文件-v2"><a class="header-anchor" href="#继续定制配置文件-v2">¶</a>继续定制配置文件</h3>
+<ol>
+<li>
+<p>自动重新加载外部修改文件：</p>
+ <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">global-auto-revert-mode</span> <span class="literal">t</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>禁用文件自动保存</p>
+ <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">setq</span> auto-save-default <span class="literal">nil</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>popwin：</p>
+ <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">require</span> 'popwin)</span><br><span class="line">(<span class="name">popwin-mode</span> <span class="literal">t</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>abbrev-mode</p>
+<p>abbrev-mode 可以定义一个用以简化自动补全的缩写。</p>
+<ul>
+<li>
+<p>启用：</p>
+  <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">abbrev-mode</span> <span class="literal">t</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>定义缩写列表：</p>
+  <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">define-abbrev-table</span> 'global-abbrev-table '(</span><br><span class="line">	(<span class="string">"8zl"</span> <span class="string">"zilongshanren"</span>)))</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>关闭触底/顶声音提示</p>
+  <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">setq</span> ring-bell-function 'ignore)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="autoload-魔法注释"><a class="header-anchor" href="#autoload-魔法注释">¶</a><code>;;;###autoload</code> 魔法注释</h3>
+<p>当我们调用 <code>(package-initialize)</code> 时，其会遍历 <em>elpa</em> 目录中的 packages、读取该 package 目录下的 <em>*.el</em> 文件。根据 <code>;;;###autoload</code> 注释，<code>(package-initialize)</code> 会生成一个包含所有自动加载项的 el 文件。<br>
+通过添加 <code>;;;###autoload</code> 魔法注释，emacs 便可以不调用 <code>(require 'mode-name)</code> 而是直接使用 <code>(global-mode-name t)</code> 来启用 package。</p>
+<h3 id="load-命令"><a class="header-anchor" href="#load-命令">¶</a><code>load</code> 命令</h3>
+<p><code>load package-name</code> 命令使用如下顺序在 <code>load-path</code> 变量指定的目录中查找一个包并加载：</p>
+<blockquote>
+<p>package-name.elc -&gt; package-name.el -&gt; package-name.gz</p>
+</blockquote>
+<p>找不到则报错。</p>
+<h3 id="load-file-命令"><a class="header-anchor" href="#load-file-命令">¶</a><code>load-file</code> 命令</h3>
+<p>在指定的目录查找并加载 package。</p>
+<h3 id="features-变量"><a class="header-anchor" href="#features-变量">¶</a><code>features</code> 变量</h3>
+<p>一个 package 可以通过 <code>provide</code> 向 <code>features</code> 变量添加自己的包名来“导出”自己，然后 emacs 便可以通过 <code>require</code> 命令读取 <code>features</code> 变量“导入”这个 package。</p>
+<h3 id="多文件存储配置"><a class="header-anchor" href="#多文件存储配置">¶</a>多文件存储配置</h3>
+<h4 id="load-path-变量"><a class="header-anchor" href="#load-path-变量">¶</a><code>load-path</code> 变量</h4>
+<ul>
+<li><code>load-path</code> 是一个 <code>list</code> 型变量且默认不包含 <em>~/.emacs.d</em>。</li>
+<li>可以通过 <code>(add-to-list 'load-path &quot;custom-configuration-file-path&quot;)</code> 将自定义配置文件所在目录添加到 <code>load-path</code> 中。</li>
+</ul>
+<h4 id="指定由-customize-group-生成的配置项存储文件"><a class="header-anchor" href="#指定由-customize-group-生成的配置项存储文件">¶</a>指定由 <code>customize-group</code> 生成的配置项存储文件</h4>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">setq</span> custom-file (<span class="name">expand-file-name</span> <span class="string">"configuration-file-path-relative-to-init.el-path"</span> user-emacs-directory))</span><br><span class="line">(<span class="name">load-file</span> custom-file)</span><br></pre></td></tr></table></figure>
+<h3 id="major-mode-和-minar-mode"><a class="header-anchor" href="#major-mode-和-minar-mode">¶</a>major mode 和 minar mode</h3>
+<p>major mode 分为以下三类：</p>
+<ul>
+<li>text-mode：普通文本模式。</li>
+<li>special-mode：特殊模式。用的较少。</li>
+<li>prog-mode：编程语言模式。如上述 js2-mode 便从 prog-mode 继承。</li>
+</ul>
+<h2 id="第四天"><a class="header-anchor" href="#第四天">¶</a>第四天</h2>
+<h3 id="indent-region-命令"><a class="header-anchor" href="#indent-region-命令">¶</a><code>indent-region</code> 命令</h3>
+<ul>
+<li>
+<p>签名：</p>
+  <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">indent-region</span> START END <span class="symbol">&amp;optional</span> COLUMN)</span><br></pre></td></tr></table></figure>
+<p>当我们选中部分文本后，<code>START</code> 和 <code>END</code> 既为选中区域的开头和结尾。</p>
+</li>
+<li>
+<p>使用示例</p>
+  <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">defun</span> indent-buffer()</span><br><span class="line">	(<span class="name">interactive</span>)</span><br><span class="line">	(<span class="name">indent-region</span> (<span class="name">point-min</span>) (<span class="name">point-max</span>)))</span><br><span class="line">	</span><br><span class="line">(<span class="name">defun</span> indent-region-or-buffer()</span><br><span class="line">   (<span class="name">interactive</span>)</span><br><span class="line">   (<span class="name">save-excursion</span>    <span class="comment">;; save-excursion：保存光标位置，执行子语句后恢复光标位置。</span></span><br><span class="line">       (<span class="name">if</span> (<span class="name">region-active-p</span>)    <span class="comment">;; *-p：断言。</span></span><br><span class="line">           (<span class="name">progn</span></span><br><span class="line">               (<span class="name">indent-region</span> (<span class="name">region-beginning</span>) (<span class="name">region-end</span>))</span><br><span class="line">               (<span class="name">message</span> <span class="string">"Indent selected region."</span>))</span><br><span class="line">       (<span class="name">progn</span>    <span class="comment">;; 等价于 else。</span></span><br><span class="line">           (<span class="name">indent-buffer</span>)</span><br><span class="line">           (<span class="name">message</span> <span class="string">"Indent buffer."</span>)))))</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Dired-Mode"><a class="header-anchor" href="#Dired-Mode">¶</a>Dired Mode</h3>
+<ul>
+<li>
+<p>Dired Mode 是一个强大的模式它能让我们完成和文件管理相关的所有操作。<br>
+使用 <code>C-x d</code> 就可以进入 Dired Mode。<br>
+常用操作：</p>
+<ul>
+<li><code>+</code> 创建目录</li>
+<li><code>g</code> 刷新目录</li>
+<li><code>C</code> 拷贝</li>
+<li><code>D</code> 删除</li>
+<li><code>R</code> 重命名</li>
+<li><code>d</code> 标记删除</li>
+<li><code>u</code> 取消标记</li>
+<li><code>x</code> 执行所有的标记</li>
+</ul>
+</li>
+<li>
+<p>优化</p>
+<ul>
+<li>
+<p>删除目录的时候 Emacs 会询问是否递归删除或拷贝， 这也有些麻烦我们可以用下面的配置将其设定为默认递归删除目录。</p>
+  <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">setq</span> dired-recursive-deletes 'always)</span><br><span class="line">(<span class="name">setq</span> dired-recursive-copies 'always)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>每一次你进入一个回车进入一个新的目录中是，一个新的缓冲区就会被建立。这使 得我们的缓冲区列表中充满了大量没有实际意义的记录。我们可以使用下面的代码，让 Emacs 重用唯一的一个缓冲区作为 Dired Mode 显示专用缓冲区。</p>
+  <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">put</span> 'dired-find-alternate-file 'disabled <span class="literal">nil</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">;; 主动加载 Dired Mode</span></span><br><span class="line"><span class="comment">;; (require 'dired)</span></span><br><span class="line"><span class="comment">;; (defined-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">;; 延迟加载</span></span><br><span class="line">(<span class="name">with-eval-after-load</span> 'dired</span><br><span class="line">    (<span class="name">define-key</span> dired-mode-map (<span class="name">kbd</span> <span class="string">"RET"</span>) 'dired-find-alternate-file))</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>使用 <code>(setq dired-dwin-target 1)</code> 则可以使当一个窗口（frame）中存在两个分屏 （window）时，将另一个分屏自动设置成拷贝地址的目标。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="org-mode-管理-Emacs-配置"><a class="header-anchor" href="#org-mode-管理-Emacs-配置">¶</a>org-mode 管理 Emacs 配置</h3>
+<p>我们也可以使用 org 来管理 Emacs 的配置文件（笔者和他的师傅其实更倾向于模块管理配置文件）。</p>
+<p>你需要将下面的代码放入配置入口文件 <em>init.el</em> 中，</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">package-initialize</span>)</span><br><span class="line"></span><br><span class="line">(<span class="name">require</span> 'org-install)</span><br><span class="line">(<span class="name">require</span> 'ob-tangle)</span><br><span class="line">(<span class="name">org-babel-load-file</span> (<span class="name">expand-file-name</span> <span class="string">"org-file-name.org"</span> user-emacs-directory))</span><br></pre></td></tr></table></figure>
+<p>之后我们需要做的仅仅只是将所有的配置文件放入 Org 模式中的代码块即可，并使用目录 结构来表述你的配置文件再把它保存在与入口文件相同的目录中即可(文件名为 <em><a href="http://org-file-name.org" target="_blank" rel="noopener">org-file-name.org</a></em>)。Emacs 会提取其中的配置并使其生效。这样做的好处是可以使自 己和他人更直观的，理解你的配置文件或者代码。</p>
+<h2 id="第五天"><a class="header-anchor" href="#第五天">¶</a>第五天</h2>
+<h3 id="继续定制配置文件-v3"><a class="header-anchor" href="#继续定制配置文件-v3">¶</a>继续定制配置文件</h3>
+<ol>
+<li>
+<p>取消引号自动配对：</p>
+ <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">sp-local-pair</span> 'emacs-lisp-mode <span class="string">"'"</span> <span class="literal">nil</span> <span class="symbol">:actions</span> <span class="literal">nil</span>)</span><br><span class="line">(<span class="name">sp-local-pair</span> 'lisp-interaction-mode <span class="string">"'"</span> <span class="literal">nil</span> <span class="symbol">:actions</span> <span class="literal">nil</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">;; 也可以把上面两句合起来</span></span><br><span class="line">(<span class="name">sp-local-pair</span> '(emacs-lisp-mode lisp-interaction-mode) <span class="string">"'"</span> <span class="literal">nil</span> <span class="symbol">:actions</span> <span class="literal">nil</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>show-paren-mode 可以使鼠标在括号上是高亮其所匹配的另一半括号，然而我们想要光标在括号内时就高亮包含内容的两个括号，使用下面的代码就可以做到这一点：</p>
+ <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">;; define-advice宏：扩展一个函数，使其在执行过程中 (:around) 执行另外一些操作。</span></span><br><span class="line">(<span class="name">define-advice</span> show-paren-function (<span class="symbol">:around</span> (<span class="name">fn</span>) fix-show-paren-function)</span><br><span class="line">  <span class="string">"Highlight enclosing parens."</span></span><br><span class="line">  (<span class="name">cond</span> ((<span class="name">looking-at-p</span> <span class="string">"\\s("</span>) (<span class="name">funcall</span> fn))</span><br><span class="line">		(<span class="name">t</span> (<span class="name">save-excursion</span></span><br><span class="line">	     (<span class="name">ignore-errors</span> (<span class="name">backward-up-list</span>))</span><br><span class="line">	     (<span class="name">funcall</span> fn)))))</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>解决在不同系统中的换行符，例如在 DOS 系统下的 <code>\r(^M)</code> 换行符， 这让我们有时候在 Unix 系统中很是头疼，因为它的存在会使版本控制误以为整行的代码都 被修改过而造成不必要的麻烦。（你可以在这里找到更多关于 <a href="http://unix.stackexchange.com/questions/32001/what-is-m-and-how-do-i-get-rid-of-it" target="_blank" rel="noopener">\r(^M)</a> 的信息）。</p>
+<ul>
+<li>
+<p>方法一：隐藏</p>
+  <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">defun</span> hidden-dos-eol ()</span><br><span class="line">  <span class="string">"Do not show ^M in files containing mixed UNIX and DOS line endings."</span></span><br><span class="line">  (<span class="name">interactive</span>)</span><br><span class="line">  (<span class="name">unless</span> buffer-display-table</span><br><span class="line">    (<span class="name">setq</span> buffer-display-table (<span class="name">make-display-table</span>)))</span><br><span class="line">  (<span class="name">aset</span> buffer-display-table ?\^M []))</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>方法二：删除</p>
+  <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">defun</span> remove-dos-eol ()</span><br><span class="line">  <span class="string">"Replace DOS eolns CR LF with Unix eolns CR"</span></span><br><span class="line">  (<span class="name">interactive</span>)</span><br><span class="line">  (<span class="name">goto-char</span> (<span class="name">point-min</span>))</span><br><span class="line">  (<span class="name">while</span> (<span class="name">search-forward</span> <span class="string">"\r"</span> <span class="literal">nil</span> <span class="literal">t</span>) (<span class="name">replace-match</span> <span class="string">""</span>)))</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="web-mode"><a class="header-anchor" href="#web-mode">¶</a>web-mode</h3>
+<ul>
+<li>
+<p>安装</p>
+  <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">defvar</span> xinyang/packages '(</span><br><span class="line">			   ;; 你其他的插件在这里</span><br><span class="line">			   web-mode</span><br><span class="line">			   ) <span class="string">"Default packages"</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>配置</p>
+<ol>
+<li>
+<p>我们需要做的是将所有的 <em>*.html</em> 文件都使用 web-mode 来打开。</p>
+ <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">setq</span> auto-mode-alist</span><br><span class="line">      (<span class="name">append</span></span><br><span class="line">       '((<span class="string">"\\.js\\'"</span> . js2-mode))</span><br><span class="line">       '((<span class="string">"\\.html\\'"</span> . web-mode))</span><br><span class="line">       auto-mode-alist))</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这样所有的 HTML 代码在 Emacs 中就会之间启用 web-mode 而非默认的 HTML Mode 了。你可以阅读它的<a href="http://web-mode.org/" target="_blank" rel="noopener">文档</a>来学习更多 web-mode 详细的使用方法。</p>
+<ol start="2">
+<li>
+<p>缩进的大小的设置。我们可以对不同的语言的缩减做出设置：</p>
+ <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">defun</span> my-web-mode-indent-setup ()</span><br><span class="line">  (<span class="name">setq</span> web-mode-markup-indent-offset <span class="number">4</span>) <span class="comment">; web-mode, html tag in html file</span></span><br><span class="line">  (<span class="name">setq</span> web-mode-css-indent-offset <span class="number">4</span>)    <span class="comment">; web-mode, css in html file</span></span><br><span class="line">  (<span class="name">setq</span> web-mode-code-indent-offset <span class="number">4</span>)   <span class="comment">; web-mode, js code in html file</span></span><br><span class="line">  )</span><br><span class="line">(<span class="name">add-hook</span> 'web-mode-hook 'my-web-mode-indent-setup)</span><br><span class="line"></span><br><span class="line"><span class="comment">;; 下面的函数可以用于在两个空格和四个空格之间进行切换</span></span><br><span class="line">(<span class="name">defun</span> my-toggle-web-indent ()</span><br><span class="line">  (<span class="name">interactive</span>)</span><br><span class="line">  <span class="comment">;; web development</span></span><br><span class="line">  (<span class="name">if</span> (<span class="name">or</span> (<span class="name">eq</span> major-mode 'js-mode) (<span class="name">eq</span> major-mode 'js2-mode))</span><br><span class="line">      (<span class="name">progn</span></span><br><span class="line">		(<span class="name">setq</span> js-indent-level (<span class="name">if</span> (<span class="name">=</span> js-indent-level <span class="number">2</span>) <span class="number">4</span> <span class="number">2</span>))</span><br><span class="line">		(<span class="name">setq</span> js2-basic-offset (<span class="name">if</span> (<span class="name">=</span> js2-basic-offset <span class="number">2</span>) <span class="number">4</span> <span class="number">2</span>))))</span><br><span class="line"></span><br><span class="line">  (<span class="name">if</span> (<span class="name">eq</span> major-mode 'web-mode)</span><br><span class="line">      (<span class="name">progn</span> (<span class="name">setq</span> web-mode-markup-indent-offset (<span class="name">if</span> (<span class="name">=</span> web-mode-markup-indent-offset <span class="number">2</span>) <span class="number">4</span> <span class="number">2</span>))</span><br><span class="line">		     (<span class="name">setq</span> web-mode-css-indent-offset (<span class="name">if</span> (<span class="name">=</span> web-mode-css-indent-offset <span class="number">2</span>) <span class="number">4</span> <span class="number">2</span>))</span><br><span class="line">		     (<span class="name">setq</span> web-mode-code-indent-offset (<span class="name">if</span> (<span class="name">=</span> web-mode-code-indent-offset <span class="number">2</span>) <span class="number">4</span> <span class="number">2</span>))))</span><br><span class="line">  (<span class="name">if</span> (<span class="name">eq</span> major-mode 'css-mode)</span><br><span class="line">      (<span class="name">setq</span> css-indent-offset (<span class="name">if</span> (<span class="name">=</span> css-indent-offset <span class="number">2</span>) <span class="number">4</span> <span class="number">2</span>)))</span><br><span class="line"></span><br><span class="line">  (<span class="name">setq</span> indent-tabs-mode <span class="literal">nil</span>))</span><br><span class="line"></span><br><span class="line">(<span class="name">global-set-key</span> (<span class="name">kbd</span> <span class="string">"C-c t i"</span>) 'my-toggle-web-indent)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="js2-refactor"><a class="header-anchor" href="#js2-refactor">¶</a>js2-refactor</h3>
+<ol>
+<li>
+<p>安装</p>
+ <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">defvar</span> xinyang/packages '(</span><br><span class="line">			   ;; 你其他的插件在这里</span><br><span class="line">			   js2-refactor</span><br><span class="line">			   ) <span class="string">"Default packages"</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>配置</p>
+ <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">add-hook</span> 'js2-mode-hook #'js2-refactor-mode)</span><br><span class="line">(<span class="name">js2r-add-keybindings-with-prefix</span> <span class="string">"C-c C-m"</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="occur-mode"><a class="header-anchor" href="#occur-mode">¶</a>occur-mode</h3>
+<p>occur 可以用于显示变量或函数的定义。</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">defun</span> occur-dwim ()</span><br><span class="line">  <span class="string">"Call `occur' with a sane default."</span></span><br><span class="line">  (<span class="name">interactive</span>)</span><br><span class="line">  (<span class="name">push</span> (<span class="name">if</span> (<span class="name">region-active-p</span>)</span><br><span class="line">	  (<span class="name">buffer-substring-no-properties</span></span><br><span class="line">		  (<span class="name">region-beginning</span>)</span><br><span class="line">	      (<span class="name">region-end</span>))</span><br><span class="line">		(<span class="name">let</span> ((<span class="name">sym</span> (<span class="name">thing-at-point</span> 'symbol)))</span><br><span class="line">		    (<span class="name">when</span> (<span class="name">stringp</span> sym)</span><br><span class="line">		      (<span class="name">regexp-quote</span> sym))))</span><br><span class="line">		regexp-history)</span><br><span class="line">  (<span class="name">call-interactively</span> 'occur))</span><br><span class="line">	(<span class="name">global-set-key</span> (<span class="name">kbd</span> <span class="string">"C-c C-s o"</span>) 'occur-dwim)</span><br></pre></td></tr></table></figure>
+<p>occur 与普通的搜索模式不同的是，它可以使用 Occur-Edit Mode (在弹出的窗口中按 <code>e</code> 进入编辑模式) 对搜索到的结果进行之间的编辑。</p>
+<h3 id="imenu"><a class="header-anchor" href="#imenu">¶</a>imenu</h3>
+<p>imenu 可以显示当前缓冲区所有符号的列表，下面的配置可以让其拥有更精确的跳转：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">defun</span> js2-imenu-make-index ()</span><br><span class="line">	(<span class="name">interactive</span>)</span><br><span class="line">    (<span class="name">save-excursion</span></span><br><span class="line">	<span class="comment">;; (setq imenu-generic-expression '((nil "describe\\(\"\\(.+\\)\"" 1)))</span></span><br><span class="line">	(<span class="name">imenu--generic-function</span> '((<span class="string">"describe"</span> <span class="string">"\\s-*describe\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*"</span> <span class="number">1</span>)</span><br><span class="line">				   (<span class="string">"it"</span> <span class="string">"\\s-*it\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*"</span> <span class="number">1</span>)</span><br><span class="line">				   (<span class="string">"test"</span> <span class="string">"\\s-*test\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*"</span> <span class="number">1</span>)</span><br><span class="line">				   (<span class="string">"before"</span> <span class="string">"\\s-*before\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*"</span> <span class="number">1</span>)</span><br><span class="line">				   (<span class="string">"after"</span> <span class="string">"\\s-*after\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*"</span> <span class="number">1</span>)</span><br><span class="line">				   (<span class="string">"Function"</span> <span class="string">"function[ \t]+\\([a-zA-Z0-9_$.]+\\)[ \t]*("</span> <span class="number">1</span>)</span><br><span class="line">				   (<span class="string">"Function"</span> <span class="string">"^[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*=[ \t]*function[ \t]*("</span> <span class="number">1</span>)</span><br><span class="line">				   (<span class="string">"Function"</span> <span class="string">"^var[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*=[ \t]*function[ \t]*("</span> <span class="number">1</span>)</span><br><span class="line">				   (<span class="string">"Function"</span> <span class="string">"^[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*()[ \t]*&#123;"</span> <span class="number">1</span>)</span><br><span class="line">				   (<span class="string">"Function"</span> <span class="string">"^[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*:[ \t]*function[ \t]*("</span> <span class="number">1</span>)</span><br><span class="line">				   (<span class="string">"Task"</span> <span class="string">"[. \t]task([ \t]*['\"]\\([^'\"]+\\)"</span> <span class="number">1</span>)))))</span><br><span class="line">(<span class="name">add-hook</span> 'js2-mode-hook</span><br><span class="line">	    (<span class="name">lambda</span> ()</span><br><span class="line">			(<span class="name">setq</span> imenu-create-index-function 'js2-imenu-make-index)))</span><br><span class="line"></span><br><span class="line">(<span class="name">global-set-key</span> (<span class="name">kbd</span> <span class="string">"C-c C-s i"</span>) 'counsel-imenu)</span><br></pre></td></tr></table></figure>
+<h3 id="expand-region"><a class="header-anchor" href="#expand-region">¶</a>expand-region</h3>
+<p>使用这个插件可以使我们更方便的选中一个区域。（更多使用方法和文档可以在<a href="https://github.com/magnars/expand-region.el" target="_blank" rel="noopener">这里</a>找到）。<br>
+为其绑定一个快捷键：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">global-set-key</span> (<span class="name">kbd</span> <span class="string">"C-="</span>) 'er/expand-region)</span><br></pre></td></tr></table></figure>
+<h3 id="iedit"><a class="header-anchor" href="#iedit">¶</a>iedit</h3>
+<p>iedit 是一个可以同时编辑多个区域的插件，它类似 Sublime Text 中的多光标编辑。<br>
+我们将其绑定快捷键以便更快捷的使用这个模式（ <code>C-;</code> 为默认快捷键），</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">global-set-key</span> (<span class="name">kbd</span> <span class="string">"C-c C-s e"</span>) 'iedit-mode)</span><br></pre></td></tr></table></figure>
+<p>我们可以使用 <code>customized-group</code> 来更改其高亮的背景色，将 <code>highlight</code> 改为 <code>region</code>。</p>
+<h3 id="org-导出"><a class="header-anchor" href="#org-导出">¶</a>org 导出</h3>
+<p>使用 <code>C-c C-e</code> 可以将 org-mode 文档导出为你需要的格式，例如 HTML 或者 PDF 文件。</p>
+<h2 id="第六天"><a class="header-anchor" href="#第六天">¶</a>第六天</h2>
+<h3 id="org-mode-进阶"><a class="header-anchor" href="#org-mode-进阶">¶</a>org-mode 进阶</h3>
+<ol>
+<li>
+<p>使用 <code>org-capture</code> 命令记笔记。</p>
+<p>我们用下面的配置代码来设置一个模板（其中设置了待办事项的优先级还有触发键）：</p>
+<pre><code> <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">setq</span> org-capture-templates</span><br><span class="line">    '((<span class="string">"t"</span> <span class="string">"Todo"</span> entry (file+headline <span class="string">"~/.emacs.d/gtd.org"</span> <span class="string">"工作安排"</span>)</span><br><span class="line">		 <span class="string">"* TODO [#B] %?\n  %i\n"</span></span><br><span class="line">	 :empty-lines <span class="number">1</span>)))</span><br></pre></td></tr></table></figure>
+</code></pre>
+<p>我们也可以为其绑定一个快捷键：</p>
+<pre><code> <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">global-set-key</span> (<span class="name">kbd</span> <span class="string">"C-c r"</span>) 'org-capture)</span><br></pre></td></tr></table></figure>
+</code></pre>
+<p>更多有关 <code>org-capture</code> 的内容可以在<a href="http://orgmode.org/manual/Capture.html" target="_blank" rel="noopener">这里</a>找到。</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.rabbituzki.com.cn/2019/10/06/%E3%80%8ALearn-Emacs-in-21-days%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckidvv5d4001x3sv4fcbv1837" class="article-share-link">
+        分享
+      </a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Emacs/" rel="tag">Emacs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GNU/" rel="tag">GNU</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2020/02/04/%E5%9F%BA%E4%BA%8E-Hexo-Ocean-%E4%B8%BB%E9%A2%98%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            基于 Hexo Ocean 主题博客搭建
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/10/05/Elisp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">Elisp 学习笔记（一）</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2020 六加的博客</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="六加的博客"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>
