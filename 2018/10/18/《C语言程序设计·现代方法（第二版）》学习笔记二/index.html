@@ -1,91 +1,235 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" href="/images/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>
-    《C语言程序设计·现代方法（第二版）》学习笔记 -- 之二 |
-    
-    六加的博客</title>
-  
-    <link rel="shortcut icon" href="/favicon.ico">
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="When in doubt, use brute force.">
+  <meta name="author" content="Rabbituzki">
+  <meta name="keywords" content="">
+  <title>《C语言程序设计·现代方法（第二版）》学习笔记 -- 之二 - Rabbituzki 的笔记们</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
 
   
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/gruvbox-dark.min.css" />
+    
+  
 
   
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
   
-<script src="/js/pace.min.js"></script>
 
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"blog.rabbituzki.com.cn","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"a9b0666290f750544a1900dff36c0349","google":"UA-127726236-2","gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TMgxzCpM2zFnsClsMHJY2LLc-gzGzoHsz","app_key":"1kPLieLtoBQWf0w6iNxLqkMV","server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
 <meta name="generator" content="Hexo 4.2.1"></head>
 
+
 <body>
-<main class="content">
-  <section class="outer">
-  <article id="post-《C语言程序设计·现代方法（第二版）》学习笔记二" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Rabbituzki 的笔记们</strong>&nbsp;</a>
 
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-  
-    <h1 class="article-title" itemprop="name">
-      《C语言程序设计·现代方法（第二版）》学习笔记 -- 之二
-    </h1>
-  
-  
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
 
-
-
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/10/18/%E3%80%8AC%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%C2%B7%E7%8E%B0%E4%BB%A3%E6%96%B9%E6%B3%95%EF%BC%88%E7%AC%AC%E4%BA%8C%E7%89%88%EF%BC%89%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%8C/" class="article-date">
-  <time datetime="2018-10-17T16:00:00.000Z" itemprop="datePublished">2018-10-18</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
-  </div>
-
-    </div>
-    
-
-    
-    
-<div class="tocbot"></div>
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-  <div class="article-gallery">
-    <div class="article-gallery-photos">
-      
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-          <img src="/images/CModern.jpg" itemprop="image">
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
         
-      
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
   </div>
+</nav>
 
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/images/background1.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="《C语言程序设计·现代方法（第二版）》学习笔记 -- 之二">
+              
+            </span>
 
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-10-18 00:00" pubdate>
+        2018年10月18日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
       
-      <h1>《C语言程序设计现代方法第二版》学习笔记二</h1>
+      
+      80
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">《C语言程序设计·现代方法（第二版）》学习笔记 -- 之二</h1>
+            
+            <div class="markdown-body">
+              <h1>《C语言程序设计现代方法第二版》学习笔记二</h1>
 <hr>
 <p>[TOC]</p>
 <hr>
@@ -95,38 +239,38 @@
 <ol>
 <li>C语言不要求检查下标的范围。当下标超出范围时，程序可能执行不可预知的行为。</li>
 </ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">10</span>], i; </span><br><span class="line"><span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= <span class="number">10</span>; i++) </span><br><span class="line">    a[i] = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-keyword">int</span> a[<span class="hljs-number">10</span>], i; <br><span class="hljs-keyword">for</span> (i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">10</span>; i++) <br>    a[i] = <span class="hljs-number">0</span>;<br></code></pre></td></tr></table></figure>
 <p> 对于某些编译器来说，这个表面上正确的<code>for</code>语句却产生了一个无限循环！当变量<code>i</code>的值变为10时，程序将数值0存储在<code>a[10]</code>中。但是<code>a[10]</code>这个元素并不存在，所以在元素<code>a[9]</code>后数值0立刻进入内存。如果内存中变量<code>i</code>旋转在<code>a[9]</code>的后边（这是有可能的），那么变量<code>i</code>将会被重置为0，进而导致循环重新开始。</p>
 <ol start="2">
 <li>当数组下标有副作用时一定要注意：</li>
 </ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (i &lt; N)</span><br><span class="line">    a[i] = b[i++];</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C">i = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">while</span> (i &lt; N)<br>    a[i] = b[i++];<br></code></pre></td></tr></table></figure>
 <p> 表达式<code>a[i] = b[i++]</code>访问并修改i的值，如4.4节所述，这样会导致未定义的行为。</p>
 <h4 id="8-1-2数组初始化（P115）"><a class="header-anchor" href="#8-1-2数组初始化（P115）">¶</a>8.1.2数组初始化（P115）</h4>
 <ol>
 <li>如果初始化式比数组短，好么数组中剩余元素赋值为0。利用这一特性，可以很容易地把数组初始化为全0：</li>
 </ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">10</span>] = &#123;<span class="number">0</span>&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-keyword">int</span> a[<span class="hljs-number">10</span>] = &#123;<span class="hljs-number">0</span>&#125;;<br></code></pre></td></tr></table></figure>
 <ol start="2">
 <li>初始化式完全为空是非法的，初始化式比要初始化的数组长也是非法的。</li>
 <li>如果给定了初始化式，可以活力掉数组的长度。</li>
 </ol>
 <h4 id="8-1-3指定初始化式（P116）"><a class="header-anchor" href="#8-1-3指定初始化式（P116）">¶</a>8.1.3指定初始化式（P116）</h4>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">15</span>] = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">29</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">7</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">48</span>&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-keyword">int</span> a[<span class="hljs-number">15</span>] = &#123;<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">29</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">7</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">48</span>&#125;;<br></code></pre></td></tr></table></figure>
 <p> 可以使用指定初始化式写为：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">15</span>] = &#123;[<span class="number">14</span>] = <span class="number">48</span>, [<span class="number">9</span>] = <span class="number">7</span>, [<span class="number">2</span>] = <span class="number">29</span>&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-keyword">int</span> a[<span class="hljs-number">15</span>] = &#123;[<span class="hljs-number">14</span>] = <span class="hljs-number">48</span>, [<span class="hljs-number">9</span>] = <span class="hljs-number">7</span>, [<span class="hljs-number">2</span>] = <span class="hljs-number">29</span>&#125;;<br></code></pre></td></tr></table></figure>
 <h3 id="8-2-多维数组"><a class="header-anchor" href="#8-2-多维数组">¶</a>8.2 多维数组</h3>
 <h4 id="8-2-1多维数组初始化（P120）"><a class="header-anchor" href="#8-2-1多维数组初始化（P120）">¶</a>8.2.1多维数组初始化（P120）</h4>
 <ol>
 <li>在多维数组中省略掉内层花括号可能是很危险的，因为额外的元素（更糟的情况是丢失的元素）将会影响剩下的初始化式。省略花括号会引起某些编译器产生类似“missing braces around initialiezer”这样的警告消息。</li>
 <li>C99指定初始化式对多维数组也有效。例如，可以这样创建2x2的单位矩阵：</li>
 </ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> ident[<span class="number">2</span>][<span class="number">2</span>] = &#123;[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1.0</span>, [<span class="number">1</span>][<span class="number">1</span>] = <span class="number">1.0</span>&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-keyword">double</span> ident[<span class="hljs-number">2</span>][<span class="hljs-number">2</span>] = &#123;[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = <span class="hljs-number">1.0</span>, [<span class="hljs-number">1</span>][<span class="hljs-number">1</span>] = <span class="hljs-number">1.0</span>&#125;;<br></code></pre></td></tr></table></figure>
 <h3 id="第八章FAQ（P123）"><a class="header-anchor" href="#第八章FAQ（P123）">¶</a>第八章FAQ（P123）</h3>
 <ol>
 <li>编译器在处理初始化式列表时，会记录下一个待初始化的数组元素的位置。正常情况下，下一个元素是刚被初始化的元素后面的那个。但是，当列表中出现初始化式时，下一个元素会被强制为指示符对应的元素，即使该元素已经被初始化了：</li>
 </ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a [] = &#123;<span class="number">4</span>, <span class="number">9</span>, <span class="number">1</span>, <span class="number">8</span>, [<span class="number">0</span>] = <span class="number">5</span>, <span class="number">7</span>&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-keyword">int</span> a [] = &#123;<span class="hljs-number">4</span>, <span class="hljs-number">9</span>, <span class="hljs-number">1</span>, <span class="hljs-number">8</span>, [<span class="hljs-number">0</span>] = <span class="hljs-number">5</span>, <span class="hljs-number">7</span>&#125;;<br></code></pre></td></tr></table></figure>
 <p>  下面逐步分析编译器处理数组a的初始化式的操作：</p>
 <ul>
 <li>用4初始化元素0，下一个待初始化的是元素1；</li>
@@ -137,7 +281,7 @@
 <li>用7初始化元素1（替换先前存储的9）.下一个待初始化的是元素2（跟本例不相关，因为已经到达列表末尾）。<br>
   最终效果跟下面的声明一样：</li>
 </ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[] = &#123;<span class="number">5</span>, <span class="number">7</span>, <span class="number">1</span>, <span class="number">8</span>&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-keyword">int</span> a[] = &#123;<span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">1</span>, <span class="hljs-number">8</span>&#125;;<br></code></pre></td></tr></table></figure>
 <p> <font color: red><strong>因此，数组的长度为4。</strong></font></p>
 <p>2. 在程序执行过程中，遇到变长数组声明时通常就为该变长数组分配内存空间了。用<code>goto</code>语句绕过变长数组的声明可能会导致程序对未分配空间的数组中的元素进行访问。</p>
 <hr>
@@ -160,7 +304,7 @@
 <ol>
 <li>如果丢失圆括号，那么将无法进行函数调用：</li>
 </ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_pun</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">print_pun; <span class="comment">/* WRONG */</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">print_pun</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>&#123;<br>    ...<br>&#125;<br><br>print_pun; <span class="hljs-comment">/* WRONG */</span><br></code></pre></td></tr></table></figure>
 <p>  这样的结果是合法的（虽然没有意义）表达式语句，而且看上去这语句是正确的，但是这条语句不起任何作用。一些编译器会发出一条类似“statement with no effect”的警告。</p>
 <p>2. 在C语言中，“强制转换成<code>void</code>”是对“抛弃”的一种客气的说法。使用<code>(void)</code>可以使别人清楚编写者是故意抛弃返回值的，而不是忘记了。</p>
 <h3 id="9-2函数声明（P135）"><a class="header-anchor" href="#9-2函数声明（P135）">¶</a>9.2函数声明（P135）</h3>
@@ -169,29 +313,29 @@
 <ol>
 <li>当形式参数是一维数组时，可以（而且是通常情况下）不说明数组的长度：</li>
 </ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> a [])</span> </span>&#123; <span class="comment">/* no length specified*/</span></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">f</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a [])</span> </span>&#123; <span class="hljs-comment">/* no length specified*/</span><br>    ...<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>2. C语言没有为函数提供任务简便的方法来确定传递给它的数组的长度；如果函数需要，我们必须把长度作为额外的参数提供出来。</p>
 <p>3. 虽然可以用运算符<code>sizeof</code>计算出数组变量的长度，但是它无法给出关于数组型形式参数的正确答案。</p>
 <p>4. 如果形式参数是多维数组，声明参数时<font color=red><strong>只能省略第一维长度</strong></font>。</p>
 <h3 id="9-3-实际参数"><a class="header-anchor" href="#9-3-实际参数">¶</a>9.3 实际参数</h3>
 <h4 id="9-3-3变长数组形式参数（P140）"><a class="header-anchor" href="#9-3-3变长数组形式参数（P140）">¶</a>9.3.3变长数组形式参数（P140）</h4>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sum_array</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> a[n])</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">sum_array</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span> a[n])</span> </span>&#123;<br>    ...<br>&#125;<br></code></pre></td></tr></table></figure>
 <h4 id="9-3-4在数组参数声明中使用static（P141）"><a class="header-anchor" href="#9-3-4在数组参数声明中使用static（P141）">¶</a>9.3.4在数组参数声明中使用<code>static</code>（P141）</h4>
 <p>  在下面这个例子中，将<code>static</code>放在数字3之前表明数组a的长度至少可以保证是3：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sum_array</span><span class="params">(<span class="keyword">int</span> a[<span class="keyword">static</span> <span class="number">3</span>], <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">sum_array</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a[<span class="hljs-keyword">static</span> <span class="hljs-number">3</span>], <span class="hljs-keyword">int</span> n)</span> </span>&#123;<br>    ...<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>  这样使用<code>static</code>不会对程序的行为有任何影响。<code>static</code>的存在只不过是一个“提示”，C编译器可以据此生成更快的指令来访问数组。<font color=red><strong>如果数组参数是多维的，<code>static</code>仅可用于第一维（例如，指定二维数组的行数）</strong></font>。</p>
 <h4 id="9-3-5复合字面量（P141）"><a class="header-anchor" href="#9-3-5复合字面量（P141）">¶</a>9.3.5复合字面量（P141）</h4>
 <ol>
 <li>复合字面量是通过其包含的元素而创建的没有名字的数组：</li>
 </ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">total = sum_array((<span class="keyword">int</span> [])&#123;<span class="number">3</span>, <span class="number">0</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">1</span>&#125;, <span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C">total = sum_array((<span class="hljs-keyword">int</span> [])&#123;<span class="hljs-number">3</span>, <span class="hljs-number">0</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">1</span>&#125;, <span class="hljs-number">5</span>);<br></code></pre></td></tr></table></figure>
 <p>2. 可以指明数组长度，如<code>(int[4]){1, 9, 2, 1}</code>，这种方式等同于<code>(int[]){1, 9, 2,1}</code>。</p>
 <p>3. 如果要求复合字面量为“只读”，可以在类型前加上const，如(const int []){5, 4}。</p>
 <h3 id="9-5程序终止（P143）"><a class="header-anchor" href="#9-5程序终止（P143）">¶</a>9.5程序终止（P143）</h3>
 <p>  <code>exit</code>函数、<code>EXIT_SUCCESS</code>、<code>EXIT_FAILURE</code>位于<code>&lt;stdlib.h&gt;</code>中。</p>
 <h3 id="第九章FAQ（P149）"><a class="header-anchor" href="#第九章FAQ（P149）">¶</a>第九章FAQ（P149）</h3>
 <p>  如果几个函数具有相同的返回类型，那么可以把它们的声明合并，事实上，C语言甚至允许把函数声明和变量声明合并在一起：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> x, y, average(<span class="keyword">double</span> a, <span class="keyword">double</span> b);</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-keyword">double</span> x, y, average(<span class="hljs-keyword">double</span> a, <span class="hljs-keyword">double</span> b);<br></code></pre></td></tr></table></figure>
 <hr>
 <h2 id="第十章-程序结构"><a class="header-anchor" href="#第十章-程序结构">¶</a>第十章 程序结构</h2>
 <h3 id="10-1-局部变量"><a class="header-anchor" href="#10-1-局部变量">¶</a>10.1 局部变量</h3>
@@ -216,7 +360,7 @@
 <p>  后缀<code>++</code>的优先级高于<code>*</code>，所以编译器把<code>*p++ = j</code>看成是<code>*(p++) = j</code>。<code>p++</code>的值是<code>p</code>。（因为使用后缀<code>++</code>，所以<code>p</code>只有在表达式计算出来后才可能自增。）因此，<code>*(p++)</code>的值将是<code>*p</code>，即<code>p</code>当前指向的对象。</p>
 <h3 id="12-3用数组名作为指针（P188）"><a class="header-anchor" href="#12-3用数组名作为指针（P188）">¶</a>12.3用数组名作为指针（P188）</h3>
 <p> 虽然可以把数组名用作指针，但是不能给数组名赋新的值。试图使数组名指向其它地方是错误的：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (*a != <span class="number">0</span>)</span><br><span class="line">    a++; <span class="comment">/* WRONG */</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-keyword">while</span> (*a != <span class="hljs-number">0</span>)<br>    a++; <span class="hljs-comment">/* WRONG */</span><br></code></pre></td></tr></table></figure>
 <h3 id="第十二章FAQ"><a class="header-anchor" href="#第十二章FAQ">¶</a>第十二章FAQ</h3>
 <p>  <code>i[a]</code>和<code>a[i]</code>是一样的。对于编译器而言<code>i[a]</code>等同于<code>*(i + a)</code>，也就是<code>*(a + i)</code>。而<code>*(a + i)</code>也就是<code>a[i]</code>。</p>
 <hr>
@@ -224,12 +368,12 @@
 <h3 id="14-3-宏定义"><a class="header-anchor" href="#14-3-宏定义">¶</a>14.3 宏定义</h3>
 <h4 id="14-3-1简单的宏（P228）"><a class="header-anchor" href="#14-3-1简单的宏（P228）">¶</a>14.3.1简单的宏（P228）</h4>
 <p>  不要在宏定义中放置任何额外的符号，否则它们会被作为替换列表的一部分。一种常见的错误是在宏定义中使用<code>=</code>：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N = 100 <span class="comment">/* WRONG */</span></span></span><br><span class="line">...</span><br><span class="line"><span class="keyword">int</span> a[N]; <span class="comment">/*becomes int a[= 100] */</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> N = 100 <span class="hljs-comment">/* WRONG */</span></span><br>...<br><span class="hljs-keyword">int</span> a[N]; <span class="hljs-comment">/*becomes int a[= 100] */</span><br></code></pre></td></tr></table></figure>
 <h4 id="14-3-2带参数的宏（P229）"><a class="header-anchor" href="#14-3-2带参数的宏（P229）">¶</a>14.3.2带参数的宏（P229）</h4>
 <ol>
 <li>带参数的宏（也称为函数式宏）的定义有如下格式：</li>
 </ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> 标识符(x1, x2, ..., xn) 替换列表</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> 标识符(x1, x2, ..., xn) 替换列表</span><br></code></pre></td></tr></table></figure>
 <p>  在宏的名字和左括号之间必须没有空格。如果有空格，预处理器会认为是在定义一个简单的宏，其中<code>(x1, x2, ..., xn)</code>是替换列表的一部分。</p>
 <p>2. 使用带参数的宏替代真正的函数有两个优点：</p>
 <ul>
@@ -253,32 +397,32 @@
 <p>宏可能会不止一次地计算它的参数。考虑下面的例子，其中<code>MAX</code>的一个参数有副作用：</p>
 </li>
 </ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">n = MAX(i++, j);</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C">n = MAX(i++, j);<br></code></pre></td></tr></table></figure>
 <p>  下面是这条语句在预处理之后的结果：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">n = ((i++)&gt;(j)?(i++):(j));</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C">n = ((i++)&gt;(j)?(i++):(j));<br></code></pre></td></tr></table></figure>
 <p>  如果<code>i</code>大于<code>j</code>，那么<code>i</code>可能会被（错误地）增加两次，同时<code>n</code>可能被赋予错误的值。</p>
 <h4 id="14-3-3-运算符（P231）"><a class="header-anchor" href="#14-3-3-运算符（P231）">¶</a>14.3.3 <code>#</code>运算符（P231）</h4>
 <p>  <code>#</code>运算符将宏的一个参数转换为字符串字面量。它仅允许出现在带参数的宏的替换列表中。例如：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PRINT_INT(n) printf(#n <span class="meta-string">" = %d\n"</span>, n)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> PRINT_INT(n) printf(#n <span class="hljs-meta-string">" = %d\n"</span>, n)</span><br></code></pre></td></tr></table></figure>
 <p>  调用</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PRINT_INT(i/j);</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C">PRINT_INT(i/j);<br></code></pre></td></tr></table></figure>
 <p>  会变为：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">"i/j"</span> <span class="string">" = %d\n"</span>, i/j);</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-built_in">printf</span>(<span class="hljs-string">"i/j"</span> <span class="hljs-string">" = %d\n"</span>, i/j);<br></code></pre></td></tr></table></figure>
 <h4 id="14-3-4-运算符（P231）"><a class="header-anchor" href="#14-3-4-运算符（P231）">¶</a>14.3.4 ##运算符（P231）</h4>
 <ol>
 <li><code>##</code>运算符被称为“记号粘合”。</li>
 <li><code>##</code>运算符可以将两个记号（如标识符）“粘合”在一起，成为一个记号。如果其中一个操作数是宏参数，“粘合”会在形式参数被相应的实际参数替换后发生。考虑下面的宏：</li>
 </ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MK_ID(n) i##n</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> MK_ID(n) i##n</span><br></code></pre></td></tr></table></figure>
 <p>  当<code>MK_ID</code>被调用时（比如<code>MK_ID(1)</code>），预处理器首先使用实际参数（这个例子中是1）替换形式参数<code>n</code>。接着，预处理器将i和1合并成为一个记号（i1）。下面的声明使用<code>MK_ID</code>创建了3个标识符：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int MK_ID(1), MK_ID(2), MK_ID(3);</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C">int MK_ID(1), MK_ID(2), MK_ID(3);<br></code></pre></td></tr></table></figure>
 <p>  预处理后这一声明变为：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i1, i2, i3;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-keyword">int</span> i1, i2, i3;<br></code></pre></td></tr></table></figure>
 <p>3. 使用宏实现泛型：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GENERIC_MAX(type) \</span></span><br><span class="line"> </span><br><span class="line">type type##_max(type x , type y) \</span><br><span class="line">&#123; \</span><br><span class="line">    <span class="keyword">return</span> x &gt; y ? x : y; \</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> GENERIC_MAX(type) \</span><br> <br>type type##_max(type x , type y) \<br>&#123; \<br>    <span class="hljs-keyword">return</span> x &gt; y ? x : y; \<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>4. C11标准泛型（使用<code>_Generic</code>宏）：<br>
   <code>_Generic(表达式,类型匹配列表,default: 默认表达式)</code>，如</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GENERAL_ABS(x) _Generic((x), int:abs, float:fabsf, double:fabs)(x)</span></span><br><span class="line"> </span><br><span class="line">GENERAL_ABS(<span class="number">-12</span>); <span class="comment">//将被展开为abs(-12)</span></span><br><span class="line"> </span><br><span class="line">GENERAL_ABS(<span class="number">-12.04</span>); <span class="comment">//将被展开为fabsf(-12.04)</span></span><br><span class="line"> </span><br><span class="line">GENERAL_ABS(<span class="number">-13.09876</span>); <span class="comment">//将被展开为fabs(-13.09876)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> GENERAL_ABS(x) _Generic((x), int:abs, float:fabsf, double:fabs)(x)</span><br> <br>GENERAL_ABS(<span class="hljs-number">-12</span>); <span class="hljs-comment">//将被展开为abs(-12)</span><br> <br>GENERAL_ABS(<span class="hljs-number">-12.04</span>); <span class="hljs-comment">//将被展开为fabsf(-12.04)</span><br> <br>GENERAL_ABS(<span class="hljs-number">-13.09876</span>); <span class="hljs-comment">//将被展开为fabs(-13.09876)</span><br></code></pre></td></tr></table></figure>
 <h4 id="14-3-5宏的通用属性（P232）"><a class="header-anchor" href="#14-3-5宏的通用属性（P232）">¶</a>14.3.5宏的通用属性（P232）</h4>
 <p>  宏定义的作用范围通常到出现这个宏的文件末尾。由于宏是由预处理器处理的，<font color=red><strong>它们不遵从通常的作用域规则。定义在函数中的宏并不是仅在函数内起作用，而是作用到文件末尾</strong></font>。</p>
 <h4 id="14-3-6宏定义中的圆括号（P233）"><a class="header-anchor" href="#14-3-6宏定义中的圆括号（P233）">¶</a>14.3.6宏定义中的圆括号（P233）</h4>
@@ -286,24 +430,24 @@
 <blockquote>
 <p><font color=red><strong>如果宏的替换列表中有运算符，那么将替换列表放在圆括号中。</strong></font></p>
 </blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TWO_PI (2 * 3.14159)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> TWO_PI (2 * 3.14159)</span><br></code></pre></td></tr></table></figure>
 <blockquote>
 <p><font color=red><strong>如果宏有参数，每个参数每次在替换列表中出现时都要放在圆括号中。</strong></font></p>
 </blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SCALE(x) ((x) * 10)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> SCALE(x) ((x) * 10)</span><br></code></pre></td></tr></table></figure>
 <h4 id="14-3-10空的宏参数（P236）"><a class="header-anchor" href="#14-3-10空的宏参数（P236）">¶</a>14.3.10空的宏参数（P236）</h4>
 <ol>
 <li>C99允许宏调用中的任意或所有参数为空。当然这样的调用需要有和一般调用一样的多逗号（这样容易看出哪些参数被省略了）。如</li>
 </ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ADD(x, y) (x + y)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> ADD(x, y) (x + y)</span><br></code></pre></td></tr></table></figure>
 <p>  经过预处理之后，语句</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">i = ADD(j, k);</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C">i = ADD(j, k);<br></code></pre></td></tr></table></figure>
 <p>  变成</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">i = (j + k);</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C">i = (j + k);<br></code></pre></td></tr></table></figure>
 <p>  而赋值语句</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">i = ADD(,k);</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C">i = ADD(,k);<br></code></pre></td></tr></table></figure>
 <p>  则变为</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">i = (+k);</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C">i = (+k);<br></code></pre></td></tr></table></figure>
 <p>2. 当空参数是<code>#</code>或<code>##</code>运算符的操作数时，用法有特殊规定。</p>
 <ul>
 <li>如果空的实际参数被#运算符“字符串化”，则结果为<code>&quot;&quot;</code>（空字符串）。</li>
@@ -311,19 +455,19 @@
 </ul>
 <h4 id="14-3-11参数个数可变的宏（P237）"><a class="header-anchor" href="#14-3-11参数个数可变的宏（P237）">¶</a>14.3.11参数个数可变的宏（P237）</h4>
 <p>  例子：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TEST(condition, ...) ((condition)?\</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Passed test:%s\n"</span>, #condition): \</span><br><span class="line">    <span class="built_in">printf</span>(__VA_ARGS__))</span><br><span class="line"></span><br><span class="line">TEST(voltage &lt;= max_voltage,</span><br><span class="line">        <span class="string">"Voltage %d exceeds %d\n"</span>, voltage, max_voltage);</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> TEST(condition, ...) ((condition)?\</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Passed test:%s\n"</span>, #condition): \<br>    <span class="hljs-built_in">printf</span>(__VA_ARGS__))<br><br>TEST(voltage &lt;= max_voltage,<br>        <span class="hljs-string">"Voltage %d exceeds %d\n"</span>, voltage, max_voltage);<br></code></pre></td></tr></table></figure>
 <h4 id="14-3-12-func-标识符（P237）"><a class="header-anchor" href="#14-3-12-func-标识符（P237）">¶</a>14.3.12 <code>__func__</code>标识符（P237）</h4>
 <p>  其作用相当于在函数体的一开始包含如下声明：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">char</span> __func__[] = <span class="string">"function_name"</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> __func__[] = <span class="hljs-string">"function_name"</span>;<br></code></pre></td></tr></table></figure>
 <h3 id="14-5-宏定义"><a class="header-anchor" href="#14-5-宏定义">¶</a>14.5 宏定义</h3>
 <h4 id="14-5-1-error指令（P241）"><a class="header-anchor" href="#14-5-1-error指令（P241）">¶</a>14.5.1 <code>#error</code>指令（P241）</h4>
 <p>  遇到<code>#error</code>指令预示着程序中出现了严重的错误，有些编译器会立即终止编译而不再检查其它错误。使用示例：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">if</span> INT_MAX &lt; 100000</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">error</span> int type is too small</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-meta-keyword">if</span> INT_MAX &lt; 100000</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">error</span> int type is too small</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span><br></code></pre></td></tr></table></figure>
 <h3 id="第十四章FAQ（P243）"><a class="header-anchor" href="#第十四章FAQ（P243）">¶</a>第十四章FAQ（P243）</h3>
 <ol>
 <li><code>#</code>单独占一行为空指令，它没有任何作用。一些程序员用空指令作为条件编译模块之间的间隔：</li>
 </ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">if</span> INT_MAX &lt; 100000</span></span><br><span class="line">#</span><br><span class="line"><span class="meta">#<span class="meta-keyword">error</span> int type is too small</span></span><br><span class="line">#</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-meta-keyword">if</span> INT_MAX &lt; 100000</span><br>#<br><span class="hljs-meta">#<span class="hljs-meta-keyword">error</span> int type is too small</span><br>#<br><span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span><br></code></pre></td></tr></table></figure>
 <p>2. 建议在下面的条件下使用宏来替代字符或字符串字面量：</p>
 <ul>
 <li>常量不止一次地使用。</li>
@@ -337,12 +481,12 @@
 <h3 id="15-2-头文件"><a class="header-anchor" href="#15-2-头文件">¶</a>15.2 头文件</h3>
 <h4 id="15-2-6-保护头文件（P253）"><a class="header-anchor" href="#15-2-6-保护头文件（P253）">¶</a>15.2.6 保护头文件（P253）</h4>
 <p>  如果文件只包含宏定义、函数原型和/或变量声明，那么不会有任何困难。然而，<font color=red><strong>如果文件包含类型定义，则会带来编译错误</strong></font>。为防止头文件多次包含，用<code>#ifndef</code>和<code>#endif</code>指令来封闭文件的内容。例如：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> BOOLEAN_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BOOLEAN_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TRUE 1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FALSE 0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> Bool;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span> BOOLEAN_H</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> BOOLEAN_H</span><br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> TRUE 1</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> FALSE 0</span><br><br><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">int</span> Bool;<br><span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span><br></code></pre></td></tr></table></figure>
 <h3 id="第十五章FAQ（P265）"><a class="header-anchor" href="#第十五章FAQ（P265）">¶</a>第十五章FAQ（P265）</h3>
 <p>  共享数组应该按照下列方式声明：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="keyword">int</span> a[];</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-keyword">extern</span> <span class="hljs-keyword">int</span> a[];<br></code></pre></td></tr></table></figure>
 <p>  <font color=red><strong>但用下列写法代替是不合法的</strong></font>：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="keyword">int</span> *a;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-keyword">extern</span> <span class="hljs-keyword">int</span> *a;<br></code></pre></td></tr></table></figure>
 <p>  虽然<font color=red><strong>在用于表达式时，数组“衰退”成指针</strong></font>。但在变量声明中，数组和指针是截然不同的两种类型。</p>
 <hr>
 <h2 id="第十六章-结构、联合和枚举"><a class="header-anchor" href="#第十六章-结构、联合和枚举">¶</a>第十六章 结构、联合和枚举</h2>
@@ -351,18 +495,18 @@
 <p>  结构的成员在内存中是按照声明的顺序存储的。</p>
 <h4 id="16-1-3指定初始化（P269）"><a class="header-anchor" href="#16-1-3指定初始化（P269）">¶</a>16.1.3指定初始化（P269）</h4>
 <p>  示例：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;.number = <span class="number">528</span>, <span class="string">"Disk drive"</span>, .on_hand = <span class="number">10</span>&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C">&#123;.number = <span class="hljs-number">528</span>, <span class="hljs-string">"Disk drive"</span>, .on_hand = <span class="hljs-number">10</span>&#125;<br></code></pre></td></tr></table></figure>
 <p>  值<code>&quot;Disk drive&quot;</code>的前面并没有指示符，<font color=red><strong>所以编译器会认为它用于初始化结构中位于<code>number</code>之后的成员。初始化式中没有涉及的成员都设为0</strong></font>。</p>
 <h4 id="16-1-4对结构的操作（P270）"><a class="header-anchor" href="#16-1-4对结构的操作（P270）">¶</a>16.1.4对结构的操作（P270）</h4>
 <ol>
 <li>结构可以用<code>=</code>运算符复制。<font color=red><strong>对结构进行复制时，嵌在结构内的数组也得到了复制</strong></font>。一些程序员利用这种性质来产生“空”结构，以封装稍候将进行复制的数组：</li>
 </ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> &#123;</span> <span class="keyword">int</span> a[<span class="number">10</span>]; &#125; a1, a2;</span><br><span class="line"> </span><br><span class="line">a1 = a2; <span class="comment">/* legal, since a1 and a2 are structures */</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-class"><span class="hljs-keyword">struct</span> &#123;</span> <span class="hljs-keyword">int</span> a[<span class="hljs-number">10</span>]; &#125; a1, a2;<br> <br>a1 = a2; <span class="hljs-comment">/* legal, since a1 and a2 are structures */</span><br></code></pre></td></tr></table></figure>
 <p>2. <font color=red><strong>不能使用运算符<code>==</code>和<code>!=</code>来判定两个结构相等还是不等</strong></font>。</p>
 <h3 id="16-3-嵌套的数组和结构"><a class="header-anchor" href="#16-3-嵌套的数组和结构">¶</a>16.3 嵌套的数组和结构</h3>
 <h4 id="16-3-3结构数组的初始化（P275）"><a class="header-anchor" href="#16-3-3结构数组的初始化（P275）">¶</a>16.3.3结构数组的初始化（P275）</h4>
 <p>  可以有如下初始方式：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">part</span> <span class="title">inventory</span>[100] = &#123;</span>[<span class="number">0</span>].number = <span class="number">528</span>, [<span class="number">0</span>].on_hand = <span class="number">10</span>, [<span class="number">0</span>].name[<span class="number">0</span>] = <span class="string">'\0'</span>&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">part</span> <span class="hljs-title">inventory</span>[100] = &#123;</span>[<span class="hljs-number">0</span>].number = <span class="hljs-number">528</span>, [<span class="hljs-number">0</span>].on_hand = <span class="hljs-number">10</span>, [<span class="hljs-number">0</span>].name[<span class="hljs-number">0</span>] = <span class="hljs-string">'\0'</span>&#125;;<br></code></pre></td></tr></table></figure>
 <h3 id="第十六章FAQ（P288）"><a class="header-anchor" href="#第十六章FAQ（P288）">¶</a>第十六章FAQ（P288）</h3>
 <ol>
 <li>对于在不同文件中定义的结构来说，如果<font color=red><strong>它们的成员具有同样的名字并且顺序一样，且标记相同</strong></font>，那么它们是兼容的，相应的成员类型也是兼容的。<font color=red><strong>具有兼容类型的变量可以互相赋值</strong></font>。</li>
@@ -377,29 +521,29 @@
 <p>  <font color=red><strong><code>free</code>函数参数可以是空指针，此时<code>free</code>调用不起作用</strong></font>。</p>
 <h3 id="17-7-指向函数的指针"><a class="header-anchor" href="#17-7-指向函数的指针">¶</a>17.7 指向函数的指针</h3>
 <h4 id="17-7-1函数指针作为参数（P314）"><a class="header-anchor" href="#17-7-1函数指针作为参数（P314）">¶</a>17.7.1函数指针作为参数（P314）</h4>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">integrate</span><span class="params">(<span class="keyword">double</span> (*f)(<span class="keyword">double</span>), <span class="keyword">double</span> a, <span class="keyword">double</span> b)</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">integrate</span><span class="hljs-params">(<span class="hljs-keyword">double</span> (*f)(<span class="hljs-keyword">double</span>), <span class="hljs-keyword">double</span> a, <span class="hljs-keyword">double</span> b)</span></span>;<br></code></pre></td></tr></table></figure>
 <p>  等同于</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">integrate</span><span class="params">(<span class="keyword">double</span> f(<span class="keyword">double</span>), <span class="keyword">double</span> a, <span class="keyword">double</span> b)</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">integrate</span><span class="hljs-params">(<span class="hljs-keyword">double</span> f(<span class="hljs-keyword">double</span>), <span class="hljs-keyword">double</span> a, <span class="hljs-keyword">double</span> b)</span></span>;<br></code></pre></td></tr></table></figure>
 <h3 id="17-8受限指针（P318）"><a class="header-anchor" href="#17-8受限指针（P318）">¶</a>17.8受限指针（P318）</h3>
 <p>  如果指针<code>p</code>指向的对象在之后需要修改，那么该对象不会允许通过除指针<code>p</code>之外的任何方式访问（其它访问对象的方式包括让另一个指针指向同一个对象，或者让指针<code>p</code>指向命名变量）。</p>
 <h3 id="第十七章FAQ（P322）"><a class="header-anchor" href="#第十七章FAQ（P322）">¶</a>第十七章FAQ（P322）</h3>
 <ol>
 <li>两个结构都含有指向对方的指针成员的情况：</li>
 </ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">s1</span>;</span> <span class="comment">/* incomplete declaration of s1 */</span></span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">s2</span> &#123;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">s1</span> *<span class="title">p</span>;</span></span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">s1</span> &#123;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">s2</span> *<span class="title">p</span>;</span></span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">s1</span>;</span> <span class="hljs-comment">/* incomplete declaration of s1 */</span><br> <br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">s2</span> &#123;</span><br>    ...<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">s1</span> *<span class="hljs-title">p</span>;</span><br>    ...<br>&#125;;<br><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">s1</span> &#123;</span><br>    ...<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">s2</span> *<span class="hljs-title">p</span>;</span><br>    ...<br>&#125;;<br></code></pre></td></tr></table></figure>
 <p>  <code>s1</code>的第一处声明创建了一个不完整的结构类型，因为我们没有指明s1的成员。`s1的第二处声明通过描述结构的成员“完善”了该类型。</p>
 <p>2. 存在惯用法：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p = <span class="built_in">malloc</span>(n * <span class="keyword">sizeof</span>(*p));</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C">p = <span class="hljs-built_in">malloc</span>(n * <span class="hljs-keyword">sizeof</span>(*p));<br></code></pre></td></tr></table></figure>
 <p>  可以避免用错误的参数调用<code>malloc</code>函数（导致分配的内存过大或过小）。因为<code>sizeof</code>并不对<code>*p</code>求值，所以此用法合法。</p>
 <h2 id="第十八章-声明"><a class="header-anchor" href="#第十八章-声明">¶</a>第十八章 声明</h2>
 <h3 id="18-2-存储类型"><a class="header-anchor" href="#18-2-存储类型">¶</a>18.2 存储类型</h3>
 <h4 id="18-2-1变量的性质（P329）"><a class="header-anchor" href="#18-2-1变量的性质（P329）">¶</a>18.2.1变量的性质（P329）</h4>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">       <span class="comment">//|----静态存储期限</span></span><br><span class="line"><span class="keyword">int</span> i; <span class="comment">//+----文件作用域</span></span><br><span class="line">       <span class="comment">//|----外部链接</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">           <span class="comment">//|-----自动存储期限</span></span><br><span class="line">    <span class="keyword">int</span> j; <span class="comment">//+-----块作用域</span></span><br><span class="line">           <span class="comment">//|------无链接</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs C">       <span class="hljs-comment">//|----静态存储期限</span><br><span class="hljs-keyword">int</span> i; <span class="hljs-comment">//+----文件作用域</span><br>       <span class="hljs-comment">//|----外部链接</span><br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span></span><br><span class="hljs-function"></span>&#123;<br>           <span class="hljs-comment">//|-----自动存储期限</span><br>    <span class="hljs-keyword">int</span> j; <span class="hljs-comment">//+-----块作用域</span><br>           <span class="hljs-comment">//|------无链接</span><br>&#125;<br></code></pre></td></tr></table></figure>
 <h4 id="18-2-2-auto存储类型（P329）"><a class="header-anchor" href="#18-2-2-auto存储类型（P329）">¶</a>18.2.2 auto存储类型（P329）</h4>
 <p>  <code>auto</code>存储类型只对属于块的变量有效。<code>auto</code>存储类型几乎从来不用明确地指明，因为对于在块内部声明的变量，它是默认的。</p>
 <h4 id="18-2-3-static存储类型（P329）"><a class="header-anchor" href="#18-2-3-static存储类型（P329）">¶</a>18.2.3 <code>static</code>存储类型（P329）</h4>
 <p>1.</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">              <span class="comment">//|----静态存储期限</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> i; <span class="comment">//+----文件作用域</span></span><br><span class="line">              <span class="comment">//|----**内部**链接</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">                  <span class="comment">//|-----**静态**存储期限</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> j; <span class="comment">//+-----块作用域</span></span><br><span class="line">                  <span class="comment">//|------无链接</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs C">              <span class="hljs-comment">//|----静态存储期限</span><br><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> i; <span class="hljs-comment">//+----文件作用域</span><br>              <span class="hljs-comment">//|----**内部**链接</span><br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span></span><br><span class="hljs-function"></span>&#123;<br>                  <span class="hljs-comment">//|-----**静态**存储期限</span><br>    <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> j; <span class="hljs-comment">//+-----块作用域</span><br>                  <span class="hljs-comment">//|------无链接</span><br>&#125;<br></code></pre></td></tr></table></figure>
 <pre><code>`static`的此种用法可以用来实现一种称为信息隐藏的技术。
 </code></pre>
 <p>2. <code>static</code>变量具有以下一些有趣的性质：</p>
@@ -410,17 +554,17 @@
 </ul>
 <h4 id="18-2-4-extern存储类型（P330）"><a class="header-anchor" href="#18-2-4-extern存储类型（P330）">¶</a>18.2.4 <code>extern</code>存储类型（P330）</h4>
 <p>1. 变量是<code>extern</code>声明不是定义这一规则有一个例外：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="keyword">int</span> i = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-keyword">extern</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;<br></code></pre></td></tr></table></figure>
 <p>  这条规则可以防止多个<code>extern</code>声明用不同方法对变量进行初始化。<br>
 2.</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">              <span class="comment">//|----静态存储期限</span></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">int</span> i; <span class="comment">//+----文件作用域</span></span><br><span class="line">              <span class="comment">//|     |----在文件较早的位置（任何函数定义的外部）声明为static，那么它具有内部链接</span></span><br><span class="line">              <span class="comment">//|-----+</span></span><br><span class="line">              <span class="comment">//      |----通常情况下为外部链接</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">                  <span class="comment">//|-----静态存储期限</span></span><br><span class="line">    <span class="keyword">extern</span> <span class="keyword">int</span> j; <span class="comment">//+-----块作用域</span></span><br><span class="line">                  <span class="comment">//|-----通常情况下为外部链接</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs C">              <span class="hljs-comment">//|----静态存储期限</span><br><span class="hljs-keyword">extern</span> <span class="hljs-keyword">int</span> i; <span class="hljs-comment">//+----文件作用域</span><br>              <span class="hljs-comment">//|     |----在文件较早的位置（任何函数定义的外部）声明为static，那么它具有内部链接</span><br>              <span class="hljs-comment">//|-----+</span><br>              <span class="hljs-comment">//      |----通常情况下为外部链接</span><br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span></span><br><span class="hljs-function"></span>&#123;<br>                  <span class="hljs-comment">//|-----静态存储期限</span><br>    <span class="hljs-keyword">extern</span> <span class="hljs-keyword">int</span> j; <span class="hljs-comment">//+-----块作用域</span><br>                  <span class="hljs-comment">//|-----通常情况下为外部链接</span><br>&#125;<br></code></pre></td></tr></table></figure>
 <h4 id="18-2-5-register存储类型（P331）"><a class="header-anchor" href="#18-2-5-register存储类型（P331）">¶</a>18.2.5 <code>register</code>存储类型（P331）</h4>
 <ol>
 <li>指明变量的存储类型是<code>register</code>是一种请求，而不是命令。编译器可以选择把<code>register</code>型变量存储在内存中。</li>
 <li>由于寄存器没有地址，所以对<code>register</code>变量使用取地址运算符<code>&amp;</code>是非法的。即使编译器选择把变量存储在内存中，这一限制仍适用。</li>
 <li><code>register</code>存储类型最好用于需要频繁进行访问或更新的变量。例如，在<code>for</code>语句中的循环控制变量就比较适合声明为<code>register</code>：</li>
 </ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sum_array</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">register</span> <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">        sum += a[i];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">sum_array</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a[], <span class="hljs-keyword">int</span> n)</span> </span>&#123;<br>    <span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i;<br>    <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;<br> <br>    <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; n; i++)<br>        sum += a[i];<br><br>    <span class="hljs-keyword">return</span> sum;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h3 id="18-4-声明符"><a class="header-anchor" href="#18-4-声明符">¶</a>18.4 声明符</h3>
 <h4 id="18-4-1解释复杂声明（P335）"><a class="header-anchor" href="#18-4-1解释复杂声明（P335）">¶</a>18.4.1解释复杂声明（P335）</h4>
 <p>  下面两条简单的规则可以用来理解任何声明：</p>
@@ -453,177 +597,318 @@
 <p>2. <code>inline</code>（GCC）：相对于C99的<code>inline</code>来说，GCC的<code>inline</code>更容易理解：可以认为它是一个普通全局函数加上了<code>inline</code>的属性。即在其定义所在文件内，它的表现和<code>static inline</code>一致：在能展开的时候会被内联展开编译。但是为了能够在文件外调用它，gcc一定会为它生成一份独立的汇编码，以便在外部进行调用。即从文件外部看来，它和一个普通的<code>extern</code>的函数无异。<br>
 3. <code>extern inline</code>（GCC）：gcc的<code>extern inline</code>十分古怪：一个<code>extern inline</code>的函数只会被内联进去，而绝对不会生成独立的汇编码！即使是通过指针应用或者是递归调用也不会让编译器为它生成汇编码，在这种时候对此函数的调用会被处理成一个外部引用。另外，<code>extern inline</code>的函数允许和外部函数重名，即在存在一个外部定义的全局库函数的情况下，再定义一个同名的<code>extern inline</code>函数也是合法的。以下用例子具体说明一下<code>extern inline</code>的特点：</p>
 <p>foo.c:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> -a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    a = foo(a);   <span class="comment">/* ① */</span></span><br><span class="line">    p_foo = foo;  <span class="comment">/* ② */</span></span><br><span class="line">    b = p_foo(b); <span class="comment">/* ③ */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-function"><span class="hljs-keyword">extern</span> <span class="hljs-keyword">inline</span> <span class="hljs-keyword">int</span> <span class="hljs-title">foo</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a)</span> </span>&#123;<br>    <span class="hljs-keyword">return</span> -a;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">func1</span><span class="hljs-params">()</span> </span>&#123;<br>    ...<br>    a = foo(a);   <span class="hljs-comment">/* ① */</span><br>    p_foo = foo;  <span class="hljs-comment">/* ② */</span><br>    b = p_foo(b); <span class="hljs-comment">/* ③ */</span><br>&#125;<br></code></pre></td></tr></table></figure>
 <p>  在这个文件内，gcc不会生成<code>foo</code>函数的汇编码。在<code>func1</code>中的调用点①，编译器会将上面定义的<code>foo</code>函数数在这里内联展开编译，其表现类似于普通<code>inline</code>函数。因为这样的调用是能够进行内联处理的。而在②处，引用了<code>foo</code>函数的地址。但是注意：编译器是绝对不会为<code>extern inline</code>函数生成独立汇编码的！所以在这种非要个函数地址不可的情况下，编译器不得不将其处理为外部引用，在链接的时候链接到外部的<code>foo</code>函数去（填写外部函数的地址）。这时如果外部没有再定义全局的<code>foo</code>函数的话就会在链接时产生<code>foo</code>函数未定义的错误。<br>
 假设在另一个文件里面也定义了一个全局函数<code>foo</code>：</p>
 <p>foo2.c:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">foo</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a)</span> </span>&#123;<br>    <span class="hljs-keyword">return</span> a;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>  那么在上面那个例子里面，后面一个对<code>foo</code>函数地址的引用就会在链接时被指到这个foo2.c中定义的<code>foo</code>函数去。也就是说：①调用<code>foo</code>函数的结果是<code>a = -a</code>，因为其内联了foo.c内的<code>foo</code>函数；而③调用的结果则是<code>b = b</code>，因为其实际上调用的是foo2.c里面的<code>foo</code>函数！<br>
   gcc的<code>extern inline</code>函数的用法相当奇怪，使用的范围也非常狭窄：几乎没有什么情况会需要用它。 C99中，也没有关于<code>extern inline</code>这样的描述，所以不建议大家使用<code>extern inline</code>，除非你明确理解了这种用法的意义并且有充足的理由使用它！</p>
 <p>4. <code>inline</code>（C99标准）：如果一个inline函数在文件范围内没有被声明为<code>extern</code>的话，这个函数在文件内的表现就和gcc的<code>extern inline</code>相似：在本文件内调用时允许编译器使用本文件内定义的这个内联版本，但同时也允许外部存在同名的全局函数。只是比较奇怪的是C99居然没有指定编译器是否必须在本文件内使用这个<code>inline</code>的版本而是让编译器厂家自己来决定，相当模糊的定义。<br>
   <font color=red><strong>如果在文件内把这个<code>inline</code>函数声明为<code>extern</code>，则这个<code>inline</code>函数的表现就和gcc的<code>inline</code>一致了：这个函数即成为一个“external definition”（可以简单理解为全局函数）：可以在外部被调用，并且在程序内仅能存在一个这样名字的定义。</strong></font></p>
 <p>5. <code>extern inline</code>（C99标准）：C99标准没有见到<code>extern inline</code>的用法。</p>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://blog.rabbituzki.com.cn/2018/10/18/%E3%80%8AC%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%C2%B7%E7%8E%B0%E4%BB%A3%E6%96%B9%E6%B3%95%EF%BC%88%E7%AC%AC%E4%BA%8C%E7%89%88%EF%BC%89%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%8C/" data-id="ckidwlgi4001usgv4c8xt92ps" class="article-share-link">
-        分享
-      </a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" rel="tag">编程语言</a></li></ul>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+                    
+                      <a class="hover-with-bg" href="/tags/C/">C</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2018/10/18/%E3%80%8AC%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%C2%B7%E7%8E%B0%E4%BB%A3%E6%96%B9%E6%B3%95%EF%BC%88%E7%AC%AC%E4%BA%8C%E7%89%88%EF%BC%89%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">《C语言程序设计·现代方法（第二版）》学习笔记 -- 之一</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
 
-    </footer>
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "TMgxzCpM2zFnsClsMHJY2LLc-gzGzoHsz",
+          app_key: "1kPLieLtoBQWf0w6iNxLqkMV",
+          placeholder: "说点什么....",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="https://valine.js.org" target="_blank" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
 
-  </div>
 
-  
-  
-  <nav class="article-nav">
-    
-      <a href="/2018/10/18/Markdown-%E8%AF%AD%E6%B3%95%E6%89%8B%E5%86%8C/" class="article-nav-link">
-        <strong class="article-nav-caption">前一篇</strong>
-        <div class="article-nav-title">
-          
-            Markdown 语法手册
-          
+              </article>
+            
+          </article>
         </div>
-      </a>
-    
-    
-      <a href="/2018/10/18/%E3%80%8AC%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%C2%B7%E7%8E%B0%E4%BB%A3%E6%96%B9%E6%B3%95%EF%BC%88%E7%AC%AC%E4%BA%8C%E7%89%88%EF%BC%89%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80/" class="article-nav-link">
-        <strong class="article-nav-caption">后一篇</strong>
-        <div class="article-nav-title">《C语言程序设计·现代方法（第二版）》学习笔记 -- 之一</div>
-      </a>
-    
-  </nav>
-
-
-  
-
-  
-  
-  
-  
-
-</article>
-</section>
-  <footer class="footer">
-  <div class="outer">
-    <div class="float-right">
-      <ul class="list-inline">
-  
-    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
-  
-    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
-  
-</ul>
+      </div>
     </div>
-    <ul class="list-inline">
-      <li>&copy; 2020 六加的博客</li>
-      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
-      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
-    </ul>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
   </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> &nbsp;&nbsp;and&nbsp;&nbsp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
 </footer>
 
-</main>
-<aside class="sidebar">
-  <button class="navbar-toggle"></button>
-<nav class="navbar">
-  
-    <div class="logo">
-      <a href="/"><img src="/images/hexo.svg" alt="六加的博客"></a>
-    </div>
-  
-  <ul class="nav nav-main">
-    
-      <li class="nav-item">
-        <a class="nav-item-link" href="/">Home</a>
-      </li>
-    
-      <li class="nav-item">
-        <a class="nav-item-link" href="/archives">Archives</a>
-      </li>
-    
-      <li class="nav-item">
-        <a class="nav-item-link" href="/gallery">Gallery</a>
-      </li>
-    
-      <li class="nav-item">
-        <a class="nav-item-link" href="/about">About</a>
-      </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link nav-item-search" title="搜索">
-        <i class="fe fe-search"></i>
-        搜索
-      </a>
-    </li>
-  </ul>
-</nav>
-<nav class="navbar navbar-bottom">
-  <ul class="nav">
-    <li class="nav-item">
-      <div class="totop" id="totop">
-  <i class="fe fe-rocket"></i>
-</div>
-    </li>
-    <li class="nav-item">
-      
-        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
-          <i class="fe fe-feed"></i>
-        </a>
-      
-    </li>
-  </ul>
-</nav>
-<div class="search-form-wrap">
-  <div class="local-search local-search-plugin">
-  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
-  <div id="local-search-result" class="local-search-result"></div>
-</div>
-</div>
-</aside>
+<!-- SCRIPTS -->
 
-<script src="/js/jquery-2.0.3.min.js"></script>
-
-
-<script src="/js/jquery.justifiedGallery.min.js"></script>
-
-
-<script src="/js/lazyload.min.js"></script>
-
-
-<script src="/js/busuanzi-2.3.pure.min.js"></script>
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-  
-<script src="/js/tocbot.min.js"></script>
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
 
   <script>
-    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
-    tocbot.init({
-      tocSelector: '.tocbot',
-      contentSelector: '.article-entry',
-      headingSelector: 'h1, h2, h3, h4, h5, h6',
-      hasInnerContainers: true,
-      scrollSmooth: true,
-      positionFixedSelector: '.tocbot',
-      positionFixedClass: 'is-position-fixed',
-      fixedSidebarOffset: 'auto',
-    });
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
   </script>
 
 
 
-<script src="/js/ocean.js"></script>
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a9b0666290f750544a1900dff36c0349";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+    <!-- Google Analytics -->
+    <script defer>
+      window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) };
+      ga.l = +new Date;
+      ga('create', 'UA-127726236-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
 
 
 </body>

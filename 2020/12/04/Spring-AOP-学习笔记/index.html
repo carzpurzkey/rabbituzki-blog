@@ -1,91 +1,235 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" href="/images/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>
-    Spring AOP 学习笔记 |
-    
-    六加的博客</title>
-  
-    <link rel="shortcut icon" href="/favicon.ico">
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="When in doubt, use brute force.">
+  <meta name="author" content="Rabbituzki">
+  <meta name="keywords" content="">
+  <title>Spring AOP 学习笔记 - Rabbituzki 的笔记们</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
 
   
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/gruvbox-dark.min.css" />
+    
+  
 
   
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
   
-<script src="/js/pace.min.js"></script>
 
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"blog.rabbituzki.com.cn","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"a9b0666290f750544a1900dff36c0349","google":"UA-127726236-2","gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TMgxzCpM2zFnsClsMHJY2LLc-gzGzoHsz","app_key":"1kPLieLtoBQWf0w6iNxLqkMV","server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
 <meta name="generator" content="Hexo 4.2.1"></head>
 
+
 <body>
-<main class="content">
-  <section class="outer">
-  <article id="post-Spring-AOP-学习笔记" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Rabbituzki 的笔记们</strong>&nbsp;</a>
 
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-  
-    <h1 class="article-title" itemprop="name">
-      Spring AOP 学习笔记
-    </h1>
-  
-  
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
 
-
-
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/12/04/Spring-AOP-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="article-date">
-  <time datetime="2020-12-03T16:00:00.000Z" itemprop="datePublished">2020-12-04</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
-  </div>
-
-    </div>
-    
-
-    
-    
-<div class="tocbot"></div>
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-  <div class="article-gallery">
-    <div class="article-gallery-photos">
-      
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-          <img src="/images/CModern.jpg" itemprop="image">
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
         
-      
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
   </div>
+</nav>
 
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/images/background1.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Spring AOP 学习笔记">
+              
+            </span>
 
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-12-04 00:00" pubdate>
+        2020年12月4日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
       
-      <h1>Spring AOP 学习笔记</h1>
+      
+      42
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Spring AOP 学习笔记</h1>
+            
+            <div class="markdown-body">
+              <h1>Spring AOP 学习笔记</h1>
 <hr>
 <p>[TOC]</p>
 <hr>
@@ -115,10 +259,10 @@
 </ul>
 <h2 id="二、装配-AOP"><a class="header-anchor" href="#二、装配-AOP">¶</a>二、装配 AOP</h2>
 <p>首先，我们通过 Maven 引入 Spring 对 AOP 的支持：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-aspects<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-aspects<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>$&#123;spring.version&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
 <h3 id="1-切面定义"><a class="header-anchor" href="#1-切面定义">¶</a>1. 切面定义</h3>
 <p>首先，我们定义一个 <code>LoggingAspect</code>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoggingAspect</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 在执行UserService的每个方法前执行:</span></span><br><span class="line">    <span class="meta">@Before</span>(<span class="string">"execution(public * com.itranswarp.learnjava.service.UserService.*(..))"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doAccessCheck</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.err.println(<span class="string">"[Before] do access check..."</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在执行MailService的每个方法前后执行:</span></span><br><span class="line">    <span class="meta">@Around</span>(<span class="string">"execution(public * com.itranswarp.learnjava.service.MailService.*(..))"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">doLogging</span><span class="params">(ProceedingJoinPoint pjp)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        System.err.println(<span class="string">"[Around] start "</span> + pjp.getSignature());</span><br><span class="line">        Object retVal = pjp.proceed();</span><br><span class="line">        System.err.println(<span class="string">"[Around] done "</span> + pjp.getSignature());</span><br><span class="line">        <span class="keyword">return</span> retVal;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-meta">@Aspect</span><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LoggingAspect</span> </span>&#123;<br>    <span class="hljs-comment">// 在执行UserService的每个方法前执行:</span><br>    <span class="hljs-meta">@Before</span>(<span class="hljs-string">"execution(public * com.itranswarp.learnjava.service.UserService.*(..))"</span>)<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doAccessCheck</span><span class="hljs-params">()</span> </span>&#123;<br>        System.err.println(<span class="hljs-string">"[Before] do access check..."</span>);<br>    &#125;<br><br>    <span class="hljs-comment">// 在执行MailService的每个方法前后执行:</span><br>    <span class="hljs-meta">@Around</span>(<span class="hljs-string">"execution(public * com.itranswarp.learnjava.service.MailService.*(..))"</span>)<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">doLogging</span><span class="hljs-params">(ProceedingJoinPoint pjp)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;<br>        System.err.println(<span class="hljs-string">"[Around] start "</span> + pjp.getSignature());<br>        Object retVal = pjp.proceed();<br>        System.err.println(<span class="hljs-string">"[Around] done "</span> + pjp.getSignature());<br>        <span class="hljs-keyword">return</span> retVal;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <ul>
 <li>
 <p>观察 <code>doAccessCheck()</code> 方法，我们定义了一个 <code>@Before</code> 注解，后面的字符串是告诉 AspectJ 应该在何处执行该方法，这里写的意思是：执行 <code>UserService</code> 的每个 <code>public</code> 方法前执行 <code>doAccessCheck()</code> 代码。</p>
@@ -130,9 +274,9 @@
 <p>在 <code>LoggingAspect</code> 类的声明处，除了用 <code>@Component</code> 表示它本身也是一个 Bean 外，我们再加上 <code>@Aspect</code> 注解，表示它的 <code>@Before</code> 标注的方法需要注入到 <code>UserService</code> 的每个 <code>public</code> 方法执行前，<code>@Around</code> 标注的方法需要注入到 <code>MailService</code> 的每个 <code>public</code> 方法执行前后。</p>
 <h3 id="2-装配-AOP"><a class="header-anchor" href="#2-装配-AOP">¶</a>2. 装配 AOP</h3>
 <p>紧接着，我们需要给 <code>@Configuration</code> 类加上一个 <code>@EnableAspectJAutoProxy</code> 注解：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ComponentScan</span></span><br><span class="line"><span class="meta">@EnableAspectJAutoProxy</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@ComponentScan</span><br><span class="hljs-meta">@EnableAspectJAutoProxy</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AppConfig</span> </span>&#123;<br>    ...<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>Spring 的 IoC 容器看到这个注解，就会自动查找带有 <code>@Aspect</code> 的 Bean，然后根据每个方法的 <code>@Before</code>、<code>@Around</code> 等注解把 AOP 注入到特定的 Bean 中。执行代码，我们可以看到以下输出：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[Before] do access check...</span><br><span class="line">[Around] start void com.itranswarp.learnjava.service.MailService.sendRegistrationMail(User)</span><br><span class="line">Welcome, test!</span><br><span class="line">[Around] done void com.itranswarp.learnjava.service.MailService.sendRegistrationMail(User)</span><br><span class="line">[Before] do access check...</span><br><span class="line">[Around] start void com.itranswarp.learnjava.service.MailService.sendLoginMail(User)</span><br><span class="line">Hi, Bob! You are logged in at 2020-02-14T23:13:52.167996+08:00[Asia&#x2F;Shanghai]</span><br><span class="line">[Around] done void com.itranswarp.learnjava.service.MailService.sendLoginMail(User)</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-attr">[Before]</span> <span class="hljs-selector-tag">do</span> <span class="hljs-selector-tag">access</span> <span class="hljs-selector-tag">check</span>...<br><span class="hljs-selector-attr">[Around]</span> <span class="hljs-selector-tag">start</span> <span class="hljs-selector-tag">void</span> <span class="hljs-selector-tag">com</span><span class="hljs-selector-class">.itranswarp</span><span class="hljs-selector-class">.learnjava</span><span class="hljs-selector-class">.service</span><span class="hljs-selector-class">.MailService</span><span class="hljs-selector-class">.sendRegistrationMail</span>(<span class="hljs-selector-tag">User</span>)<br><span class="hljs-selector-tag">Welcome</span>, <span class="hljs-selector-tag">test</span>!<br><span class="hljs-selector-attr">[Around]</span> <span class="hljs-selector-tag">done</span> <span class="hljs-selector-tag">void</span> <span class="hljs-selector-tag">com</span><span class="hljs-selector-class">.itranswarp</span><span class="hljs-selector-class">.learnjava</span><span class="hljs-selector-class">.service</span><span class="hljs-selector-class">.MailService</span><span class="hljs-selector-class">.sendRegistrationMail</span>(<span class="hljs-selector-tag">User</span>)<br><span class="hljs-selector-attr">[Before]</span> <span class="hljs-selector-tag">do</span> <span class="hljs-selector-tag">access</span> <span class="hljs-selector-tag">check</span>...<br><span class="hljs-selector-attr">[Around]</span> <span class="hljs-selector-tag">start</span> <span class="hljs-selector-tag">void</span> <span class="hljs-selector-tag">com</span><span class="hljs-selector-class">.itranswarp</span><span class="hljs-selector-class">.learnjava</span><span class="hljs-selector-class">.service</span><span class="hljs-selector-class">.MailService</span><span class="hljs-selector-class">.sendLoginMail</span>(<span class="hljs-selector-tag">User</span>)<br><span class="hljs-selector-tag">Hi</span>, <span class="hljs-selector-tag">Bob</span>! <span class="hljs-selector-tag">You</span> <span class="hljs-selector-tag">are</span> <span class="hljs-selector-tag">logged</span> <span class="hljs-selector-tag">in</span> <span class="hljs-selector-tag">at</span> 2020<span class="hljs-selector-tag">-02-14T23</span><span class="hljs-selector-pseudo">:13</span><span class="hljs-selector-pseudo">:52.167996+08</span><span class="hljs-selector-pseudo">:00</span><span class="hljs-selector-attr">[Asia/Shanghai]</span><br><span class="hljs-selector-attr">[Around]</span> <span class="hljs-selector-tag">done</span> <span class="hljs-selector-tag">void</span> <span class="hljs-selector-tag">com</span><span class="hljs-selector-class">.itranswarp</span><span class="hljs-selector-class">.learnjava</span><span class="hljs-selector-class">.service</span><span class="hljs-selector-class">.MailService</span><span class="hljs-selector-class">.sendLoginMail</span>(<span class="hljs-selector-tag">User</span>)<br></code></pre></td></tr></table></figure>
 <h4 id="拦截器类型"><a class="header-anchor" href="#拦截器类型">¶</a>拦截器类型</h4>
 <p>顾名思义，拦截器有以下类型：</p>
 <ul>
@@ -170,7 +314,7 @@
 <h3 id="2-使用示例"><a class="header-anchor" href="#2-使用示例">¶</a>2. 使用示例</h3>
 <h4 id="execution"><a class="header-anchor" href="#execution">¶</a><code>execution</code></h4>
 <p><code>execution</code> 是使用的最多的一种 Pointcut 表达式，表示某个方法的执行，其标准语法如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">execution(modifiers-pattern? ret-type-pattern declaring-type-pattern? name-pattern(param-pattern) throws-pattern?)</span><br></pre></td></tr></table></figure>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coq">execution(modifiers-<span class="hljs-built_in">pattern</span>? ret-type-<span class="hljs-built_in">pattern</span> declaring-type-<span class="hljs-built_in">pattern</span>? name-<span class="hljs-built_in">pattern</span>(param-<span class="hljs-built_in">pattern</span>) throws-<span class="hljs-built_in">pattern</span>?)<br></code></pre></td></tr></table></figure>
 <ul>
 <li><code>modifiers-pattern</code> 表示方法的访问类型，<code>public</code> 等；</li>
 <li><code>ret-type-pattern</code> 表示方法的返回值类型，如 <code>String</code> 表示返回类型是<code>String</code>，“<code>*</code>” 表示所有的返回类型；</li>
@@ -245,168 +389,324 @@
 </ul>
 <h3 id="基于-AspectJ-注解的-Pointcut-表达式应用"><a class="header-anchor" href="#基于-AspectJ-注解的-Pointcut-表达式应用">¶</a>基于 AspectJ 注解的 Pointcut 表达式应用</h3>
 <p>在使用基于 AspectJ 注解的 Spring AOP 时，我们可以把通过 <code>@Pointcut</code> 注解定义 Pointcut，指定其表达式，然后在需要使用 Pointcut 表达式的时候直接指定 Pointcut。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAspect</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Pointcut</span>(<span class="string">"execution(* add(..))"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">beforeAdd</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Before</span>(<span class="string">"beforeAdd()"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">before</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"-----------before-----------"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-meta">@Component</span><br><span class="hljs-meta">@Aspect</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyAspect</span> </span>&#123;<br><br>	<span class="hljs-meta">@Pointcut</span>(<span class="hljs-string">"execution(* add(..))"</span>)<br>	<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">beforeAdd</span><span class="hljs-params">()</span> </span>&#123;&#125;<br>	<br>	<span class="hljs-meta">@Before</span>(<span class="hljs-string">"beforeAdd()"</span>)<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">before</span><span class="hljs-params">()</span> </span>&#123;<br>		System.out.println(<span class="hljs-string">"-----------before-----------"</span>);<br>	&#125;<br>	<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>上面的代码中我们就是在 <code>@Before()</code> 中直接指定使用当前类定义的 <code>beforeAdd()</code> 方法对应的 Pointcut 的表达式，如果我们需要指定的 Pointcut 定义不是在当前类中的，我们需要加上类名称，如下面这个示例中引用的就是定义在 <code>MyService</code> 中的 <code>add()</code> 方法上的 Pointcut 的表达式。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Before</span>(<span class="string">"com.elim.spring.aop.service.MyService.add()"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">before2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	System.out.println(<span class="string">"-----------before2-----------"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-meta">@Before</span>(<span class="hljs-string">"com.elim.spring.aop.service.MyService.add()"</span>)<br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">before2</span><span class="hljs-params">()</span> </span>&#123;<br>	System.out.println(<span class="hljs-string">"-----------before2-----------"</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>当然了，除了通过引用 Pointcut 定义间接的引用其对应的 Pointcut 表达式外，我们也可以直接使用 Pointcut 表达式的，如下面这个示例就直接在 <code>@Before</code> 中使用了 Pointcut 表达式。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 所有的add方法的外部执行时</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Before</span>(<span class="string">"execution(* add())"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">beforeExecution</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	System.out.println(<span class="string">"-------------before execution---------------"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 所有的add方法的外部执行时</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Before</span>(<span class="hljs-string">"execution(* add())"</span>)<br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">beforeExecution</span><span class="hljs-params">()</span> </span>&#123;<br>	System.out.println(<span class="hljs-string">"-------------before execution---------------"</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
 <h2 id="四、Spring-AOP-原理"><a class="header-anchor" href="#四、Spring-AOP-原理">¶</a>四、Spring AOP 原理</h2>
 <p>其实 AOP 的原理非常简单。我们以 <code>LoggingAspect.doAccessCheck()</code> 为例，要把它注入到 <code>UserService</code> 的每个 <code>public</code> 方法中，最简单的方法是编写一个子类，并持有原始实例的引用：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> UserServiceAopProxy extends UserService &#123;</span><br><span class="line">    <span class="keyword">private</span> UserService target;</span><br><span class="line">    <span class="keyword">private</span> LoggingAspect aspect;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UserServiceAopProxy</span><span class="params">(UserService target, LoggingAspect aspect)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.target = target;</span><br><span class="line">        <span class="keyword">this</span>.aspect = aspect;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">login</span><span class="params">(String email, String password)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 先执行Aspect的代码:</span></span><br><span class="line">        aspect.doAccessCheck();</span><br><span class="line">        <span class="comment">// 再执行UserService的逻辑:</span></span><br><span class="line">        <span class="keyword">return</span> target.login(email, password);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">register</span><span class="params">(String email, String password, String name)</span> </span>&#123;</span><br><span class="line">        aspect.doAccessCheck();</span><br><span class="line">        <span class="keyword">return</span> target.register(email, password, name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">public</span> UserServiceAopProxy extends UserService &#123;<br>    <span class="hljs-keyword">private</span> UserService target;<br>    <span class="hljs-keyword">private</span> LoggingAspect aspect;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">UserServiceAopProxy</span><span class="hljs-params">(UserService target, LoggingAspect aspect)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.target = target;<br>        <span class="hljs-keyword">this</span>.aspect = aspect;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> User <span class="hljs-title">login</span><span class="hljs-params">(String email, String password)</span> </span>&#123;<br>        <span class="hljs-comment">// 先执行Aspect的代码:</span><br>        aspect.doAccessCheck();<br>        <span class="hljs-comment">// 再执行UserService的逻辑:</span><br>        <span class="hljs-keyword">return</span> target.login(email, password);<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> User <span class="hljs-title">register</span><span class="hljs-params">(String email, String password, String name)</span> </span>&#123;<br>        aspect.doAccessCheck();<br>        <span class="hljs-keyword">return</span> target.register(email, password, name);<br>    &#125;<br><br>    ...<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>这些都是 Spring 容器启动时为我们自动创建的注入了 Aspect 的子类，它取代了原始的 <code>UserService</code>（原始的 <code>UserService</code> 实例作为内部变量隐藏在 <code>UserServiceAopProxy</code> 中）。如果我们打印从 Spring 容器获取的 <code>UserService</code> 实例类型，它类似 <code>UserService$$EnhancerBySpringCGLIB$$1f44e01c</code>，实际上是 Spring 使用 CGLIB 动态创建的子类，但对于调用方来说，感觉不到任何区别。</p>
 <p>Spring 对接口类型使用 JDK 动态代理，对普通类使用 CGLIB 创建子类。如果一个Bean 的 class 是 <code>final</code>，Spring 将无法为其创建子类。</p>
 
-      
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Web/">Web</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Spring/">Spring</a>
+                    
+                      <a class="hover-with-bg" href="/tags/AOP/">AOP</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/07/15/Ubuntu-%E4%B8%8B-Wine-%E5%AE%89%E8%A3%85%E5%B9%B6%E8%BF%90%E8%A1%8C%E5%BE%AE%E4%BF%A1/">
+                        <span class="hidden-mobile">Ubuntu 下 Wine 安装并运行微信</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "TMgxzCpM2zFnsClsMHJY2LLc-gzGzoHsz",
+          app_key: "1kPLieLtoBQWf0w6iNxLqkMV",
+          placeholder: "说点什么....",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="https://valine.js.org" target="_blank" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
     </div>
-    <footer class="article-footer">
-      <a data-url="https://blog.rabbituzki.com.cn/2020/12/04/Spring-AOP-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckidwlghn000psgv48absfg2b" class="article-share-link">
-        分享
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
       </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> &nbsp;&nbsp;and&nbsp;&nbsp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AOP/" rel="tag">AOP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/" rel="tag">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" rel="tag">编程语言</a></li></ul>
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
 
-    </footer>
-
+    
   </div>
 
-  
-  
-  <nav class="article-nav">
-    
-    
-      <a href="/2020/07/15/Ubuntu-%E4%B8%8B-138a0090%E3%80%81138a0097-%E5%92%8C-06cb009a-%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%AB%E5%99%A8%E9%A9%B1%E5%8A%A8%E5%8F%8A%E6%8C%87%E7%BA%B9%E8%AE%A4%E8%AF%81/" class="article-nav-link">
-        <strong class="article-nav-caption">后一篇</strong>
-        <div class="article-nav-title">Ubuntu 下 138a:0090、138a:0097 和 06cb:009a 指纹识别器驱动及指纹认证</div>
-      </a>
-    
-  </nav>
-
 
   
 
   
-  
-  
-  
-
-</article>
-</section>
-  <footer class="footer">
-  <div class="outer">
-    <div class="float-right">
-      <ul class="list-inline">
-  
-    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
-  
-    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
-  
-</ul>
-    </div>
-    <ul class="list-inline">
-      <li>&copy; 2020 六加的博客</li>
-      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
-      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
-    </ul>
-  </div>
 </footer>
 
-</main>
-<aside class="sidebar">
-  <button class="navbar-toggle"></button>
-<nav class="navbar">
-  
-    <div class="logo">
-      <a href="/"><img src="/images/hexo.svg" alt="六加的博客"></a>
-    </div>
-  
-  <ul class="nav nav-main">
-    
-      <li class="nav-item">
-        <a class="nav-item-link" href="/">Home</a>
-      </li>
-    
-      <li class="nav-item">
-        <a class="nav-item-link" href="/archives">Archives</a>
-      </li>
-    
-      <li class="nav-item">
-        <a class="nav-item-link" href="/gallery">Gallery</a>
-      </li>
-    
-      <li class="nav-item">
-        <a class="nav-item-link" href="/about">About</a>
-      </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link nav-item-search" title="搜索">
-        <i class="fe fe-search"></i>
-        搜索
-      </a>
-    </li>
-  </ul>
-</nav>
-<nav class="navbar navbar-bottom">
-  <ul class="nav">
-    <li class="nav-item">
-      <div class="totop" id="totop">
-  <i class="fe fe-rocket"></i>
-</div>
-    </li>
-    <li class="nav-item">
-      
-        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
-          <i class="fe fe-feed"></i>
-        </a>
-      
-    </li>
-  </ul>
-</nav>
-<div class="search-form-wrap">
-  <div class="local-search local-search-plugin">
-  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
-  <div id="local-search-result" class="local-search-result"></div>
-</div>
-</div>
-</aside>
+<!-- SCRIPTS -->
 
-<script src="/js/jquery-2.0.3.min.js"></script>
-
-
-<script src="/js/jquery.justifiedGallery.min.js"></script>
-
-
-<script src="/js/lazyload.min.js"></script>
-
-
-<script src="/js/busuanzi-2.3.pure.min.js"></script>
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-  
-<script src="/js/tocbot.min.js"></script>
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
 
   <script>
-    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
-    tocbot.init({
-      tocSelector: '.tocbot',
-      contentSelector: '.article-entry',
-      headingSelector: 'h1, h2, h3, h4, h5, h6',
-      hasInnerContainers: true,
-      scrollSmooth: true,
-      positionFixedSelector: '.tocbot',
-      positionFixedClass: 'is-position-fixed',
-      fixedSidebarOffset: 'auto',
-    });
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
   </script>
 
 
 
-<script src="/js/ocean.js"></script>
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a9b0666290f750544a1900dff36c0349";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+    <!-- Google Analytics -->
+    <script defer>
+      window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) };
+      ga.l = +new Date;
+      ga('create', 'UA-127726236-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
 
 
 </body>

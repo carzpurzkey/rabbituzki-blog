@@ -1,91 +1,235 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" href="/images/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>
-    iptables文档 |
-    
-    六加的博客</title>
-  
-    <link rel="shortcut icon" href="/favicon.ico">
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="When in doubt, use brute force.">
+  <meta name="author" content="Rabbituzki">
+  <meta name="keywords" content="">
+  <title>iptables文档 - Rabbituzki 的笔记们</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
 
   
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/gruvbox-dark.min.css" />
+    
+  
 
   
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
   
-<script src="/js/pace.min.js"></script>
 
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"blog.rabbituzki.com.cn","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"a9b0666290f750544a1900dff36c0349","google":"UA-127726236-2","gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TMgxzCpM2zFnsClsMHJY2LLc-gzGzoHsz","app_key":"1kPLieLtoBQWf0w6iNxLqkMV","server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
 <meta name="generator" content="Hexo 4.2.1"></head>
 
+
 <body>
-<main class="content">
-  <section class="outer">
-  <article id="post-iptables文档" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Rabbituzki 的笔记们</strong>&nbsp;</a>
 
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-  
-    <h1 class="article-title" itemprop="name">
-      iptables文档
-    </h1>
-  
-  
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
 
-
-
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/11/22/iptables%E6%96%87%E6%A1%A3/" class="article-date">
-  <time datetime="2018-11-21T16:00:00.000Z" itemprop="datePublished">2018-11-22</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a>
-  </div>
-
-    </div>
-    
-
-    
-    
-<div class="tocbot"></div>
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-  <div class="article-gallery">
-    <div class="article-gallery-photos">
-      
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-          <img src="/images/iptables.png" itemprop="image">
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
         
-      
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
   </div>
+</nav>
 
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/images/background1.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="iptables文档">
+              
+            </span>
 
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-11-22 00:00" pubdate>
+        2018年11月22日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      7.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
       
-      <h1>iptables文档</h1>
+      
+      88
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">iptables文档</h1>
+            
+            <div class="markdown-body">
+              <h1>iptables文档</h1>
 <hr>
 <p>[TOC]</p>
 <hr>
@@ -138,7 +282,7 @@
 <p>那么如何使用iptables在以上流程中控制对数据包的处理行为呢？当然是使用iptables与其相关的参数了。</p>
 <h2 id="iptables命令格式"><a class="header-anchor" href="#iptables命令格式">¶</a>iptables命令格式</h2>
 <p>iptables的命令格式较为复杂，一般的格式如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables [-t 表] -命令 匹配   操作</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables [-t 表] -命令 匹配   操作<br></code></pre></td></tr></table></figure>
 <p>说明</p>
 <ol>
 <li>
@@ -251,30 +395,30 @@
 <h2 id="iptables规则的动作"><a class="header-anchor" href="#iptables规则的动作">¶</a>iptables规则的动作</h2>
 <p>前面我们说过iptables处理动作除了 <code>ACCEPT</code>、<code>REJECT</code>、<code>DROP</code>、<code>REDIRECT</code> 、<code>MASQUERADE</code> 以外，还多出 <code>LOG</code>、<code>ULOG</code>、<code>DNAT</code>、<code>RETURN</code>、<code>TOS</code>、<code>SNAT</code>、<code>MIRROR</code>、<code>QUEUE</code>、<code>TTL</code>、<code>MARK</code>等。我们只说明其中最常用的动作：</p>
 <p><strong>REJECT</strong> 拦阻该数据包，并返回数据包通知对方，可以返回的数据包有几个选择：<code>ICMP port-unreachable</code>、<code>ICMP echo-reply</code> 或是<code>tcp-reset</code>（这个数据包包会要求对方关闭联机），进行完此处理动作后，将不再比对其它规则，直接中断过滤程序。 范例如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A  INPUT -p TCP --dport 22 -j REJECT --reject-with ICMP <span class="built_in">echo</span>-reply</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -A  INPUT -p TCP --dport 22 -j REJECT --reject-with ICMP <span class="hljs-built_in">echo</span>-reply<br></code></pre></td></tr></table></figure>
 <p><strong>DROP</strong> 丢弃数据包不予处理，进行完此处理动作后，将不再比对其它规则，直接中断过滤程序。</p>
 <p><strong>REDIRECT</strong> 将封包重新导向到另一个端口（<code>PNAT</code>），进行完此处理动作后，将会继续比对其它规则。这个功能可以用来实作透明代理 或用来保护web 服务器。例如：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT--to-ports 8081</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT--to-ports 8081<br></code></pre></td></tr></table></figure>
 <p><strong>MASQUERADE</strong> 改写封包来源IP为防火墙的IP，可以指定<code>port</code> 对应的范围，进行完此处理动作后，直接跳往下一个规则链（<code>MANGLE</code>:<code>POSTROUTING</code>）。这个功能与 <code>SNAT</code> 略有不同，当进行IP 伪装时，不需指定要伪装成哪个 IP，IP 会从网卡直接读取，当使用拨接连线时，IP 通常是由 ISP 公司的 DHCP服务器指派的，这个时候 <code>MASQUERADE</code> 特别有用。范例如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -A POSTROUTING -p TCP -j MASQUERADE --to-ports 21000-31000</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -t nat -A POSTROUTING -p TCP -j MASQUERADE --to-ports 21000-31000<br></code></pre></td></tr></table></figure>
 <p><strong>LOG</strong> 将数据包相关信息纪录在 <code>/var/lo</code>g 中，详细位置请查阅 <code>/etc/syslog.conf</code> 配置文件，进行完此处理动作后，将会继续比对其它规则。例如：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -p tcp -j LOG --<span class="built_in">log</span>-prefix <span class="string">"input packet"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -A INPUT -p tcp -j LOG --<span class="hljs-built_in">log</span>-prefix <span class="hljs-string">"input packet"</span><br></code></pre></td></tr></table></figure>
 <p><strong>SNAT</strong> 改写封包来源 IP 为某特定 IP 或 IP 范围，可以指定 <code>port</code> 对应的范围，进行完此处理动作后，将直接跳往下一个规则链（<code>MANGLE</code>:<code>POSTROUTING</code>）。范例如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -A POSTROUTING -p tcp-o eth0 -j SNAT --to-source 192.168.10.15-192.168.10.160:2100-3200</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -t nat -A POSTROUTING -p tcp-o eth0 -j SNAT --to-source 192.168.10.15-192.168.10.160:2100-3200<br></code></pre></td></tr></table></figure>
 <p><strong>DNAT</strong> 改写数据包包目的地 IP 为某特定 IP 或 IP 范围，可以指定 <code>port</code> 对应的范围，进行完此处理动作后，将会直接跳往下一个规则链（<code>FILTER</code>:<code>INPUT</code> 或 <code>FILTER</code>:<code>FORWORD</code>）。范例如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -A PREROUTING -p tcp -d 15.45.23.67 --dport 80 -j DNAT --to-destination 192.168.10.1-192.168.10.10:80-100</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -t nat -A PREROUTING -p tcp -d 15.45.23.67 --dport 80 -j DNAT --to-destination 192.168.10.1-192.168.10.10:80-100<br></code></pre></td></tr></table></figure>
 <p><strong>MIRROR</strong> 镜像数据包，也就是将来源 IP与目的地IP对调后，将数据包返回，进行完此处理动作后，将会中断过滤程序。</p>
 <p><strong>QUEUE</strong> 中断过滤程序，将封包放入队列，交给其它程序处理。透过自行开发的处理程序，可以进行其它应用，例如：计算联机费用…等。</p>
 <p><strong>RETURN</strong> 结束在目前规则链中的过滤程序，返回主规则链继续过滤，如果把自订规则炼看成是一个子程序，那么这个动作，就相当于提早结束子程序并返回到主程序中。</p>
 <p><strong>MARK</strong> 将封包标上某个代号，以便提供作为后续过滤的条件判断依据，进行完此处理动作后，将会继续比对其它规则。范例如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t mangle -A PREROUTING -p tcp --dport 22 -j MARK --<span class="built_in">set</span>-mark 22</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -t mangle -A PREROUTING -p tcp --dport 22 -j MARK --<span class="hljs-built_in">set</span>-mark 22<br></code></pre></td></tr></table></figure>
 <p>看了本文是不是对iptables参数有所了解了，下文我会使用实例来更详细的说明iptables的参数的用法。</p>
 <h3 id="保存规则"><a class="header-anchor" href="#保存规则">¶</a>保存规则</h3>
 <p>使用iptables程序建立的规则只会保存在内存中，通常我们在修改了iptables的规则重启 iptables 后，之前修改的规则又消失了。那么如何保存新建立的规则呢？</p>
 <ol>
 <li>
 <p>对于RHEL和ceontos系统可以使用<code>service iptables save</code>将当前内存中的规则保存到<code>/etc/sysconfig/iptables</code>文件中</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@lampbo ~]# service iptables save</span><br></pre></td></tr></table></figure>
+ <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">[root@lampbo ~]#<span class="hljs-built_in"> service </span>iptables save<br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <p>修改<code>/etc/sysconfig/iptables-config</code> 将里面的<code>IPTABLES_SAVE_ON_STOP=&quot;no&quot;</code>, 这一句的<code>no</code>改为<code>yes</code>这样每次服务在停止之前会自动将现有的规则保存在 <code>/etc/sysconfig/iptables</code>这个文件中去。</p>
@@ -282,7 +426,7 @@
 </ol>
 <h2 id="规则示例"><a class="header-anchor" href="#规则示例">¶</a>规则示例</h2>
 <p>先回顾下iptables的格式：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables [-t table] <span class="built_in">command</span> [match] [-j target/jump]</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables [-t table] <span class="hljs-built_in">command</span> [match] [-j target/jump]<br></code></pre></td></tr></table></figure>
 <p>-t 参数用来指定规则表，内建的规则表有三个，分别是：<code>NAT</code>、<code>MANGLE</code> 和 <code>FILTER</code>，当未指定规则表时，则一律视为是 <code>FILTER</code>。</p>
 <p>各个规则表的功能如下：</p>
 <p><strong>NAT</strong> 此规则表拥有 <code>PREROUTING</code> 和 <code>POSTROUTING</code> 两个规则链，主要功能为进行一对一、一对多、多对多等网址转换工作（<code>SNAT</code>，<code>DNAT</code>），由于转换的特性，需进行目的地网址转换的数据包，就不需要进行来源网址转换，反之亦然，因此为了提升改写封包的效率，在防火墙运作时，每个封包只会经过这个规则表一次。如果我们把数据包过滤的规则定义在这个数据表里，将会造成无法对同一包进行多次比对，因此这个规则表除了作网址转换外，请不要做其它用途。mangle 此规则表拥有 <code>PREROUTING</code>、<code>FORWARD</code> 和 <code>POSTROUTING</code> 三个规则链。</p>
@@ -294,7 +438,7 @@
 <li>
 <p>命令 -A, --append<br>
 范例：</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -p tcp --dport 80 -j ACCEPT</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -A INPUT -p tcp --dport 80 -j ACCEPT<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明 ：新增规则到<code>INPUT</code>规则链中，规则时接到所有目的端口为80的数据包的流入连接，该规则将会成为规则链中的最后一条规则。</p>
 </blockquote>
@@ -302,9 +446,9 @@
 <li>
 <p>命令 -D, --delete<br>
 范例：</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -D INPUT -p tcp --dport 80 -j ACCEPT</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -D INPUT -p tcp --dport 80 -j ACCEPT<br></code></pre></td></tr></table></figure>
 <p>或：</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -D INPUT 1</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -D INPUT 1<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：从<code>INPUT</code>规则链中删除上面建立的规则，可输入完整规则，或直接指定规则编号加以删除。</p>
 </blockquote>
@@ -312,7 +456,7 @@
 <li>
 <p>命令 -R, --replace<br>
 范例：</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -R INPUT 1 -s 192.168.0.1 -j DROP</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -R INPUT 1 -s 192.168.0.1 -j DROP<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：取代现行第一条规则，规则被取代后并不会改变顺序。</p>
 </blockquote>
@@ -320,7 +464,7 @@
 <li>
 <p>命令 -I, --insert<br>
 范例：</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -I INPUT 1 -p tcp --dport 80 -j ACCEPT</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -I INPUT 1 -p tcp --dport 80 -j ACCEPT<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：在第一条规则前插入一条规则，原本该位置上的规则将会往后移动一个顺位。</p>
 </blockquote>
@@ -328,7 +472,7 @@
 <li>
 <p>命令 -L, --list<br>
 范例：</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -L INPUT</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -L INPUT<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：列出<code>INPUT</code>规则链中的所有规则。</p>
 </blockquote>
@@ -336,7 +480,7 @@
 <li>
 <p>命令 -F, --flush<br>
 范例：</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -F INPUT</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -F INPUT<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明： 删除<code>INPUT</code>规则链中的所有规则。</p>
 </blockquote>
@@ -344,7 +488,7 @@
 <li>
 <p>命令 -Z, --zero<br>
 范例：</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -Z INPUT</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -Z INPUT<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：将<code>INPUT</code>链中的数据包计数器归零。它是计算同一数据包出现次数，过滤阻断式攻击不可少的工具。</p>
 </blockquote>
@@ -352,7 +496,7 @@
 <li>
 <p>命令 -N, --new-chain<br>
 范例：</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -N denied</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -N denied<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：定义新的规则链。</p>
 </blockquote>
@@ -360,7 +504,7 @@
 <li>
 <p>命令 -X, --delete-chain<br>
 范例：</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -X denied</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -X denied<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：删除某个规则链。</p>
 </blockquote>
@@ -368,7 +512,7 @@
 <li>
 <p>命令 -P, --policy<br>
 范例：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -P INPUT DROP</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -P INPUT DROP<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：定义默认的过滤策略。 数据包没有找到符合的策略，则根据此预设方式处理。</p>
 </blockquote>
@@ -376,7 +520,7 @@
 <li>
 <p>命令 -E, --rename-chain<br>
 范例：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -E denied disallowed</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -E denied disallowed<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：修改某自订规则链的名称。</p>
 </blockquote>
@@ -387,7 +531,7 @@
 <li>
 <p>参数 -p, --protocol<br>
 范例：</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -p tcp</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -A INPUT -p tcp<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：比对通讯协议类型是否相符，可以使用 <code>!</code> 运算子进行反向比对，例如：<code>-p ! tcp</code> ，意思是指除 tcp 以外的其它类型，包含udp、icmp …等。如果要比对所有类型，则可以使用 <code>all</code> 关键词，例如：<code>-p all</code>。</p>
 </blockquote>
@@ -395,7 +539,7 @@
 <li>
 <p>参数 -s, --src, --source<br>
 范例:</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -s 192.168.1.100</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -A INPUT -s 192.168.1.100<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：用来比对数据包的来源IP，可以比对单机或网络，比对网络时请用数字来表示屏蔽，例如：<code>-s 192.168.0.0/24</code>，比对 IP 时可以使用<code>!</code>运算子进行反向比对，例如：<code>-s ! 192.168.0.0/24</code>。</p>
 </blockquote>
@@ -403,7 +547,7 @@
 <li>
 <p>参数 -d, --dst, --destination<br>
 范例：</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -d 192.168.1.100</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -A INPUT -d 192.168.1.100<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：用来比对封包的目的地 IP，设定方式同上。</p>
 </blockquote>
@@ -411,7 +555,7 @@
 <li>
 <p>参数 -i, --in-interface<br>
 范例：</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -i  lo</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -A INPUT -i  lo<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明:用来比对数据包是从哪个网卡进入，可以使用通配字符 <code>+</code> 来做大范围比对，如：<code>-i eth+</code> 表示所有的 ethernet 网卡，也可以使用 <code>!</code> 运算子进行反向比对，如：<code>-i ! eth0</code>。这里<code>lo</code>指本地换回接口。</p>
 </blockquote>
@@ -419,7 +563,7 @@
 <li>
 <p>参数 -o, --out-interface<br>
 范例：</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A FORWARD -o eth0</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -A FORWARD -o eth0<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：用来比对数据包要从哪个网卡流出，设定方式同上。</p>
 </blockquote>
@@ -427,7 +571,7 @@
 <li>
 <p>参数 --sport, --source-port<br>
 范例：</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -p tcp --sport 22</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -A INPUT -p tcp --sport 22<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：用来比对数据的包的来源端口号，可以比对单一端口，或是一个范围，例如：<code>--sport 22:80</code>，表示从 22 到 80 端口之间都算是符合件，如果要比对不连续的多个端口，则必须使用 <code>--multiport</code> 参数，详见后文。比对端口号时，可以使用 <code>!</code> 运算子进行反向比对。</p>
 </blockquote>
@@ -435,7 +579,7 @@
 <li>
 <p>参数 --dport, --destination-port<br>
 范例：</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -p tcp --dport 22</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -A INPUT -p tcp --dport 22<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：用来比对封包的目的地端口号，设定方式同上。</p>
 </blockquote>
@@ -443,7 +587,7 @@
 <li>
 <p>参数 --tcp-flags<br>
 范例：</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -p tcp --tcp-flags SYN,FIN,ACK SYN</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -p tcp --tcp-flags SYN,FIN,ACK SYN<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：比对 TCP 封包的状态标志号，参数分为两个部分，第一个部分列举出想比对的标志号，第二部分则列举前述标志号中哪些有被设，未被列举的标志号必须是空的。TCP 状态标志号包括：<code>SYN</code>（同步）、<code>ACK</code>（应答）、<code>FIN</code>（结束）、<code>RST</code>（重设）、<code>URG</code>（紧急）、<code>PSH</code>（强迫推送） 等均可使用于参数中，除此之外还可以使用关键词 <code>ALL</code> 和 <code>NONE</code> 进行比对。比对标志号时，可以使用 <code>!</code> 运算子行反向比对。</p>
 </blockquote>
@@ -451,7 +595,7 @@
 <li>
 <p>参数 --syn<br>
 范例：</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -p tcp --syn</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -p tcp --syn<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：用来比对是否为要求联机之TCP 封包，与 <code>iptables -p tcp --tcp-flags SYN,FIN,ACK SYN</code> 的作用完全相同，如果使用 <code>!</code>运算子，可用来比对非要求联机封包。</p>
 </blockquote>
@@ -459,7 +603,7 @@
 <li>
 <p>参数 -m multiport --source-port<br>
 范例：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -p tcp -m multiport --<span class="built_in">source</span>-port 22,53,80,110 -j ACCEPT</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -A INPUT -p tcp -m multiport --<span class="hljs-built_in">source</span>-port 22,53,80,110 -j ACCEPT<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：用来比对不连续的多个来源端口号，一次最多可以比对 15 个端口，可以使用 <code>!</code> 运算子进行反向比对。</p>
 </blockquote>
@@ -467,7 +611,7 @@
 <li>
 <p>参数 -m multiport --destination-port<br>
 范例：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -p tcp -m multiport --destination-port 22,53,80,110 -j ACCEPT</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -A INPUT -p tcp -m multiport --destination-port 22,53,80,110 -j ACCEPT<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：用来比对不连续的多个目的地端口号，设定方式同上。</p>
 </blockquote>
@@ -475,7 +619,7 @@
 <li>
 <p>参数 -m multiport --port<br>
 范例：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -p tcp -m multiport --port 22,53,80,110 -j ACCEPT</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -A INPUT -p tcp -m multiport --port 22,53,80,110 -j ACCEPT<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：这个参数比较特殊，用来比对来源端口号和目的端口号相同的数据包，设定方式同上。注意：在本范例中，如果来源端口号为 80，目的地端口号为 110，这种数据包并不算符合条件。</p>
 </blockquote>
@@ -483,7 +627,7 @@
 <li>
 <p>参数 --icmp-type<br>
 范例：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -p icmp --icmp-type 8 -j DROP</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -A INPUT -p icmp --icmp-type 8 -j DROP<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：用来比对 ICMP 的类型编号，可以使用代码或数字编号来进行比对。请打 <code>iptables -p icmp --help</code> 来查看有哪些代码可用。这里是指禁止ping如，但是可以从该主机ping出。</p>
 </blockquote>
@@ -491,7 +635,7 @@
 <li>
 <p>参数 -m limit --limit<br>
 范例：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -m <span class="built_in">limit</span> --<span class="built_in">limit</span> 3/hour</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -A INPUT -m <span class="hljs-built_in">limit</span> --<span class="hljs-built_in">limit</span> 3/hour<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：用来比对某段时间内数据包的平均流量，上面的例子是用来比对：每小时平均流量是否超过一次3个数据包。 除了每小时平均次外，也可以每秒钟、每分钟或每天平均一次，默认值为每小时平均一次，参数如后： <code>/second</code>、 <code>/minute</code>、<code>/day</code>。 除了进行数据包数量的比对外，设定这个参数也会在条件达成时，暂停数据包的比对动作，以避免因洪水攻击法，导致服务被阻断。</p>
 </blockquote>
@@ -499,7 +643,7 @@
 <li>
 <p>参数 --limit-burst<br>
 范例：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -m <span class="built_in">limit</span> --<span class="built_in">limit</span>-burst 5</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -A INPUT -m <span class="hljs-built_in">limit</span> --<span class="hljs-built_in">limit</span>-burst 5<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：用来比对瞬间大量封包的数量，上面的例子是用来比对一次同时涌入的封包是否超过 5 个（这是默认值），超过此上限的封将被直接丢弃。使用效果同上。</p>
 </blockquote>
@@ -507,7 +651,7 @@
 <li>
 <p>参数 -m mac --mac-source<br>
 范例：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -m mac --mac-source 00:00:00:00:00:01 -j ACCEPT</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -A INPUT -m mac --mac-source 00:00:00:00:00:01 -j ACCEPT<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：用来比对数据包来源网络接口的硬件地址，这个参数不能用在 <code>OUTPUT</code> 和 <code>POSTROUTING</code> 规则链上，这是因为封包要送出到网后，才能由网卡驱动程序透过 ARP 通讯协议查出目的地的 MAC 地址，所以 iptables 在进行封包比对时，并不知道封包会送到个网络接口去。</p>
 </blockquote>
@@ -515,7 +659,7 @@
 <li>
 <p>参数 --mark<br>
 范例：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t mangle -A INPUT -m mark --mark 1</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -t mangle -A INPUT -m mark --mark 1<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：用来比对封包是否被表示某个号码，当封包被比对成功时，我们可以透过 <code>MARK</code> 处理动作，将该封包标示一个号码，号码最不可以超过 4294967296。</p>
 </blockquote>
@@ -523,7 +667,7 @@
 <li>
 <p>参数 -m owner --uid-owner<br>
 范例：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A OUTPUT -m owner --uid-owner 500</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -A OUTPUT -m owner --uid-owner 500<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：用来比对来自本机的封包，是否为某特定使用者所产生的，这样可以避免服务器使用 root 或其它身分将敏感数据传送出，可以降低系统被骇的损失。可惜这个功能无法比对出来自其它主机的封包。</p>
 </blockquote>
@@ -531,7 +675,7 @@
 <li>
 <p>参数 -m owner --gid-owner<br>
 范例：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A OUTPUT -m owner --gid-owner 0</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -A OUTPUT -m owner --gid-owner 0<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：用来比对来自本机的数据包，是否为某特定使用者群组所产生的，使用时机同上。</p>
 </blockquote>
@@ -539,7 +683,7 @@
 <li>
 <p>参数 -m owner --pid-owner<br>
 范例：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A OUTPUT -m owner --pid-owner 78</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -A OUTPUT -m owner --pid-owner 78<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：用来比对来自本机的数据包，是否为某特定行程所产生的，使用时机同上。</p>
 </blockquote>
@@ -547,7 +691,7 @@
 <li>
 <p>参数 -m owner --sid-owner<br>
 范例：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A OUTPUT -m owner --sid-owner 100</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -A OUTPUT -m owner --sid-owner 100<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明： 用来比对来自本机的数据包，是否为某特定联机（Session ID）的响应封包，使用时机同上。</p>
 </blockquote>
@@ -555,7 +699,7 @@
 <li>
 <p>参数 -m state --state<br>
 范例：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>说明： 用来比对联机状态，联机状态共有四种：<code>INVALID</code>、<code>ESTABLISHED</code>、<code>NEW</code> 和 <code>RELATED</code>。</p>
 </blockquote>
@@ -570,184 +714,331 @@
 <p>分别说明如下：</p>
 <p><strong>ACCEPT</strong> 将数据包放行，进行完此处理动作后，将不再比对其它规则，直接跳往下一个规则链（<code>NAT</code>:<code>POSTROUTING</code>）。</p>
 <p><strong>REJECT</strong> 拦阻该数据包，并传送数据包通知对方，可以传送的数据包有几个选择：<code>ICMP port-unreachable</code>、<code>ICMP echo-reply</code> 或是<code>tcp-reset</code>（这个数据包会要求对方关闭联机），进行完此处理动作后，将不再比对其它规则，直接 中断过滤程序。 范例如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A FORWARD -p TCP --dport 22 -j REJECT --reject-with tcp-reset</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -A FORWARD -p TCP --dport 22 -j REJECT --reject-with tcp-reset<br></code></pre></td></tr></table></figure>
 <p><strong>DROP</strong> 丢弃包不予处理，进行完此处理动作后，将不再比对其它规则，直接中断过滤程序。</p>
 <p><strong>REDIRECT</strong> 将包重新导向到另一个端口（PNAT），进行完此处理动作后，将会继续比对其它规则。 这个功能可以用来实作通透式porxy 或用来保护 web 服务器。例如：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8080</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8080<br></code></pre></td></tr></table></figure>
 <p><strong>MASQUERADE</strong> 改写数据包来源 IP为防火墙 NIC IP，可以指定 port 对应的范围，进行完此处理动作后，直接跳往下一个规则（<code>MANGLE</code>:<code>POSTROUTING</code>）。这个功能与 <code>SNAT</code> 略有不同，当进行 IP 伪装时，不需指定要伪装成哪个 IP，IP 会从网卡直接读取，当使用拨号连接时，IP 通常是由 ISP 公司的 DHCP 服务器指派的，这个时候 <code>MASQUERADE</code> 特别有用。范例如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -A POSTROUTING -p TCP -j MASQUERADE --to-ports 1024-31000</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -t nat -A POSTROUTING -p TCP -j MASQUERADE --to-ports 1024-31000<br></code></pre></td></tr></table></figure>
 <p><strong>LOG</strong> 将封包相关讯息纪录在 <code>/var/log</code> 中，详细位置请查阅 <code>/etc/syslog.conf</code> 配置文件，进行完此处理动作后，将会继续比对其规则。例如：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -p tcp -j LOG --<span class="built_in">log</span>-prefix <span class="string">"INPUT packets"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -A INPUT -p tcp -j LOG --<span class="hljs-built_in">log</span>-prefix <span class="hljs-string">"INPUT packets"</span><br></code></pre></td></tr></table></figure>
 <p><strong>SNAT</strong> 改写封包来源 IP 为某特定 IP 或 IP 范围，可以指定 port 对应的范围，进行完此处理动作后，将直接跳往下一个规则（<code>MANGLE</code>:<code>POSTROUTING</code>）。范例如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -A POSTROUTING -p tcp-o eth0 -j SNAT --to-source 194.236.50.155-194.236.50.160:1024-32000</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -t nat -A POSTROUTING -p tcp-o eth0 -j SNAT --to-source 194.236.50.155-194.236.50.160:1024-32000<br></code></pre></td></tr></table></figure>
 <p><strong>DNAT</strong> 改写封包目的地 IP 为某特定 IP 或 IP 范围，可以指定 port 对应的范围，进行完此处理动作后，将会直接跳往下一个规炼（<code>FILTER</code>:<code>INPUT</code> 或 <code>FILTER</code>:<code>FORWARD</code>）。范例如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -A PREROUTING -p tcp -d 15.45.23.67 --dport 80 -j DNAT --to-destination</span><br><span class="line">192.168.1.1-192.168.1.10:80-100</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -t nat -A PREROUTING -p tcp -d 15.45.23.67 --dport 80 -j DNAT --to-destination<br>192.168.1.1-192.168.1.10:80-100<br></code></pre></td></tr></table></figure>
 <p><strong>MIRROR</strong> 镜像数据包，也就是将来源 IP 与目的地 IP 对调后，将数据包送回，进行完此处理动作后，将会中断过滤程序。</p>
 <p><strong>QUEUE</strong> 中断过滤程序，将数据包放入队列，交给其它程序处理。透过自行开发的处理程序，可以进行其它应用，例如：计算联机费…等。</p>
 <p><strong>RETURN</strong> 结束在目前规则链中的过滤程序，返回主规则链继续过滤，如果把自订规则链看成是一个子程序，那么这个动作，就相当提早结束子程序并返回到主程序中。</p>
 <p><strong>MARK</strong> 将数据包标上某个代号，以便提供作为后续过滤的条件判断依据，进行完此处理动作后，将会继续比对其它规则。范例如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t mangle -A PREROUTING -p tcp --dport 22 -j MARK --<span class="built_in">set</span>-mark 2</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -t mangle -A PREROUTING -p tcp --dport 22 -j MARK --<span class="hljs-built_in">set</span>-mark 2<br></code></pre></td></tr></table></figure>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://blog.rabbituzki.com.cn/2018/11/22/iptables%E6%96%87%E6%A1%A3/" data-id="ckidwlgi0001gsgv4b1cr7ke7" class="article-share-link">
-        分享
-      </a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bash/" rel="tag">bash</a></li></ul>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%95%99%E7%A8%8B/">教程</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/bash/">bash</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/01/12/ibus-rime%E8%AE%BE%E7%BD%AE%E5%80%99%E9%80%89%E8%AF%8D%E6%A8%AA%E6%8E%92/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ibus-rime设置候选词横排</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2018/10/30/Shell%E6%95%99%E7%A8%8B/">
+                        <span class="hidden-mobile">bash 教程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
 
-    </footer>
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "TMgxzCpM2zFnsClsMHJY2LLc-gzGzoHsz",
+          app_key: "1kPLieLtoBQWf0w6iNxLqkMV",
+          placeholder: "说点什么....",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="https://valine.js.org" target="_blank" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
 
-  </div>
 
-  
-  
-  <nav class="article-nav">
-    
-      <a href="/2019/01/12/ibus-rime%E8%AE%BE%E7%BD%AE%E5%80%99%E9%80%89%E8%AF%8D%E6%A8%AA%E6%8E%92/" class="article-nav-link">
-        <strong class="article-nav-caption">前一篇</strong>
-        <div class="article-nav-title">
-          
-            ibus-rime设置候选词横排
-          
+              </article>
+            
+          </article>
         </div>
-      </a>
-    
-    
-      <a href="/2018/10/30/Shell%E6%95%99%E7%A8%8B/" class="article-nav-link">
-        <strong class="article-nav-caption">后一篇</strong>
-        <div class="article-nav-title">bash 教程</div>
-      </a>
-    
-  </nav>
-
-
-  
-
-  
-  
-  
-  
-
-</article>
-</section>
-  <footer class="footer">
-  <div class="outer">
-    <div class="float-right">
-      <ul class="list-inline">
-  
-    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
-  
-    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
-  
-</ul>
+      </div>
     </div>
-    <ul class="list-inline">
-      <li>&copy; 2020 六加的博客</li>
-      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
-      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
-    </ul>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
   </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> &nbsp;&nbsp;and&nbsp;&nbsp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
 </footer>
 
-</main>
-<aside class="sidebar">
-  <button class="navbar-toggle"></button>
-<nav class="navbar">
-  
-    <div class="logo">
-      <a href="/"><img src="/images/hexo.svg" alt="六加的博客"></a>
-    </div>
-  
-  <ul class="nav nav-main">
-    
-      <li class="nav-item">
-        <a class="nav-item-link" href="/">Home</a>
-      </li>
-    
-      <li class="nav-item">
-        <a class="nav-item-link" href="/archives">Archives</a>
-      </li>
-    
-      <li class="nav-item">
-        <a class="nav-item-link" href="/gallery">Gallery</a>
-      </li>
-    
-      <li class="nav-item">
-        <a class="nav-item-link" href="/about">About</a>
-      </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link nav-item-search" title="搜索">
-        <i class="fe fe-search"></i>
-        搜索
-      </a>
-    </li>
-  </ul>
-</nav>
-<nav class="navbar navbar-bottom">
-  <ul class="nav">
-    <li class="nav-item">
-      <div class="totop" id="totop">
-  <i class="fe fe-rocket"></i>
-</div>
-    </li>
-    <li class="nav-item">
-      
-        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
-          <i class="fe fe-feed"></i>
-        </a>
-      
-    </li>
-  </ul>
-</nav>
-<div class="search-form-wrap">
-  <div class="local-search local-search-plugin">
-  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
-  <div id="local-search-result" class="local-search-result"></div>
-</div>
-</div>
-</aside>
+<!-- SCRIPTS -->
 
-<script src="/js/jquery-2.0.3.min.js"></script>
-
-
-<script src="/js/jquery.justifiedGallery.min.js"></script>
-
-
-<script src="/js/lazyload.min.js"></script>
-
-
-<script src="/js/busuanzi-2.3.pure.min.js"></script>
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-  
-<script src="/js/tocbot.min.js"></script>
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
 
   <script>
-    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
-    tocbot.init({
-      tocSelector: '.tocbot',
-      contentSelector: '.article-entry',
-      headingSelector: 'h1, h2, h3, h4, h5, h6',
-      hasInnerContainers: true,
-      scrollSmooth: true,
-      positionFixedSelector: '.tocbot',
-      positionFixedClass: 'is-position-fixed',
-      fixedSidebarOffset: 'auto',
-    });
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
   </script>
 
 
 
-<script src="/js/ocean.js"></script>
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a9b0666290f750544a1900dff36c0349";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+    <!-- Google Analytics -->
+    <script defer>
+      window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) };
+      ga.l = +new Date;
+      ga('create', 'UA-127726236-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
 
 
 </body>

@@ -1,91 +1,235 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" href="/images/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>
-    Tmux使用手册 |
-    
-    六加的博客</title>
-  
-    <link rel="shortcut icon" href="/favicon.ico">
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="When in doubt, use brute force.">
+  <meta name="author" content="Rabbituzki">
+  <meta name="keywords" content="">
+  <title>Tmux使用手册 - Rabbituzki 的笔记们</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
 
   
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/gruvbox-dark.min.css" />
+    
+  
 
   
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
   
-<script src="/js/pace.min.js"></script>
 
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"blog.rabbituzki.com.cn","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"a9b0666290f750544a1900dff36c0349","google":"UA-127726236-2","gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TMgxzCpM2zFnsClsMHJY2LLc-gzGzoHsz","app_key":"1kPLieLtoBQWf0w6iNxLqkMV","server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
 <meta name="generator" content="Hexo 4.2.1"></head>
 
+
 <body>
-<main class="content">
-  <section class="outer">
-  <article id="post-Tmux使用手册" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Rabbituzki 的笔记们</strong>&nbsp;</a>
 
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-  
-    <h1 class="article-title" itemprop="name">
-      Tmux使用手册
-    </h1>
-  
-  
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
 
-
-
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/10/19/Tmux%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/" class="article-date">
-  <time datetime="2018-10-18T16:00:00.000Z" itemprop="datePublished">2018-10-19</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a>
-  </div>
-
-    </div>
-    
-
-    
-    
-<div class="tocbot"></div>
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-  <div class="article-gallery">
-    <div class="article-gallery-photos">
-      
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-          <img src="/images/tmux.png" itemprop="image">
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
         
-      
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
   </div>
+</nav>
 
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/images/background1.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Tmux使用手册">
+              
+            </span>
 
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-10-19 00:00" pubdate>
+        2018年10月19日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      10.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
       
-      <h1>Tmux使用手册</h1>
+      
+      127
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Tmux使用手册</h1>
+            
+            <div class="markdown-body">
+              <h1>Tmux使用手册</h1>
 <hr>
 <p>[TOC]</p>
 <hr>
@@ -106,9 +250,9 @@
 <h2 id="安装"><a class="header-anchor" href="#安装">¶</a>安装</h2>
 <p>  首先安装之。<br>
   在Mac中安装：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 先安装Homebrew，有则跳过</span></span><br><span class="line">ruby -e <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br><span class="line"><span class="comment"># 安装tmux</span></span><br><span class="line">brew install tmux</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 先安装Homebrew，有则跳过</span><br>ruby -e <span class="hljs-string">"<span class="hljs-variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span><br><span class="hljs-comment"># 安装tmux</span><br>brew install tmux<br></code></pre></td></tr></table></figure>
 <p>  在Linux中安装：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install tmux</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install tmux<br></code></pre></td></tr></table></figure>
 <hr>
 <h2 id="基本概念"><a class="header-anchor" href="#基本概念">¶</a>基本概念</h2>
 <p>  开始之前，我们先了解下基本概念：<br>
@@ -126,20 +270,20 @@
 <h2 id="会话"><a class="header-anchor" href="#会话">¶</a>会话</h2>
 <h3 id="新建会话"><a class="header-anchor" href="#新建会话">¶</a>新建会话</h3>
 <p>  新建一个tmux session非常简单，语法为tmux new -s session-name，也可以简写为tmux，为了方便管理，建议指定会话名称，如下。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tmux <span class="comment"># 新建一个无名称的会话</span></span><br><span class="line">tmux new -s demo <span class="comment"># 新建一个名称为demo的会话</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">tmux <span class="hljs-comment"># 新建一个无名称的会话</span><br>tmux new -s demo <span class="hljs-comment"># 新建一个名称为demo的会话</span><br></code></pre></td></tr></table></figure>
 <h3 id="断开当前会话"><a class="header-anchor" href="#断开当前会话">¶</a>断开当前会话</h3>
 <p>  会话中操作了一段时间，我希望断开会话同时下次还能接着用，怎么做？此时可以使用detach命令。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux detach <span class="comment"># 断开当前会话，会话在后台运行</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tmux detach <span class="hljs-comment"># 断开当前会话，会话在后台运行</span><br></code></pre></td></tr></table></figure>
 <p>  也许你觉得这个太麻烦了，是的，tmux的会话中，我们已经可以使用tmux快捷键了。使用快捷键组合Ctrl+b + d，三次按键就可以断开当前会话。</p>
 <h3 id="进入之前的会话"><a class="header-anchor" href="#进入之前的会话">¶</a>进入之前的会话</h3>
 <p>  断开会话后，想要接着上次留下的现场继续工作，就要使用到tmux的attach命令了，语法为tmux attach-session -t session-name，可简写为tmux a -t session-name 或 tmux a。通常我们使用如下两种方式之一即可：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tmux a <span class="comment"># 默认进入第一个会话</span></span><br><span class="line">tmux a -t demo <span class="comment"># 进入到名称为demo的会话</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">tmux a <span class="hljs-comment"># 默认进入第一个会话</span><br>tmux a -t demo <span class="hljs-comment"># 进入到名称为demo的会话</span><br></code></pre></td></tr></table></figure>
 <h3 id="关闭会话"><a class="header-anchor" href="#关闭会话">¶</a>关闭会话</h3>
 <p>  会话的使命完成后，一定是要关闭的。我们可以使用tmux的kill命令，kill命令有kill-pane、kill-server、kill-session 和 kill-window共四种，其中kill-session的语法为tmux kill-session -t session-name。如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tmux <span class="built_in">kill</span>-session -t demo <span class="comment"># 关闭demo会话</span></span><br><span class="line">tmux <span class="built_in">kill</span>-server <span class="comment"># 关闭服务器，所有的会话都将关闭</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">tmux <span class="hljs-built_in">kill</span>-session -t demo <span class="hljs-comment"># 关闭demo会话</span><br>tmux <span class="hljs-built_in">kill</span>-server <span class="hljs-comment"># 关闭服务器，所有的会话都将关闭</span><br></code></pre></td></tr></table></figure>
 <h3 id="查看所有会话"><a class="header-anchor" href="#查看所有会话">¶</a>查看所有会话</h3>
 <p>  管理会话的第一步就是要查看所有的会话，我们可以使用如下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tmux list-session <span class="comment"># 查看所有会话</span></span><br><span class="line">tmux ls <span class="comment"># 查看所有会话，提倡使用简写形式</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">tmux list-session <span class="hljs-comment"># 查看所有会话</span><br>tmux ls <span class="hljs-comment"># 查看所有会话，提倡使用简写形式</span><br></code></pre></td></tr></table></figure>
 <p>  如果刚好处于会话中怎么办？别担心，我们可以使用对应的tmux快捷键Ctrl+b + s，此时tmux将打开一个会话列表，按上下键(↑↓︎)或者鼠标滚轮，可选中目标会话，按左右键（←→︎）可收起或展开会话的窗口，选中目标会话或窗口后，按回车键即可完成切换。</p>
 <p><img src="http://louiszhai.github.io/docImages/tmux02.png" alt="查看会话"></p>
 <h2 id="Tmux快捷指令"><a class="header-anchor" href="#Tmux快捷指令">¶</a>Tmux快捷指令</h2>
@@ -362,56 +506,56 @@
 <h3 id="修改指令前缀"><a class="header-anchor" href="#修改指令前缀">¶</a>修改指令前缀</h3>
 <p>  相信只要你用过几次tmux，就会发现Ctrl+b指令前缀，着实不太方便。这两个键相距太远，按键成本太高了。因此我们首先需要将它更换为距离更近的Ctrl+a组合键，或者不常用的 ` 键（当然其他键也是可以的）。<br>
   tmux的用户级配置文件为~/.tmux.conf（没有的话就创建一个），修改快捷指令，只需要增加如下三行即可。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -g prefix C<span class="_">-a</span> <span class="comment">#</span></span><br><span class="line">unbind C-b <span class="comment"># C-b即Ctrl+b键，unbind意味着解除绑定</span></span><br><span class="line"><span class="built_in">bind</span> C<span class="_">-a</span> send-prefix <span class="comment"># 绑定Ctrl+a为新的指令前缀</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 从tmux v1.6版起，支持设置第二个指令前缀</span></span><br><span class="line"><span class="built_in">set</span>-option -g prefix2 ` <span class="comment"># 设置一个不常用的`键作为指令前缀，按键更快些</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">set</span> -g prefix C<span class="hljs-_">-a</span> <span class="hljs-comment">#</span><br>unbind C-b <span class="hljs-comment"># C-b即Ctrl+b键，unbind意味着解除绑定</span><br><span class="hljs-built_in">bind</span> C<span class="hljs-_">-a</span> send-prefix <span class="hljs-comment"># 绑定Ctrl+a为新的指令前缀</span><br><br><span class="hljs-comment"># 从tmux v1.6版起，支持设置第二个指令前缀</span><br><span class="hljs-built_in">set</span>-option -g prefix2 ` <span class="hljs-comment"># 设置一个不常用的`键作为指令前缀，按键更快些</span><br></code></pre></td></tr></table></figure>
 <p>  修改的~/.tmux.conf配置文件有如下两种方式可以令其生效：</p>
 <ul>
 <li>restart tmux。</li>
 <li>在tmux窗口中，先按下Ctrl+b指令前缀，然后按下系统指令:，进入到命令模式后输入source-file ~/.tmux.conf，回车后生效。</li>
 </ul>
 <p>  既然快捷指令如此方便，更为优雅的做法是新增一个加载配置文件的快捷指令 ，这样就可以随时随地load新的配置了，如下所示。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 绑定快捷键为r</span></span><br><span class="line"><span class="built_in">bind</span> r <span class="built_in">source</span>-file ~/.tmux.conf \; display-message <span class="string">"Config reloaded.."</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 绑定快捷键为r</span><br><span class="hljs-built_in">bind</span> r <span class="hljs-built_in">source</span>-file ~/.tmux.conf \; display-message <span class="hljs-string">"Config reloaded.."</span><br></code></pre></td></tr></table></figure>
 <p>  请特别注意，在已经创建的窗口中，即使加载了新的配置，旧的配置依然有效（只要你新加的功能没有覆盖旧的配置，因此如果你第一次绑定快捷指令为x键，然后又改为绑定y键，那么x和y都将有效），新建会话不受此影响，将直接采用新的配置。<br>
   既然我们已经迈出配置化的第一步，那么接下来我们可以做得更多。</p>
 <h3 id="新增面板"><a class="header-anchor" href="#新增面板">¶</a>新增面板</h3>
 <p>  tmux中，使用最多的功能之一就是新增一个面板。水平方向新增面板的指令是 prefix + &quot; ，垂直方向是 prefix + %，&quot; 和 %需要两个键同时按下才能完成，加上指令前缀至少需要3~4次按键才能组成一个完整的指令，同时这个两个键也不够醒目和方便，因此我们可以绑定两个更常用的指令 -、|，如下所示：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">unbind <span class="string">'"'</span></span><br><span class="line"><span class="built_in">bind</span> - splitw -v -c <span class="string">'#&#123;pane_current_path&#125;'</span> <span class="comment"># 垂直方向新增面板，默认进入当前目录</span></span><br><span class="line">unbind %</span><br><span class="line"><span class="built_in">bind</span> | splitw -h -c <span class="string">'#&#123;pane_current_path&#125;'</span> <span class="comment"># 水平方向新增面板，默认进入当前目录</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">unbind <span class="hljs-string">'"'</span><br><span class="hljs-built_in">bind</span> - splitw -v -c <span class="hljs-string">'#&#123;pane_current_path&#125;'</span> <span class="hljs-comment"># 垂直方向新增面板，默认进入当前目录</span><br>unbind %<br><span class="hljs-built_in">bind</span> | splitw -h -c <span class="hljs-string">'#&#123;pane_current_path&#125;'</span> <span class="hljs-comment"># 水平方向新增面板，默认进入当前目录</span><br></code></pre></td></tr></table></figure>
 <h3 id="开启鼠标支持"><a class="header-anchor" href="#开启鼠标支持">¶</a>开启鼠标支持</h3>
 <p>  默认情况下，tmux的多窗口之间的切换以及面板大小调整，需要输入指令才能完成，这一过程，涉及到的指令较多，而且操作麻烦，特别是面板大小调整，指令难以一步到位，这个时候开启鼠标支持就完美了。<br>
   对于tmux v2.1(2015.10.28)之前的版本，需加入如下配置：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">setw -g mode-mouse on <span class="comment"># 支持鼠标选取文本等</span></span><br><span class="line">setw -g mouse-resize-pane on <span class="comment"># 支持鼠标拖动调整面板的大小(通过拖动面板间的分割线)</span></span><br><span class="line">setw -g mouse-select-pane on <span class="comment"># 支持鼠标选中并切换面板</span></span><br><span class="line">setw -g mouse-select-window on <span class="comment"># 支持鼠标选中并切换窗口(通过点击状态栏窗口名称)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">setw -g mode-mouse on <span class="hljs-comment"># 支持鼠标选取文本等</span><br>setw -g mouse-resize-pane on <span class="hljs-comment"># 支持鼠标拖动调整面板的大小(通过拖动面板间的分割线)</span><br>setw -g mouse-select-pane on <span class="hljs-comment"># 支持鼠标选中并切换面板</span><br>setw -g mouse-select-window on <span class="hljs-comment"># 支持鼠标选中并切换窗口(通过点击状态栏窗口名称)</span><br></code></pre></td></tr></table></figure>
 <p>  有的地方可能会出现set-window-option的写法，setw就是它的别名。<br>
   对于tmux v2.1及以上的版本，仅需加入如下配置：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span>-option -g mouse on <span class="comment"># 等同于以上4个指令的效果</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">set</span>-option -g mouse on <span class="hljs-comment"># 等同于以上4个指令的效果</span><br></code></pre></td></tr></table></figure>
 <p>  需要注意的是，开启鼠标支持后，iTem2默认的鼠标选中即复制功能需要同时按下 Alt 键，才会生效。</p>
 <h3 id="快速面板切换"><a class="header-anchor" href="#快速面板切换">¶</a>快速面板切换</h3>
 <p>  鼠标支持确实能带来很大的便捷性，特别是对于习惯了鼠标操作的tmux新手，但对于键盘爱好者而言，这不是什么好消息，对他们而言，双手不离键盘是基本素质。<br>
 虽然指令前缀加方向键可以切换面板，但方向键太远，不够快，不够Geek。没关系，我们可以将面板切换升级为熟悉的h、j、k、l键位。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 绑定hjkl键为面板切换的上下左右键</span></span><br><span class="line"><span class="built_in">bind</span> -r k select-pane -U <span class="comment"># 绑定k为↑</span></span><br><span class="line"><span class="built_in">bind</span> -r j select-pane -D <span class="comment"># 绑定j为↓</span></span><br><span class="line"><span class="built_in">bind</span> -r h select-pane -L <span class="comment"># 绑定h为←</span></span><br><span class="line"><span class="built_in">bind</span> -r l select-pane -R <span class="comment"># 绑定l为→</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 绑定hjkl键为面板切换的上下左右键</span><br><span class="hljs-built_in">bind</span> -r k select-pane -U <span class="hljs-comment"># 绑定k为↑</span><br><span class="hljs-built_in">bind</span> -r j select-pane -D <span class="hljs-comment"># 绑定j为↓</span><br><span class="hljs-built_in">bind</span> -r h select-pane -L <span class="hljs-comment"># 绑定h为←</span><br><span class="hljs-built_in">bind</span> -r l select-pane -R <span class="hljs-comment"># 绑定l为→</span><br></code></pre></td></tr></table></figure>
 <p>  -r表示可重复按键，大概500ms之内，重复的h、j、k、l按键都将有效，完美支持了快速切换的Geek需求。<br>
   除了上下左右外， 还有几个快捷指令可以设置。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">bind</span> -r e lastp <span class="comment"># 选择最后一个面板</span></span><br><span class="line"><span class="built_in">bind</span> -r ^e last <span class="comment"># 选择最后一个窗口</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">bind</span> -r ^u swapp -U <span class="comment"># 与前一个面板交换位置</span></span><br><span class="line"><span class="built_in">bind</span> -r ^d swapp -D <span class="comment"># 与后一个面板交换位置</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">bind</span> -r e lastp <span class="hljs-comment"># 选择最后一个面板</span><br><span class="hljs-built_in">bind</span> -r ^e last <span class="hljs-comment"># 选择最后一个窗口</span><br><br><span class="hljs-built_in">bind</span> -r ^u swapp -U <span class="hljs-comment"># 与前一个面板交换位置</span><br><span class="hljs-built_in">bind</span> -r ^d swapp -D <span class="hljs-comment"># 与后一个面板交换位置</span><br></code></pre></td></tr></table></figure>
 <h3 id="面板大小调整"><a class="header-anchor" href="#面板大小调整">¶</a>面板大小调整</h3>
 <p>  习惯了全键盘操作后，命令的便捷性不言而喻。既然面板切换的指令都可以升级，面板大小调整的指令自然也不能落后。如下配置就可以升级你的操作：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 绑定Ctrl+hjkl键为面板上下左右调整边缘的快捷指令</span></span><br><span class="line"><span class="built_in">bind</span> -r ^k resizep -U 10 <span class="comment"># 绑定Ctrl+k为往↑调整面板边缘10个单元格</span></span><br><span class="line"><span class="built_in">bind</span> -r ^j resizep -D 10 <span class="comment"># 绑定Ctrl+j为往↓调整面板边缘10个单元格</span></span><br><span class="line"><span class="built_in">bind</span> -r ^h resizep -L 10 <span class="comment"># 绑定Ctrl+h为往←调整面板边缘10个单元格</span></span><br><span class="line"><span class="built_in">bind</span> -r ^l resizep -R 10 <span class="comment"># 绑定Ctrl+l为往→调整面板边缘10个单元格</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 绑定Ctrl+hjkl键为面板上下左右调整边缘的快捷指令</span><br><span class="hljs-built_in">bind</span> -r ^k resizep -U 10 <span class="hljs-comment"># 绑定Ctrl+k为往↑调整面板边缘10个单元格</span><br><span class="hljs-built_in">bind</span> -r ^j resizep -D 10 <span class="hljs-comment"># 绑定Ctrl+j为往↓调整面板边缘10个单元格</span><br><span class="hljs-built_in">bind</span> -r ^h resizep -L 10 <span class="hljs-comment"># 绑定Ctrl+h为往←调整面板边缘10个单元格</span><br><span class="hljs-built_in">bind</span> -r ^l resizep -R 10 <span class="hljs-comment"># 绑定Ctrl+l为往→调整面板边缘10个单元格</span><br></code></pre></td></tr></table></figure>
 <p>  以上，resizep即resize-pane的别名。</p>
 <h3 id="面板最大化"><a class="header-anchor" href="#面板最大化">¶</a>面板最大化</h3>
 <p>  当窗口中面板的数量逐渐增多时，每个面板的空间就会逐渐减少。为了保证有足够的空间显示内容，tmux从v1.8版本起，提供了面板的最大化功能，输入tmux-prefix+z，就可以最大化当前面板至窗口大小，只要再重复输入一次，便恢复正常。那么tmux v1.8以下的版本，怎么办呢？别急，有大神提供了如下的解决方案。<br>
   首先编写一个zoom脚本，该脚本通过新建一个窗口，交换当前面板与新的窗口默认面板位置，来模拟最大的功能；通过重复一次按键，还原面板位置，并关闭新建的窗口，来模拟还原功能，如下所示：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash -f</span></span><br><span class="line">currentwindow=`tmux list-window | tr <span class="string">'\t'</span> <span class="string">' '</span> | sed -n -e <span class="string">'/(active)/s/^[^:]*: *\([^ ]*\) .*/\1/gp'</span>`;</span><br><span class="line">currentpane=`tmux list-panes | sed -n -e <span class="string">'/(active)/s/^\([^:]*\):.*/\1/gp'</span>`;</span><br><span class="line">panecount=`tmux list-panes | wc | sed -e <span class="string">'s/^ *//g'</span> -e <span class="string">'s/ .*$//g'</span>`;</span><br><span class="line">inzoom=`<span class="built_in">echo</span> <span class="variable">$currentwindow</span> | sed -n -e <span class="string">'/^zoom/p'</span>`;</span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$panecount</span> -ne 1 ]; <span class="keyword">then</span></span><br><span class="line">    inzoom=<span class="string">""</span>;</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$inzoom</span> ]; <span class="keyword">then</span></span><br><span class="line">    lastpane=`<span class="built_in">echo</span> <span class="variable">$currentwindow</span> | rev | cut -f 1 -d <span class="string">'@'</span> | rev`;</span><br><span class="line">    lastwindow=`<span class="built_in">echo</span> <span class="variable">$currentwindow</span> | cut -f 2- -d <span class="string">'@'</span> | rev | cut -f 2- -d <span class="string">'@'</span> | rev`;</span><br><span class="line">    tmux select-window -t <span class="variable">$lastwindow</span>;</span><br><span class="line">    tmux select-pane -t <span class="variable">$lastpane</span>;</span><br><span class="line">    tmux swap-pane -s <span class="variable">$currentwindow</span>;</span><br><span class="line">    tmux <span class="built_in">kill</span>-window -t <span class="variable">$currentwindow</span>;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    newwindowname=zoom@<span class="variable">$currentwindow</span>@<span class="variable">$currentpane</span>;</span><br><span class="line">    tmux new-window -d -n <span class="variable">$newwindowname</span>;</span><br><span class="line">    tmux swap-pane -s <span class="variable">$newwindowname</span>;</span><br><span class="line">    tmux select-window -t <span class="variable">$newwindowname</span>;</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#!/bin/bash -f</span><br>currentwindow=`tmux list-window | tr <span class="hljs-string">'\t'</span> <span class="hljs-string">' '</span> | sed -n -e <span class="hljs-string">'/(active)/s/^[^:]*: *\([^ ]*\) .*/\1/gp'</span>`;<br>currentpane=`tmux list-panes | sed -n -e <span class="hljs-string">'/(active)/s/^\([^:]*\):.*/\1/gp'</span>`;<br>panecount=`tmux list-panes | wc | sed -e <span class="hljs-string">'s/^ *//g'</span> -e <span class="hljs-string">'s/ .*$//g'</span>`;<br>inzoom=`<span class="hljs-built_in">echo</span> <span class="hljs-variable">$currentwindow</span> | sed -n -e <span class="hljs-string">'/^zoom/p'</span>`;<br><span class="hljs-keyword">if</span> [ <span class="hljs-variable">$panecount</span> -ne 1 ]; <span class="hljs-keyword">then</span><br>    inzoom=<span class="hljs-string">""</span>;<br><span class="hljs-keyword">fi</span><br><span class="hljs-keyword">if</span> [ <span class="hljs-variable">$inzoom</span> ]; <span class="hljs-keyword">then</span><br>    lastpane=`<span class="hljs-built_in">echo</span> <span class="hljs-variable">$currentwindow</span> | rev | cut -f 1 -d <span class="hljs-string">'@'</span> | rev`;<br>    lastwindow=`<span class="hljs-built_in">echo</span> <span class="hljs-variable">$currentwindow</span> | cut -f 2- -d <span class="hljs-string">'@'</span> | rev | cut -f 2- -d <span class="hljs-string">'@'</span> | rev`;<br>    tmux select-window -t <span class="hljs-variable">$lastwindow</span>;<br>    tmux select-pane -t <span class="hljs-variable">$lastpane</span>;<br>    tmux swap-pane -s <span class="hljs-variable">$currentwindow</span>;<br>    tmux <span class="hljs-built_in">kill</span>-window -t <span class="hljs-variable">$currentwindow</span>;<br><span class="hljs-keyword">else</span><br>    newwindowname=zoom@<span class="hljs-variable">$currentwindow</span>@<span class="hljs-variable">$currentpane</span>;<br>    tmux new-window -d -n <span class="hljs-variable">$newwindowname</span>;<br>    tmux swap-pane -s <span class="hljs-variable">$newwindowname</span>;<br>    tmux select-window -t <span class="hljs-variable">$newwindowname</span>;<br><span class="hljs-keyword">fi</span><br></code></pre></td></tr></table></figure>
 <p>  不妨将该脚本存放在~/.tmux目录中（没有则新建目录），接下来只需要绑定一个快捷指令就行，如下。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">unbind z</span><br><span class="line"><span class="built_in">bind</span> z run <span class="string">". ~/.tmux/zoom"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">unbind z<br><span class="hljs-built_in">bind</span> z run <span class="hljs-string">". ~/.tmux/zoom"</span><br></code></pre></td></tr></table></figure>
 <h3 id="窗口变为面板"><a class="header-anchor" href="#窗口变为面板">¶</a>窗口变为面板</h3>
 <p>  通过上面的zoom脚本，面板可以轻松地最大化为一个新的窗口。那么反过来，窗口是不是可以最小化为一个面板呢？</p>
 <blockquote>
 <p>试想这样一个场景：当你打开多个窗口后，然后想将其中几个窗口合并到当前窗口中，以便对比观察输出。</p>
 </blockquote>
 <p>  实际上，你的要求就是将其它窗口变成面板，然后合并到当前窗口中。对于这种操作，我们可以在当前窗口，按下prefix + :，打开命令行，然后输入如下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">join-pane -s window01 <span class="comment"># 合并名称为window01的窗口的默认（第一个）面板到当前窗口中</span></span><br><span class="line">join-pane -s window01.1 <span class="comment"># .1显式指定了第一个面板，.2就是第二个面板(我本地将面板编号起始值设置为1，默认是0)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">join-pane -s window01 <span class="hljs-comment"># 合并名称为window01的窗口的默认（第一个）面板到当前窗口中</span><br>join-pane -s window01.1 <span class="hljs-comment"># .1显式指定了第一个面板，.2就是第二个面板(我本地将面板编号起始值设置为1，默认是0)</span><br></code></pre></td></tr></table></figure>
 <p>  每次执行join-pane命令都会合并一个面板，并且指定的窗口会减少一个面板，直到面板数量为0，窗口关闭。<br>
   除了在当前会话中操作外，join-pane命令甚至可以从其它指定会话中合并面板，格式为join-pane -s [session_name]:[window].[pane]，如join-pane -s 2:1.1 即合并第二个会话的第一个窗口的第一个面板到当前窗口，当目标会话的窗口和面板数量为0时，会话便会关闭。</p>
 <p>  注：上一节中的swap-pane命令与join-pane语法基本一致。</p>
 <h3 id="其他配置"><a class="header-anchor" href="#其他配置">¶</a>其他配置</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">bind</span> m <span class="built_in">command</span>-prompt <span class="string">"splitw -h 'exec man %%'"</span>   <span class="comment"># 绑定m键为在新的panel打开man</span></span><br><span class="line"><span class="comment"># 绑定P键为开启日志功能，如下，面板的输出日志将存储到桌面</span></span><br><span class="line"><span class="built_in">bind</span> P pipe-pane -o <span class="string">"cat &gt;&gt;~/Desktop/#W.log"</span> \; display <span class="string">"Toggled logging to ~/Desktop/#W.log"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">bind</span> m <span class="hljs-built_in">command</span>-prompt <span class="hljs-string">"splitw -h 'exec man %%'"</span>   <span class="hljs-comment"># 绑定m键为在新的panel打开man</span><br><span class="hljs-comment"># 绑定P键为开启日志功能，如下，面板的输出日志将存储到桌面</span><br><span class="hljs-built_in">bind</span> P pipe-pane -o <span class="hljs-string">"cat &gt;&gt;~/Desktop/#W.log"</span> \; display <span class="hljs-string">"Toggled logging to ~/Desktop/#W.log"</span><br></code></pre></td></tr></table></figure>
 <h3 id="恢复用户空间"><a class="header-anchor" href="#恢复用户空间">¶</a>恢复用户空间</h3>
 <p>  tmux会话中，Mac的部分命令如 osascript、open、pbcopy 或 pbpaste等可能会失效（失效命令未列全）。<br>
   部分bug列表如下：</p>
@@ -421,14 +565,14 @@
 <li><a href="https://stackoverflow.com/questions/16618992/cant-paste-into-macvim/16661806#16661806" target="_blank" rel="noopener">clipboard - Can’t paste into MacVim</a></li>
 </ul>
 <p>  对此，我们可以通过安装reattach-to-user-namespace包装程序来解决这个问题。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install reattach-to-user-namespace</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">brew install reattach-to-user-namespace<br></code></pre></td></tr></table></figure>
 <p>  在~/.tmux.conf中添加配置：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -g default-command <span class="string">"reattach-to-user-namespace -l <span class="variable">$SHELL</span>"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">set</span> -g default-command <span class="hljs-string">"reattach-to-user-namespace -l <span class="hljs-variable">$SHELL</span>"</span><br></code></pre></td></tr></table></figure>
 <p>  这样你的交互式shell最终能够重新连接到用户级的命名空间。由于连接状态能够被子进程继承，故以上配置保证了所有从 shell 启动的命令能够被正确地连接。<br>
   有些时候，我们可能会在不同的操作系统中共享配置文件，如果你的tmux版本大于1.9，我们还可以使用if-shell来判断是否Mac系统，然后再指定default-command。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>-shell <span class="string">'test "$(uname -s)" = Darwin'</span> <span class="string">'set-option -g default-command "exec reattach-to-user-namespace -l $SHELL"'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-keyword">if</span>-shell <span class="hljs-string">'test "$(uname -s)" = Darwin'</span> <span class="hljs-string">'set-option -g default-command "exec reattach-to-user-namespace -l $SHELL"'</span><br></code></pre></td></tr></table></figure>
 <p>  对于tmux v1.8及更早的版本，可以使用如下包装后的配置：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span>-option -g default-command <span class="string">'command -v reattach-to-user-namespace &gt;/dev/null &amp;&amp; exec reattach-to-user-namespace -l "$SHELL" || exec "$SHELL"'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">set</span>-option -g default-command <span class="hljs-string">'command -v reattach-to-user-namespace &gt;/dev/null &amp;&amp; exec reattach-to-user-namespace -l "$SHELL" || exec "$SHELL"'</span><br></code></pre></td></tr></table></figure>
 <p>  以上，$SHELL对应于你的默认Shell，通常是/usr/bin/bash 或 /usr/local/bin/zsh。</p>
 <hr>
 <h2 id="复制模式"><a class="header-anchor" href="#复制模式">¶</a>复制模式</h2>
@@ -440,18 +584,18 @@
 <li>按下 `+] 粘贴文本</li>
 </ol>
 <p>  查看复制模式默认的快捷键风格：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux show-window-options -g mode-keys <span class="comment"># mode-keys emacs</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tmux show-window-options -g mode-keys <span class="hljs-comment"># mode-keys emacs</span><br></code></pre></td></tr></table></figure>
 <p>  默认情况下，快捷键为emacs风格。<br>
   为了让复制模式更加方便，我们可以将快捷键设置为熟悉的vi风格，如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setw -g mode-keys vi <span class="comment"># 开启vi风格后，支持vi的C-d、C-u、hjkl等快捷键</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">setw -g mode-keys vi <span class="hljs-comment"># 开启vi风格后，支持vi的C-d、C-u、hjkl等快捷键</span><br></code></pre></td></tr></table></figure>
 <h3 id="自定义复制和选择快捷键"><a class="header-anchor" href="#自定义复制和选择快捷键">¶</a>自定义复制和选择快捷键</h3>
 <p>  除了快捷键外，复制模式的启用、选择、复制、粘贴等按键也可以向vi风格靠拢。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">bind</span> Escape copy-mode <span class="comment"># 绑定esc键为进入复制模式</span></span><br><span class="line"><span class="built_in">bind</span> -t vi-copy v begin-selection <span class="comment"># 绑定v键为开始选择文本</span></span><br><span class="line"><span class="built_in">bind</span> -t vi-copy y copy-selection <span class="comment"># 绑定y键为复制选中文本</span></span><br><span class="line"><span class="built_in">bind</span> p pasteb <span class="comment"># 绑定p键为粘贴文本（p键默认用于进入上一个窗口，不建议覆盖）</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">bind</span> Escape copy-mode <span class="hljs-comment"># 绑定esc键为进入复制模式</span><br><span class="hljs-built_in">bind</span> -t vi-copy v begin-selection <span class="hljs-comment"># 绑定v键为开始选择文本</span><br><span class="hljs-built_in">bind</span> -t vi-copy y copy-selection <span class="hljs-comment"># 绑定y键为复制选中文本</span><br><span class="hljs-built_in">bind</span> p pasteb <span class="hljs-comment"># 绑定p键为粘贴文本（p键默认用于进入上一个窗口，不建议覆盖）</span><br></code></pre></td></tr></table></figure>
 <p>  以上，绑定 v、y两键的设置只在tmux v2.4版本以下才有效，对于v2.4及以上的版本，绑定快捷键需要使用 -T 选项，发送指令需要使用 -X 选项，请参考如下设置：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">bind</span> -T copy-mode-vi v send-keys -X begin-selection</span><br><span class="line"><span class="built_in">bind</span> -T copy-mode-vi y send-keys -X copy-selection-and-cancel</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">bind</span> -T copy-mode-vi v send-keys -X begin-selection<br><span class="hljs-built_in">bind</span> -T copy-mode-vi y send-keys -X copy-selection-and-cancel<br></code></pre></td></tr></table></figure>
 <h3 id="Buffer缓存"><a class="header-anchor" href="#Buffer缓存">¶</a>Buffer缓存</h3>
 <p>  tmux复制操作的内容默认会存进buffer里，buffer是一个粘贴缓存区，新的缓存总是位于栈顶，它的操作命令如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tmux list-buffers <span class="comment"># 展示所有的 buffers</span></span><br><span class="line">tmux show-buffer [-b buffer-name] <span class="comment"># 显示指定的 buffer 内容</span></span><br><span class="line">tmux choose-buffer <span class="comment"># 进入 buffer 选择页面(支持jk上下移动选择，回车选中并粘贴 buffer 内容到面板上)</span></span><br><span class="line">tmux <span class="built_in">set</span>-buffer <span class="comment"># 设置buffer内容</span></span><br><span class="line">tmux load-buffer [-b buffer-name] file-path <span class="comment"># 从文件中加载文本到buffer缓存</span></span><br><span class="line">tmux save-buffer [-a] [-b buffer-name] path <span class="comment"># 保存tmux的buffer缓存到本地</span></span><br><span class="line">tmux paste-buffer <span class="comment"># 粘贴buffer内容到会话中</span></span><br><span class="line">tmux delete-buffer [-b buffer-name] <span class="comment"># 删除指定名称的buffer</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">tmux list-buffers <span class="hljs-comment"># 展示所有的 buffers</span><br>tmux show-buffer [-b buffer-name] <span class="hljs-comment"># 显示指定的 buffer 内容</span><br>tmux choose-buffer <span class="hljs-comment"># 进入 buffer 选择页面(支持jk上下移动选择，回车选中并粘贴 buffer 内容到面板上)</span><br>tmux <span class="hljs-built_in">set</span>-buffer <span class="hljs-comment"># 设置buffer内容</span><br>tmux load-buffer [-b buffer-name] file-path <span class="hljs-comment"># 从文件中加载文本到buffer缓存</span><br>tmux save-buffer [-a] [-b buffer-name] path <span class="hljs-comment"># 保存tmux的buffer缓存到本地</span><br>tmux paste-buffer <span class="hljs-comment"># 粘贴buffer内容到会话中</span><br>tmux delete-buffer [-b buffer-name] <span class="hljs-comment"># 删除指定名称的buffer</span><br></code></pre></td></tr></table></figure>
 <p>  以上buffer操作在不指定buffer-name时，默认处理是栈顶的buffer缓存。<br>
   在tmux会话的命令行输入时，可以省略上述tmux前缀，其中list-buffers的操作如下所示：</p>
 <p><img src="http://louiszhai.github.io/docImages/tmux06.png" alt="list-buffers"></p>
@@ -463,9 +607,9 @@
 <h4 id="在Linux上使用粘贴板"><a class="header-anchor" href="#在Linux上使用粘贴板">¶</a>在Linux上使用粘贴板</h4>
 <p>  通常，Linux中可以使用xclip工具来接入系统粘贴板。<br>
   首先，需要安装xclip。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install xclip</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install xclip<br></code></pre></td></tr></table></figure>
 <p>  然后，.tmux.conf的配置如下。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># buffer缓存复制到Linux系统粘贴板</span></span><br><span class="line"><span class="built_in">bind</span> C-c run <span class="string">" tmux save-buffer - | xclip -i -sel clipboard"</span></span><br><span class="line"><span class="comment"># Linux系统粘贴板内容复制到会话</span></span><br><span class="line"><span class="built_in">bind</span> C-v run <span class="string">" tmux set-buffer \"<span class="variable">$(xclip -o -sel clipboard)</span>\"; tmux paste-buffer"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># buffer缓存复制到Linux系统粘贴板</span><br><span class="hljs-built_in">bind</span> C-c run <span class="hljs-string">" tmux save-buffer - | xclip -i -sel clipboard"</span><br><span class="hljs-comment"># Linux系统粘贴板内容复制到会话</span><br><span class="hljs-built_in">bind</span> C-v run <span class="hljs-string">" tmux set-buffer \"<span class="hljs-variable">$(xclip -o -sel clipboard)</span>\"; tmux paste-buffer"</span><br></code></pre></td></tr></table></figure>
 <p>  按下prefix + Ctrl + c 键，buffer缓存的内容将通过xlip程序复制到粘贴板，按下prefix + Ctrl + v键，tmux将通过xclip访问粘贴板，然后由set-buffer命令设置给buffer缓存，最后由paste-buffer粘贴到tmux会话中。</p>
 <h4 id="在Mac上使用粘贴板"><a class="header-anchor" href="#在Mac上使用粘贴板">¶</a>在Mac上使用粘贴板</h4>
 <p>  我们都知道，Mac自带 pbcopy 和 pbpaste命令，分别用于复制和粘贴，但在tmux命令中它们却不能正常运行。这里我将详细介绍下原因：</p>
@@ -474,10 +618,10 @@
 </blockquote>
 <p>  如此，我们可以使用一个小小的包装程序来重新连接到合适的命名空间，然后执行访问用户级命名空间的粘贴板服务，这个包装程序就是reattach-to-user-namespace。<br>
   那么，Mac下.tmux.conf的配置如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># buffer缓存复制到Mac系统粘贴板</span></span><br><span class="line"><span class="built_in">bind</span> C-c run <span class="string">"tmux save-buffer - | reattach-to-user-namespace pbcopy"</span></span><br><span class="line"><span class="comment"># Mac系统粘贴板内容复制到会话</span></span><br><span class="line"><span class="built_in">bind</span> C-v run <span class="string">"reattach-to-user-namespace pbpaste | tmux load-buffer - \; paste-buffer -d"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># buffer缓存复制到Mac系统粘贴板</span><br><span class="hljs-built_in">bind</span> C-c run <span class="hljs-string">"tmux save-buffer - | reattach-to-user-namespace pbcopy"</span><br><span class="hljs-comment"># Mac系统粘贴板内容复制到会话</span><br><span class="hljs-built_in">bind</span> C-v run <span class="hljs-string">"reattach-to-user-namespace pbpaste | tmux load-buffer - \; paste-buffer -d"</span><br></code></pre></td></tr></table></figure>
 <p>  reattach-to-user-namespace 作为包装程序来访问Mac粘贴板，按下prefix + Ctrl + c 键，buffer缓存的内容将复制到粘贴板，按下prefix + Ctrl + v键，粘贴板的内容将通过 load-buffer 加载，然后由 paste-buffer 粘贴到tmux会话中。<br>
   为了在复制模式中使用Mac系统的粘贴板，可做如下配置：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 绑定y键为复制选中文本到Mac系统粘贴板</span></span><br><span class="line"><span class="built_in">bind</span>-key -T copy-mode-vi <span class="string">'y'</span> send-keys -X copy-pipe-and-cancel <span class="string">'reattach-to-user-namespace pbcopy'</span></span><br><span class="line"><span class="comment"># 鼠标拖动选中文本，并复制到Mac系统粘贴板</span></span><br><span class="line"><span class="built_in">bind</span>-key -T copy-mode-vi MouseDragEnd1Pane send -X copy-pipe-and-cancel <span class="string">"pbcopy"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 绑定y键为复制选中文本到Mac系统粘贴板</span><br><span class="hljs-built_in">bind</span>-key -T copy-mode-vi <span class="hljs-string">'y'</span> send-keys -X copy-pipe-and-cancel <span class="hljs-string">'reattach-to-user-namespace pbcopy'</span><br><span class="hljs-comment"># 鼠标拖动选中文本，并复制到Mac系统粘贴板</span><br><span class="hljs-built_in">bind</span>-key -T copy-mode-vi MouseDragEnd1Pane send -X copy-pipe-and-cancel <span class="hljs-string">"pbcopy"</span><br></code></pre></td></tr></table></figure>
 <p>  完成以上配置后记得重启tmux服务器。至此，复制模式中，按y键将保存选中的文本到Mac系统粘贴板，随后按Command + v键便可粘贴。</p>
 <hr>
 <h2 id="保存Tmux会话"><a class="header-anchor" href="#保存Tmux会话">¶</a>保存Tmux会话</h2>
@@ -485,9 +629,9 @@
 <h3 id="Tmux-Resurrect"><a class="header-anchor" href="#Tmux-Resurrect">¶</a>Tmux Resurrect</h3>
 <p>  Tmux Resurrect无须任何配置，就能够备份tmux会话中的各种细节，包括窗口、面板的顺序、布局、工作目录，运行程序等等数据。因此它能在系统重启后完全地恢复会话。由于其幂等的恢复机制，它不会试图去恢复一个已经存在的窗口或者面板，所以，即使你不小心多恢复了几次会话，它也不会出现问题，这样主动恢复时我们就不必担心手抖多按了一次。另外，如果你是tmuxinator用户，我也建议你迁移到 tmux-resurrect插件上来，具体请参考<a href="https://github.com/tmux-plugins/tmux-resurrect/blob/master/docs/migrating_from_tmuxinator.md#migrating-from-tmuxinator" target="_blank" rel="noopener">Migrating from tmuxinator</a>。<br>
   Tmux Resurrec安装过程如下所示：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/.tmux</span><br><span class="line">mkdir plugins</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/tmux-plugins/tmux-resurrect.git</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> ~/.tmux<br>mkdir plugins<br>git <span class="hljs-built_in">clone</span> https://github.com/tmux-plugins/tmux-resurrect.git<br></code></pre></td></tr></table></figure>
 <p>  安装后需在~/.tmux.conf中增加一行配置：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">run-shell ~/.tmux/plugins/tmux-resurrect/resurrect.tmux</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">run-shell ~/.tmux/plugins/tmux-resurrect/resurrect.tmux<br></code></pre></td></tr></table></figure>
 <p>  至此安装成功，按下prefix + r重载tmux配置。<br>
   Tmux Resurrec提供如下两个操作：</p>
 <ul>
@@ -497,7 +641,7 @@
 <p>  保存时，tmux会话的详细信息会以文本文件的格式保存到~/.tmux/resurrect目录，恢复时则从此处读取，由于数据文件是明文的，因此你完全可以自由管理或者编辑这些会话状态文件（如果备份频繁，记得定期清除历史备份）。</p>
 <h4 id="可选的配置"><a class="header-anchor" href="#可选的配置">¶</a>可选的配置</h4>
 <p>  Tmux Resurrec本身是免配置开箱即用的，但同时也提供了如下选项以便修改其默认设置。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -g @resurrect-save <span class="string">'S'</span> <span class="comment"># 修改保存指令为S</span></span><br><span class="line"><span class="built_in">set</span> -g @resurrect-restore <span class="string">'R'</span> 修改恢复指令为R</span><br><span class="line"><span class="comment"># 修改会话数据的保持路径，此处不能使用除了$HOME, $HOSTNAME, ~之外的环境变量</span></span><br><span class="line"><span class="built_in">set</span> -g @resurrect-dir <span class="string">'/some/path'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">set</span> -g @resurrect-save <span class="hljs-string">'S'</span> <span class="hljs-comment"># 修改保存指令为S</span><br><span class="hljs-built_in">set</span> -g @resurrect-restore <span class="hljs-string">'R'</span> 修改恢复指令为R<br><span class="hljs-comment"># 修改会话数据的保持路径，此处不能使用除了$HOME, $HOSTNAME, ~之外的环境变量</span><br><span class="hljs-built_in">set</span> -g @resurrect-dir <span class="hljs-string">'/some/path'</span><br></code></pre></td></tr></table></figure>
 <p>  默认情况下只有一个保守的列表项（即vi vim nvim emacs man less more tail top htop irssi mutt）可以恢复，对此 Restoring programs doc 解释了怎么去恢复额外的项目。</p>
 <h4 id="进阶的备份"><a class="header-anchor" href="#进阶的备份">¶</a>进阶的备份</h4>
 <p>  除了基础备份外，Tmux Resurrec还提供进阶的备份功能，如下所示：</p>
@@ -511,33 +655,33 @@
 <ul>
 <li>通过vim的vim-obsession插件保存vim/neovim会话。</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/.vim/bundle</span><br><span class="line">git <span class="built_in">clone</span> git://github.com/tpope/vim-obsession.git</span><br><span class="line">vim -u NONE -c <span class="string">"helptags vim-obsession/doc"</span> -c q</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> ~/.vim/bundle<br>git <span class="hljs-built_in">clone</span> git://github.com/tpope/vim-obsession.git<br>vim -u NONE -c <span class="hljs-string">"helptags vim-obsession/doc"</span> -c q<br></code></pre></td></tr></table></figure>
 <ul>
 <li>在~/.tmux.conf中增加两行配置：</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -g @resurrect-strategy-vim <span class="string">'session'</span> <span class="comment"># for vim</span></span><br><span class="line"><span class="built_in">set</span> -g @resurrect-strategy-nvim <span class="string">'session'</span> <span class="comment"># for neovim</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">set</span> -g @resurrect-strategy-vim <span class="hljs-string">'session'</span> <span class="hljs-comment"># for vim</span><br><span class="hljs-built_in">set</span> -g @resurrect-strategy-nvim <span class="hljs-string">'session'</span> <span class="hljs-comment"># for neovim</span><br></code></pre></td></tr></table></figure>
 <p>2. 恢复面板内容，需在~/.tmux.conf中增加一行配置：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -g @resurrect-capture-pane-contents <span class="string">'on'</span> <span class="comment"># 开启恢复面板内容功能</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">set</span> -g @resurrect-capture-pane-contents <span class="hljs-string">'on'</span> <span class="hljs-comment"># 开启恢复面板内容功能</span><br></code></pre></td></tr></table></figure>
 <p>  目前使用该功能时，请确保tmux的default-command没有包含&amp;&amp; 或者||操作符，否则将导致bug。（查看default-command的值，请使用命令tmux show -g default-command。）</p>
 <p>3. 恢复shell的历史记录，需在~/.tmux.conf中增加一行配置：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -g @resurrect-save-shell-history <span class="string">'on'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">set</span> -g @resurrect-save-shell-history <span class="hljs-string">'on'</span><br></code></pre></td></tr></table></figure>
 <p>  由于技术的限制，保存时，只有无前台任务运行的面板，它的shell历史记录才能被保存。</p>
 <h3 id="Tmux-Continuum"><a class="header-anchor" href="#Tmux-Continuum">¶</a>Tmux Continuum</h3>
 <p>  可能你嫌手动保存和恢复太过麻烦，别担心，这不是问题。Tmux Continuum 在 Tmux Resurrec的基础上更进一步，现在保存和恢复全部自动化了，如你所愿，可以无感使用tmux，不用再担心备份问题。<br>
   Tmux Continuum安装过程如下所示（它依赖Tmux Resurrect，请保证已安装Tmux Resurrect插件）：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/.tmux/plugins</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/tmux-plugins/tmux-continuum.git</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> ~/.tmux/plugins<br>git <span class="hljs-built_in">clone</span> https://github.com/tmux-plugins/tmux-continuum.git<br></code></pre></td></tr></table></figure>
 <p>  安装后需在~/.tmux.conf中增加一行配置：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">run-shell ~/.tmux/plugins/tmux-continuum/continuum.tmux</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">run-shell ~/.tmux/plugins/tmux-continuum/continuum.tmux<br></code></pre></td></tr></table></figure>
 <p>  Tmux Continuum默认每隔15mins备份一次，我设置的是一天一次：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -g @continuum-save-interval <span class="string">'1440'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">set</span> -g @continuum-save-interval <span class="hljs-string">'1440'</span><br></code></pre></td></tr></table></figure>
 <p>  <strong>关闭自动备份</strong>，只需设置时间间隔为 0 即可：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -g @continuum-save-interval <span class="string">'0'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">set</span> -g @continuum-save-interval <span class="hljs-string">'0'</span><br></code></pre></td></tr></table></figure>
 <p>  想要在<strong>tmux启动时就恢复最后一次保存的会话环境</strong>，需增加如下配置：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -g @continuum-restore <span class="string">'on'</span> <span class="comment"># 启用自动恢复</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">set</span> -g @continuum-restore <span class="hljs-string">'on'</span> <span class="hljs-comment"># 启用自动恢复</span><br></code></pre></td></tr></table></figure>
 <p>  如果不想要启动时自动恢复的功能了，直接移除上面这行就行。想要绝对确定自动恢复不会发生，就在用户根目录下创建一个tmux_no_auto_restore空文件（创建命令：touch ~/tmux_no_auto_restore），该文件存在时，自动恢复将不触发。<br>
   对于tmux高级用户（可能就是你）而言，同时运行多个tmux服务器也是有可能的。你可能并不希望后面启用的几个tmux服务器自动恢复或者自动保存会话。因此Tmux Continuum会优先在第一个启用的tmux服务器中生效，随后启用的tmux服务器不再享受自动恢复或自动保存会话的待遇。<br>
   实际上，不管Tmux Continuum功能有没有启用，或者多久保存一次，我们都有办法从状态栏知晓。Tmux Continuum提供了一个查看运行状态的插值#{continuum_status}，它支持status-right 和 status-left两种状态栏设置，如下所示：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -g status-right <span class="string">'Continuum status: #&#123;continuum_status&#125;'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">set</span> -g status-right <span class="hljs-string">'Continuum status: #&#123;continuum_status&#125;'</span><br></code></pre></td></tr></table></figure>
 <p>  tmux运行时，#{continuum_status} 将显示保存的时间间隔（单位为分钟），此时状态栏会显示：</p>
 <pre><code>Continuum status: 1440
 </code></pre>
@@ -546,7 +690,7 @@
 </code></pre>
 <p>  借助Tmux Continuum插件，Mac重启时，我们甚至可以选择在Terminal 或者 iTerm2 中自动全屏启用tmux。<br>
   为此，需在~/.tmux.conf中增加一行配置：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -g @continuum-boot <span class="string">'on'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">set</span> -g @continuum-boot <span class="hljs-string">'on'</span><br></code></pre></td></tr></table></figure>
 <p>  Mac下，自动启用tmux还支持如下选项：</p>
 <ul>
 <li><code>set -g @continuum-boot-options 'fullscreen' ，Terminal自动全屏，tmux命令在Terminal中执行。</code></li>
@@ -557,9 +701,9 @@
 <h3 id="Tpm"><a class="header-anchor" href="#Tpm">¶</a>Tpm</h3>
 <p>  以上，我们直接安装了tmux插件。这没有问题，可当插件越来越多时，我们就会需要统一的插件管理器。因此官方提供了tpm（支持tmux v1.9及以上版本）。<br>
   tpm安装过程如下所示：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/.tmux/plugins</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/tmux-plugins/tpm</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> ~/.tmux/plugins<br>git <span class="hljs-built_in">clone</span> https://github.com/tmux-plugins/tpm<br></code></pre></td></tr></table></figure>
 <p>  安装后需在~/.tmux.conf中增加如下配置：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认需要引入的插件</span></span><br><span class="line"><span class="built_in">set</span> -g @plugin <span class="string">'tmux-plugins/tpm'</span></span><br><span class="line"><span class="built_in">set</span> -g @plugin <span class="string">'tmux-plugins/tmux-sensible'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 引入其他插件的示例</span></span><br><span class="line"><span class="comment"># set -g @plugin 'github_username/plugin_name' # 格式：github用户名/插件名</span></span><br><span class="line"><span class="comment"># set -g @plugin 'git@github.com/user/plugin' # 格式：git@github插件地址</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化tmux插件管理器(保证这行在~/.tmux.conf的非常靠后的位置)</span></span><br><span class="line">run <span class="string">'~/.tmux/plugins/tpm/tpm'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 默认需要引入的插件</span><br><span class="hljs-built_in">set</span> -g @plugin <span class="hljs-string">'tmux-plugins/tpm'</span><br><span class="hljs-built_in">set</span> -g @plugin <span class="hljs-string">'tmux-plugins/tmux-sensible'</span><br><br><span class="hljs-comment"># 引入其他插件的示例</span><br><span class="hljs-comment"># set -g @plugin 'github_username/plugin_name' # 格式：github用户名/插件名</span><br><span class="hljs-comment"># set -g @plugin 'git@github.com/user/plugin' # 格式：git@github插件地址</span><br><br><span class="hljs-comment"># 初始化tmux插件管理器(保证这行在~/.tmux.conf的非常靠后的位置)</span><br>run <span class="hljs-string">'~/.tmux/plugins/tpm/tpm'</span><br></code></pre></td></tr></table></figure>
 <p>  然后按下prefix + r重载tmux配置，使得tpm生效。<br>
   基于tpm插件管理器，安装插件仅需如下两步：</p>
 <ol>
@@ -577,243 +721,390 @@
 <p>  tmux多会话连接实时同步的功能，使得结对编程成为了可能，这也是开发者最喜欢的功能之一。现在就差一步了，就是借助tmate把tmux会话分享出去。</p>
 <p>  tmate是tmux的管理工具，它可以轻松的创建tmux会话，并且自动生成ssh链接。</p>
 <p>  安装tmate</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install tmate</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">brew install tmate<br></code></pre></td></tr></table></figure>
 <p>  使用tmate新建一个tmux会话</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmate</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tmate<br></code></pre></td></tr></table></figure>
 <p>此时屏幕下方会显示ssh url，如下所示：</p>
 <p><img src="http://louiszhai.github.io/docImages/tmux07.png" alt="ssh url"></p>
 <p>  查看tmate生成的ssh链接</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmate show-messages</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tmate show-messages<br></code></pre></td></tr></table></figure>
 <p>  生成的ssh url如下所示，其中一个为只读，另一个可编辑。</p>
 <p><img src="http://louiszhai.github.io/docImages/tmux08.png" alt="ssh url"></p>
 <h3 id="共享账号-组会话"><a class="header-anchor" href="#共享账号-组会话">¶</a>共享账号&amp;组会话</h3>
 <p>  使用tmate远程共享tmux会话，受制于多方的网络质量，必然会存在些许延迟。如果共享会话的多方拥有同一个远程服务器的账号，那么我们可以使用组会话解决这个问题。<br>
   先在远程服务器上新建一个公共会话，命名为groupSession。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux new -s groupSession</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tmux new -s groupSession<br></code></pre></td></tr></table></figure>
 <p>  其他用户不去直接连接这个会话，而是通过创建一个新的会话来加入上面的公共会话groupSession。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux new -t groupSession -s otherSession</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tmux new -t groupSession -s otherSession<br></code></pre></td></tr></table></figure>
 <p>  此时两个用户都可以在同一个会话里操作，就会好像第二个用户连接到了groupSession的会话一样。此时两个用户都可以创建新建的窗口，新窗口的内容依然会实时同步，但是其中一个用户切换到其它窗口，对另外一个用户没有任何影响，因此在这个共享的组会话中，用户各自的操作可以通过新建窗口来执行。即使第二个用户关闭otherSession会话，共享会话groupSession依然存在。<br>
   组会话在共享的同时，又保留了相对的独立，非常适合结对编程场景，它是结对编程最简单的方式，如果账号不能共享，我们就要使用下面的方案了。</p>
 <h3 id="独立账号-Socket共享会话"><a class="header-anchor" href="#独立账号-Socket共享会话">¶</a>独立账号&amp;Socket共享会话</h3>
 <p>  开始之前我们需要确保用户对远程服务器上同一个目录拥有相同的读写权限，假设这个目录为/var/tmux/。<br>
   使用new-session（简写new）创建会话时，使用的是默认的socket位置，默认socket无法操作，所以我们需要创建一个指定socket文件的会话。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux -S /var/tmux/sharefile</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tmux -S /var/tmux/sharefile<br></code></pre></td></tr></table></figure>
 <p>  另一个用户进入时，需要指定socket文件加入会话。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux -S /var/tmux/sharefile attach</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tmux -S /var/tmux/sharefile attach<br></code></pre></td></tr></table></figure>
 <p>  这样，两个不同的用户就可以共享同一个会话了。<br>
   通常情况下，不同的用户使用不同的配置文件来创建会话，但是，使用指定socket文件创建的tmux会话，会话加载的是第一个创建会话的用户的~/.tmux.conf配置文件，随后加入会话的其他用户，依然使用同一份配置文件。</p>
 <h2 id="Tmux优化"><a class="header-anchor" href="#Tmux优化">¶</a>Tmux优化</h2>
 <p>  要想tmux更加人性化、性能更佳，不妨参考下如下配置。</p>
 <h3 id="设置窗口面板起始序号"><a class="header-anchor" href="#设置窗口面板起始序号">¶</a>设置窗口面板起始序号</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -g base-index 1 <span class="comment"># 设置窗口的起始下标为1</span></span><br><span class="line"><span class="built_in">set</span> -g pane-base-index 1 <span class="comment"># 设置面板的起始下标为1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">set</span> -g base-index 1 <span class="hljs-comment"># 设置窗口的起始下标为1</span><br><span class="hljs-built_in">set</span> -g pane-base-index 1 <span class="hljs-comment"># 设置面板的起始下标为1</span><br></code></pre></td></tr></table></figure>
 <h3 id="自定义状态栏"><a class="header-anchor" href="#自定义状态栏">¶</a>自定义状态栏</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -g status-utf8 on <span class="comment"># 状态栏支持utf8</span></span><br><span class="line"><span class="built_in">set</span> -g status-interval 1 <span class="comment"># 状态栏刷新时间</span></span><br><span class="line"><span class="built_in">set</span> -g status-justify left <span class="comment"># 状态栏列表左对齐</span></span><br><span class="line">setw -g monitor-activity on <span class="comment"># 非当前窗口有内容更新时在状态栏通知</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -g status-bg black <span class="comment"># 设置状态栏背景黑色</span></span><br><span class="line"><span class="built_in">set</span> -g status-fg yellow <span class="comment"># 设置状态栏前景黄色</span></span><br><span class="line"><span class="built_in">set</span> -g status-style <span class="string">"bg=black, fg=yellow"</span> <span class="comment"># 状态栏前景背景色</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -g status-left <span class="string">"#[bg=#FF661D] ❐ #S "</span> <span class="comment"># 状态栏左侧内容</span></span><br><span class="line"><span class="built_in">set</span> -g status-right <span class="string">'Continuum status: #&#123;continuum_status&#125;'</span> <span class="comment"># 状态栏右侧内容</span></span><br><span class="line"><span class="built_in">set</span> -g status-left-length 300 <span class="comment"># 状态栏左边长度300</span></span><br><span class="line"><span class="built_in">set</span> -g status-right-length 500 <span class="comment"># 状态栏左边长度500</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -wg window-status-format <span class="string">" #I #W "</span> <span class="comment"># 状态栏窗口名称格式</span></span><br><span class="line"><span class="built_in">set</span> -wg window-status-current-format <span class="string">" #I:#W#F "</span> <span class="comment"># 状态栏当前窗口名称格式(#I：序号，#w：窗口名称，#F：间隔符)</span></span><br><span class="line"><span class="built_in">set</span> -wg window-status-separator <span class="string">""</span> <span class="comment"># 状态栏窗口名称之间的间隔</span></span><br><span class="line"><span class="built_in">set</span> -wg window-status-current-style <span class="string">"bg=red"</span> <span class="comment"># 状态栏当前窗口名称的样式</span></span><br><span class="line"><span class="built_in">set</span> -wg window-status-last-style <span class="string">"fg=red"</span> <span class="comment"># 状态栏最后一个窗口名称的样式</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -g message-style <span class="string">"bg=#202529, fg=#91A8BA"</span> <span class="comment"># 指定消息通知的前景、后景色</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">set</span> -g status-utf8 on <span class="hljs-comment"># 状态栏支持utf8</span><br><span class="hljs-built_in">set</span> -g status-interval 1 <span class="hljs-comment"># 状态栏刷新时间</span><br><span class="hljs-built_in">set</span> -g status-justify left <span class="hljs-comment"># 状态栏列表左对齐</span><br>setw -g monitor-activity on <span class="hljs-comment"># 非当前窗口有内容更新时在状态栏通知</span><br><br><span class="hljs-built_in">set</span> -g status-bg black <span class="hljs-comment"># 设置状态栏背景黑色</span><br><span class="hljs-built_in">set</span> -g status-fg yellow <span class="hljs-comment"># 设置状态栏前景黄色</span><br><span class="hljs-built_in">set</span> -g status-style <span class="hljs-string">"bg=black, fg=yellow"</span> <span class="hljs-comment"># 状态栏前景背景色</span><br><br><span class="hljs-built_in">set</span> -g status-left <span class="hljs-string">"#[bg=#FF661D] ❐ #S "</span> <span class="hljs-comment"># 状态栏左侧内容</span><br><span class="hljs-built_in">set</span> -g status-right <span class="hljs-string">'Continuum status: #&#123;continuum_status&#125;'</span> <span class="hljs-comment"># 状态栏右侧内容</span><br><span class="hljs-built_in">set</span> -g status-left-length 300 <span class="hljs-comment"># 状态栏左边长度300</span><br><span class="hljs-built_in">set</span> -g status-right-length 500 <span class="hljs-comment"># 状态栏左边长度500</span><br><br><span class="hljs-built_in">set</span> -wg window-status-format <span class="hljs-string">" #I #W "</span> <span class="hljs-comment"># 状态栏窗口名称格式</span><br><span class="hljs-built_in">set</span> -wg window-status-current-format <span class="hljs-string">" #I:#W#F "</span> <span class="hljs-comment"># 状态栏当前窗口名称格式(#I：序号，#w：窗口名称，#F：间隔符)</span><br><span class="hljs-built_in">set</span> -wg window-status-separator <span class="hljs-string">""</span> <span class="hljs-comment"># 状态栏窗口名称之间的间隔</span><br><span class="hljs-built_in">set</span> -wg window-status-current-style <span class="hljs-string">"bg=red"</span> <span class="hljs-comment"># 状态栏当前窗口名称的样式</span><br><span class="hljs-built_in">set</span> -wg window-status-last-style <span class="hljs-string">"fg=red"</span> <span class="hljs-comment"># 状态栏最后一个窗口名称的样式</span><br><br><span class="hljs-built_in">set</span> -g message-style <span class="hljs-string">"bg=#202529, fg=#91A8BA"</span> <span class="hljs-comment"># 指定消息通知的前景、后景色</span><br></code></pre></td></tr></table></figure>
 <h3 id="开启256-colors支持"><a class="header-anchor" href="#开启256-colors支持">¶</a>开启256 colors支持</h3>
 <p>  默认情况下，tmux中使用vim编辑器，文本内容的配色和直接使用vim时有些差距，此时需要开启256 colors的支持，配置如下。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -g default-terminal <span class="string">"screen-256color"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">set</span> -g default-terminal <span class="hljs-string">"screen-256color"</span><br></code></pre></td></tr></table></figure>
 <p>  或者：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -g default-terminal <span class="string">"tmux-256color"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">set</span> -g default-terminal <span class="hljs-string">"tmux-256color"</span><br></code></pre></td></tr></table></figure>
 <p>  或者启动tmux时增加参数-2：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> tmux=<span class="string">'tmux -2'</span> <span class="comment"># Force tmux to assume the terminal supports 256 colours</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">alias</span> tmux=<span class="hljs-string">'tmux -2'</span> <span class="hljs-comment"># Force tmux to assume the terminal supports 256 colours</span><br></code></pre></td></tr></table></figure>
 <h3 id="关闭默认的rename机制"><a class="header-anchor" href="#关闭默认的rename机制">¶</a>关闭默认的rename机制</h3>
 <p>  tmux默认会自动重命名窗口，频繁的命令行操作，将频繁触发重命名，比较浪费CPU性能，性能差的计算机上，问题可能更为明显。建议添加如下配置关闭rename机制。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setw -g automatic-rename off</span><br><span class="line">setw -g allow-rename off</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">setw -g automatic-rename off<br>setw -g allow-rename off<br></code></pre></td></tr></table></figure>
 <h3 id="去掉小圆点"><a class="header-anchor" href="#去掉小圆点">¶</a>去掉小圆点</h3>
 <p>  tmux默认会同步同一个会话的操作到所有会话连接的终端窗口中，这种同步机制，限制了窗口的大小为最小的会话连接。因此当你开一个大窗口去连接会话时，实际的窗口将自动调整为最小的那个会话连接的窗口，终端剩余的空间将填充排列整齐的小圆点，如下所示。</p>
 <p><img src="http://louiszhai.github.io/docImages/tmux03.png" alt="dot"></p>
 <p>  为了避免这种问题，我们可以在连接会话的时候，断开其他的会话连接。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux a -d</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tmux a -d<br></code></pre></td></tr></table></figure>
 <p>  如果已经进入了tmux会话中，才发现这种问题，这个时候可以输入命令达到同样的效果。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`: a -d</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">`: a -d<br></code></pre></td></tr></table></figure>
 <p><img src="http://louiszhai.github.io/docImages/tmux04.gif" alt="remove dot"></p>
 <h2 id="脚本化的Tmux"><a class="header-anchor" href="#脚本化的Tmux">¶</a>脚本化的Tmux</h2>
 <p>  tmux作为终端复用软件，支持纯命令行操作也是其一大亮点。你既可以启用可视化界面创建会话，也可以运行脚本生成会话，对于tmux依赖者而言，编写几个tmux脚本批量维护会话列表，快速重启、切换、甚至分享部分会话都是非常方便的。可能会有人说为什么不用Tmux Resurrect呢？是的，Tmux Resurrect很好，一键恢复也很诱人，但是对于一个维护大量tmux会话的用户而言，一键恢复可能不见得好，分批次恢复可能是他（她）更想要的，脚本化的tmux就很好地满足了这点。<br>
   脚本中创建tmux会话时，由于不需要开启可视化界面，需要输入-d参数指定会话后台运行，如下。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux new -s init -d <span class="comment"># 后台创建一个名称为init的会话</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tmux new -s init -d <span class="hljs-comment"># 后台创建一个名称为init的会话</span><br></code></pre></td></tr></table></figure>
 <p>  新建的会话，建议重命令会话的窗口名称，以便后续维护。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重命名init会话的第一个窗口名称为service</span></span><br><span class="line">tmux rename-window -t <span class="string">"init:1"</span> service</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 重命名init会话的第一个窗口名称为service</span><br>tmux rename-window -t <span class="hljs-string">"init:1"</span> service<br></code></pre></td></tr></table></figure>
 <p>  现在，可以在刚才的窗口中输入指令了。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 切换到指定目录并运行python服务</span></span><br><span class="line">tmux send -t <span class="string">"init:service"</span> <span class="string">"cd ~/workspace/language/python/;python2.7 server.py"</span> Enter</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 切换到指定目录并运行python服务</span><br>tmux send -t <span class="hljs-string">"init:service"</span> <span class="hljs-string">"cd ~/workspace/language/python/;python2.7 server.py"</span> Enter<br></code></pre></td></tr></table></figure>
 <p>  一个面板占用一个窗口可能太浪费了，我们来分个屏吧。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认上下分屏</span></span><br><span class="line">tmux split-window -t <span class="string">"init:service"</span></span><br><span class="line"><span class="comment"># 切换到指定目录并运行node服务</span></span><br><span class="line">tmux send -t <span class="string">"init:service"</span> <span class="string">'cd ~/data/louiszhai/node-webserver/;npm start'</span> Enter</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 默认上下分屏</span><br>tmux split-window -t <span class="hljs-string">"init:service"</span><br><span class="hljs-comment"># 切换到指定目录并运行node服务</span><br>tmux send -t <span class="hljs-string">"init:service"</span> <span class="hljs-string">'cd ~/data/louiszhai/node-webserver/;npm start'</span> Enter<br></code></pre></td></tr></table></figure>
 <p>  现在一个窗口拥有上下两个面板，是时候创建一个新的窗口来运行更多的程序了。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 新建一个名称为tool的窗口</span></span><br><span class="line">tmux neww -a -n tool -t init <span class="comment"># neww等同于new window</span></span><br><span class="line"><span class="comment"># 运行weinre调试工具</span></span><br><span class="line">tmux send -t <span class="string">"init:tool"</span> <span class="string">"weinre --httpPort 8881 --boundHost -all-"</span> Enter</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 新建一个名称为tool的窗口</span><br>tmux neww -a -n tool -t init <span class="hljs-comment"># neww等同于new window</span><br><span class="hljs-comment"># 运行weinre调试工具</span><br>tmux send -t <span class="hljs-string">"init:tool"</span> <span class="hljs-string">"weinre --httpPort 8881 --boundHost -all-"</span> Enter<br></code></pre></td></tr></table></figure>
 <p>  另外新建窗口运行程序，有更方便的方式，比如使用 processes 选项。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tmux neww-n processes ls <span class="comment"># 新建窗口并执行命令，命令执行结束后窗口将关闭</span></span><br><span class="line">tmux neww-n processes top <span class="comment"># 由于top命令持续在前台运行，因此窗口将保留，直到top命令退出</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">tmux neww-n processes ls <span class="hljs-comment"># 新建窗口并执行命令，命令执行结束后窗口将关闭</span><br>tmux neww-n processes top <span class="hljs-comment"># 由于top命令持续在前台运行，因此窗口将保留，直到top命令退出</span><br></code></pre></td></tr></table></figure>
 <p>  新的窗口，我们尝试下水平分屏。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 水平分屏</span></span><br><span class="line">tmux split-window -h -t <span class="string">"init:tool"</span></span><br><span class="line"><span class="comment"># 切换到指定目录并启用aria2 web管理后台</span></span><br><span class="line">tmux send -t <span class="string">"init:tool"</span> <span class="string">"cd ~/data/tools/AriaNg/dist/;python -m SimpleHTTPServer 10108"</span> Enter</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 水平分屏</span><br>tmux split-window -h -t <span class="hljs-string">"init:tool"</span><br><span class="hljs-comment"># 切换到指定目录并启用aria2 web管理后台</span><br>tmux send -t <span class="hljs-string">"init:tool"</span> <span class="hljs-string">"cd ~/data/tools/AriaNg/dist/;python -m SimpleHTTPServer 10108"</span> Enter<br></code></pre></td></tr></table></figure>
 <p>  类似的脚本，我们可以编写一打，这样快速重启、切换、甚至分享会话都将更加便捷。</p>
 <h2 id="开启自动启用Web服务器"><a class="header-anchor" href="#开启自动启用Web服务器">¶</a>开启自动启用Web服务器</h2>
 <p>  开机自动准备工作环境是一个很好的idea，但却不好实现。对于程序员而言，一个开机即用的计算机会节省大量的初始化操作，特别是前端工程师，本地常常会启用多个服务器，每次开机挨个启动将耗时耗力。为此，在遇到tmux之前，我常常拖延重启计算机的时机，一度连续运行Mac一月之久，直到它不堪重负。<br>
   有了tmux脚本化的基础，开机自动启用web服务器就不在话下了，接杯水的时间，计算机就重启恢复了满血。如下是操作步骤：<br>
   首先，上面的tmux脚本，可以合并到同一个文件中，指定文件权限为可执行，<a href="http://xn--init-uh5fn22anwa323d.sh" target="_blank" rel="noopener">并命名为init.sh</a>（名称可自取）。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod u+x ./init.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">chmod u+x ./init.sh<br></code></pre></td></tr></table></figure>
 <p>  然后，打开 系统偏好设置 - 用户与群组 - 登录项，点击添加按钮+，选择刚刚保存的init.sh脚本，最终效果如下：</p>
 <p><img src="http://louiszhai.github.io/docImages/tmux09.png" alt="init.sh"></p>
 <p>  至此，Mac开机将自动运行 <a href="http://init.sh" target="_blank" rel="noopener">init.sh</a> 脚本，自动启用web服务器。<br>
   完成了上面这些配置，就真正实现了一键开机。<br>
   最后，附上我本地的配置文件<a href="https://github.com/Louiszhai/tmux/blob/master/.tmux.conf" target="_blank" rel="noopener">.tmux.conf</a>，以及启动脚本 <a href="https://github.com/Louiszhai/tmux/blob/master/init.sh" target="_blank" rel="noopener">init.sh</a>。明天就是国庆了，祝大家国庆快乐！</p>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://blog.rabbituzki.com.cn/2018/10/19/Tmux%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/" data-id="ckidwlghu0016sgv45pjf4mm5" class="article-share-link">
-        分享
-      </a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tmux/" rel="tag">Tmux</a></li></ul>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%95%99%E7%A8%8B/">教程</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Tmux/">Tmux</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2018/10/22/%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8GPG/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">GPG 使用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2018/10/18/Markdown-%E8%AF%AD%E6%B3%95%E6%89%8B%E5%86%8C/">
+                        <span class="hidden-mobile">Markdown 语法手册</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
 
-    </footer>
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "TMgxzCpM2zFnsClsMHJY2LLc-gzGzoHsz",
+          app_key: "1kPLieLtoBQWf0w6iNxLqkMV",
+          placeholder: "说点什么....",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="https://valine.js.org" target="_blank" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
 
-  </div>
 
-  
-  
-  <nav class="article-nav">
-    
-      <a href="/2018/10/22/%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8GPG/" class="article-nav-link">
-        <strong class="article-nav-caption">前一篇</strong>
-        <div class="article-nav-title">
-          
-            GPG 使用
-          
+              </article>
+            
+          </article>
         </div>
-      </a>
-    
-    
-      <a href="/2018/10/18/Markdown-%E8%AF%AD%E6%B3%95%E6%89%8B%E5%86%8C/" class="article-nav-link">
-        <strong class="article-nav-caption">后一篇</strong>
-        <div class="article-nav-title">Markdown 语法手册</div>
-      </a>
-    
-  </nav>
-
-
-  
-
-  
-  
-  
-  
-
-</article>
-</section>
-  <footer class="footer">
-  <div class="outer">
-    <div class="float-right">
-      <ul class="list-inline">
-  
-    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
-  
-    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
-  
-</ul>
+      </div>
     </div>
-    <ul class="list-inline">
-      <li>&copy; 2020 六加的博客</li>
-      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
-      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
-    </ul>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
   </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> &nbsp;&nbsp;and&nbsp;&nbsp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
 </footer>
 
-</main>
-<aside class="sidebar">
-  <button class="navbar-toggle"></button>
-<nav class="navbar">
-  
-    <div class="logo">
-      <a href="/"><img src="/images/hexo.svg" alt="六加的博客"></a>
-    </div>
-  
-  <ul class="nav nav-main">
-    
-      <li class="nav-item">
-        <a class="nav-item-link" href="/">Home</a>
-      </li>
-    
-      <li class="nav-item">
-        <a class="nav-item-link" href="/archives">Archives</a>
-      </li>
-    
-      <li class="nav-item">
-        <a class="nav-item-link" href="/gallery">Gallery</a>
-      </li>
-    
-      <li class="nav-item">
-        <a class="nav-item-link" href="/about">About</a>
-      </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link nav-item-search" title="搜索">
-        <i class="fe fe-search"></i>
-        搜索
-      </a>
-    </li>
-  </ul>
-</nav>
-<nav class="navbar navbar-bottom">
-  <ul class="nav">
-    <li class="nav-item">
-      <div class="totop" id="totop">
-  <i class="fe fe-rocket"></i>
-</div>
-    </li>
-    <li class="nav-item">
-      
-        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
-          <i class="fe fe-feed"></i>
-        </a>
-      
-    </li>
-  </ul>
-</nav>
-<div class="search-form-wrap">
-  <div class="local-search local-search-plugin">
-  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
-  <div id="local-search-result" class="local-search-result"></div>
-</div>
-</div>
-</aside>
+<!-- SCRIPTS -->
 
-<script src="/js/jquery-2.0.3.min.js"></script>
-
-
-<script src="/js/jquery.justifiedGallery.min.js"></script>
-
-
-<script src="/js/lazyload.min.js"></script>
-
-
-<script src="/js/busuanzi-2.3.pure.min.js"></script>
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-  
-<script src="/js/tocbot.min.js"></script>
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
 
   <script>
-    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
-    tocbot.init({
-      tocSelector: '.tocbot',
-      contentSelector: '.article-entry',
-      headingSelector: 'h1, h2, h3, h4, h5, h6',
-      hasInnerContainers: true,
-      scrollSmooth: true,
-      positionFixedSelector: '.tocbot',
-      positionFixedClass: 'is-position-fixed',
-      fixedSidebarOffset: 'auto',
-    });
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
   </script>
 
 
 
-<script src="/js/ocean.js"></script>
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a9b0666290f750544a1900dff36c0349";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+    <!-- Google Analytics -->
+    <script defer>
+      window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) };
+      ga.l = +new Date;
+      ga('create', 'UA-127726236-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
 
 
 </body>

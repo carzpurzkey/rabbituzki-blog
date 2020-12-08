@@ -1,91 +1,235 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" href="/images/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>
-    基于 Hexo Ocean 主题博客搭建 |
-    
-    六加的博客</title>
-  
-    <link rel="shortcut icon" href="/favicon.ico">
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="When in doubt, use brute force.">
+  <meta name="author" content="Rabbituzki">
+  <meta name="keywords" content="">
+  <title>基于 Hexo Ocean 主题博客搭建 - Rabbituzki 的笔记们</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
 
   
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/gruvbox-dark.min.css" />
+    
+  
 
   
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
   
-<script src="/js/pace.min.js"></script>
 
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"blog.rabbituzki.com.cn","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"a9b0666290f750544a1900dff36c0349","google":"UA-127726236-2","gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TMgxzCpM2zFnsClsMHJY2LLc-gzGzoHsz","app_key":"1kPLieLtoBQWf0w6iNxLqkMV","server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
 <meta name="generator" content="Hexo 4.2.1"></head>
 
+
 <body>
-<main class="content">
-  <section class="outer">
-  <article id="post-基于-Hexo-Ocean-主题博客搭建" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Rabbituzki 的笔记们</strong>&nbsp;</a>
 
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-  
-    <h1 class="article-title" itemprop="name">
-      基于 Hexo Ocean 主题博客搭建
-    </h1>
-  
-  
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
 
-
-
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/02/04/%E5%9F%BA%E4%BA%8E-Hexo-Ocean-%E4%B8%BB%E9%A2%98%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" class="article-date">
-  <time datetime="2020-02-03T16:00:00.000Z" itemprop="datePublished">2020-02-04</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
-  </div>
-
-    </div>
-    
-
-    
-    
-<div class="tocbot"></div>
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-  <div class="article-gallery">
-    <div class="article-gallery-photos">
-      
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-          <img src="/images/hexo.jpg" itemprop="image">
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
         
-      
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
   </div>
+</nav>
 
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/images/background1.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="基于 Hexo Ocean 主题博客搭建">
+              
+            </span>
 
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-02-04 00:00" pubdate>
+        2020年2月4日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
       
-      <h1>基于 Hexo Ocean 主题博客搭建</h1>
+      
+      69
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">基于 Hexo Ocean 主题博客搭建</h1>
+            
+            <div class="markdown-body">
+              <h1>基于 Hexo Ocean 主题博客搭建</h1>
 <hr>
 <p>[TOC]</p>
 <hr>
@@ -102,7 +246,7 @@
 </ul>
 <h2 id="下载主题源码"><a class="header-anchor" href="#下载主题源码">¶</a>下载主题源码</h2>
 <p>在 <code>hexo init [folder]</code> 的 <em>folder</em> 目录下执行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/zhwangart/hexo-theme-ocean.git themes/ocean</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> https://github.com/zhwangart/hexo-theme-ocean.git themes/ocean<br></code></pre></td></tr></table></figure>
 <h2 id="参照主题文档进行配置"><a class="header-anchor" href="#参照主题文档进行配置">¶</a>参照主题文档进行配置</h2>
 <ul>
 <li><a href="https://zhwangart.github.io/2018/11/30/Ocean/" target="_blank" rel="noopener">Ocean 中文文档</a></li>
@@ -111,19 +255,19 @@
 <h2 id="个性化主题配置"><a class="header-anchor" href="#个性化主题配置">¶</a>个性化主题配置</h2>
 <h3 id="文章自动添加-Read-More"><a class="header-anchor" href="#文章自动添加-Read-More">¶</a>文章自动添加 Read More</h3>
 <p>将 _\themes\ocean\layout\<em>partial\article.ejs</em> 文中的 <code>&lt;% if (post.excerpt &amp;&amp; index){ %&gt; </code>的 else 部分替换为如下内容：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;% var br &#x3D; post.content.indexOf(&#39;&lt;br&gt;&#39;) %&gt;</span><br><span class="line">&lt;% if(br &lt; 0 || !index) &#123; %&gt;</span><br><span class="line">  &lt;%- post.more %&gt;</span><br><span class="line">&lt;% &#125; else &#123; %&gt;</span><br><span class="line">  &lt;%- post.content.substring(0, br) %&gt;&lt;br&#x2F;&gt;</span><br><span class="line">  &lt;% if (theme.excerpt_link) &#123; %&gt;</span><br><span class="line">	&lt;a class&#x3D;&quot;article-more-link&quot; href&#x3D;&quot;&lt;%- url_for(post.path) %&gt;&quot;&gt;&lt;%&#x3D; theme.excerpt_link %&gt;&lt;&#x2F;a&gt;</span><br><span class="line">  &lt;% &#125; %&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;% var br &#x3D; post.content.indexOf(&#39;&lt;br&gt;&#39;) %&gt;<br>&lt;% if(br &lt; 0 || !index) &#123; %&gt;<br>  &lt;%- post.more %&gt;<br>&lt;% &#125; else &#123; %&gt;<br>  &lt;%- post.content.substring(0, br) %&gt;&lt;br&#x2F;&gt;<br>  &lt;% if (theme.excerpt_link) &#123; %&gt;<br>	&lt;a class&#x3D;&quot;article-more-link&quot; href&#x3D;&quot;&lt;%- url_for(post.path) %&gt;&quot;&gt;&lt;%&#x3D; theme.excerpt_link %&gt;&lt;&#x2F;a&gt;<br>  &lt;% &#125; %&gt;<br>&lt;% &#125; %&gt;<br></code></pre></td></tr></table></figure>
 <h3 id="搜索功能不起作用或除开首页不能正常搜索"><a class="header-anchor" href="#搜索功能不起作用或除开首页不能正常搜索">¶</a>搜索功能不起作用或除开首页不能正常搜索</h3>
 <p>本地检索需要安装插件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-searchdb --save</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install hexo-generator-searchdb --save<br></code></pre></td></tr></table></figure>
 <p>另外一个问题：插件搜索函数返回的 url 有问题 ，作者说是因为 “中文字符被URL encode了 ” 。后来我找到一个解决办法：<br>
 将 <em>[folder]/node_modules/hexo-generator-searchdb/templates/xml.ejs</em> 文件中的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;url&gt;&lt;%- encodeURIComponent(config.root + post.path) %&gt;&lt;&#x2F;url&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;url&gt;&lt;%- encodeURIComponent(config.root + post.path) %&gt;&lt;&#x2F;url&gt;<br></code></pre></td></tr></table></figure>
 <p>修改为</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;url&gt;&lt;%- encodeURI(config.root + post.path) %&gt;&lt;&#x2F;url&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;url&gt;&lt;%- encodeURI(config.root + post.path) %&gt;&lt;&#x2F;url&gt;<br></code></pre></td></tr></table></figure>
 <h3 id="修改导航栏"><a class="header-anchor" href="#修改导航栏">¶</a>修改导航栏</h3>
 <p>修改 <em>themes/ocean/source/css/_partial/navbar.styl</em> 文件</p>
 <h3 id="文章添加封面图片"><a class="header-anchor" href="#文章添加封面图片">¶</a>文章添加封面图片</h3>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: Post name</span><br><span class="line">date: 2019-07-24 22:01:03</span><br><span class="line">photos: [</span><br><span class="line"><span class="code">        ["/images/相机.jpg"], // themes/ocean/source/images目录下</span></span><br><span class="line"><span class="code">        ["https://tuchong.pstatp.com/2716763/f/531173888.jpg"]</span></span><br><span class="line"> ]</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs markdown">---<br>title: Post name<br>date: 2019-07-24 22:01:03<br>photos: [<br><span class="hljs-code">        ["/images/相机.jpg"], // themes/ocean/source/images目录下</span><br><span class="hljs-code">        ["https://tuchong.pstatp.com/2716763/f/531173888.jpg"]</span><br> ]<br>---<br></code></pre></td></tr></table></figure>
 <p>在首页只会显示第一张，详情页会按顺序显示这两张。</p>
 <h3 id="为文章添加Gitalk评论"><a class="header-anchor" href="#为文章添加Gitalk评论">¶</a>为文章添加Gitalk评论</h3>
 <p>参考：<a href="https://zhwangart.github.io/2018/12/06/Gitalk/" target="_blank" rel="noopener">https://zhwangart.github.io/2018/12/06/Gitalk/</a></p>
@@ -144,9 +288,9 @@
 <p>下载：<a href="https://github.com/andus-top/andus-top.github.io/blob/master/js/love.js" target="_blank" rel="noopener">桃心Js</a><br>
 然后将里面的代码 copy 一下，新建 <em>love.js</em> 文件并且将代码复制进去，然后保存。<br>
 在 <em>themes/ocean/_config.yml</em> 最后一行写入：</p>
-  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">lovejs:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">lovejs:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
 <p>将 <em>love.js</em> 文件放到路径 <em>/themes/ocean/source/js/src</em> 里面，然后打开 <em>\themes\ocean\layout\_partial\after-footer.ejs</em> 文件, 在最后一行写入：</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if (theme.lovejs)&#123; %&gt;</span><br><span class="line">	&lt;%- js(&#39;&#x2F;js&#x2F;love.js&#39;) %&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;% if (theme.lovejs)&#123; %&gt;<br>	&lt;%- js(&#39;&#x2F;js&#x2F;love.js&#39;) %&gt;<br>&lt;% &#125; %&gt;<br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <p>爆炸效果</p>
@@ -156,120 +300,120 @@
 <li><a href="https://github.com/andus-top/andus-top.github.io/blob/master/js/anime.min.js" target="_blank" rel="noopener">anime.min.js</a></li>
 </ul>
 <p>步骤与上面类似保存 js 到 <em>/themes/ocean/source/js/src</em>，最后在 <em>\themes\ocean\layout\_partial\after-footer.ejs</em> 文件内容未写入：</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if (theme.fireworks)&#123; %&gt;</span><br><span class="line">   &lt;canvas class&#x3D;&quot;fireworks&quot; style&#x3D;&quot;position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;&quot; &gt;&lt;&#x2F;canvas&gt;</span><br><span class="line">   &lt;%- js(&#39;&#x2F;js&#x2F;anime.min.js&#39;) %&gt;</span><br><span class="line">   &lt;%- js(&#39;&#x2F;js&#x2F;fireworks.js&#39;) %&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;% if (theme.fireworks)&#123; %&gt;<br>   &lt;canvas class&#x3D;&quot;fireworks&quot; style&#x3D;&quot;position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;&quot; &gt;&lt;&#x2F;canvas&gt;<br>   &lt;%- js(&#39;&#x2F;js&#x2F;anime.min.js&#39;) %&gt;<br>   &lt;%- js(&#39;&#x2F;js&#x2F;fireworks.js&#39;) %&gt;<br>&lt;% &#125; %&gt;<br></code></pre></td></tr></table></figure>
 </li>
 </ul>
 <h3 id="头像旋转效果"><a class="header-anchor" href="#头像旋转效果">¶</a>头像旋转效果</h3>
 <p>打开 <em>\themes\ocean\layout\_partial\sidebar.ejs</em>，给 <code>&lt;div class=logo&gt;</code> 下的 <code>img</code> 加上一个 <code>id</code>。然后参考：<a href="https://blog.csdn.net/u011295864/article/details/84773123" target="_blank" rel="noopener">css + js实现图片不停旋转 鼠标悬停停止旋转</a></p>
 <p>然后将里面的 js 代码 copy 到一个 <em>my.js</em> 文件中（注意替换 <code>img</code> 的 <code>id</code>），保存到 <em>/themes/ocean/source/js/src</em> 目录。<br>
 然后在 <em>\themes\ocean\layout\_partial\after-footer.ejs</em> 中最后一行写入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%- js(&#39;&#x2F;js&#x2F;my.js&#39;) %&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;%- js(&#39;&#x2F;js&#x2F;my.js&#39;) %&gt;<br></code></pre></td></tr></table></figure>
 <h3 id="网站底部加上访问量"><a class="header-anchor" href="#网站底部加上访问量">¶</a>网站底部加上访问量</h3>
 <p><em>\themes\ocean\layout\_partial\after-footer.ejs</em> 中默认是导入了统计脚本的(busuanzi-2.3.pure.min.js )</p>
 <p>修改访问量统计的样式：<br>
 将 _\themes\ocean\layout\<em>partial\post\busuanzi.ejs</em><br>
 修改为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class&#x3D;&quot;powered-by&quot;&gt;</span><br><span class="line">  &lt;% if (is_home()) &#123; %&gt;</span><br><span class="line">    &lt;span id&#x3D;&quot;busuanzi_container_site_pv&quot;&gt;访问量:&lt;span id&#x3D;&quot;busuanzi_value_site_pv&quot;&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;</span><br><span class="line">  &lt;%&#125; %&gt;</span><br><span class="line">	&amp;emsp;&lt;i class&#x3D;&quot;fa fa-user-md&quot;&gt;&lt;&#x2F;i&gt;&lt;span id&#x3D;&quot;busuanzi_container_site_uv&quot;&gt;访客数:&lt;span id&#x3D;&quot;busuanzi_value_site_uv&quot;&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&amp;emsp;</span><br><span class="line">  &lt;% if (is_post()) &#123; %&gt;</span><br><span class="line">    &lt;i class&#x3D;&quot;fe fe-bookmark&quot;&gt;&lt;&#x2F;i&gt;文章访问量:&lt;span id&#x3D;&quot;busuanzi_value_page_pv&quot;&gt;&lt;&#x2F;span&gt;</span><br><span class="line">  &lt;%&#125; %&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"powered-by"</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">%</span> <span class="hljs-attr">if</span> (<span class="hljs-attr">is_home</span>()) &#123; %&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"busuanzi_container_site_pv"</span>&gt;</span>访问量:<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"busuanzi_value_site_pv"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">%&#125;</span> %&gt;</span><br>	<span class="hljs-symbol">&amp;emsp;</span><span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fa fa-user-md"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"busuanzi_container_site_uv"</span>&gt;</span>访客数:<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"busuanzi_value_site_uv"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-symbol">&amp;emsp;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">%</span> <span class="hljs-attr">if</span> (<span class="hljs-attr">is_post</span>()) &#123; %&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fe fe-bookmark"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>文章访问量:<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"busuanzi_value_page_pv"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">%&#125;</span> %&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure>
 <h3 id="添加网站字数，阅读时间统计"><a class="header-anchor" href="#添加网站字数，阅读时间统计">¶</a>添加网站字数，阅读时间统计</h3>
 <p>在根目录下运行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-wordcount –save</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install hexo-wordcount –save<br></code></pre></td></tr></table></figure>
 <p>在 <em>\themes\ocean\_config.yml</em> 主题配置文件中加入：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">post_wordcount:</span></span><br><span class="line">  <span class="attr">item_text:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">wordcount:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">min2read:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">totalcount:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">separated_meta:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">post_wordcount:</span><br>  <span class="hljs-attr">item_text:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">wordcount:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">min2read:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">totalcount:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">separated_meta:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
 <p>在 <em>\themes\ocean\layout\_partial\footer.ejs</em> 文件中，在 <code>&lt;ul class=&quot;list-inline&quot;&gt;</code> 标签后加入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul class&#x3D;&quot;list-inline&quot;&gt;</span><br><span class="line">	&lt;li&gt;全站共&lt;span class&#x3D;&quot;post-count&quot;&gt;&lt;%&#x3D; totalcount(site) %&gt;&lt;&#x2F;span&gt;字&lt;&#x2F;li&gt;</span><br><span class="line">&lt;&#x2F;ul&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;ul class&#x3D;&quot;list-inline&quot;&gt;<br>	&lt;li&gt;全站共&lt;span class&#x3D;&quot;post-count&quot;&gt;&lt;%&#x3D; totalcount(site) %&gt;&lt;&#x2F;span&gt;字&lt;&#x2F;li&gt;<br>&lt;&#x2F;ul&gt;<br></code></pre></td></tr></table></figure>
 <p>在 <em>\themes\ocean\layout\_partial\article.ejs</em> 文件中，在标签中加入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&amp;emsp;&lt;i class&#x3D;&quot;fe fe-bar-chart&quot;&gt;&lt;&#x2F;i&gt; &lt;span class&#x3D;&quot;post-count&quot;&gt;&lt;%- wordcount(post.content) %&gt;&lt;&#x2F;span&gt;字</span><br><span class="line">&amp;emsp;&lt;i class&#x3D;&quot;fe fe-clock&quot;&gt;&lt;&#x2F;i&gt; &lt;span class&#x3D;&quot;post-count&quot;&gt;&lt;%- min2read(post.content) %&gt;&lt;&#x2F;span&gt;分钟</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&amp;emsp;&lt;i class&#x3D;&quot;fe fe-bar-chart&quot;&gt;&lt;&#x2F;i&gt; &lt;span class&#x3D;&quot;post-count&quot;&gt;&lt;%- wordcount(post.content) %&gt;&lt;&#x2F;span&gt;字<br>&amp;emsp;&lt;i class&#x3D;&quot;fe fe-clock&quot;&gt;&lt;&#x2F;i&gt; &lt;span class&#x3D;&quot;post-count&quot;&gt;&lt;%- min2read(post.content) %&gt;&lt;&#x2F;span&gt;分钟<br></code></pre></td></tr></table></figure>
 <h3 id="Ocean主题的图标"><a class="header-anchor" href="#Ocean主题的图标">¶</a>Ocean主题的图标</h3>
 <p>图标在 <em>\themes\ocean\source\css\_feathericon.styl</em> 中查找<br>
 官网：<a href="https://feathericons.com/" target="_blank" rel="noopener">feathericons</a></p>
 <h3 id="为博客加上萌萌的宠物"><a class="header-anchor" href="#为博客加上萌萌的宠物">¶</a>为博客加上萌萌的宠物</h3>
 <p>在网站根目录下执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -save hexo-helper-live2d</span><br><span class="line">npm install live2d-widget-model-haruto(自己选择的萌宠模型)</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install -save hexo-helper-live2d<br>npm install live2d-widget-model-haruto(自己选择的萌宠模型)<br></code></pre></td></tr></table></figure>
 <p>在 hexo 的配置文件中添加：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 萌宠</span></span><br><span class="line"> <span class="attr">live2d:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">scriptFrom:</span> <span class="string">local</span></span><br><span class="line">  <span class="attr">model:</span></span><br><span class="line">    <span class="attr">use:</span> <span class="string">live2d-widget-model-haruto</span></span><br><span class="line">    <span class="attr">scale:</span> <span class="number">1</span></span><br><span class="line">    <span class="attr">hHeadPos:</span> <span class="number">0.5</span></span><br><span class="line">    <span class="attr">vHeadPos:</span> <span class="number">0.618</span></span><br><span class="line">  <span class="attr">display:</span></span><br><span class="line">    <span class="attr">superSample:</span> <span class="number">2</span></span><br><span class="line">    <span class="attr">width:</span> <span class="number">150</span></span><br><span class="line">    <span class="attr">height:</span> <span class="number">300</span></span><br><span class="line">    <span class="attr">position:</span> <span class="string">left</span></span><br><span class="line">    <span class="attr">hOffset:</span> <span class="number">0</span></span><br><span class="line">    <span class="attr">vOffset:</span> <span class="number">-20</span></span><br><span class="line">  <span class="attr">mobile:</span></span><br><span class="line">    <span class="attr">show:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">react:</span></span><br><span class="line">    <span class="attr">opacityDefault:</span> <span class="number">0.5</span></span><br><span class="line">    <span class="attr">opacityOnHover:</span> <span class="number">0.2</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># 萌宠</span><br> <span class="hljs-attr">live2d:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">scriptFrom:</span> <span class="hljs-string">local</span><br>  <span class="hljs-attr">model:</span><br>    <span class="hljs-attr">use:</span> <span class="hljs-string">live2d-widget-model-haruto</span><br>    <span class="hljs-attr">scale:</span> <span class="hljs-number">1</span><br>    <span class="hljs-attr">hHeadPos:</span> <span class="hljs-number">0.5</span><br>    <span class="hljs-attr">vHeadPos:</span> <span class="hljs-number">0.618</span><br>  <span class="hljs-attr">display:</span><br>    <span class="hljs-attr">superSample:</span> <span class="hljs-number">2</span><br>    <span class="hljs-attr">width:</span> <span class="hljs-number">150</span><br>    <span class="hljs-attr">height:</span> <span class="hljs-number">300</span><br>    <span class="hljs-attr">position:</span> <span class="hljs-string">left</span><br>    <span class="hljs-attr">hOffset:</span> <span class="hljs-number">0</span><br>    <span class="hljs-attr">vOffset:</span> <span class="hljs-number">-20</span><br>  <span class="hljs-attr">mobile:</span><br>    <span class="hljs-attr">show:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">react:</span><br>    <span class="hljs-attr">opacityDefault:</span> <span class="hljs-number">0.5</span><br>    <span class="hljs-attr">opacityOnHover:</span> <span class="hljs-number">0.2</span><br></code></pre></td></tr></table></figure>
 <p>重启服务：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo clean &amp;&amp; hexo g &amp;&amp; hexo s<br></code></pre></td></tr></table></figure>
 <h3 id="添加网站运行时间"><a class="header-anchor" href="#添加网站运行时间">¶</a>添加网站运行时间</h3>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"timeDate"</span>&gt;</span>载入天数...<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"times"</span>&gt;</span>载入时分秒...<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> now = <span class="keyword">new</span> <span class="built_in">Date</span>(); </span></span><br><span class="line"><span class="actionscript">    <span class="function"><span class="keyword">function</span> <span class="title">createtime</span><span class="params">()</span> </span>&#123; </span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> grt= <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">"04/26/2019 15:49:00"</span>);<span class="comment">//此处修改你的建站时间或者网站上线时间 </span></span></span><br><span class="line">        now.setTime(now.getTime()+250); </span><br><span class="line"><span class="javascript">        days = (now - grt ) / <span class="number">1000</span> / <span class="number">60</span> / <span class="number">60</span> / <span class="number">24</span>; dnum = <span class="built_in">Math</span>.floor(days); </span></span><br><span class="line"><span class="javascript">        hours = (now - grt ) / <span class="number">1000</span> / <span class="number">60</span> / <span class="number">60</span> - (<span class="number">24</span> * dnum); hnum = <span class="built_in">Math</span>.floor(hours); </span></span><br><span class="line"><span class="javascript">        <span class="keyword">if</span>(<span class="built_in">String</span>(hnum).length ==<span class="number">1</span> )&#123;hnum = <span class="string">"0"</span> + hnum;&#125; minutes = (now - grt ) / <span class="number">1000</span> /<span class="number">60</span> - (<span class="number">24</span> * <span class="number">60</span> * dnum) - (<span class="number">60</span> * hnum); </span></span><br><span class="line"><span class="javascript">        mnum = <span class="built_in">Math</span>.floor(minutes); <span class="keyword">if</span>(<span class="built_in">String</span>(mnum).length ==<span class="number">1</span> )&#123;mnum = <span class="string">"0"</span> + mnum;&#125; </span></span><br><span class="line">        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); </span><br><span class="line"><span class="javascript">        snum = <span class="built_in">Math</span>.round(seconds); <span class="keyword">if</span>(<span class="built_in">String</span>(snum).length ==<span class="number">1</span> )&#123;snum = <span class="string">"0"</span> + snum;&#125; </span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.getElementById(<span class="string">"timeDate"</span>).innerHTML = <span class="string">"本站已安全运行 "</span>+dnum+<span class="string">" 天 "</span>; </span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.getElementById(<span class="string">"times"</span>).innerHTML = hnum + <span class="string">" 小时 "</span> + mnum + <span class="string">" 分 "</span> + snum + <span class="string">" 秒"</span>; </span></span><br><span class="line">    &#125; </span><br><span class="line"><span class="actionscript">	setInterval(<span class="string">"createtime()"</span>,<span class="number">250</span>);</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"timeDate"</span>&gt;</span>载入天数...<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"times"</span>&gt;</span>载入时分秒...<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">var</span> now = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(); </span><br><span class="actionscript">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createtime</span><span class="hljs-params">()</span> </span>&#123; </span><br><span class="javascript">        <span class="hljs-keyword">var</span> grt= <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">"04/26/2019 15:49:00"</span>);<span class="hljs-comment">//此处修改你的建站时间或者网站上线时间 </span></span><br>        now.setTime(now.getTime()+250); <br><span class="javascript">        days = (now - grt ) / <span class="hljs-number">1000</span> / <span class="hljs-number">60</span> / <span class="hljs-number">60</span> / <span class="hljs-number">24</span>; dnum = <span class="hljs-built_in">Math</span>.floor(days); </span><br><span class="javascript">        hours = (now - grt ) / <span class="hljs-number">1000</span> / <span class="hljs-number">60</span> / <span class="hljs-number">60</span> - (<span class="hljs-number">24</span> * dnum); hnum = <span class="hljs-built_in">Math</span>.floor(hours); </span><br><span class="javascript">        <span class="hljs-keyword">if</span>(<span class="hljs-built_in">String</span>(hnum).length ==<span class="hljs-number">1</span> )&#123;hnum = <span class="hljs-string">"0"</span> + hnum;&#125; minutes = (now - grt ) / <span class="hljs-number">1000</span> /<span class="hljs-number">60</span> - (<span class="hljs-number">24</span> * <span class="hljs-number">60</span> * dnum) - (<span class="hljs-number">60</span> * hnum); </span><br><span class="javascript">        mnum = <span class="hljs-built_in">Math</span>.floor(minutes); <span class="hljs-keyword">if</span>(<span class="hljs-built_in">String</span>(mnum).length ==<span class="hljs-number">1</span> )&#123;mnum = <span class="hljs-string">"0"</span> + mnum;&#125; </span><br>        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); <br><span class="javascript">        snum = <span class="hljs-built_in">Math</span>.round(seconds); <span class="hljs-keyword">if</span>(<span class="hljs-built_in">String</span>(snum).length ==<span class="hljs-number">1</span> )&#123;snum = <span class="hljs-string">"0"</span> + snum;&#125; </span><br><span class="javascript">        <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"timeDate"</span>).innerHTML = <span class="hljs-string">"本站已安全运行 "</span>+dnum+<span class="hljs-string">" 天 "</span>; </span><br><span class="javascript">        <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"times"</span>).innerHTML = hnum + <span class="hljs-string">" 小时 "</span> + mnum + <span class="hljs-string">" 分 "</span> + snum + <span class="hljs-string">" 秒"</span>; </span><br>    &#125; <br><span class="actionscript">	setInterval(<span class="hljs-string">"createtime()"</span>,<span class="hljs-number">250</span>);</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
 <p>将以上代码保存到 <em>\themes\ocean\layout\_partial\post\runtime.ejs</em></p>
 <p>在 <em>\themes\ocean\layout\_partial\footer.ejs</em> 文件中，第一个 <code>&lt;ul class=&quot;list-inline&quot;&gt;&lt;/ul&gt;</code> 标签后加入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class&#x3D;&quot;float-right&quot;&gt;</span><br><span class="line">      &lt;%- partial(&#39;post&#x2F;runtime&#39;) %&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;div class&#x3D;&quot;float-right&quot;&gt;<br>      &lt;%- partial(&#39;post&#x2F;runtime&#39;) %&gt;<br>&lt;&#x2F;div&gt;<br></code></pre></td></tr></table></figure>
 <h3 id="添加DaoVoice-在线联系"><a class="header-anchor" href="#添加DaoVoice-在线联系">¶</a>添加DaoVoice 在线联系</h3>
 <p>首先在 <a href="https://account.daocloud.io/signin" target="_blank" rel="noopener">https://account.daocloud.io/signin</a>  注册账号<br>
 然后点击下方链接<br>
 <a href="http://dashboard.daovoice.io/get-started?invite_code=0f81ff2f" target="_blank" rel="noopener">http://dashboard.daovoice.io/get-started?invite_code=0f81ff2f</a><br>
 之后会得到一个app_id</p>
 <p>在主题配置文件写入：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Online contact </span></span><br><span class="line"><span class="attr">daovoice:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">daovoice_app_id:</span> <span class="string">这里填你的刚才获得的</span> <span class="string">app_id</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># Online contact </span><br><span class="hljs-attr">daovoice:</span> <span class="hljs-literal">true</span><br><span class="hljs-attr">daovoice_app_id:</span> <span class="hljs-string">这里填你的刚才获得的</span> <span class="hljs-string">app_id</span><br></code></pre></td></tr></table></figure>
 <p>在 <em>\themes\ocean\layout\_partial\head.ejs</em> 的未尾中写入（<strong>注：原文是“在 <em>\themes\ocean\layout\_partial\footer.ejs</em> 中，<code>&lt;/head&gt;</code> 前写入”，但实际并未在 <em>footer.ejs</em> 中找到 <code>&lt;/head&gt;</code>，所以改为在 <em>head.ejs</em> 未尾写入达到了同样效果。</strong>）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if (theme.daovoice)&#123; %&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line">  (function(i,s,o,g,r,a,m)&#123;i[&quot;DaoVoiceObject&quot;]&#x3D;r;i[r]&#x3D;i[r]||function()&#123;(i[r].q&#x3D;i[r].q||[]).push(arguments)&#125;,i[r].l&#x3D;1*new Date();a&#x3D;s.createElement(o),m&#x3D;s.getElementsByTagName(o)[0];a.async&#x3D;1;a.src&#x3D;g;a.charset&#x3D;&quot;utf-8&quot;;m.parentNode.insertBefore(a,m)&#125;)(window,document,&quot;script&quot;,(&#39;https:&#39; &#x3D;&#x3D; document.location.protocol ? &#39;https:&#39; : &#39;http:&#39;) + &quot;&#x2F;&#x2F;widget.daovoice.io&#x2F;widget&#x2F;0f81ff2f.js&quot;,&quot;daovoice&quot;)</span><br><span class="line">  daovoice(&#39;init&#39;, &#123;</span><br><span class="line">      app_id: &quot;&lt;%- theme.daovoice_app_id %&gt;&quot;</span><br><span class="line">    &#125;);</span><br><span class="line">  daovoice(&#39;update&#39;);</span><br><span class="line">  &lt;&#x2F;script&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;% if (theme.daovoice)&#123; %&gt;<br>  &lt;script&gt;<br>  (function(i,s,o,g,r,a,m)&#123;i[&quot;DaoVoiceObject&quot;]&#x3D;r;i[r]&#x3D;i[r]||function()&#123;(i[r].q&#x3D;i[r].q||[]).push(arguments)&#125;,i[r].l&#x3D;1*new Date();a&#x3D;s.createElement(o),m&#x3D;s.getElementsByTagName(o)[0];a.async&#x3D;1;a.src&#x3D;g;a.charset&#x3D;&quot;utf-8&quot;;m.parentNode.insertBefore(a,m)&#125;)(window,document,&quot;script&quot;,(&#39;https:&#39; &#x3D;&#x3D; document.location.protocol ? &#39;https:&#39; : &#39;http:&#39;) + &quot;&#x2F;&#x2F;widget.daovoice.io&#x2F;widget&#x2F;0f81ff2f.js&quot;,&quot;daovoice&quot;)<br>  daovoice(&#39;init&#39;, &#123;<br>      app_id: &quot;&lt;%- theme.daovoice_app_id %&gt;&quot;<br>    &#125;);<br>  daovoice(&#39;update&#39;);<br>  &lt;&#x2F;script&gt;<br>&lt;% &#125; %&gt;<br></code></pre></td></tr></table></figure>
 <h3 id="取消文章下面的分享连接，添加本文结束"><a class="header-anchor" href="#取消文章下面的分享连接，添加本文结束">¶</a>取消文章下面的分享连接，添加本文结束</h3>
 <p>去掉 <em>\themes\ocean\layout\_partial\article.ejs</em> 中的以下代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;a data-url&#x3D;&quot;&lt;%- post.permalink %&gt;&quot; data-id&#x3D;&quot;&lt;%&#x3D; post._id %&gt;&quot; class&#x3D;&quot;article-share-link&quot;&gt;&lt;%- theme.share_text %&gt;&lt;&#x2F;a&gt;</span><br><span class="line">同时还可以添加本文结束 感谢阅读等说明:</span><br><span class="line">如在&lt;%- partial(‘post&#x2F;tag’) %&gt;下面一行添加：</span><br><span class="line"></span><br><span class="line">&lt;% if (!index &amp;&amp; is_post()) &#123; %&gt;</span><br><span class="line">	&lt;div style&#x3D;&quot;text-align:center;color: #ccc;font-size:14px;&quot;&gt;------------- 本文结束&amp;nbsp;&lt;i class&#x3D;&quot;fe fe-smile&quot;&gt;&lt;&#x2F;i&gt;&amp;nbsp;感谢您的阅读 -------------&lt;&#x2F;div&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;a data-url&#x3D;&quot;&lt;%- post.permalink %&gt;&quot; data-id&#x3D;&quot;&lt;%&#x3D; post._id %&gt;&quot; class&#x3D;&quot;article-share-link&quot;&gt;&lt;%- theme.share_text %&gt;&lt;&#x2F;a&gt;<br>同时还可以添加本文结束 感谢阅读等说明:<br>如在&lt;%- partial(‘post&#x2F;tag’) %&gt;下面一行添加：<br><br>&lt;% if (!index &amp;&amp; is_post()) &#123; %&gt;<br>	&lt;div style&#x3D;&quot;text-align:center;color: #ccc;font-size:14px;&quot;&gt;------------- 本文结束&amp;nbsp;&lt;i class&#x3D;&quot;fe fe-smile&quot;&gt;&lt;&#x2F;i&gt;&amp;nbsp;感谢您的阅读 -------------&lt;&#x2F;div&gt;<br>&lt;% &#125; %&gt;<br></code></pre></td></tr></table></figure>
 <h3 id="博文压缩"><a class="header-anchor" href="#博文压缩">¶</a>博文压缩</h3>
 <p>在根目录下执行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install gulp -g</span><br><span class="line">npm install gulp-minify-css gulp-uglify gulp-htmlmin gulp-htmlclean gulp –save</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install gulp -g<br>npm install gulp-minify-css gulp-uglify gulp-htmlmin gulp-htmlclean gulp –save<br></code></pre></td></tr></table></figure>
 <p>在根目录下新建 <em>gulpfile.js</em>，写入以下内容：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>);</span><br><span class="line"><span class="comment">//Plugins模块获取</span></span><br><span class="line"><span class="keyword">var</span> minifycss = <span class="built_in">require</span>(<span class="string">'gulp-minify-css'</span>);</span><br><span class="line"><span class="keyword">var</span> uglify = <span class="built_in">require</span>(<span class="string">'gulp-uglify'</span>);</span><br><span class="line"><span class="keyword">var</span> htmlmin = <span class="built_in">require</span>(<span class="string">'gulp-htmlmin'</span>);</span><br><span class="line"><span class="keyword">var</span> htmlclean = <span class="built_in">require</span>(<span class="string">'gulp-htmlclean'</span>);</span><br><span class="line"><span class="comment">//压缩css</span></span><br><span class="line">gulp.task(<span class="string">'minify-css'</span>,</span><br><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> gulp.src(<span class="string">'./public/**/*.css'</span>).pipe(minifycss()).pipe(gulp.dest(<span class="string">'./public'</span>));</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//压缩html</span></span><br><span class="line">gulp.task(<span class="string">'minify-html'</span>,</span><br><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> gulp.src(<span class="string">'./public/**/*.html'</span>).pipe(htmlclean()).pipe(htmlmin(&#123;</span><br><span class="line">        removeComments: <span class="literal">true</span>,</span><br><span class="line">        minifyJS: <span class="literal">true</span>,</span><br><span class="line">        minifyCSS: <span class="literal">true</span>,</span><br><span class="line">        minifyURLs: <span class="literal">true</span>,</span><br><span class="line">    &#125;))</span><br><span class="line">    .pipe(gulp.dest(<span class="string">'./public'</span>))</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//压缩js 不压缩min.js</span></span><br><span class="line">gulp.task(<span class="string">'minify-js'</span>,</span><br><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> gulp.src([<span class="string">'./public/**/*.js'</span>, <span class="string">'!./public/**/*.min.js'</span>]).pipe(uglify()).pipe(gulp.dest(<span class="string">'./public'</span>));</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//4.0以前的写法 </span></span><br><span class="line"><span class="comment">//gulp.task('default', [</span></span><br><span class="line"><span class="comment">//  'minify-html', 'minify-css', 'minify-js'</span></span><br><span class="line"><span class="comment">//]);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//4.0以后的写法</span></span><br><span class="line"><span class="comment">// 执行 gulp 命令时执行的任务</span></span><br><span class="line"><span class="comment">//gulp.task('default', gulp.parallel('minify-html', 'minify-css', 'minify-js',</span></span><br><span class="line"><span class="comment">//function() &#123;</span></span><br><span class="line">    <span class="comment">// Do something after a, b, and c are finished.</span></span><br><span class="line"><span class="comment">//	console.log('success')</span></span><br><span class="line"><span class="comment">//&#125;));</span></span><br><span class="line"></span><br><span class="line">gulp.task(<span class="string">'default'</span>,gulp.series(gulp.parallel(<span class="string">'minify-html'</span>,<span class="string">'minify-css'</span>,<span class="string">'minify-js'</span>)));</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp'</span>);<br><span class="hljs-comment">//Plugins模块获取</span><br><span class="hljs-keyword">var</span> minifycss = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-minify-css'</span>);<br><span class="hljs-keyword">var</span> uglify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-uglify'</span>);<br><span class="hljs-keyword">var</span> htmlmin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-htmlmin'</span>);<br><span class="hljs-keyword">var</span> htmlclean = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-htmlclean'</span>);<br><span class="hljs-comment">//压缩css</span><br>gulp.task(<span class="hljs-string">'minify-css'</span>,<br><span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> gulp.src(<span class="hljs-string">'./public/**/*.css'</span>).pipe(minifycss()).pipe(gulp.dest(<span class="hljs-string">'./public'</span>));<br>&#125;);<br><span class="hljs-comment">//压缩html</span><br>gulp.task(<span class="hljs-string">'minify-html'</span>,<br><span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> gulp.src(<span class="hljs-string">'./public/**/*.html'</span>).pipe(htmlclean()).pipe(htmlmin(&#123;<br>        removeComments: <span class="hljs-literal">true</span>,<br>        minifyJS: <span class="hljs-literal">true</span>,<br>        minifyCSS: <span class="hljs-literal">true</span>,<br>        minifyURLs: <span class="hljs-literal">true</span>,<br>    &#125;))<br>    .pipe(gulp.dest(<span class="hljs-string">'./public'</span>))<br>&#125;);<br><span class="hljs-comment">//压缩js 不压缩min.js</span><br>gulp.task(<span class="hljs-string">'minify-js'</span>,<br><span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> gulp.src([<span class="hljs-string">'./public/**/*.js'</span>, <span class="hljs-string">'!./public/**/*.min.js'</span>]).pipe(uglify()).pipe(gulp.dest(<span class="hljs-string">'./public'</span>));<br>&#125;);<br><br><span class="hljs-comment">//4.0以前的写法 </span><br><span class="hljs-comment">//gulp.task('default', [</span><br><span class="hljs-comment">//  'minify-html', 'minify-css', 'minify-js'</span><br><span class="hljs-comment">//]);</span><br><br><span class="hljs-comment">//4.0以后的写法</span><br><span class="hljs-comment">// 执行 gulp 命令时执行的任务</span><br><span class="hljs-comment">//gulp.task('default', gulp.parallel('minify-html', 'minify-css', 'minify-js',</span><br><span class="hljs-comment">//function() &#123;</span><br>    <span class="hljs-comment">// Do something after a, b, and c are finished.</span><br><span class="hljs-comment">//	console.log('success')</span><br><span class="hljs-comment">//&#125;));</span><br><br>gulp.task(<span class="hljs-string">'default'</span>,gulp.series(gulp.parallel(<span class="hljs-string">'minify-html'</span>,<span class="hljs-string">'minify-css'</span>,<span class="hljs-string">'minify-js'</span>)));<br></code></pre></td></tr></table></figure>
 <p>生成博文时执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; gulp &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo clean &amp;&amp; hexo g &amp;&amp; gulp &amp;&amp; hexo d<br></code></pre></td></tr></table></figure>
 <p>就会根据 <em>gulpfile.js</em> 中的配置，对 <em>public</em> 目录中的静态资源文件进行压缩。</p>
 <h3 id="修改文章封面图片的引入方式，同时支持相对地址与-http-的图片"><a class="header-anchor" href="#修改文章封面图片的引入方式，同时支持相对地址与-http-的图片">¶</a>修改文章封面图片的引入方式，同时支持相对地址与 http 的图片</h3>
 <p>将 <em>\themes\ocean\layout\_partial\post\gallery.ejs</em> 中的 <code>&lt;% if (index){ %&gt;</code> 的上一行写入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;% var idx &#x3D; url_for(photo).indexOf(&#39;http&#39;) %&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;% var idx &#x3D; url_for(photo).indexOf(&#39;http&#39;) %&gt;<br></code></pre></td></tr></table></figure>
 <p>将文中两处的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src&#x3D;&quot;&lt;%- url_for(photo) %&gt;&quot; itemprop&#x3D;&quot;image&quot;&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;img src&#x3D;&quot;&lt;%- url_for(photo) %&gt;&quot; itemprop&#x3D;&quot;image&quot;&gt;<br></code></pre></td></tr></table></figure>
 <p>修改为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if(idx &lt; 0) &#123; %&gt;</span><br><span class="line">	&lt;img src&#x3D;&quot;&lt;%- url_for(post.path)+url_for(photo).substring(1) %&gt;&quot; itemprop&#x3D;&quot;image&quot;&gt;</span><br><span class="line">&lt;% &#125; else &#123; %&gt;</span><br><span class="line">	&lt;img src&#x3D;&quot;&lt;%- url_for(photo) %&gt;&quot; itemprop&#x3D;&quot;image&quot;&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;% if(idx &lt; 0) &#123; %&gt;<br>	&lt;img src&#x3D;&quot;&lt;%- url_for(post.path)+url_for(photo).substring(1) %&gt;&quot; itemprop&#x3D;&quot;image&quot;&gt;<br>&lt;% &#125; else &#123; %&gt;<br>	&lt;img src&#x3D;&quot;&lt;%- url_for(photo) %&gt;&quot; itemprop&#x3D;&quot;image&quot;&gt;<br>&lt;% &#125; %&gt;<br></code></pre></td></tr></table></figure>
 <h3 id="设置封面图片不在内容详情页展示"><a class="header-anchor" href="#设置封面图片不在内容详情页展示">¶</a>设置封面图片不在内容详情页展示</h3>
 <p>将 <em>\themes\ocean\layout\_partial\article.ejs</em> 中的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%- partial(&#39;post&#x2F;gallery&#39;) %&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;%- partial(&#39;post&#x2F;gallery&#39;) %&gt;<br></code></pre></td></tr></table></figure>
 <p>修改为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if (index)&#123; %&gt;</span><br><span class="line">	&lt;%- partial(&#39;post&#x2F;gallery&#39;) %&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;% if (index)&#123; %&gt;<br>	&lt;%- partial(&#39;post&#x2F;gallery&#39;) %&gt;<br>&lt;% &#125; %&gt;<br></code></pre></td></tr></table></figure>
 <h3 id="去掉-rss-订阅"><a class="header-anchor" href="#去掉-rss-订阅">¶</a>去掉 rss 订阅</h3>
 <p>根目录下执行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall hexo-generator-feed –save</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm uninstall hexo-generator-feed –save<br></code></pre></td></tr></table></figure>
 <p>将 <em>\themes\ocean\_config.yml</em> 文件中修改为：<code>rss: false</code></p>
 <h3 id="导航栏图表改为在文字左侧"><a class="header-anchor" href="#导航栏图表改为在文字左侧">¶</a>导航栏图表改为在文字左侧</h3>
 <p>修改 <em>\themes\ocean\source\css\_partial\navbar.styl</em></p>
-<figure class="highlight styl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&amp;.nav-main</span><br><span class="line">      .nav-item-link</span><br><span class="line">        &amp;::before, <span class="selector-tag">i</span>.fe</span><br><span class="line">          <span class="attribute">display</span> block</span><br><span class="line">          <span class="attribute">line-height</span> <span class="number">1</span></span><br><span class="line">        &amp;::before</span><br><span class="line">          <span class="attribute">font-family</span> <span class="string">'feathericon'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight styl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs styl">&amp;.nav-main<br>      .nav-item-link<br>        &amp;::before, <span class="hljs-selector-tag">i</span>.fe<br>          <span class="hljs-attribute">display</span> block<br>          <span class="hljs-attribute">line-height</span> <span class="hljs-number">1</span><br>        &amp;::before<br>          <span class="hljs-attribute">font-family</span> <span class="hljs-string">'feathericon'</span><br></code></pre></td></tr></table></figure>
 <p>修改为：</p>
-<figure class="highlight styl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&amp;.nav-main</span><br><span class="line">      .nav-item-link</span><br><span class="line">        &amp;::before, <span class="selector-tag">i</span>.fe</span><br><span class="line">          <span class="comment">// display block</span></span><br><span class="line">          <span class="attribute">line-height</span> <span class="number">1</span></span><br><span class="line">		   <span class="attribute">margin-right</span>: <span class="number">10px</span>;</span><br><span class="line">        &amp;::before</span><br><span class="line">          <span class="attribute">font-family</span> <span class="string">'feathericon'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight styl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs styl">&amp;.nav-main<br>      .nav-item-link<br>        &amp;::before, <span class="hljs-selector-tag">i</span>.fe<br>          <span class="hljs-comment">// display block</span><br>          <span class="hljs-attribute">line-height</span> <span class="hljs-number">1</span><br>		   <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">10px</span>;<br>        &amp;::before<br>          <span class="hljs-attribute">font-family</span> <span class="hljs-string">'feathericon'</span><br></code></pre></td></tr></table></figure>
 <h3 id="添加-readme-md-不被渲染"><a class="header-anchor" href="#添加-readme-md-不被渲染">¶</a>添加 <em><a href="http://readme.md" target="_blank" rel="noopener">readme.md</a></em> 不被渲染</h3>
 <p>在 Hexo 目录下的 <em>source</em> 根目录下添加一个 <em><a href="http://README.md" target="_blank" rel="noopener">README.md</a></em> 。修改 Hexo 目录下的 <em>config.yml</em> 。将 <code>skip_render</code> 参数的值设置为： <code>skip_render: README.md</code>。保存退出即可。</p>
 <h3 id="首页视屏换成图片"><a class="header-anchor" href="#首页视屏换成图片">¶</a>首页视屏换成图片</h3>
 <p>将 <em>\themes\ocean\layout\_partial\ocean.ejs</em> 中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;video playsinline&#x3D;&quot;&quot; autoplay&#x3D;&quot;&quot; loop&#x3D;&quot;&quot; muted&#x3D;&quot;&quot; data-autoplay&#x3D;&quot;&quot;</span><br><span class="line">   poster&#x3D;&quot;&lt;%- theme.ocean.path %&gt;ocean.png&quot; x5-video-player-type&#x3D;&quot;h5&quot;&gt;</span><br><span class="line">  &lt;source src&#x3D;&quot;&lt;%- theme.ocean.path %&gt;ocean.mp4&quot; type&#x3D;&quot;video&#x2F;mp4&quot;&gt;</span><br><span class="line">  &lt;source src&#x3D;&quot;&lt;%- theme.ocean.path %&gt;ocean.ogv&quot; type&#x3D;&quot;video&#x2F;ogg&quot;&gt;</span><br><span class="line">  &lt;source src&#x3D;&quot;&lt;%- theme.ocean.path %&gt;ocean.webm&quot; type&#x3D;&quot;video&#x2F;webm&quot;&gt;</span><br><span class="line">  &lt;p&gt;Your user agent does not support the HTML5 Video element.&lt;&#x2F;p&gt;</span><br><span class="line">&lt;&#x2F;video&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;video playsinline&#x3D;&quot;&quot; autoplay&#x3D;&quot;&quot; loop&#x3D;&quot;&quot; muted&#x3D;&quot;&quot; data-autoplay&#x3D;&quot;&quot;<br>   poster&#x3D;&quot;&lt;%- theme.ocean.path %&gt;ocean.png&quot; x5-video-player-type&#x3D;&quot;h5&quot;&gt;<br>  &lt;source src&#x3D;&quot;&lt;%- theme.ocean.path %&gt;ocean.mp4&quot; type&#x3D;&quot;video&#x2F;mp4&quot;&gt;<br>  &lt;source src&#x3D;&quot;&lt;%- theme.ocean.path %&gt;ocean.ogv&quot; type&#x3D;&quot;video&#x2F;ogg&quot;&gt;<br>  &lt;source src&#x3D;&quot;&lt;%- theme.ocean.path %&gt;ocean.webm&quot; type&#x3D;&quot;video&#x2F;webm&quot;&gt;<br>  &lt;p&gt;Your user agent does not support the HTML5 Video element.&lt;&#x2F;p&gt;<br>&lt;&#x2F;video&gt;<br></code></pre></td></tr></table></figure>
 <p>修改为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src&#x3D;&quot;&lt;%- theme.ocean.path %&gt;ocean.png&quot;&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;img src&#x3D;&quot;&lt;%- theme.ocean.path %&gt;ocean.png&quot;&gt;<br></code></pre></td></tr></table></figure>
 <h3 id="去掉首页视频或图片"><a class="header-anchor" href="#去掉首页视频或图片">¶</a>去掉首页视频或图片</h3>
 <p>去掉 <em>themes/ocean/layout/index.ejs</em> 中的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%- partial(&#39;_partial&#x2F;ocean&#39;) %&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;%- partial(&#39;_partial&#x2F;ocean&#39;) %&gt;<br></code></pre></td></tr></table></figure>
 <h3 id="is-home-、is-post-函数判断不正确"><a class="header-anchor" href="#is-home-、is-post-函数判断不正确">¶</a><code>is_home()</code>、<code>is_post()</code> 函数判断不正确</h3>
 <p>将 <em>\themes\ocean\layout\layout.ejs</em> 中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%- partial(&#39;_partial&#x2F;footer&#39;, null, &#123;cache: !config.relative_link&#125;) %&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;%- partial(&#39;_partial&#x2F;footer&#39;, null, &#123;cache: !config.relative_link&#125;) %&gt;<br></code></pre></td></tr></table></figure>
 <p>修改为</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%- partial(&#39;_partial&#x2F;footer&#39;, null, &#123;cache: config.relative_link&#125;) %&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;%- partial(&#39;_partial&#x2F;footer&#39;, null, &#123;cache: config.relative_link&#125;) %&gt;<br></code></pre></td></tr></table></figure>
 <p>就是将 <code>partial</code> 中的 <code>cache</code> 设置为 <code>false</code>。参考：<a href="https://github.com/zhwangart/hexo-theme-ocean/issues/18" target="_blank" rel="noopener"><code>is_home()</code>、<code>is_post()</code> 函数判断不正确</a>。</p>
 <h3 id="视频-or-图片只在pc端显示，不在移动端显示"><a class="header-anchor" href="#视频-or-图片只在pc端显示，不在移动端显示">¶</a>视频 or 图片只在pc端显示，不在移动端显示</h3>
 <p>修改 <em>themes\ocean\source\css\_partial\layou.styl</em> 文件</p>
-<figure class="highlight styl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Media Query</span></span><br><span class="line">@media (<span class="attribute">min-width</span>: <span class="number">768px</span>)</span><br><span class="line">  .jumbotron</span><br><span class="line">    <span class="attribute">margin-bottom</span> <span class="number">6rem</span></span><br><span class="line">    <span class="attribute">display</span> block   //此处为新增。设备宽度大于等于<span class="number">768</span>像素时显示视频or图片</span><br></pre></td></tr></table></figure>
+<figure class="highlight styl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs styl"><span class="hljs-comment">// Media Query</span><br>@media (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>)<br>  .jumbotron<br>    <span class="hljs-attribute">margin-bottom</span> <span class="hljs-number">6rem</span><br>    <span class="hljs-attribute">display</span> block   //此处为新增。设备宽度大于等于<span class="hljs-number">768</span>像素时显示视频or图片<br></code></pre></td></tr></table></figure>
 <p>在文件末尾新增</p>
-<figure class="highlight styl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@media (<span class="attribute">max-width</span>: <span class="number">768px</span>)</span><br><span class="line">  .jumbotron</span><br><span class="line">    <span class="attribute">display</span> none  // 设备宽度小于等于<span class="number">768</span>像素时不显示视频or图片</span><br></pre></td></tr></table></figure>
+<figure class="highlight styl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs styl">@media (<span class="hljs-attribute">max-width</span>: <span class="hljs-number">768px</span>)<br>  .jumbotron<br>    <span class="hljs-attribute">display</span> none  // 设备宽度小于等于<span class="hljs-number">768</span>像素时不显示视频or图片<br></code></pre></td></tr></table></figure>
 <p>此时会发现移动端左上角有点空旷，则进行如下修改：</p>
 <ul>
 <li>
 <p>修改 <em>themes\ocean\layout_partial\archive.ejs</em> 文件’</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var title &#x3D; &#39;&#39;;</span><br><span class="line">var mobile_title &#x3D; &quot;松林羊 Blog&quot;;  &#x2F;&#x2F; 此处为新增</span><br><span class="line">...</span><br><span class="line">&lt;h1 class&#x3D;&quot;page-type-title pc&quot;&gt;&lt;%- title %&gt;&lt;&#x2F;h1&gt; &#x2F;&#x2F; 新增类名为pc的样式</span><br><span class="line">&lt;h1 class&#x3D;&quot;page-type-title mobile&quot;&gt;&lt;%- mobile_title %&gt;&lt;&#x2F;h1&gt; &#x2F;&#x2F; 此处为新增</span><br></pre></td></tr></table></figure>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ejs">var title &#x3D; &#39;&#39;;<br>var mobile_title &#x3D; &quot;松林羊 Blog&quot;;  &#x2F;&#x2F; 此处为新增<br>...<br>&lt;h1 class&#x3D;&quot;page-type-title pc&quot;&gt;&lt;%- title %&gt;&lt;&#x2F;h1&gt; &#x2F;&#x2F; 新增类名为pc的样式<br>&lt;h1 class&#x3D;&quot;page-type-title mobile&quot;&gt;&lt;%- mobile_title %&gt;&lt;&#x2F;h1&gt; &#x2F;&#x2F; 此处为新增<br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <p>修改 <em>themes\ocean\source\css_partial\archive.styl</em> 文件</p>
-  <figure class="highlight styl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.page-type-title</span><br><span class="line">  <span class="attribute">margin</span> <span class="number">0</span></span><br><span class="line">  <span class="attribute">padding</span> <span class="number">3rem</span> <span class="number">0</span></span><br><span class="line"> <span class="comment">// 以下内容为新增</span></span><br><span class="line">  &amp;.pc</span><br><span class="line">	@media screen and (<span class="attribute">max-width</span>: <span class="number">768px</span>)</span><br><span class="line">	  <span class="attribute">display</span> none</span><br><span class="line">	@media screen and (<span class="attribute">min-width</span>: <span class="number">768px</span>)</span><br><span class="line">	  <span class="attribute">display</span> block</span><br><span class="line">  &amp;.mobile</span><br><span class="line">	@media screen and (<span class="attribute">max-width</span>: <span class="number">768px</span>)</span><br><span class="line">	  <span class="attribute">display</span> block</span><br><span class="line">	  <span class="attribute">font-family</span> <span class="string">'STXingkai'</span></span><br><span class="line">	@media screen and (<span class="attribute">min-width</span>: <span class="number">768px</span>)</span><br><span class="line">	  <span class="attribute">display</span> none</span><br></pre></td></tr></table></figure>
+  <figure class="highlight styl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs styl">.page-type-title<br>  <span class="hljs-attribute">margin</span> <span class="hljs-number">0</span><br>  <span class="hljs-attribute">padding</span> <span class="hljs-number">3rem</span> <span class="hljs-number">0</span><br> <span class="hljs-comment">// 以下内容为新增</span><br>  &amp;.pc<br>	@media screen and (<span class="hljs-attribute">max-width</span>: <span class="hljs-number">768px</span>)<br>	  <span class="hljs-attribute">display</span> none<br>	@media screen and (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>)<br>	  <span class="hljs-attribute">display</span> block<br>  &amp;.mobile<br>	@media screen and (<span class="hljs-attribute">max-width</span>: <span class="hljs-number">768px</span>)<br>	  <span class="hljs-attribute">display</span> block<br>	  <span class="hljs-attribute">font-family</span> <span class="hljs-string">'STXingkai'</span><br>	@media screen and (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>)<br>	  <span class="hljs-attribute">display</span> none<br></code></pre></td></tr></table></figure>
 </li>
 </ul>
 <h3 id="配置-fancybox-展示文章图集"><a class="header-anchor" href="#配置-fancybox-展示文章图集">¶</a>配置 fancybox 展示文章图集</h3>
 <p>在 <em>themes\ocean\layout\_partial\after-footer.ejs</em> 文件末尾加入如下代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if (is_post())&#123; %&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">&#x2F;&#x2F; 使用fancybox来显示post图片集(#andus-head-img为头像id)</span><br><span class="line">$(&#39;img:not(#andus-head-img)&#39;).each(function() &#123;</span><br><span class="line">  $(this).wrap(&#39;&lt;a class&#x3D;&quot;fancybox&quot; data-fancybox&#x3D;&quot;gallery&quot; href&#x3D;&quot;&#39; + $(this).prop(&quot;src&quot;) + &#39;&quot;&gt;&lt;&#x2F;a&gt;&#39;); </span><br><span class="line">&#125;)</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;% if (is_post())&#123; %&gt;<br>&lt;script&gt;<br>&#x2F;&#x2F; 使用fancybox来显示post图片集(#andus-head-img为头像id)<br>$(&#39;img:not(#andus-head-img)&#39;).each(function() &#123;<br>  $(this).wrap(&#39;&lt;a class&#x3D;&quot;fancybox&quot; data-fancybox&#x3D;&quot;gallery&quot; href&#x3D;&quot;&#39; + $(this).prop(&quot;src&quot;) + &#39;&quot;&gt;&lt;&#x2F;a&gt;&#39;); <br>&#125;)<br>&lt;&#x2F;script&gt;<br>&lt;% &#125; %&gt;<br></code></pre></td></tr></table></figure>
 <h3 id="更换评论系统，由gitalk跟换为valine-并增加邮件通知功能"><a class="header-anchor" href="#更换评论系统，由gitalk跟换为valine-并增加邮件通知功能">¶</a>更换评论系统，由gitalk跟换为valine, 并增加邮件通知功能</h3>
 <p>依次参考</p>
 <ul>
@@ -278,18 +422,18 @@
 <li><a href="https://github.com/zhaojun1998/Valine-Admin" target="_blank" rel="noopener">Valine-Admin</a></li>
 </ul>
 <p>在 <em>themes/ocean/_config.yml</em> 文件中新增以下内容，同时确保 <code>gitalk.enable</code> 为 <code>false</code></p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Valine 不能与gitalk同时开启</span></span><br><span class="line"><span class="attr">valine:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">app_id:</span>  <span class="comment"># 这里填写得到的APP ID</span></span><br><span class="line">  <span class="attr">app_key:</span>  <span class="comment"># 这里填写得到的APP KEY</span></span><br><span class="line">  <span class="attr">placeholder:</span> <span class="string">记得留下你的昵称和邮箱...可以快速收到回复ヾﾉ≧∀≦)o</span> <span class="comment"># [v1.0.7 new]留言框占位提示文字</span></span><br><span class="line">  <span class="attr">notify:</span> <span class="literal">true</span> <span class="comment"># 评论回复邮件提醒 。 第三方支持：https://github.com/zhaojun1998/Valine-Admin</span></span><br><span class="line">  <span class="attr">verify:</span> <span class="literal">false</span> <span class="comment"># 验证码 。 开启邮件提醒会默认开启验证码选项</span></span><br><span class="line">  <span class="attr">avatar:</span> <span class="string">monsterid</span> <span class="comment"># Gravatar头像。可选项：[identicon monsterid  wavatar retro robohash mp ''] ，见 https://valine.js.org/avatar.html</span></span><br><span class="line">  <span class="attr">recordIP:</span> <span class="literal">true</span> <span class="comment"># 是否记录评论者ip</span></span><br><span class="line">  <span class="attr">visitor:</span> <span class="literal">false</span>  <span class="comment"># 阅读量统计 https://valine.js.org/visitor.html</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># Valine 不能与gitalk同时开启</span><br><span class="hljs-attr">valine:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">app_id:</span>  <span class="hljs-comment"># 这里填写得到的APP ID</span><br>  <span class="hljs-attr">app_key:</span>  <span class="hljs-comment"># 这里填写得到的APP KEY</span><br>  <span class="hljs-attr">placeholder:</span> <span class="hljs-string">记得留下你的昵称和邮箱...可以快速收到回复ヾﾉ≧∀≦)o</span> <span class="hljs-comment"># [v1.0.7 new]留言框占位提示文字</span><br>  <span class="hljs-attr">notify:</span> <span class="hljs-literal">true</span> <span class="hljs-comment"># 评论回复邮件提醒 。 第三方支持：https://github.com/zhaojun1998/Valine-Admin</span><br>  <span class="hljs-attr">verify:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 验证码 。 开启邮件提醒会默认开启验证码选项</span><br>  <span class="hljs-attr">avatar:</span> <span class="hljs-string">monsterid</span> <span class="hljs-comment"># Gravatar头像。可选项：[identicon monsterid  wavatar retro robohash mp ''] ，见 https://valine.js.org/avatar.html</span><br>  <span class="hljs-attr">recordIP:</span> <span class="hljs-literal">true</span> <span class="hljs-comment"># 是否记录评论者ip</span><br>  <span class="hljs-attr">visitor:</span> <span class="hljs-literal">false</span>  <span class="hljs-comment"># 阅读量统计 https://valine.js.org/visitor.html</span><br></code></pre></td></tr></table></figure>
 <p>拷贝 <em>themes\ocean\layout\_partial\post\gitalk.ejs</em> 重命名为 <em>valine.ejs</em>。<br>
 全部内容修改为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if (theme.valine.enable) &#123; %&gt;</span><br><span class="line">  &lt;div class&#x3D;&quot;comment_headling&quot;  style&#x3D;&quot;margin-top:5rem;&quot;&gt;</span><br><span class="line">	&lt;font size&#x3D;&quot;5&quot;&gt;&lt;i class&#x3D;&quot;fe fe-comments&quot;&gt;&lt;&#x2F;i&gt; 评论&lt;&#x2F;font&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">  &lt;div class&#x3D;&quot;comment&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;%- js(&#39;https:&#x2F;&#x2F;cdn1.lncld.net&#x2F;static&#x2F;js&#x2F;3.0.4&#x2F;av-min.js&#39;) %&gt;</span><br><span class="line">  &lt;%- js(&#39;js&#x2F;Valine.min.js&#39;) %&gt;</span><br><span class="line">  &lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;</span><br><span class="line">  &#x2F;&#x2F; https:&#x2F;&#x2F;cdnjs.cloudflare.com&#x2F;ajax&#x2F;libs&#x2F;valine&#x2F;1.3.10&#x2F;Valine.min.js</span><br><span class="line">  GUEST_INFO &#x3D; [&quot;nick&quot;, &quot;mail&quot;, &quot;link&quot;],</span><br><span class="line">  guest_info &#x3D; &quot;nick,mail,link&quot;.split(&quot;,&quot;).filter(function(i) &#123;</span><br><span class="line">		return - 1 &lt; GUEST_INFO.indexOf(i)</span><br><span class="line">  &#125;);</span><br><span class="line">  guest_info &#x3D; 0 &#x3D;&#x3D; guest_info.length ? GUEST_INFO: guest_info,</span><br><span class="line">  new Valine(&#123;</span><br><span class="line">	 &#x2F;&#x2F; AV 对象来自上面引入av-min.js</span><br><span class="line">	 av: AV, </span><br><span class="line">	 el: &#39;.comment&#39;,</span><br><span class="line">	 app_id: &#39;&lt;%- theme.valine.app_id %&gt;&#39;, </span><br><span class="line">	 app_key: &#39;&lt;%- theme.valine.app_key %&gt;&#39;, </span><br><span class="line">	 placeholder: &#39;&lt;%- theme.valine.placeholder %&gt;&#39;,</span><br><span class="line">	 meta: guest_info,</span><br><span class="line">	 notify: &lt;%- theme.valine.notify %&gt;,</span><br><span class="line">	 verify: &lt;%- theme.valine.verify %&gt;,</span><br><span class="line">	 avatar: &#39;&lt;%- theme.valine.avatar %&gt;&#39;,</span><br><span class="line">	 recordIP: &lt;%- theme.valine.recordIP %&gt;,</span><br><span class="line">	 visitor: &lt;%- theme.valine.visitor %&gt;,</span><br><span class="line">	 lang: &#39;zh-cn&#39;</span><br><span class="line">  &#125;);</span><br><span class="line">  &lt;&#x2F;script&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;% if (theme.valine.enable) &#123; %&gt;<br>  &lt;div class&#x3D;&quot;comment_headling&quot;  style&#x3D;&quot;margin-top:5rem;&quot;&gt;<br>	&lt;font size&#x3D;&quot;5&quot;&gt;&lt;i class&#x3D;&quot;fe fe-comments&quot;&gt;&lt;&#x2F;i&gt; 评论&lt;&#x2F;font&gt;<br>  &lt;&#x2F;div&gt;<br>  &lt;div class&#x3D;&quot;comment&quot;&gt;&lt;&#x2F;div&gt;<br>  &lt;%- js(&#39;https:&#x2F;&#x2F;cdn1.lncld.net&#x2F;static&#x2F;js&#x2F;3.0.4&#x2F;av-min.js&#39;) %&gt;<br>  &lt;%- js(&#39;js&#x2F;Valine.min.js&#39;) %&gt;<br>  &lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;<br>  &#x2F;&#x2F; https:&#x2F;&#x2F;cdnjs.cloudflare.com&#x2F;ajax&#x2F;libs&#x2F;valine&#x2F;1.3.10&#x2F;Valine.min.js<br>  GUEST_INFO &#x3D; [&quot;nick&quot;, &quot;mail&quot;, &quot;link&quot;],<br>  guest_info &#x3D; &quot;nick,mail,link&quot;.split(&quot;,&quot;).filter(function(i) &#123;<br>		return - 1 &lt; GUEST_INFO.indexOf(i)<br>  &#125;);<br>  guest_info &#x3D; 0 &#x3D;&#x3D; guest_info.length ? GUEST_INFO: guest_info,<br>  new Valine(&#123;<br>	 &#x2F;&#x2F; AV 对象来自上面引入av-min.js<br>	 av: AV, <br>	 el: &#39;.comment&#39;,<br>	 app_id: &#39;&lt;%- theme.valine.app_id %&gt;&#39;, <br>	 app_key: &#39;&lt;%- theme.valine.app_key %&gt;&#39;, <br>	 placeholder: &#39;&lt;%- theme.valine.placeholder %&gt;&#39;,<br>	 meta: guest_info,<br>	 notify: &lt;%- theme.valine.notify %&gt;,<br>	 verify: &lt;%- theme.valine.verify %&gt;,<br>	 avatar: &#39;&lt;%- theme.valine.avatar %&gt;&#39;,<br>	 recordIP: &lt;%- theme.valine.recordIP %&gt;,<br>	 visitor: &lt;%- theme.valine.visitor %&gt;,<br>	 lang: &#39;zh-cn&#39;<br>  &#125;);<br>  &lt;&#x2F;script&gt;<br>&lt;% &#125; %&gt;<br></code></pre></td></tr></table></figure>
 <p>修改 <em>themes\ocean\layout\_partial\article.ejs</em> 文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if (is_post()) &#123; %&gt;</span><br><span class="line">	&lt;%- partial(&#39;post&#x2F;gitalk&#39;) %&gt;</span><br><span class="line">	&lt;%# 下面为新增内容 %&gt;</span><br><span class="line">	&lt;%- partial(&#39;post&#x2F;valine&#39;) %&gt;</span><br><span class="line">&lt;%&#125; %&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;% if (is_post()) &#123; %&gt;<br>	&lt;%- partial(&#39;post&#x2F;gitalk&#39;) %&gt;<br>	&lt;%# 下面为新增内容 %&gt;<br>	&lt;%- partial(&#39;post&#x2F;valine&#39;) %&gt;<br>&lt;%&#125; %&gt;<br></code></pre></td></tr></table></figure>
 <p>关闭评论时的验证码，将 <em>Valine.min.js</em> 保存到  <em>themes\ocean\source\js</em> 目录下，将其中</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">u.attr(Q, <span class="string">"style"</span>, <span class="string">"display:block;"</span>), t &amp;&amp; t.type) &#123;</span><br><span class="line">	<span class="keyword">var</span> o = u.find(Q, <span class="string">".vsure"</span>);</span><br><span class="line">	u.on(<span class="string">"click"</span>, o,</span><br><span class="line">	<span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">		e.alert.hide(),</span><br><span class="line">		t.cb &amp;&amp; t.cb()</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript">u.attr(Q, <span class="hljs-string">"style"</span>, <span class="hljs-string">"display:block;"</span>), t &amp;&amp; t.type) &#123;<br>	<span class="hljs-keyword">var</span> o = u.find(Q, <span class="hljs-string">".vsure"</span>);<br>	u.on(<span class="hljs-string">"click"</span>, o,<br>	<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">n</span>) </span>&#123;<br>		e.alert.hide(),<br>		t.cb &amp;&amp; t.cb()<br>	&#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>修改为</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">u.attr(Q, <span class="string">"style"</span>, <span class="string">"display:none;"</span>), t &amp;&amp; t.type) &#123;</span><br><span class="line">	e.alert.hide(),</span><br><span class="line">	t.cb &amp;&amp; t.cb()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript">u.attr(Q, <span class="hljs-string">"style"</span>, <span class="hljs-string">"display:none;"</span>), t &amp;&amp; t.type) &#123;<br>	e.alert.hide(),<br>	t.cb &amp;&amp; t.cb()<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>记录(自用)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;%- page.content.substring(0,tips) %&gt; 显示html的样式结果</span><br><span class="line">&lt;%&#x3D; page.content.substring(0,tips) %&gt; 显示html源代码</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;%- page.content.substring(0,tips) %&gt; 显示html的样式结果<br>&lt;%&#x3D; page.content.substring(0,tips) %&gt; 显示html源代码<br></code></pre></td></tr></table></figure>
 <h2 id="笔记"><a class="header-anchor" href="#笔记">¶</a>笔记</h2>
 <ul>
 <li>
@@ -303,15 +447,15 @@
 <ol>
 <li>
 <p>在 <em>themes\ocean\source\css\_partial\layou.styl</em> 中添加：</p>
- <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.sidebar-spector</span><br><span class="line">  <span class="attribute">opacity</span> <span class="number">0.2</span></span><br><span class="line">  &amp;:hover</span><br><span class="line">    <span class="attribute">opacity</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+ <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs stylus">.sidebar-spector<br>  <span class="hljs-attribute">opacity</span> <span class="hljs-number">0.2</span><br>  &amp;:hover<br>    <span class="hljs-attribute">opacity</span> <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <p>在 <em>\themes\ocean\source\js</em> 下建立 <em>fade-sidebar.js</em> 文件，内容为：</p>
- <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!<span class="built_in">document</span>.querySelector(<span class="string">'main.content &gt; section.jumbotron'</span>)) &#123;</span><br><span class="line">    <span class="keyword">const</span> my_sidebar = <span class="built_in">document</span>.querySelector(<span class="string">'aside.sidebar'</span>);</span><br><span class="line">        <span class="keyword">if</span>(my_sidebar) &#123;</span><br><span class="line">            <span class="keyword">const</span> my_content = <span class="built_in">document</span>.querySelector(<span class="string">'main.content'</span>);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 收窄侧边栏</span></span><br><span class="line">            my_content.style.marginRight = <span class="string">'6rem'</span>;</span><br><span class="line">            my_sidebar.style.width = <span class="string">'6rem'</span>;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">const</span> sidebar_class = my_sidebar.getAttribute(<span class="string">'class'</span>);</span><br><span class="line">            <span class="keyword">if</span>(sidebar_class.indexOf(<span class="string">'sidebar-spector'</span>) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                my_sidebar.setAttribute(<span class="string">'class'</span>, sidebar_class + <span class="string">' sidebar-spector'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">if</span>(!<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'main.content &gt; section.jumbotron'</span>)) &#123;<br>    <span class="hljs-keyword">const</span> my_sidebar = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'aside.sidebar'</span>);<br>        <span class="hljs-keyword">if</span>(my_sidebar) &#123;<br>            <span class="hljs-keyword">const</span> my_content = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'main.content'</span>);<br>            <br>            <span class="hljs-comment">// 收窄侧边栏</span><br>            my_content.style.marginRight = <span class="hljs-string">'6rem'</span>;<br>            my_sidebar.style.width = <span class="hljs-string">'6rem'</span>;<br>            <br>            <span class="hljs-keyword">const</span> sidebar_class = my_sidebar.getAttribute(<span class="hljs-string">'class'</span>);<br>            <span class="hljs-keyword">if</span>(sidebar_class.indexOf(<span class="hljs-string">'sidebar-spector'</span>) &lt; <span class="hljs-number">0</span>) &#123;<br>                my_sidebar.setAttribute(<span class="hljs-string">'class'</span>, sidebar_class + <span class="hljs-string">' sidebar-spector'</span>);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <p>在 <em>themes\ocean\layout\_partial\after-footer.ejs</em> 未尾添加：</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%- js(&#39;js&#x2F;fade-sidebar.js&#39;) %&gt;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;%- js(&#39;js&#x2F;fade-sidebar.js&#39;) %&gt;<br></code></pre></td></tr></table></figure>
 </li>
 </ol>
 </li>
@@ -320,166 +464,317 @@
 </li>
 </ul>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://blog.rabbituzki.com.cn/2020/02/04/%E5%9F%BA%E4%BA%8E-Hexo-Ocean-%E4%B8%BB%E9%A2%98%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" data-id="ckidwlgic002ksgv4cdnc8ncp" class="article-share-link">
-        分享
-      </a>
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a></li></ul>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a>
+                    
+                      <a class="hover-with-bg" href="/tags/git/">git</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Hexo/">Hexo</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8D%9A%E5%AE%A2/">博客</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/02/07/Windows-%E4%B8%8B%E8%BF%81%E7%A7%BB-MariaDB-%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E4%BB%B6/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Windows 下迁移 MariaDB 数据库文件</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/10/06/%E3%80%8ALearn-Emacs-in-21-days%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                        <span class="hidden-mobile">《Learn Emacs in 21 days》学习笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
 
-    </footer>
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "TMgxzCpM2zFnsClsMHJY2LLc-gzGzoHsz",
+          app_key: "1kPLieLtoBQWf0w6iNxLqkMV",
+          placeholder: "说点什么....",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="https://valine.js.org" target="_blank" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
 
-  </div>
 
-  
-  
-  <nav class="article-nav">
-    
-      <a href="/2020/02/07/Windows-%E4%B8%8B%E8%BF%81%E7%A7%BB-MariaDB-%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E4%BB%B6/" class="article-nav-link">
-        <strong class="article-nav-caption">前一篇</strong>
-        <div class="article-nav-title">
-          
-            Windows 下迁移 MariaDB 数据库文件
-          
+              </article>
+            
+          </article>
         </div>
-      </a>
-    
-    
-      <a href="/2019/10/06/%E3%80%8ALearn-Emacs-in-21-days%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="article-nav-link">
-        <strong class="article-nav-caption">后一篇</strong>
-        <div class="article-nav-title">《Learn Emacs in 21 days》学习笔记</div>
-      </a>
-    
-  </nav>
-
-
-  
-
-  
-  
-  
-  
-
-</article>
-</section>
-  <footer class="footer">
-  <div class="outer">
-    <div class="float-right">
-      <ul class="list-inline">
-  
-    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
-  
-    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
-  
-</ul>
+      </div>
     </div>
-    <ul class="list-inline">
-      <li>&copy; 2020 六加的博客</li>
-      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
-      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
-    </ul>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
   </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> &nbsp;&nbsp;and&nbsp;&nbsp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
 </footer>
 
-</main>
-<aside class="sidebar">
-  <button class="navbar-toggle"></button>
-<nav class="navbar">
-  
-    <div class="logo">
-      <a href="/"><img src="/images/hexo.svg" alt="六加的博客"></a>
-    </div>
-  
-  <ul class="nav nav-main">
-    
-      <li class="nav-item">
-        <a class="nav-item-link" href="/">Home</a>
-      </li>
-    
-      <li class="nav-item">
-        <a class="nav-item-link" href="/archives">Archives</a>
-      </li>
-    
-      <li class="nav-item">
-        <a class="nav-item-link" href="/gallery">Gallery</a>
-      </li>
-    
-      <li class="nav-item">
-        <a class="nav-item-link" href="/about">About</a>
-      </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link nav-item-search" title="搜索">
-        <i class="fe fe-search"></i>
-        搜索
-      </a>
-    </li>
-  </ul>
-</nav>
-<nav class="navbar navbar-bottom">
-  <ul class="nav">
-    <li class="nav-item">
-      <div class="totop" id="totop">
-  <i class="fe fe-rocket"></i>
-</div>
-    </li>
-    <li class="nav-item">
-      
-        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
-          <i class="fe fe-feed"></i>
-        </a>
-      
-    </li>
-  </ul>
-</nav>
-<div class="search-form-wrap">
-  <div class="local-search local-search-plugin">
-  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
-  <div id="local-search-result" class="local-search-result"></div>
-</div>
-</div>
-</aside>
+<!-- SCRIPTS -->
 
-<script src="/js/jquery-2.0.3.min.js"></script>
-
-
-<script src="/js/jquery.justifiedGallery.min.js"></script>
-
-
-<script src="/js/lazyload.min.js"></script>
-
-
-<script src="/js/busuanzi-2.3.pure.min.js"></script>
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-  
-<script src="/js/tocbot.min.js"></script>
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
 
   <script>
-    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
-    tocbot.init({
-      tocSelector: '.tocbot',
-      contentSelector: '.article-entry',
-      headingSelector: 'h1, h2, h3, h4, h5, h6',
-      hasInnerContainers: true,
-      scrollSmooth: true,
-      positionFixedSelector: '.tocbot',
-      positionFixedClass: 'is-position-fixed',
-      fixedSidebarOffset: 'auto',
-    });
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
   </script>
 
 
 
-<script src="/js/ocean.js"></script>
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a9b0666290f750544a1900dff36c0349";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+    <!-- Google Analytics -->
+    <script defer>
+      window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) };
+      ga.l = +new Date;
+      ga('create', 'UA-127726236-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
 
 
 </body>
