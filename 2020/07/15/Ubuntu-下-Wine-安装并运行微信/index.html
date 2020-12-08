@@ -233,14 +233,14 @@
 <ol>
 <li>
 <p>安装 wine：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ sudo apt install wine<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ sudo apt install wine<br></code></pre></div></td></tr></table></figure>
 </li>
 <li>
 <p>配置 wine：</p>
 <ul>
 <li>
 <p>运行 winecfg：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ winecfg<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ winecfg<br></code></pre></div></td></tr></table></figure>
 </li>
 <li>
 <p>“应用程序”标签中，“Windows 版本”选择”Windows 7“。</p>
@@ -274,11 +274,11 @@
 </li>
 <li>
 <p>新建 <em>fonts.reg</em> 文件，内容如下：</p>
-<figure class="highlight moonscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs moonscript">REGEDIT4<br> <br>[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\FontLink\SystemLink]<br><span class="hljs-string">"Lucida Sans Unicode"</span>=<span class="hljs-string">"NotoSansCJK-Regular.ttc"</span><br><span class="hljs-string">"Microsoft Sans Serif"</span>=<span class="hljs-string">"NotoSansCJK-Regular.ttc"</span><br><span class="hljs-string">"MS Sans Serif"</span>=<span class="hljs-string">"NotoSansCJK-Regular.ttc"</span><br><span class="hljs-string">"Tahoma"</span>=<span class="hljs-string">"NotoSansCJK-Regular.ttc"</span><br><span class="hljs-string">"Tahoma Bold"</span>=<span class="hljs-string">"NotoSansCJK-Regular.ttc"</span><br><span class="hljs-string">"SimSun"</span>=<span class="hljs-string">"NotoSansCJK-Regular.ttc"</span><br><span class="hljs-string">"Arial"</span>=<span class="hljs-string">"NotoSansCJK-Regular.ttc"</span><br><span class="hljs-string">"Arial Black"</span>=<span class="hljs-string">"NotoSansCJK-Regular.ttc"</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight moonscript"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs moonscript">REGEDIT4<br> <br>[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\FontLink\SystemLink]<br><span class="hljs-string">"Lucida Sans Unicode"</span>=<span class="hljs-string">"NotoSansCJK-Regular.ttc"</span><br><span class="hljs-string">"Microsoft Sans Serif"</span>=<span class="hljs-string">"NotoSansCJK-Regular.ttc"</span><br><span class="hljs-string">"MS Sans Serif"</span>=<span class="hljs-string">"NotoSansCJK-Regular.ttc"</span><br><span class="hljs-string">"Tahoma"</span>=<span class="hljs-string">"NotoSansCJK-Regular.ttc"</span><br><span class="hljs-string">"Tahoma Bold"</span>=<span class="hljs-string">"NotoSansCJK-Regular.ttc"</span><br><span class="hljs-string">"SimSun"</span>=<span class="hljs-string">"NotoSansCJK-Regular.ttc"</span><br><span class="hljs-string">"Arial"</span>=<span class="hljs-string">"NotoSansCJK-Regular.ttc"</span><br><span class="hljs-string">"Arial Black"</span>=<span class="hljs-string">"NotoSansCJK-Regular.ttc"</span><br></code></pre></div></td></tr></table></figure>
 </li>
 <li>
 <p>运行 Wine 的注册表编辑器：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ wine regedit<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ wine regedit<br></code></pre></div></td></tr></table></figure>
 <p>并将 <em>fonts.reg</em> 导入注册表。</p>
 </li>
 <li>
@@ -438,7 +438,7 @@
 
   <footer class="text-center mt-5 py-3">
   <div class="footer-content">
-     Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> &nbsp;&nbsp;and&nbsp;&nbsp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+     Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> &nbsp;and&nbsp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
   </div>
   
   <div class="statistics">

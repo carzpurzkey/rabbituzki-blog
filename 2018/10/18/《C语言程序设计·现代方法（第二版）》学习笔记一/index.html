@@ -249,7 +249,7 @@
 <h2 id="第三章-格式化输入-输出"><a class="header-anchor" href="#第三章-格式化输入-输出">¶</a>第三章 格式化输入/输出</h2>
 <h3 id="3-1-printf函数"><a class="header-anchor" href="#3-1-printf函数">¶</a>3.1 <code>printf</code>函数</h3>
 <h4 id="3-1-1-转换说明（P28）"><a class="header-anchor" href="#3-1-1-转换说明（P28）">¶</a>3.1.1 转换说明（P28）</h4>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> i;<br>    <span class="hljs-keyword">float</span> x;<br>    <br>    i = <span class="hljs-number">40</span>;<br>    x = <span class="hljs-number">839.21f</span>;<br>    <br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"|%d|%5d|%-5d|%5.3d|n"</span>, i, i, i, );<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"|%10.3f|%10.3e|%-10g|\n"</span>, x, x, x);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> i;<br>    <span class="hljs-keyword">float</span> x;<br>    <br>    i = <span class="hljs-number">40</span>;<br>    x = <span class="hljs-number">839.21f</span>;<br>    <br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"|%d|%5d|%-5d|%5.3d|n"</span>, i, i, i, );<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"|%10.3f|%10.3e|%-10g|\n"</span>, x, x, x);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <p>输出：</p>
 <p>|40|   40|40   |  040|</p>
 <p>|   839.210| 8.392e+02|839.21    |</p>
@@ -274,16 +274,16 @@
 <p>复合赋值运算符有着和=运算符一样的特性。特别是，它们都是右结合的，所以</p>
 </li>
 </ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C">i += j += k<br></code></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C">i += j += k<br></code></pre></div></td></tr></table></figure>
 <p>意味着</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C">i += (j += k)<br></code></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C">i += (j += k)<br></code></pre></div></td></tr></table></figure>
 <h3 id="4-5表达式语句（P45）"><a class="header-anchor" href="#4-5表达式语句（P45）">¶</a>4.5表达式语句（P45）</h3>
 <p>  任何表达式都可以用作语句。<code>i * j - 1</code>因为i和j没有变化，所以这条语句没有任何作用。</p>
 <hr>
 <h2 id="第五章-选择语句"><a class="header-anchor" href="#第五章-选择语句">¶</a>第五章 选择语句</h2>
 <h3 id="5-2-if语句"><a class="header-anchor" href="#5-2-if语句">¶</a>5.2 <code>if</code>语句</h3>
 <h4 id="5-2-4-“悬空else”的问题（P56）"><a class="header-anchor" href="#5-2-4-“悬空else”的问题（P56）">¶</a>5.2.4 “悬空<code>else</code>”的问题（P56）</h4>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-keyword">if</span> (y != <span class="hljs-number">0</span>)<br>    <span class="hljs-keyword">if</span> (x != <span class="hljs-number">0</span>)<br>        result = x / y;<br><span class="hljs-keyword">else</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Error: y is equal to 0\n"</span>);<br></code></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-keyword">if</span> (y != <span class="hljs-number">0</span>)<br>    <span class="hljs-keyword">if</span> (x != <span class="hljs-number">0</span>)<br>        result = x / y;<br><span class="hljs-keyword">else</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Error: y is equal to 0\n"</span>);<br></code></pre></div></td></tr></table></figure>
 <p>  C语言遵循的规则是<code>else</code>子句应该属于离它最近的且还未和其它<code>else</code>匹配的<code>if</code>语句。</p>
 <h4 id="5-2-7-C99中的布尔值（P58）"><a class="header-anchor" href="#5-2-7-C99中的布尔值（P58）">¶</a>5.2.7 C99中的布尔值（P58）</h4>
 <p>  在C99中提供了<code>_Bool</code>型，<font color=red><strong><code>_Bool</code>是无符号整型，但只能赋值为0或1，一般来说，往<code>_Bool</code>变量中存储非零值会导致变量赋值为1</strong></font>。<br>
@@ -318,7 +318,7 @@
 <li>早期编译器中无限循环<code>for(;;)</code>比<code>while(1)</code>高效；新编译器性能无差别。</li>
 <li>空语句可以有如下用途：</li>
 </ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs C">&#123;<br>    ...<br>    <span class="hljs-keyword">goto</span> end_of_stmt;<br>    end_of_stmt: ;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C">&#123;<br>    ...<br>    <span class="hljs-keyword">goto</span> end_of_stmt;<br>    end_of_stmt: ;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <hr>
 <h2 id="第七章-基本类型"><a class="header-anchor" href="#第七章-基本类型">¶</a>第七章 基本类型</h2>
 <h3 id="7-1整数类型（P89"><a class="header-anchor" href="#7-1整数类型（P89">¶</a>7.1整数类型（P89)</h3>
@@ -333,7 +333,7 @@
 <p>  C语言把字符当作小整数进行处理。</p>
 <h4 id="7-3-7用getchar和putchar读-写字符"><a class="header-anchor" href="#7-3-7用getchar和putchar读-写字符">¶</a>7.3.7用<code>getchar</code>和<code>putchar</code>读/写字符</h4>
 <p>  在同一个程序中混合使用<code>getchr</code>函数和<code>scanf</code>函数时，要注意<code>scanf</code>函数倾向于遗留下它“扫视”过但未读取的字符（包括换行符）。考虑下面程序段：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-built_in">printf</span>(<span class="hljs-string">"Enter an integer: "</span>);<br><span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%d"</span>, &amp;i);<br> <br><span class="hljs-built_in">printf</span>(<span class="hljs-string">"Enter a command: "</span>);<br> <br>command = getchar();<br></code></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-built_in">printf</span>(<span class="hljs-string">"Enter an integer: "</span>);<br><span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%d"</span>, &amp;i);<br> <br><span class="hljs-built_in">printf</span>(<span class="hljs-string">"Enter a command: "</span>);<br> <br>command = getchar();<br></code></pre></div></td></tr></table></figure>
 <p>  在读入<code>i</code>的同时，<code>scanf</code>函数调用将会留下没有消耗掉的任意字符，包括（但不限于）换行符。<code>getchar</code>函数随后将取回第一个剩余字符，但这不是我们所希望的结果。</p>
 <h3 id="7-4类型转换（P100）"><a class="header-anchor" href="#7-4类型转换（P100）">¶</a>7.4类型转换（P100）</h3>
 <p>  当发生下列情况时会进行隐匿转换。</p>
@@ -347,18 +347,18 @@
 <ol>
 <li>
 <p>任一操作数是浮点类型的情况。</p>
-<pre><code>         long double
+<div class="hljs code-wrapper"><pre><code>         long double
                ^
                |
             double
                ^
                |
              float
-</code></pre>
+</code></pre></div>
 </li>
 <li>
 <p>两个操作数的类型都不是浮点类型的情况。</p>
-<pre><code>        unsigned long int
+<div class="hljs code-wrapper"><pre><code>        unsigned long int
                  ^
                  |
               long int
@@ -368,7 +368,7 @@
                  ^
                  |
                 int
-</code></pre>
+</code></pre></div>
 </li>
 </ol>
 <p>  有一种特殊情况，只有在<code>long int</code>类型和<code>unsigned int</code>类型长度（比如32位）相同时才会发生。在这类情况下，如果一个操作数的类型是<code>long int</code>，而另一个的类型是<code>unsiged int</code>，那么两个操作数都会转换成<code>unsigned long int</code>类型。C语言把（类型名）视为一元运算符。一元运算符的优先级高于二元运算符，所以编译器会把表达。</p>
@@ -379,18 +379,18 @@
 <p>  把某种类型的值赋给类型更狭小的变量时，如果该值在变量类型范围之外，那么将会得到无意义的结果（甚至更糟）。<br>
   如果浮点常量被赋值给<code>float</code>型变量时，一个很好的方法是在浮点常量尾部加上后辍<code>f</code>。</p>
 <h4 id="7-4-4强制类型转换（P103）"><a class="header-anchor" href="#7-4-4强制类型转换（P103）">¶</a>7.4.4强制类型转换（P103）</h4>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-keyword">float</span> quotient;<br><span class="hljs-keyword">int</span> dividend, divisor;<br> <br>quotient = (<span class="hljs-keyword">float</span>) dividend / divisor;<br></code></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-keyword">float</span> quotient;<br><span class="hljs-keyword">int</span> dividend, divisor;<br> <br>quotient = (<span class="hljs-keyword">float</span>) dividend / divisor;<br></code></pre></div></td></tr></table></figure>
 <p>  变量<code>divisor</code>不需要进行强制类型转换，因为把变量<code>dividend</code>强制錾成<code>float</code>类型会迫使编译器把<code>divisor</code>也转换成<code>float</code>类型。C语言把（类型名）视为一元运算符。一元运算符的优先级高于二元运算符，所以编译器会把表达式</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C">(<span class="hljs-keyword">float</span>) dividend / divisor<br></code></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C">(<span class="hljs-keyword">float</span>) dividend / divisor<br></code></pre></div></td></tr></table></figure>
 <p>  解释为</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C">((<span class="hljs-keyword">float</span>) dividend) / divisor<br></code></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C">((<span class="hljs-keyword">float</span>) dividend) / divisor<br></code></pre></div></td></tr></table></figure>
 <h3 id="7-6-sizeof运算符（P106）"><a class="header-anchor" href="#7-6-sizeof运算符（P106）">¶</a>7.6 <code>sizeof</code>运算符（P106）</h3>
 <p>  显示<code>sizeof</code>值时要注意，因为<code>sizeof</code>表达式的类型是<code>size_t</code>，这是一种由实现定义的类型。在C89中，最好在显示前把表达式的值转换成一种已知的类型。<code>size_t</code>一定是无符号整型，所以最安全的方法是把<code>sizeof</code>表达式强制转换成<code>unsigned long</code>类型。(C89中最大的无符号类型)，然后使用转换说明答题<code>%lu</code>显示。</p>
 <p>  在C99中，<code>size_t</code>类型可以比<code>unsigned long</code>更长。但C99中的<code>printf</code>可以直接显示<code>size_t</code>类型值而不需要强制转换。方法是在转换说明中的一般整数（通常用<code>u</code>）代码前使用字母<code>z</code>：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-built_in">printf</span>(<span class="hljs-string">"Size of int: %zu\n"</span>, <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">int</span>)); <span class="hljs-comment">/* C99 only */</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-built_in">printf</span>(<span class="hljs-string">"Size of int: %zu\n"</span>, <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">int</span>)); <span class="hljs-comment">/* C99 only */</span><br></code></pre></div></td></tr></table></figure>
 <h3 id="第七章FAQ（P107）"><a class="header-anchor" href="#第七章FAQ（P107）">¶</a>第七章FAQ（P107）</h3>
 <p>  只要有符号整数的值不是负值，就可以用<code>%o</code>和<code>%x</code>显示。这些转换导致<code>printf</code>函数把有符号整数看成无符号的；换句话说，<code>printf</code>函数将假设符号位是数的绝对值部分。只要符号位为0，就没问题。如果符号位为1，那么<code>printf</code>函数将显示出一个走出预期的大数。没有直接的方法可以书写负数的八进制或十六进制形式。幸运的是，需要这样做的情况非常少。当然，我们可以判定这个数是否是负数，然后自己显示一个负号：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-keyword">if</span> (i &lt; <span class="hljs-number">0</span>)<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"-%x"</span>, -i);<br><span class="hljs-keyword">else</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%x"</span>, i);<br></code></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-keyword">if</span> (i &lt; <span class="hljs-number">0</span>)<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"-%x"</span>, -i);<br><span class="hljs-keyword">else</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%x"</span>, i);<br></code></pre></div></td></tr></table></figure>
             </div>
             <hr>
             <div>
@@ -532,7 +532,7 @@
 
   <footer class="text-center mt-5 py-3">
   <div class="footer-content">
-     Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> &nbsp;&nbsp;and&nbsp;&nbsp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+     Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> &nbsp;and&nbsp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
   </div>
   
   <div class="statistics">

@@ -264,11 +264,11 @@
 </li>
 <li>
 <p>(2) 在 (1) 所建文件中输入脚本并保存：</p>
-  <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cmd"><span class="hljs-built_in">set</span> wt_powershell_dir=<span class="hljs-variable">%cd%</span><br><span class="hljs-built_in">start</span> <span class="hljs-variable">%LOCALAPPDATA%</span>\\Microsoft\\WindowsApps\\wt.exe<br><span class="hljs-keyword">exit</span><br></code></pre></td></tr></table></figure>
+  <figure class="highlight cmd"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs cmd"><span class="hljs-built_in">set</span> wt_powershell_dir=<span class="hljs-variable">%cd%</span><br><span class="hljs-built_in">start</span> <span class="hljs-variable">%LOCALAPPDATA%</span>\\Microsoft\\WindowsApps\\wt.exe<br><span class="hljs-keyword">exit</span><br></code></pre></div></td></tr></table></figure>
 </li>
 <li>
 <p>(3) 编辑 Powershell 用户配置文件 <em>~\Documents\WindowsPowershell\Microsoft.PowerShell_profile.ps1</em>：</p>
-  <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-keyword">if</span> ((<span class="hljs-operator">-not</span> [<span class="hljs-built_in">String</span>]::IsNullOrEmpty(<span class="hljs-variable">$env:wt_powershell_dir</span>)) <span class="hljs-operator">-and</span> (<span class="hljs-built_in">Test-Path</span> <span class="hljs-variable">$env:wt_powershell_dir</span>)) &#123;<br>   cd <span class="hljs-variable">$env:wt_powershell_dir</span><br>   <span class="hljs-built_in">Remove-Item</span> Env:\wt_powershell_dir<br>&#125;<br></code></pre></td></tr></table></figure>
+  <figure class="highlight powershell"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs powershell"><span class="hljs-keyword">if</span> ((<span class="hljs-operator">-not</span> [<span class="hljs-built_in">String</span>]::IsNullOrEmpty(<span class="hljs-variable">$env:wt_powershell_dir</span>)) <span class="hljs-operator">-and</span> (<span class="hljs-built_in">Test-Path</span> <span class="hljs-variable">$env:wt_powershell_dir</span>)) &#123;<br>   cd <span class="hljs-variable">$env:wt_powershell_dir</span><br>   <span class="hljs-built_in">Remove-Item</span> Env:\wt_powershell_dir<br>&#125;<br></code></pre></div></td></tr></table></figure>
 </li>
 <li>
 <p>(4) 在 1.(1) 中所建项下新建名为“command”的子项，并将其下的“默认”键值的数据数值设置为 (2) 中所建批处理文件的完整路径。</p>
@@ -420,7 +420,7 @@
 
   <footer class="text-center mt-5 py-3">
   <div class="footer-content">
-     Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> &nbsp;&nbsp;and&nbsp;&nbsp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+     Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> &nbsp;and&nbsp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
   </div>
   
   <div class="statistics">

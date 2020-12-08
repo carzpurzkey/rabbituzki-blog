@@ -233,15 +233,15 @@
 <hr>
 <h2 id="现象"><a class="header-anchor" href="#现象">¶</a>现象</h2>
 <p>前端显示：</p>
-<pre><code>503 service temporarily unavailable
-</code></pre>
+<div class="hljs code-wrapper"><pre><code>503 service temporarily unavailable
+</code></pre></div>
 <p>后台日志：</p>
-<pre><code>[wsgi:error] [pid 21399:tid 140274344871680] (11)Resource temporarily unavailable: [client 172.68.27.190:18983] mod_wsgi (pid=21399): Unable to connect to WSGI daemon process 'site' on '/var/run/wsgi.21137.0.1.sock' after multiple attempts as listener backlog limit was exceeded.
-</code></pre>
+<div class="hljs code-wrapper"><pre><code>[wsgi:error] [pid 21399:tid 140274344871680] (11)Resource temporarily unavailable: [client 172.68.27.190:18983] mod_wsgi (pid=21399): Unable to connect to WSGI daemon process 'site' on '/var/run/wsgi.21137.0.1.sock' after multiple attempts as listener backlog limit was exceeded.
+</code></pre></div>
 <h2 id="解决方案："><a class="header-anchor" href="#解决方案：">¶</a>解决方案：</h2>
 <p>根据<a href="http://modwsgi.readthedocs.io/en/develop/configuration-directives/WSGIDaemonProcess.html" target="_blank" rel="noopener">mod_wsgi文档</a>修改相关配置，例如：</p>
-<pre><code>WSGIDaemonProcess site python-path=/var/www/site:/var/www/site/env/lib/python3.6/site-packages home=/var/www/site processes=2 threads=60 graceful-timeout=30 maximum-requests=1000 restart-interval=30
-</code></pre>
+<div class="hljs code-wrapper"><pre><code>WSGIDaemonProcess site python-path=/var/www/site:/var/www/site/env/lib/python3.6/site-packages home=/var/www/site processes=2 threads=60 graceful-timeout=30 maximum-requests=1000 restart-interval=30
+</code></pre></div>
 <blockquote>
 <p><a href="https://github.com/GrahamDumpleton/mod_wsgi/issues/228" target="_blank" rel="noopener">Github原贴</a></p>
 </blockquote>
@@ -250,7 +250,7 @@
 <p><code>listener backlog limit</code>并非表示服务器最大能够处理的连接数，服务器最大能够处理的连接数依赖于服务器所配置的最大进程或线程数。而listen backlog是告诉内核在一个socket监听队列外等待的最大连接数的一个socket配置。如果等待队列已潢，那么以后的连接请求都将被拒绝。<br>
 根据uwsgi手册，可以通过<code>-l</code>选项指定listen backlog：</p>
 </blockquote>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs routeros">-l|--listen &lt;num&gt;<br>   <span class="hljs-builtin-name">set</span>  socket  listen<span class="hljs-built_in"> queue </span><span class="hljs-keyword">to</span> &lt;n&gt; (default 100, maximum is system<br>   dependent)<br></code></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs routeros">-l|--listen &lt;num&gt;<br>   <span class="hljs-builtin-name">set</span>  socket  listen<span class="hljs-built_in"> queue </span><span class="hljs-keyword">to</span> &lt;n&gt; (default 100, maximum is system<br>   dependent)<br></code></pre></div></td></tr></table></figure>
 <blockquote>
 <p><a href="https://stackoverflow.com/questions/12340047/uwsgi-your-server-socket-listen-backlog-is-limited-to-100-connections" target="_blank" rel="noopener">stackoverflow原贴</a></p>
 </blockquote>
@@ -400,7 +400,7 @@
 
   <footer class="text-center mt-5 py-3">
   <div class="footer-content">
-     Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> &nbsp;&nbsp;and&nbsp;&nbsp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+     Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> &nbsp;and&nbsp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
   </div>
   
   <div class="statistics">

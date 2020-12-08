@@ -251,7 +251,7 @@
 <li>命令<code>git checkout -- readme.txt</code>意思就是，把readme.txt文件在工作区的修改（从版本库）全部撤销，这里有两种情况：</li>
 </ul>
 <p>1. 一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；</p>
-<pre><code>原布局：
+<div class="hljs code-wrapper"><pre><code>原布局：
     workdir            stage                 master
      test               test                  test
 
@@ -262,9 +262,9 @@
 git checkout -- readme.txt后：
     workdir            stage                 master
      test               test                  test
-</code></pre>
+</code></pre></div>
 <p>2. 一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。</p>
-<pre><code>原布局：
+<div class="hljs code-wrapper"><pre><code>原布局：
     workdir            stage                 master
      test               test                  test
 
@@ -275,7 +275,7 @@ git checkout -- readme.txt后：
 git checkout -- readme.txt后：
     workdir            stage                 master
     test_mod          test_mod                  test
-</code></pre>
+</code></pre></div>
 <p>  <strong>总之，就是让这个文件回到最近一次<code>git commit</code>（修改后未<code>git add</code>）或<code>git add</code>（修改后已<code>git add</code>）时的状态。</strong></p>
 <ul>
 <li>命令<code>git reset HEAD file</code>意思就是，可以把暂存区的修改撤销掉（unstage），重新放回工作区。</li>
@@ -310,7 +310,7 @@ git checkout -- readme.txt后：
 <ol>
 <li>把<code>dev</code>分支的工作成果合并到<code>master</code>分支上：</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git checkout master<br>git merge dev<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">git checkout master<br>git merge dev<br></code></pre></div></td></tr></table></figure>
 <p>2. Git分支常用命令：</p>
 <ul>
 <li>查看分支：<code>git branch</code></li>
@@ -512,7 +512,7 @@ git checkout -- readme.txt后：
 
   <footer class="text-center mt-5 py-3">
   <div class="footer-content">
-     Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> &nbsp;&nbsp;and&nbsp;&nbsp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+     Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> &nbsp;and&nbsp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
   </div>
   
   <div class="statistics">

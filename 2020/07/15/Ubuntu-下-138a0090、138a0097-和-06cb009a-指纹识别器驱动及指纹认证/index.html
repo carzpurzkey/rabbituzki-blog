@@ -236,33 +236,33 @@
 <ol>
 <li>
 <p>卸载系统自带的 fprintd。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ sudo apt remove fprintd<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ sudo apt remove fprintd<br></code></pre></div></td></tr></table></figure>
 </li>
 <li>
 <p>添加 open-fprintd 软件源。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ sudo add-apt-repository ppa:uunicorn:open-fprintd<br>$ sudo apt update<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ sudo add-apt-repository ppa:uunicorn:open-fprintd<br>$ sudo apt update<br></code></pre></div></td></tr></table></figure>
 </li>
 <li>
 <p>安装 open-fprintd、fprintd 客户端及 python3-validity (驱动程序)。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ sudo apt install open-fprintd fprintd-clients python3-validity<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ sudo apt install open-fprintd fprintd-clients python3-validity<br></code></pre></div></td></tr></table></figure>
 </li>
 <li>
 <p>注册指纹，此处需将同一指纹进行多次录入。如要录入多个指纹，再运行此命令即可。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ fprintd-enroll<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ fprintd-enroll<br></code></pre></div></td></tr></table></figure>
 </li>
 </ol>
 <blockquote>
 <p><strong>注意</strong></p>
 <hr>
 <p>如果注册指纹报错，可能需要运行下面命令将指纹识别器重置成出厂设置：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ <span class="hljs-built_in">cd</span> /usr/share/python3-validity/playground<br>$ python3 ./factory-reset.py<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ <span class="hljs-built_in">cd</span> /usr/share/python3-validity/playground<br>$ python3 ./factory-reset.py<br></code></pre></div></td></tr></table></figure>
 </blockquote>
 <h2 id="2、设置指纹登录"><a class="header-anchor" href="#2、设置指纹登录">¶</a>2、设置指纹登录</h2>
 <blockquote>
 <p><strong>提示</strong>：</p>
 <hr>
 <p>项目已更新自动注册程序，指纹登录和其它基本指纹认证 (如第三步的 <code>su</code> 和 <code>sudo</code> 认证等) 可以在 <strong>注册指纹后</strong> 使用如下命令自动添加：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ sudo pam-auth-update<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ sudo pam-auth-update<br></code></pre></div></td></tr></table></figure>
 </blockquote>
 <p>Gnome “设置” -&gt; “用户” -&gt; “指纹登录” -&gt; “启用”。</p>
 <h2 id="3、设置其它指纹认证"><a class="header-anchor" href="#3、设置其它指纹认证">¶</a>3、设置其它指纹认证</h2>
@@ -270,16 +270,16 @@
 <li>
 <p><code>su</code> 指纹认证。</p>
 <p>编辑 <em>/etc/pam.d/su</em> 文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ sudo vim /etc/pam.d/su<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ sudo vim /etc/pam.d/su<br></code></pre></div></td></tr></table></figure>
 <p>在文件开始处加入：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">auth</span> <span class="hljs-selector-tag">sufficient</span> <span class="hljs-selector-tag">pam_fprintd</span><span class="hljs-selector-class">.so</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">auth</span> <span class="hljs-selector-tag">sufficient</span> <span class="hljs-selector-tag">pam_fprintd</span><span class="hljs-selector-class">.so</span><br></code></pre></div></td></tr></table></figure>
 </li>
 <li>
 <p><code>sudo</code> 指纹认证。</p>
 <p>编辑 <em>/etc/pam.d/sudo</em> 文件：</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ sudo vim /etc/pam.d/sudo<br></code></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ sudo vim /etc/pam.d/sudo<br></code></pre></div></td></tr></table></figure>
 <p>在文件开始处加入：</p>
- <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">auth</span> <span class="hljs-selector-tag">sufficient</span> <span class="hljs-selector-tag">pam_fprintd</span><span class="hljs-selector-class">.so</span><br></code></pre></td></tr></table></figure>
+ <figure class="highlight css"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">auth</span> <span class="hljs-selector-tag">sufficient</span> <span class="hljs-selector-tag">pam_fprintd</span><span class="hljs-selector-class">.so</span><br></code></pre></div></td></tr></table></figure>
 </li>
 </ol>
 <blockquote>
@@ -287,7 +287,7 @@
 <hr>
 <p>如果 <code>fprintd-enroll</code> 命令返回 <code>list_devices failed:</code> 异常，那么请使用 <code>$ sudo systemctl status python3-validity</code> 查看 python3-validity 守护进程运行状态，如果未运行，则根据状态信息选择使用 <code>$ sudo systemctl enable python3-validity</code> 或 <code>$ sudo systemctl start python3-validity</code> 启用或启动守护进程。</p>
 <p>如果上一步守护进程状态显示 python3-validity 守护启动过程中发生错误，那么可能需要将指纹芯片恢复出厂设置：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ sudo systemctl stop python3-validity<br>$ sudo validity-sensors-firmware<br>$ sudo python3 /usr/share/python-validity/playground/factory-reset.py<br><br><span class="hljs-comment"># 上述步骤中可以会出现"device busy"异常，此时需要根据 systemctl 状态信息杀死相关进程，或重新运行 systemctl stop python3-validity 命令以防止其已重新运行或杀死其它相关进程。</span><br><br>$ sudo systemctl start python3-validity<br>$ fprintd-enroll<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ sudo systemctl stop python3-validity<br>$ sudo validity-sensors-firmware<br>$ sudo python3 /usr/share/python-validity/playground/factory-reset.py<br><br><span class="hljs-comment"># 上述步骤中可以会出现"device busy"异常，此时需要根据 systemctl 状态信息杀死相关进程，或重新运行 systemctl stop python3-validity 命令以防止其已重新运行或杀死其它相关进程。</span><br><br>$ sudo systemctl start python3-validity<br>$ fprintd-enroll<br></code></pre></div></td></tr></table></figure>
 </blockquote>
 
             </div>
@@ -435,7 +435,7 @@
 
   <footer class="text-center mt-5 py-3">
   <div class="footer-content">
-     Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> &nbsp;&nbsp;and&nbsp;&nbsp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+     Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> &nbsp;and&nbsp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
   </div>
   
   <div class="statistics">

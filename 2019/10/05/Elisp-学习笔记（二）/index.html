@@ -248,11 +248,11 @@
 <li>
 <p>如果函数值是另一个符号，则会继续查找这个符号的函数值。这称为“symbol function indirection”。最后直到某个符号的函数值是一个 lisp 函数（lambda 表达式）、byte-code 函数、原子函数（primitive function）、宏、特殊表达式或 autoload 对象。如果不是这些类型，比如某个符号的函数值是前面出现的某个符号导致无限循环，或者某个符号函数值为空，都会导致一个错误 invalid-function。</p>
 <p>这个函数显示 indirection function</p>
-  <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs lisp">(<span class="hljs-name">symbol-function</span> 'car)                  <span class="hljs-comment">; =&gt; #&lt;subr car&gt;</span><br>(<span class="hljs-name">fset</span> 'first 'car)                      <span class="hljs-comment">; =&gt; car</span><br>(<span class="hljs-name">fset</span> 'erste 'first)                    <span class="hljs-comment">; =&gt; first</span><br>(<span class="hljs-name">erste</span> '(<span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">3</span>))                        <span class="hljs-comment">; =&gt; 1</span><br></code></pre></td></tr></table></figure>
+  <figure class="highlight lisp"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs lisp">(<span class="hljs-name">symbol-function</span> 'car)                  <span class="hljs-comment">; =&gt; #&lt;subr car&gt;</span><br>(<span class="hljs-name">fset</span> 'first 'car)                      <span class="hljs-comment">; =&gt; car</span><br>(<span class="hljs-name">fset</span> 'erste 'first)                    <span class="hljs-comment">; =&gt; first</span><br>(<span class="hljs-name">erste</span> '(<span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">3</span>))                        <span class="hljs-comment">; =&gt; 1</span><br></code></pre></div></td></tr></table></figure>
 </li>
 <li>
 <p>如果第一个元素是一个宏对象，列表里的其它元素不会立即求值，而是根据宏定义进行扩展。如果扩展后还是一个宏调用，则会继续扩展下去，直到扩展的结果不再是一个宏调用为止。例如：</p>
-  <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs lisp">(<span class="hljs-name">defmacro</span> cadr (<span class="hljs-name">x</span>)<br>  (<span class="hljs-name">list</span> 'car (<span class="hljs-name">list</span> 'cdr x)))<br></code></pre></td></tr></table></figure>
+  <figure class="highlight lisp"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs lisp">(<span class="hljs-name">defmacro</span> cadr (<span class="hljs-name">x</span>)<br>  (<span class="hljs-name">list</span> 'car (<span class="hljs-name">list</span> 'cdr x)))<br></code></pre></div></td></tr></table></figure>
 <p>这样 <code>(cadr (assq 'handler list))</code> 扩展后成为 <code>(car (cdr (assq 'handler list)))</code>。</p>
 </li>
 <li>
@@ -262,11 +262,11 @@
 </li>
 </ul>
 <p>最后用这个伪代码来说明一下 elisp 中的求值规则：</p>
-<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs lisp">(<span class="hljs-name">defun</span> (<span class="hljs-name">eval</span> exp)<br>  (<span class="hljs-name">cond</span><br>   ((<span class="hljs-name">numberp</span> exp) exp)<br>   ((<span class="hljs-name">stringp</span> exp) exp)<br>   ((<span class="hljs-name">arrayp</span> exp) exp)<br>   ((<span class="hljs-name">symbolp</span> exp) (<span class="hljs-name">symbol-value</span> exp))<br>   ((<span class="hljs-name">special-form-p</span> (<span class="hljs-name">car</span> exp))<br>    (<span class="hljs-name">eval-special-form</span> exp))<br>   ((<span class="hljs-name">fboundp</span> (<span class="hljs-name">car</span> exp))<br>    (<span class="hljs-name">apply</span> (<span class="hljs-name">car</span> exp) (<span class="hljs-name">cdr</span> exp)))<br>   (<span class="hljs-name">t</span><br>    (<span class="hljs-name">error</span> <span class="hljs-string">"Unknown expression type -- EVAL %S"</span> exp))))<br></code></pre></td></tr></table></figure>
+<figure class="highlight lisp"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs lisp">(<span class="hljs-name">defun</span> (<span class="hljs-name">eval</span> exp)<br>  (<span class="hljs-name">cond</span><br>   ((<span class="hljs-name">numberp</span> exp) exp)<br>   ((<span class="hljs-name">stringp</span> exp) exp)<br>   ((<span class="hljs-name">arrayp</span> exp) exp)<br>   ((<span class="hljs-name">symbolp</span> exp) (<span class="hljs-name">symbol-value</span> exp))<br>   ((<span class="hljs-name">special-form-p</span> (<span class="hljs-name">car</span> exp))<br>    (<span class="hljs-name">eval-special-form</span> exp))<br>   ((<span class="hljs-name">fboundp</span> (<span class="hljs-name">car</span> exp))<br>    (<span class="hljs-name">apply</span> (<span class="hljs-name">car</span> exp) (<span class="hljs-name">cdr</span> exp)))<br>   (<span class="hljs-name">t</span><br>    (<span class="hljs-name">error</span> <span class="hljs-string">"Unknown expression type -- EVAL %S"</span> exp))))<br></code></pre></div></td></tr></table></figure>
 <h2 id="变量"><a class="header-anchor" href="#变量">¶</a>变量</h2>
 <p><strong>当同一个变量名既是全局变量也是局部变量，或者用 <code>let</code> 多层绑定，只有最里层的那个变量是有效的，用 <code>setq</code> 改变的也只是最里层的变量，而不影响外层的变量。</strong><br>
 比如：</p>
-<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs lisp"><br>(<span class="hljs-name">progn</span><br>  (<span class="hljs-name">setq</span> foo <span class="hljs-string">"I'm global variable!"</span>)<br>  (<span class="hljs-name">let</span> ((<span class="hljs-name">foo</span> <span class="hljs-number">5</span>))<br>    (<span class="hljs-name">message</span> <span class="hljs-string">"foo value is: %S"</span> foo)<br>    (<span class="hljs-name">let</span> (<span class="hljs-name">foo</span>)<br>      (<span class="hljs-name">setq</span> foo <span class="hljs-string">"I'm local variable!"</span>)<br>      (<span class="hljs-name">message</span> foo))<br>    (<span class="hljs-name">message</span> <span class="hljs-string">"foo value is still: %S"</span> foo))<br>  (<span class="hljs-name">message</span> foo))<br></code></pre></td></tr></table></figure>
+<figure class="highlight lisp"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs lisp"><br>(<span class="hljs-name">progn</span><br>  (<span class="hljs-name">setq</span> foo <span class="hljs-string">"I'm global variable!"</span>)<br>  (<span class="hljs-name">let</span> ((<span class="hljs-name">foo</span> <span class="hljs-number">5</span>))<br>    (<span class="hljs-name">message</span> <span class="hljs-string">"foo value is: %S"</span> foo)<br>    (<span class="hljs-name">let</span> (<span class="hljs-name">foo</span>)<br>      (<span class="hljs-name">setq</span> foo <span class="hljs-string">"I'm local variable!"</span>)<br>      (<span class="hljs-name">message</span> foo))<br>    (<span class="hljs-name">message</span> <span class="hljs-string">"foo value is still: %S"</span> foo))<br>  (<span class="hljs-name">message</span> foo))<br></code></pre></div></td></tr></table></figure>
 <blockquote>
 <p>另外需要注意一点的是局部变量的绑定不能超过一定的层数，也就是说，你不能把 <code>foo</code> 用 <code>let</code> 绑定 10000 层。当然普通的函数是不可能写成这样的，但是递归函数就不一定了。限制层数的变量在 <code>max-specpdl-size</code> 中定义。如果你写的递归函数有这个需要的话，可以先设置这个变量的值</p>
 </blockquote>
@@ -276,7 +276,7 @@
 <ul>
 <li>
 <p><code>with-current-buffer</code> 的使用形式是</p>
-  <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs lisp">(<span class="hljs-name">with-current-buffer</span> buffer<br>  body)<br></code></pre></td></tr></table></figure>
+  <figure class="highlight lisp"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs lisp">(<span class="hljs-name">with-current-buffer</span> buffer<br>  body)<br></code></pre></div></td></tr></table></figure>
 <p>其中 <code>buffer</code> 可以是一个缓冲区对象，也可以是缓冲区的名字。它的作用是使其中的 <code>body</code> 表达式在指定的缓冲区里执行。</p>
 </li>
 <li>
@@ -319,9 +319,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2019/10/06/%E3%80%8ALearn-Emacs-in-21-days%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                      <a href="/2019/10/05/Elisp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">《Learn Emacs in 21 days》学习笔记</span>
+                        <span class="hidden-mobile">Elisp 学习笔记（一）</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -329,8 +329,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2019/10/05/Elisp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/">
-                        <span class="hidden-mobile">Elisp 学习笔记（一）</span>
+                      <a href="/2019/08/14/davfs%E8%87%AA%E5%8A%A8%E6%8C%82%E8%BD%BD/">
+                        <span class="hidden-mobile">davfs2 自动挂载</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -429,7 +429,7 @@
 
   <footer class="text-center mt-5 py-3">
   <div class="footer-content">
-     Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> &nbsp;&nbsp;and&nbsp;&nbsp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+     Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> &nbsp;and&nbsp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
   </div>
   
   <div class="statistics">
