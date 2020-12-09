@@ -14,8 +14,8 @@
 <ul>
 <li><strong>Aspect（切面）</strong>：即一个横跨多个核心逻辑的功能，或者称之为 <strong>系统关注点</strong>。<span style="border-width: 0 0 3px 0; border-style: double">（对哪些方法进行拦截，拦截后怎么处理）</span>；</li>
 <li><strong>Joinpoint（连接点）</strong>：即定义在应用程序流程的何处插入切面的执行。<span style="border-width: 0 0 3px 0; border-style: double">（被拦截到的点，因为 Spring 只支持方法类型的连接点，所以在 Spring 中连接点指的就是被拦截到的 <strong>方法</strong>，实际上连接点还可以是字段或者构造器）</span>；</li>
-<li><strong>Pointcut（切入点）</strong>：即一组连接点的集合。<span style="border-width: 0 0 3px 0; border-style: double">（对连接点进行拦截的定义，即 Pointcut 表达式）</span>；</li>
-<li><strong>Advice（增强）</strong>：指特定连接点上执行的动作；</li>
+<li><strong>Pointcut（切入点）</strong>：即一组连接点的集合。<span style="border-width: 0 0 3px 0; border-style: double">（对连接点进行拦截的定义，即 Pointcut 表达式所影响的范围）</span>；</li>
+<li><strong>Advice（增强）</strong>：指特定连接点上执行的动作。<span style="border-width: 0 0 3px 0; border-style: double">（即 Pointcut 表达式修改的方法）</span>；</li>
 <li><strong>Introduction（引介、引入）</strong>：指为一个已有的 Java 对象动态地增加新的接口。<span style="border-width: 0 0 3px 0; border-style: double">（在不修改代码的前提下，引入可以在 <strong>运行期</strong> 为类 <strong>动态</strong> 地添加一些方法或字段）</span>；</li>
 <li><strong>Weaving（织入）</strong>：指将切面整合到程序的执行流程中。<span style="border-width: 0 0 3px 0; border-style: double">（将切面应用到目标对象并导致代理对象创建的 <strong>过程</strong>）</span>；</li>
 <li><strong>Interceptor（拦截器）</strong>：是一种实现增强的方式；</li>
@@ -4072,9 +4072,9 @@ EF Core 迁移是一组命令，您可以在 NuGet 软件包管理器控制台�
         <category>笔记</category>
       </categories>
       <tags>
-        <tag>笔记</tag>
         <tag>Python</tag>
         <tag>Windows</tag>
+        <tag>笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -4791,6 +4791,74 @@ smartparens 可以自动补全括号及各种引号：</p>
         <tag>Emacs</tag>
         <tag>笔记</tag>
         <tag>GNU</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Elisp 学习笔记（二）</title>
+    <url>/2019/10/05/Elisp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+    <content><![CDATA[<p>[TOC]</p>
+<hr>
+<h1>Elisp 学习笔记（二）</h1>
+<h2 id="求值规则"><a class="header-anchor" href="#求值规则">¶</a>求值规则</h2>
+<p>求值是 lisp 解释器的核心，理解了求值过程也就学会了 lisp 编程的一半。正因为这样，我有点担心自己说得不清楚或者理解错误，会误导了你。所以如果真想深入了解的话，还是自己看 info elisp - Evaluation 这一章吧。<br>
+一个要求值的 lisp 对象被称为表达式（form）。所有的表达式可以分为三种：符号、列表和其它类型（废话）。下面一一说明各种表达式的求值规则。</p>
+<ul>
+<li>
+<p>第一种表达式是最简单的，自求值表达式。前面说过数字、字符串、向量都是自求值表达式。还有两个特殊的符号 <code>t</code> 和 <code>nil</code> 也可以看成是自求值表达式。</p>
+</li>
+<li>
+<p>第二种表达式是符号。符号的求值结果就是符号的值。如果它没有值，就会出现 void-variable 的错误。</p>
+</li>
+<li>
+<p>第三种表达式是列表表达式。而列表表达式又可以根据第一个元素分为函数调用、宏调用和特殊表达式（special form）三种。列表的第一个表达式如果是一个符号，解释器会查找这个表达式的函数值。</p>
+<ul>
+<li>
+<p>如果函数值是另一个符号，则会继续查找这个符号的函数值。这称为“symbol function indirection”。最后直到某个符号的函数值是一个 lisp 函数（lambda 表达式）、byte-code 函数、原子函数（primitive function）、宏、特殊表达式或 autoload 对象。如果不是这些类型，比如某个符号的函数值是前面出现的某个符号导致无限循环，或者某个符号函数值为空，都会导致一个错误 invalid-function。</p>
+<p>这个函数显示 indirection function</p>
+  <figure class="highlight lisp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs lisp">(<span class="hljs-name">symbol-function</span> 'car)                  <span class="hljs-comment">; =&gt; #&lt;subr car&gt;</span><br>(<span class="hljs-name">fset</span> 'first 'car)                      <span class="hljs-comment">; =&gt; car</span><br>(<span class="hljs-name">fset</span> 'erste 'first)                    <span class="hljs-comment">; =&gt; first</span><br>(<span class="hljs-name">erste</span> '(<span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">3</span>))                        <span class="hljs-comment">; =&gt; 1</span><br></code></pre></div></td></tr></table></figure>
+</li>
+<li>
+<p>如果第一个元素是一个宏对象，列表里的其它元素不会立即求值，而是根据宏定义进行扩展。如果扩展后还是一个宏调用，则会继续扩展下去，直到扩展的结果不再是一个宏调用为止。例如：</p>
+  <figure class="highlight lisp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs lisp">(<span class="hljs-name">defmacro</span> cadr (<span class="hljs-name">x</span>)<br>  (<span class="hljs-name">list</span> 'car (<span class="hljs-name">list</span> 'cdr x)))<br></code></pre></div></td></tr></table></figure>
+<p>这样 <code>(cadr (assq 'handler list))</code> 扩展后成为 <code>(car (cdr (assq 'handler list)))</code>。</p>
+</li>
+<li>
+<p>第一个元素如果是一个特殊表达式时，它的参数可能并不会全求值。这些特殊表达式通常是用于控制结构或者变量绑定。每个特殊表达式都有对应的求值规则。这在下面会提到。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>最后用这个伪代码来说明一下 elisp 中的求值规则：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs lisp">(<span class="hljs-name">defun</span> (<span class="hljs-name">eval</span> exp)<br>  (<span class="hljs-name">cond</span><br>   ((<span class="hljs-name">numberp</span> exp) exp)<br>   ((<span class="hljs-name">stringp</span> exp) exp)<br>   ((<span class="hljs-name">arrayp</span> exp) exp)<br>   ((<span class="hljs-name">symbolp</span> exp) (<span class="hljs-name">symbol-value</span> exp))<br>   ((<span class="hljs-name">special-form-p</span> (<span class="hljs-name">car</span> exp))<br>    (<span class="hljs-name">eval-special-form</span> exp))<br>   ((<span class="hljs-name">fboundp</span> (<span class="hljs-name">car</span> exp))<br>    (<span class="hljs-name">apply</span> (<span class="hljs-name">car</span> exp) (<span class="hljs-name">cdr</span> exp)))<br>   (<span class="hljs-name">t</span><br>    (<span class="hljs-name">error</span> <span class="hljs-string">"Unknown expression type -- EVAL %S"</span> exp))))<br></code></pre></div></td></tr></table></figure>
+<h2 id="变量"><a class="header-anchor" href="#变量">¶</a>变量</h2>
+<p><strong>当同一个变量名既是全局变量也是局部变量，或者用 <code>let</code> 多层绑定，只有最里层的那个变量是有效的，用 <code>setq</code> 改变的也只是最里层的变量，而不影响外层的变量。</strong><br>
+比如：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs lisp"><br>(<span class="hljs-name">progn</span><br>  (<span class="hljs-name">setq</span> foo <span class="hljs-string">"I'm global variable!"</span>)<br>  (<span class="hljs-name">let</span> ((<span class="hljs-name">foo</span> <span class="hljs-number">5</span>))<br>    (<span class="hljs-name">message</span> <span class="hljs-string">"foo value is: %S"</span> foo)<br>    (<span class="hljs-name">let</span> (<span class="hljs-name">foo</span>)<br>      (<span class="hljs-name">setq</span> foo <span class="hljs-string">"I'm local variable!"</span>)<br>      (<span class="hljs-name">message</span> foo))<br>    (<span class="hljs-name">message</span> <span class="hljs-string">"foo value is still: %S"</span> foo))<br>  (<span class="hljs-name">message</span> foo))<br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p>另外需要注意一点的是局部变量的绑定不能超过一定的层数，也就是说，你不能把 <code>foo</code> 用 <code>let</code> 绑定 10000 层。当然普通的函数是不可能写成这样的，但是递归函数就不一定了。限制层数的变量在 <code>max-specpdl-size</code> 中定义。如果你写的递归函数有这个需要的话，可以先设置这个变量的值</p>
+</blockquote>
+<h3 id="buffer-local-变量"><a class="header-anchor" href="#buffer-local-变量">¶</a>buffer-local 变量</h3>
+<p>emacs 能有如此丰富的模式，各个缓冲区之间能不相互冲突，很大程度上要归功于 buffer-local 变量。<br>
+声明一个 buffer-local 的变量可以用 <code>make-variable-buffer-local</code> 或用 <code>make-local-variable</code>。这两个函数的区别在于前者是相当于在所有缓冲区中都产生一个 buffer-local 的变量。而后者只在声明时所在的缓冲区内产生一个局部变量，而其它缓冲区仍然使用的是全局变量。一般来说推荐使用 <code>make-local-variable</code>。</p>
+<ul>
+<li>
+<p><code>with-current-buffer</code> 的使用形式是</p>
+  <figure class="highlight lisp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs lisp">(<span class="hljs-name">with-current-buffer</span> buffer<br>  body)<br></code></pre></div></td></tr></table></figure>
+<p>其中 <code>buffer</code> 可以是一个缓冲区对象，也可以是缓冲区的名字。它的作用是使其中的 <code>body</code> 表达式在指定的缓冲区里执行。</p>
+</li>
+<li>
+<p><code>get-buffer</code> 可以用缓冲区的名字得到对应的缓冲区对象。如果没有这样名字的缓冲区会返回 <code>nil</code>。</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>编程语言</tag>
+        <tag>Emacs</tag>
+        <tag>Lisp</tag>
+        <tag>笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -5660,74 +5728,6 @@ cons cell 的读入语法是用 . 分开两个部分，比如：</p>
       </tags>
   </entry>
   <entry>
-    <title>Elisp 学习笔记（二）</title>
-    <url>/2019/10/05/Elisp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
-    <content><![CDATA[<p>[TOC]</p>
-<hr>
-<h1>Elisp 学习笔记（二）</h1>
-<h2 id="求值规则"><a class="header-anchor" href="#求值规则">¶</a>求值规则</h2>
-<p>求值是 lisp 解释器的核心，理解了求值过程也就学会了 lisp 编程的一半。正因为这样，我有点担心自己说得不清楚或者理解错误，会误导了你。所以如果真想深入了解的话，还是自己看 info elisp - Evaluation 这一章吧。<br>
-一个要求值的 lisp 对象被称为表达式（form）。所有的表达式可以分为三种：符号、列表和其它类型（废话）。下面一一说明各种表达式的求值规则。</p>
-<ul>
-<li>
-<p>第一种表达式是最简单的，自求值表达式。前面说过数字、字符串、向量都是自求值表达式。还有两个特殊的符号 <code>t</code> 和 <code>nil</code> 也可以看成是自求值表达式。</p>
-</li>
-<li>
-<p>第二种表达式是符号。符号的求值结果就是符号的值。如果它没有值，就会出现 void-variable 的错误。</p>
-</li>
-<li>
-<p>第三种表达式是列表表达式。而列表表达式又可以根据第一个元素分为函数调用、宏调用和特殊表达式（special form）三种。列表的第一个表达式如果是一个符号，解释器会查找这个表达式的函数值。</p>
-<ul>
-<li>
-<p>如果函数值是另一个符号，则会继续查找这个符号的函数值。这称为“symbol function indirection”。最后直到某个符号的函数值是一个 lisp 函数（lambda 表达式）、byte-code 函数、原子函数（primitive function）、宏、特殊表达式或 autoload 对象。如果不是这些类型，比如某个符号的函数值是前面出现的某个符号导致无限循环，或者某个符号函数值为空，都会导致一个错误 invalid-function。</p>
-<p>这个函数显示 indirection function</p>
-  <figure class="highlight lisp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs lisp">(<span class="hljs-name">symbol-function</span> 'car)                  <span class="hljs-comment">; =&gt; #&lt;subr car&gt;</span><br>(<span class="hljs-name">fset</span> 'first 'car)                      <span class="hljs-comment">; =&gt; car</span><br>(<span class="hljs-name">fset</span> 'erste 'first)                    <span class="hljs-comment">; =&gt; first</span><br>(<span class="hljs-name">erste</span> '(<span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">3</span>))                        <span class="hljs-comment">; =&gt; 1</span><br></code></pre></div></td></tr></table></figure>
-</li>
-<li>
-<p>如果第一个元素是一个宏对象，列表里的其它元素不会立即求值，而是根据宏定义进行扩展。如果扩展后还是一个宏调用，则会继续扩展下去，直到扩展的结果不再是一个宏调用为止。例如：</p>
-  <figure class="highlight lisp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs lisp">(<span class="hljs-name">defmacro</span> cadr (<span class="hljs-name">x</span>)<br>  (<span class="hljs-name">list</span> 'car (<span class="hljs-name">list</span> 'cdr x)))<br></code></pre></div></td></tr></table></figure>
-<p>这样 <code>(cadr (assq 'handler list))</code> 扩展后成为 <code>(car (cdr (assq 'handler list)))</code>。</p>
-</li>
-<li>
-<p>第一个元素如果是一个特殊表达式时，它的参数可能并不会全求值。这些特殊表达式通常是用于控制结构或者变量绑定。每个特殊表达式都有对应的求值规则。这在下面会提到。</p>
-</li>
-</ul>
-</li>
-</ul>
-<p>最后用这个伪代码来说明一下 elisp 中的求值规则：</p>
-<figure class="highlight lisp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs lisp">(<span class="hljs-name">defun</span> (<span class="hljs-name">eval</span> exp)<br>  (<span class="hljs-name">cond</span><br>   ((<span class="hljs-name">numberp</span> exp) exp)<br>   ((<span class="hljs-name">stringp</span> exp) exp)<br>   ((<span class="hljs-name">arrayp</span> exp) exp)<br>   ((<span class="hljs-name">symbolp</span> exp) (<span class="hljs-name">symbol-value</span> exp))<br>   ((<span class="hljs-name">special-form-p</span> (<span class="hljs-name">car</span> exp))<br>    (<span class="hljs-name">eval-special-form</span> exp))<br>   ((<span class="hljs-name">fboundp</span> (<span class="hljs-name">car</span> exp))<br>    (<span class="hljs-name">apply</span> (<span class="hljs-name">car</span> exp) (<span class="hljs-name">cdr</span> exp)))<br>   (<span class="hljs-name">t</span><br>    (<span class="hljs-name">error</span> <span class="hljs-string">"Unknown expression type -- EVAL %S"</span> exp))))<br></code></pre></div></td></tr></table></figure>
-<h2 id="变量"><a class="header-anchor" href="#变量">¶</a>变量</h2>
-<p><strong>当同一个变量名既是全局变量也是局部变量，或者用 <code>let</code> 多层绑定，只有最里层的那个变量是有效的，用 <code>setq</code> 改变的也只是最里层的变量，而不影响外层的变量。</strong><br>
-比如：</p>
-<figure class="highlight lisp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs lisp"><br>(<span class="hljs-name">progn</span><br>  (<span class="hljs-name">setq</span> foo <span class="hljs-string">"I'm global variable!"</span>)<br>  (<span class="hljs-name">let</span> ((<span class="hljs-name">foo</span> <span class="hljs-number">5</span>))<br>    (<span class="hljs-name">message</span> <span class="hljs-string">"foo value is: %S"</span> foo)<br>    (<span class="hljs-name">let</span> (<span class="hljs-name">foo</span>)<br>      (<span class="hljs-name">setq</span> foo <span class="hljs-string">"I'm local variable!"</span>)<br>      (<span class="hljs-name">message</span> foo))<br>    (<span class="hljs-name">message</span> <span class="hljs-string">"foo value is still: %S"</span> foo))<br>  (<span class="hljs-name">message</span> foo))<br></code></pre></div></td></tr></table></figure>
-<blockquote>
-<p>另外需要注意一点的是局部变量的绑定不能超过一定的层数，也就是说，你不能把 <code>foo</code> 用 <code>let</code> 绑定 10000 层。当然普通的函数是不可能写成这样的，但是递归函数就不一定了。限制层数的变量在 <code>max-specpdl-size</code> 中定义。如果你写的递归函数有这个需要的话，可以先设置这个变量的值</p>
-</blockquote>
-<h3 id="buffer-local-变量"><a class="header-anchor" href="#buffer-local-变量">¶</a>buffer-local 变量</h3>
-<p>emacs 能有如此丰富的模式，各个缓冲区之间能不相互冲突，很大程度上要归功于 buffer-local 变量。<br>
-声明一个 buffer-local 的变量可以用 <code>make-variable-buffer-local</code> 或用 <code>make-local-variable</code>。这两个函数的区别在于前者是相当于在所有缓冲区中都产生一个 buffer-local 的变量。而后者只在声明时所在的缓冲区内产生一个局部变量，而其它缓冲区仍然使用的是全局变量。一般来说推荐使用 <code>make-local-variable</code>。</p>
-<ul>
-<li>
-<p><code>with-current-buffer</code> 的使用形式是</p>
-  <figure class="highlight lisp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs lisp">(<span class="hljs-name">with-current-buffer</span> buffer<br>  body)<br></code></pre></div></td></tr></table></figure>
-<p>其中 <code>buffer</code> 可以是一个缓冲区对象，也可以是缓冲区的名字。它的作用是使其中的 <code>body</code> 表达式在指定的缓冲区里执行。</p>
-</li>
-<li>
-<p><code>get-buffer</code> 可以用缓冲区的名字得到对应的缓冲区对象。如果没有这样名字的缓冲区会返回 <code>nil</code>。</p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>笔记</category>
-      </categories>
-      <tags>
-        <tag>编程语言</tag>
-        <tag>Emacs</tag>
-        <tag>Lisp</tag>
-        <tag>笔记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>davfs2 自动挂载</title>
     <url>/2019/08/14/davfs%E8%87%AA%E5%8A%A8%E6%8C%82%E8%BD%BD/</url>
     <content><![CDATA[<h1>davfs2 自动挂载</h1>
@@ -5869,8 +5869,8 @@ cons cell 的读入语法是用 . 分开两个部分，比如：</p>
         <category>笔记</category>
       </categories>
       <tags>
-        <tag>笔记</tag>
         <tag>Windows</tag>
+        <tag>笔记</tag>
         <tag>疑难</tag>
       </tags>
   </entry>
@@ -7383,8 +7383,8 @@ glob 运算符经常用于测试模块 <code>tests</code> 中，这时会将所�
         <category>教程</category>
       </categories>
       <tags>
-        <tag>Linux</tag>
         <tag>bash</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -8535,9 +8535,9 @@ while循环可用于读取键盘信息。下面的例子中，输入信息被设
       </categories>
       <tags>
         <tag>编程语言</tag>
-        <tag>Linux</tag>
         <tag>Shell</tag>
         <tag>bash</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -9932,8 +9932,8 @@ git checkout -- readme.txt后：
         <category>教程</category>
       </categories>
       <tags>
-        <tag>Tmux</tag>
         <tag>Linux</tag>
+        <tag>Tmux</tag>
       </tags>
   </entry>
   <entry>
@@ -10484,6 +10484,179 @@ cond(no)->sub->io</textarea><textarea id="flowchart-0-options" style="display: n
       </tags>
   </entry>
   <entry>
+    <title>《C语言程序设计·现代方法（第二版）》学习笔记 -- 之一</title>
+    <url>/2018/10/18/%E3%80%8AC%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%C2%B7%E7%8E%B0%E4%BB%A3%E6%96%B9%E6%B3%95%EF%BC%88%E7%AC%AC%E4%BA%8C%E7%89%88%EF%BC%89%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80/</url>
+    <content><![CDATA[<h1>《C语言程序设计现代方法第二版》学习笔记一</h1>
+<hr>
+<p>[toc]</p>
+<hr>
+<h2 id="第二章-C语言基本概念"><a class="header-anchor" href="#第二章-C语言基本概念">¶</a>第二章 C语言基本概念</h2>
+<h3 id="2-4-变量和赋值"><a class="header-anchor" href="#2-4-变量和赋值">¶</a>2.4 变量和赋值</h3>
+<h4 id="2-4-5-初始化（P15）"><a class="header-anchor" href="#2-4-5-初始化（P15）">¶</a>2.4.5 初始化（P15）</h4>
+<p>  当程序开始执行时，某些变量会被自动设置为0，而大多数变量则不会。如果试图访问未初始化的变量，可能会得到不可预知的结果。</p>
+<h3 id="2-7-标识符（P19）"><a class="header-anchor" href="#2-7-标识符（P19）">¶</a>2.7 标识符（P19）</h3>
+<p>  标准库中函数的名字只能包含小写字母。</p>
+<h3 id="第二章FAQ（P22-P23）"><a class="header-anchor" href="#第二章FAQ（P22-P23）">¶</a>第二章FAQ（P22~P23）</h3>
+<ol>
+<li>（在C99中）如果main函数声明中的返回类型是<code>int</code>，程序会向操作系统返回0;否则程序会返回一个不确定的值。</li>
+<li>依据C标准，编译器必须用一个空格字符替换每条注释语句。</li>
+<li>传统风格的注释（<code>/*...*/</code>）不允许嵌套;C99注释（以<code>//</code>开头）可以嵌套在传统风格的注释中。</li>
+</ol>
+<hr>
+<h2 id="第三章-格式化输入-输出"><a class="header-anchor" href="#第三章-格式化输入-输出">¶</a>第三章 格式化输入/输出</h2>
+<h3 id="3-1-printf函数"><a class="header-anchor" href="#3-1-printf函数">¶</a>3.1 <code>printf</code>函数</h3>
+<h4 id="3-1-1-转换说明（P28）"><a class="header-anchor" href="#3-1-1-转换说明（P28）">¶</a>3.1.1 转换说明（P28）</h4>
+<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> i;<br>    <span class="hljs-keyword">float</span> x;<br>    <br>    i = <span class="hljs-number">40</span>;<br>    x = <span class="hljs-number">839.21f</span>;<br>    <br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"|%d|%5d|%-5d|%5.3d|n"</span>, i, i, i, );<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"|%10.3f|%10.3e|%-10g|\n"</span>, x, x, x);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>输出：</p>
+<p>|40|   40|40   |  040|</p>
+<p>|   839.210| 8.392e+02|839.21    |</p>
+<h4 id="3-2-1-scanf的工作方法（P30）"><a class="header-anchor" href="#3-2-1-scanf的工作方法（P30）">¶</a>3.2.1 <code>scanf</code>的工作方法（P30）</h4>
+<p>  对于格式串中的第一个转换说明，<code>scanf</code>函数从输入的数据中定位适当类型的项，并在必要时跳过空格。然后，<code>scanf</code>函数诗篇数据项，并且在遇到 <strong>不可能属于此项的字符（笔记：如果不可能属于此项的字符为本次读取的第一个字符，则<code>scanf</code>立即停止。否则将此字符放回原位，在下次读取时作为第一个读取的字符。参考P31例子）</strong> 时停止。如果读入数据项成功，那么<code>scanf</code>函数会继续处理格式串的剩余部分；如果某一项不能成功读入，那么<code>scanf</code>函数将不再查看格式串的剩余部分（或余下的输入数据）而立即返回。</p>
+<p>  在寻找数的起始位置时，<code>scanf</code>函数会忽略空白字符。因此，我们可以把数字放在同一行或者分散在几行内输入。</p>
+<h4 id="3-2-3易混淆的printf函数和scanf函数（P32）"><a class="header-anchor" href="#3-2-3易混淆的printf函数和scanf函数（P32）">¶</a>3.2.3易混淆的<code>printf</code>函数和<code>scanf</code>函数（P32）</h4>
+<p>  <code>printf</code>格式串结党以<code>\n</code>结尾，但是在<code>scanf</code>格式串末尾旋转换行符通常是一个坏主意。对<code>scanf</code>函数来说，格式串中的换行符等价于空格，两者都会引发<code>scanf</code>函数提前进入下一个非空白字符。例如，如果格式串是&quot;<code>%d\n</code>&quot;，那么函数将跳过空白字符，读取一个整数，然后跳到下一个非空白字符处。像这样的格式串可能会导致交互式程序一直“挂起”直到用户输入一个非空白字符为止。</p>
+<h3 id="第三章FAQ（P33）"><a class="header-anchor" href="#第三章FAQ（P33）">¶</a>第三章FAQ（P33）</h3>
+<p>  <code>%i</code>与<code>%d</code>区别：<code>%i</code>可以为十进制、八进制（0开头）、十六进制（0x或0X开头）的数，<code>%d</code>只识别十进制数。</p>
+<hr>
+<h2 id="第四章-表达式"><a class="header-anchor" href="#第四章-表达式">¶</a>第四章 表达式</h2>
+<h3 id="4-2-赋值运算符"><a class="header-anchor" href="#4-2-赋值运算符">¶</a>4.2 赋值运算符</h3>
+<h4 id="4-2-1简单赋值（P40）"><a class="header-anchor" href="#4-2-1简单赋值（P40）">¶</a>4.2.1简单赋值（P40）</h4>
+<p>  大多数C语言运算符不会改变操作数的值，但是也有一些会改变。由于这类运算符所做的不再仅仅是计算出值，所以称它们有副作用。如<code>i = 0</code>求值产生的结果为0，并（作为副作用）把0值赋给i。</p>
+<h4 id="4-2-3复合赋值（P41）"><a class="header-anchor" href="#4-2-3复合赋值（P41）">¶</a>4.2.3复合赋值（P41）</h4>
+<ol>
+<li>
+<p>在极少数情况下，由于v自身的副作用，<code>v += e</code>不等同于<code>v = v + e</code> <strong>（笔记：<code>v += e</code>中v的值只计算一次，而<code>v = v + e</code>中v的值会计算两次。如：<code>a[i++] += 2</code>中i会自增一次，<code>a[i++] = a[i++] + 2</code>中i会自增两次）</strong>。类似的说明也适用于其它复合赋值运算符。</p>
+</li>
+<li>
+<p>复合赋值运算符有着和=运算符一样的特性。特别是，它们都是右结合的，所以</p>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C">i += j += k<br></code></pre></div></td></tr></table></figure>
+<p>意味着</p>
+<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C">i += (j += k)<br></code></pre></div></td></tr></table></figure>
+<h3 id="4-5表达式语句（P45）"><a class="header-anchor" href="#4-5表达式语句（P45）">¶</a>4.5表达式语句（P45）</h3>
+<p>  任何表达式都可以用作语句。<code>i * j - 1</code>因为i和j没有变化，所以这条语句没有任何作用。</p>
+<hr>
+<h2 id="第五章-选择语句"><a class="header-anchor" href="#第五章-选择语句">¶</a>第五章 选择语句</h2>
+<h3 id="5-2-if语句"><a class="header-anchor" href="#5-2-if语句">¶</a>5.2 <code>if</code>语句</h3>
+<h4 id="5-2-4-“悬空else”的问题（P56）"><a class="header-anchor" href="#5-2-4-“悬空else”的问题（P56）">¶</a>5.2.4 “悬空<code>else</code>”的问题（P56）</h4>
+<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-keyword">if</span> (y != <span class="hljs-number">0</span>)<br>    <span class="hljs-keyword">if</span> (x != <span class="hljs-number">0</span>)<br>        result = x / y;<br><span class="hljs-keyword">else</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Error: y is equal to 0\n"</span>);<br></code></pre></div></td></tr></table></figure>
+<p>  C语言遵循的规则是<code>else</code>子句应该属于离它最近的且还未和其它<code>else</code>匹配的<code>if</code>语句。</p>
+<h4 id="5-2-7-C99中的布尔值（P58）"><a class="header-anchor" href="#5-2-7-C99中的布尔值（P58）">¶</a>5.2.7 C99中的布尔值（P58）</h4>
+<p>  在C99中提供了<code>_Bool</code>型，<font color=red><strong><code>_Bool</code>是无符号整型，但只能赋值为0或1，一般来说，往<code>_Bool</code>变量中存储非零值会导致变量赋值为1</strong></font>。<br>
+  除了<code>_Bool</code>类型的宝座，C99还提供了一个新的头&lt;stdbool.h&gt;。该问提供了<code>bool</code>宏来代表<code>_Bool</code>，<code>true</code>来代表1，<code>false</code>来代表0。</p>
+<h3 id="5-3-switch语句"><a class="header-anchor" href="#5-3-switch语句">¶</a>5.3 <code>switch</code>语句</h3>
+<ol>
+<li><code>switch</code>后边必须跟着由圆括号括起来的<font color=red><strong>整型</strong></font>表达式，不能用浮点数和字符串。</li>
+<li><code>case</code>后跟<font color=red><strong>常量表达式</strong></font>，如<code>5 + 10</code>。</li>
+</ol>
+<h3 id="第五章FAQ（P63-P64）"><a class="header-anchor" href="#第五章FAQ（P63-P64）">¶</a>第五章FAQ（P63~P64）</h3>
+<ol>
+<li>当<code>int</code>型和<code>float</code>型的值混合在一个条件表达式中时（如<code>i &gt; 0 ? i : f</code>）表达式类型为<code>float</code>型。如果<code>i &gt; 0</code>为真，那么变量i转化为<code>float</code>型后的值就是表达式的值。</li>
+<li>C89标准指出，以下划线后跟一个大写字母开头的名字是保留字，程序员不应该使用。</li>
+</ol>
+<hr>
+<h2 id="第六章-循环"><a class="header-anchor" href="#第六章-循环">¶</a>第六章 循环</h2>
+<h3 id="6-3-for语句"><a class="header-anchor" href="#6-3-for语句">¶</a>6.3 <code>for</code>语句</h3>
+<h4 id="6-3-4-逗号运算符（P76）"><a class="header-anchor" href="#6-3-4-逗号运算符（P76）">¶</a>6.3.4 逗号运算符（P76）</h4>
+<ol>
+<li>形式：表达式1, 表达式2</li>
+<li>实现方式：第一步，计算表达式1并且扔掉计算出的值。第二步，计算表达式2，把这个值作为整个表达式的值。</li>
+<li>例如：<code>i = 1</code>, <code>j = 2</code>, <code>k = i + j</code>解释为<code>((i = 1), (j = 2)), (k = (i + j))</code></li>
+</ol>
+<h3 id="6-4-退出循环"><a class="header-anchor" href="#6-4-退出循环">¶</a>6.4 退出循环</h3>
+<h4 id="6-4-3-goto语句（P79）"><a class="header-anchor" href="#6-4-3-goto语句（P79）">¶</a>6.4.3 <code>goto</code>语句（P79）</h4>
+<ol>
+<li><code>break</code>语句的目标是包含该语句的循环结束之<font color=red><strong>后</strong></font>的那一点，而<code>continue</code>语句的目标是循环结束之<font color=red><strong>前</strong></font>的那一点。</li>
+<li><code>goto</code>语句不可以用于绕过变长数组。</li>
+</ol>
+<h3 id="第六章FAQ（P83-P84）"><a class="header-anchor" href="#第六章FAQ（P83-P84）">¶</a>第六章FAQ（P83~P84）</h3>
+<ol>
+<li>早期编译器中无限循环<code>for(;;)</code>比<code>while(1)</code>高效；新编译器性能无差别。</li>
+<li>空语句可以有如下用途：</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C">&#123;<br>    ...<br>    <span class="hljs-keyword">goto</span> end_of_stmt;<br>    end_of_stmt: ;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<hr>
+<h2 id="第七章-基本类型"><a class="header-anchor" href="#第七章-基本类型">¶</a>第七章 基本类型</h2>
+<h3 id="7-1整数类型（P89"><a class="header-anchor" href="#7-1整数类型（P89">¶</a>7.1整数类型（P89)</h3>
+<p>  <code>short int</code>、<code>int</code>、<code>long int</code>取值范围有可能是一样的。但C标准规定<code>int</code>取值范围不能比<code>short int</code>小，<code>long int</code>取值范围不能比<code>int</code>小。</p>
+<h4 id="7-1-4整数溢出（P91）"><a class="header-anchor" href="#7-1-4整数溢出（P91）">¶</a>7.1.4整数溢出（P91）</h4>
+<ol>
+<li>有符号整数溢出行为未定义。</li>
+<li>无符号整数溢出为对<code>2n</code>取模，其中<code>n</code>是用于存储结果的位数。例如，如果对无符号的16位数65535加1，其结果可以保证为0。</li>
+</ol>
+<h3 id="7-3字符类型"><a class="header-anchor" href="#7-3字符类型">¶</a>7.3字符类型</h3>
+<h4 id="7-3-1字符操作（P95）"><a class="header-anchor" href="#7-3-1字符操作（P95）">¶</a>7.3.1字符操作（P95）</h4>
+<p>  C语言把字符当作小整数进行处理。</p>
+<h4 id="7-3-7用getchar和putchar读-写字符"><a class="header-anchor" href="#7-3-7用getchar和putchar读-写字符">¶</a>7.3.7用<code>getchar</code>和<code>putchar</code>读/写字符</h4>
+<p>  在同一个程序中混合使用<code>getchr</code>函数和<code>scanf</code>函数时，要注意<code>scanf</code>函数倾向于遗留下它“扫视”过但未读取的字符（包括换行符）。考虑下面程序段：</p>
+<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-built_in">printf</span>(<span class="hljs-string">"Enter an integer: "</span>);<br><span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%d"</span>, &amp;i);<br> <br><span class="hljs-built_in">printf</span>(<span class="hljs-string">"Enter a command: "</span>);<br> <br>command = getchar();<br></code></pre></div></td></tr></table></figure>
+<p>  在读入<code>i</code>的同时，<code>scanf</code>函数调用将会留下没有消耗掉的任意字符，包括（但不限于）换行符。<code>getchar</code>函数随后将取回第一个剩余字符，但这不是我们所希望的结果。</p>
+<h3 id="7-4类型转换（P100）"><a class="header-anchor" href="#7-4类型转换（P100）">¶</a>7.4类型转换（P100）</h3>
+<p>  当发生下列情况时会进行隐匿转换。</p>
+<ul>
+<li>当算术表达式或逻辑表达式中操作数的类型不相同时。（C语言执行所谓的常用算术转换）</li>
+<li>当赋值运算符右侧表达式的类型和左侧变量的类型不匹配时。</li>
+<li>当函数调用中的实参类型与其对应的形参类型不匹配时。</li>
+<li>当<code>return</code>语句中表达式的类型和函数返回值的类型不匹配时。</li>
+</ul>
+<h4 id="7-4-1常用算术转换（P101）"><a class="header-anchor" href="#7-4-1常用算术转换（P101）">¶</a>7.4.1常用算术转换（P101）</h4>
+<ol>
+<li>
+<p>任一操作数是浮点类型的情况。</p>
+<div class="hljs code-wrapper"><pre><code>         long double
+               ^
+               |
+            double
+               ^
+               |
+             float
+</code></pre></div>
+</li>
+<li>
+<p>两个操作数的类型都不是浮点类型的情况。</p>
+<div class="hljs code-wrapper"><pre><code>        unsigned long int
+                 ^
+                 |
+              long int
+                 ^
+                 |
+           unsigned int
+                 ^
+                 |
+                int
+</code></pre></div>
+</li>
+</ol>
+<p>  有一种特殊情况，只有在<code>long int</code>类型和<code>unsigned int</code>类型长度（比如32位）相同时才会发生。在这类情况下，如果一个操作数的类型是<code>long int</code>，而另一个的类型是<code>unsiged int</code>，那么两个操作数都会转换成<code>unsigned long int</code>类型。C语言把（类型名）视为一元运算符。一元运算符的优先级高于二元运算符，所以编译器会把表达。</p>
+<p>  当把有符号操作数和无符号操作数组合时，把有符号操作数“转换”成无符号的值。转换过程中需要加上或者减去<code>n + 1</code>的倍数，其中<code>n</code>是无符号类型能表示的最大值。这条规则可能会导致某此隐蔽的编程错误。</p>
+<p>  假设<code>int</code>类型的变量<code>i</code>的值为-10，而<code>unsigned int</code>类型的变量<code>u</code>的值为10。如果用&lt;运算符比较变量<code>i</code>和变量<code>u</code>，那么期望的结果应该是1（真）。但是，在比较前，变量<code>i</code>转换成为<code>unsigned int</code>类型。因为负数不能被表示成无符号整数，所以转换后的值不再为-10，而是加上4294967296的结果（假定4294967296是最大的无符号整数），即4294967286。因而<code>i &lt; u</code>比较的结果将为0。有些编译器会在程序试图比较有符号与无符号时给出一条类似“comparison between signed and unsigned”的警告消息。</p>
+<p>  由于此类陷阱的存在，所以最好尽量避免使用无符号整数，特别是不要把它和有符号整数混合使用。</p>
+<h4 id="7-4-2赋值过程中的转换（P102）"><a class="header-anchor" href="#7-4-2赋值过程中的转换（P102）">¶</a>7.4.2赋值过程中的转换（P102）</h4>
+<p>  把某种类型的值赋给类型更狭小的变量时，如果该值在变量类型范围之外，那么将会得到无意义的结果（甚至更糟）。<br>
+  如果浮点常量被赋值给<code>float</code>型变量时，一个很好的方法是在浮点常量尾部加上后辍<code>f</code>。</p>
+<h4 id="7-4-4强制类型转换（P103）"><a class="header-anchor" href="#7-4-4强制类型转换（P103）">¶</a>7.4.4强制类型转换（P103）</h4>
+<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-keyword">float</span> quotient;<br><span class="hljs-keyword">int</span> dividend, divisor;<br> <br>quotient = (<span class="hljs-keyword">float</span>) dividend / divisor;<br></code></pre></div></td></tr></table></figure>
+<p>  变量<code>divisor</code>不需要进行强制类型转换，因为把变量<code>dividend</code>强制錾成<code>float</code>类型会迫使编译器把<code>divisor</code>也转换成<code>float</code>类型。C语言把（类型名）视为一元运算符。一元运算符的优先级高于二元运算符，所以编译器会把表达式</p>
+<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C">(<span class="hljs-keyword">float</span>) dividend / divisor<br></code></pre></div></td></tr></table></figure>
+<p>  解释为</p>
+<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C">((<span class="hljs-keyword">float</span>) dividend) / divisor<br></code></pre></div></td></tr></table></figure>
+<h3 id="7-6-sizeof运算符（P106）"><a class="header-anchor" href="#7-6-sizeof运算符（P106）">¶</a>7.6 <code>sizeof</code>运算符（P106）</h3>
+<p>  显示<code>sizeof</code>值时要注意，因为<code>sizeof</code>表达式的类型是<code>size_t</code>，这是一种由实现定义的类型。在C89中，最好在显示前把表达式的值转换成一种已知的类型。<code>size_t</code>一定是无符号整型，所以最安全的方法是把<code>sizeof</code>表达式强制转换成<code>unsigned long</code>类型。(C89中最大的无符号类型)，然后使用转换说明答题<code>%lu</code>显示。</p>
+<p>  在C99中，<code>size_t</code>类型可以比<code>unsigned long</code>更长。但C99中的<code>printf</code>可以直接显示<code>size_t</code>类型值而不需要强制转换。方法是在转换说明中的一般整数（通常用<code>u</code>）代码前使用字母<code>z</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-built_in">printf</span>(<span class="hljs-string">"Size of int: %zu\n"</span>, <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">int</span>)); <span class="hljs-comment">/* C99 only */</span><br></code></pre></div></td></tr></table></figure>
+<h3 id="第七章FAQ（P107）"><a class="header-anchor" href="#第七章FAQ（P107）">¶</a>第七章FAQ（P107）</h3>
+<p>  只要有符号整数的值不是负值，就可以用<code>%o</code>和<code>%x</code>显示。这些转换导致<code>printf</code>函数把有符号整数看成无符号的；换句话说，<code>printf</code>函数将假设符号位是数的绝对值部分。只要符号位为0，就没问题。如果符号位为1，那么<code>printf</code>函数将显示出一个走出预期的大数。没有直接的方法可以书写负数的八进制或十六进制形式。幸运的是，需要这样做的情况非常少。当然，我们可以判定这个数是否是负数，然后自己显示一个负号：</p>
+<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-keyword">if</span> (i &lt; <span class="hljs-number">0</span>)<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"-%x"</span>, -i);<br><span class="hljs-keyword">else</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%x"</span>, i);<br></code></pre></div></td></tr></table></figure>]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>编程语言</tag>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>《C语言程序设计·现代方法（第二版）》学习笔记 -- 之二</title>
     <url>/2018/10/18/%E3%80%8AC%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%C2%B7%E7%8E%B0%E4%BB%A3%E6%96%B9%E6%B3%95%EF%BC%88%E7%AC%AC%E4%BA%8C%E7%89%88%EF%BC%89%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%8C/</url>
     <content><![CDATA[<h1>《C语言程序设计现代方法第二版》学习笔记二</h1>
@@ -10865,179 +11038,6 @@ cond(no)->sub->io</textarea><textarea id="flowchart-0-options" style="display: n
   <font color=red><strong>如果在文件内把这个<code>inline</code>函数声明为<code>extern</code>，则这个<code>inline</code>函数的表现就和gcc的<code>inline</code>一致了：这个函数即成为一个“external definition”（可以简单理解为全局函数）：可以在外部被调用，并且在程序内仅能存在一个这样名字的定义。</strong></font></p>
 <p>5. <code>extern inline</code>（C99标准）：C99标准没有见到<code>extern inline</code>的用法。</p>
 ]]></content>
-      <categories>
-        <category>笔记</category>
-      </categories>
-      <tags>
-        <tag>编程语言</tag>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>《C语言程序设计·现代方法（第二版）》学习笔记 -- 之一</title>
-    <url>/2018/10/18/%E3%80%8AC%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%C2%B7%E7%8E%B0%E4%BB%A3%E6%96%B9%E6%B3%95%EF%BC%88%E7%AC%AC%E4%BA%8C%E7%89%88%EF%BC%89%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80/</url>
-    <content><![CDATA[<h1>《C语言程序设计现代方法第二版》学习笔记一</h1>
-<hr>
-<p>[toc]</p>
-<hr>
-<h2 id="第二章-C语言基本概念"><a class="header-anchor" href="#第二章-C语言基本概念">¶</a>第二章 C语言基本概念</h2>
-<h3 id="2-4-变量和赋值"><a class="header-anchor" href="#2-4-变量和赋值">¶</a>2.4 变量和赋值</h3>
-<h4 id="2-4-5-初始化（P15）"><a class="header-anchor" href="#2-4-5-初始化（P15）">¶</a>2.4.5 初始化（P15）</h4>
-<p>  当程序开始执行时，某些变量会被自动设置为0，而大多数变量则不会。如果试图访问未初始化的变量，可能会得到不可预知的结果。</p>
-<h3 id="2-7-标识符（P19）"><a class="header-anchor" href="#2-7-标识符（P19）">¶</a>2.7 标识符（P19）</h3>
-<p>  标准库中函数的名字只能包含小写字母。</p>
-<h3 id="第二章FAQ（P22-P23）"><a class="header-anchor" href="#第二章FAQ（P22-P23）">¶</a>第二章FAQ（P22~P23）</h3>
-<ol>
-<li>（在C99中）如果main函数声明中的返回类型是<code>int</code>，程序会向操作系统返回0;否则程序会返回一个不确定的值。</li>
-<li>依据C标准，编译器必须用一个空格字符替换每条注释语句。</li>
-<li>传统风格的注释（<code>/*...*/</code>）不允许嵌套;C99注释（以<code>//</code>开头）可以嵌套在传统风格的注释中。</li>
-</ol>
-<hr>
-<h2 id="第三章-格式化输入-输出"><a class="header-anchor" href="#第三章-格式化输入-输出">¶</a>第三章 格式化输入/输出</h2>
-<h3 id="3-1-printf函数"><a class="header-anchor" href="#3-1-printf函数">¶</a>3.1 <code>printf</code>函数</h3>
-<h4 id="3-1-1-转换说明（P28）"><a class="header-anchor" href="#3-1-1-转换说明（P28）">¶</a>3.1.1 转换说明（P28）</h4>
-<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> i;<br>    <span class="hljs-keyword">float</span> x;<br>    <br>    i = <span class="hljs-number">40</span>;<br>    x = <span class="hljs-number">839.21f</span>;<br>    <br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"|%d|%5d|%-5d|%5.3d|n"</span>, i, i, i, );<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"|%10.3f|%10.3e|%-10g|\n"</span>, x, x, x);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<p>输出：</p>
-<p>|40|   40|40   |  040|</p>
-<p>|   839.210| 8.392e+02|839.21    |</p>
-<h4 id="3-2-1-scanf的工作方法（P30）"><a class="header-anchor" href="#3-2-1-scanf的工作方法（P30）">¶</a>3.2.1 <code>scanf</code>的工作方法（P30）</h4>
-<p>  对于格式串中的第一个转换说明，<code>scanf</code>函数从输入的数据中定位适当类型的项，并在必要时跳过空格。然后，<code>scanf</code>函数诗篇数据项，并且在遇到 <strong>不可能属于此项的字符（笔记：如果不可能属于此项的字符为本次读取的第一个字符，则<code>scanf</code>立即停止。否则将此字符放回原位，在下次读取时作为第一个读取的字符。参考P31例子）</strong> 时停止。如果读入数据项成功，那么<code>scanf</code>函数会继续处理格式串的剩余部分；如果某一项不能成功读入，那么<code>scanf</code>函数将不再查看格式串的剩余部分（或余下的输入数据）而立即返回。</p>
-<p>  在寻找数的起始位置时，<code>scanf</code>函数会忽略空白字符。因此，我们可以把数字放在同一行或者分散在几行内输入。</p>
-<h4 id="3-2-3易混淆的printf函数和scanf函数（P32）"><a class="header-anchor" href="#3-2-3易混淆的printf函数和scanf函数（P32）">¶</a>3.2.3易混淆的<code>printf</code>函数和<code>scanf</code>函数（P32）</h4>
-<p>  <code>printf</code>格式串结党以<code>\n</code>结尾，但是在<code>scanf</code>格式串末尾旋转换行符通常是一个坏主意。对<code>scanf</code>函数来说，格式串中的换行符等价于空格，两者都会引发<code>scanf</code>函数提前进入下一个非空白字符。例如，如果格式串是&quot;<code>%d\n</code>&quot;，那么函数将跳过空白字符，读取一个整数，然后跳到下一个非空白字符处。像这样的格式串可能会导致交互式程序一直“挂起”直到用户输入一个非空白字符为止。</p>
-<h3 id="第三章FAQ（P33）"><a class="header-anchor" href="#第三章FAQ（P33）">¶</a>第三章FAQ（P33）</h3>
-<p>  <code>%i</code>与<code>%d</code>区别：<code>%i</code>可以为十进制、八进制（0开头）、十六进制（0x或0X开头）的数，<code>%d</code>只识别十进制数。</p>
-<hr>
-<h2 id="第四章-表达式"><a class="header-anchor" href="#第四章-表达式">¶</a>第四章 表达式</h2>
-<h3 id="4-2-赋值运算符"><a class="header-anchor" href="#4-2-赋值运算符">¶</a>4.2 赋值运算符</h3>
-<h4 id="4-2-1简单赋值（P40）"><a class="header-anchor" href="#4-2-1简单赋值（P40）">¶</a>4.2.1简单赋值（P40）</h4>
-<p>  大多数C语言运算符不会改变操作数的值，但是也有一些会改变。由于这类运算符所做的不再仅仅是计算出值，所以称它们有副作用。如<code>i = 0</code>求值产生的结果为0，并（作为副作用）把0值赋给i。</p>
-<h4 id="4-2-3复合赋值（P41）"><a class="header-anchor" href="#4-2-3复合赋值（P41）">¶</a>4.2.3复合赋值（P41）</h4>
-<ol>
-<li>
-<p>在极少数情况下，由于v自身的副作用，<code>v += e</code>不等同于<code>v = v + e</code> <strong>（笔记：<code>v += e</code>中v的值只计算一次，而<code>v = v + e</code>中v的值会计算两次。如：<code>a[i++] += 2</code>中i会自增一次，<code>a[i++] = a[i++] + 2</code>中i会自增两次）</strong>。类似的说明也适用于其它复合赋值运算符。</p>
-</li>
-<li>
-<p>复合赋值运算符有着和=运算符一样的特性。特别是，它们都是右结合的，所以</p>
-</li>
-</ol>
-<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C">i += j += k<br></code></pre></div></td></tr></table></figure>
-<p>意味着</p>
-<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C">i += (j += k)<br></code></pre></div></td></tr></table></figure>
-<h3 id="4-5表达式语句（P45）"><a class="header-anchor" href="#4-5表达式语句（P45）">¶</a>4.5表达式语句（P45）</h3>
-<p>  任何表达式都可以用作语句。<code>i * j - 1</code>因为i和j没有变化，所以这条语句没有任何作用。</p>
-<hr>
-<h2 id="第五章-选择语句"><a class="header-anchor" href="#第五章-选择语句">¶</a>第五章 选择语句</h2>
-<h3 id="5-2-if语句"><a class="header-anchor" href="#5-2-if语句">¶</a>5.2 <code>if</code>语句</h3>
-<h4 id="5-2-4-“悬空else”的问题（P56）"><a class="header-anchor" href="#5-2-4-“悬空else”的问题（P56）">¶</a>5.2.4 “悬空<code>else</code>”的问题（P56）</h4>
-<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-keyword">if</span> (y != <span class="hljs-number">0</span>)<br>    <span class="hljs-keyword">if</span> (x != <span class="hljs-number">0</span>)<br>        result = x / y;<br><span class="hljs-keyword">else</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Error: y is equal to 0\n"</span>);<br></code></pre></div></td></tr></table></figure>
-<p>  C语言遵循的规则是<code>else</code>子句应该属于离它最近的且还未和其它<code>else</code>匹配的<code>if</code>语句。</p>
-<h4 id="5-2-7-C99中的布尔值（P58）"><a class="header-anchor" href="#5-2-7-C99中的布尔值（P58）">¶</a>5.2.7 C99中的布尔值（P58）</h4>
-<p>  在C99中提供了<code>_Bool</code>型，<font color=red><strong><code>_Bool</code>是无符号整型，但只能赋值为0或1，一般来说，往<code>_Bool</code>变量中存储非零值会导致变量赋值为1</strong></font>。<br>
-  除了<code>_Bool</code>类型的宝座，C99还提供了一个新的头&lt;stdbool.h&gt;。该问提供了<code>bool</code>宏来代表<code>_Bool</code>，<code>true</code>来代表1，<code>false</code>来代表0。</p>
-<h3 id="5-3-switch语句"><a class="header-anchor" href="#5-3-switch语句">¶</a>5.3 <code>switch</code>语句</h3>
-<ol>
-<li><code>switch</code>后边必须跟着由圆括号括起来的<font color=red><strong>整型</strong></font>表达式，不能用浮点数和字符串。</li>
-<li><code>case</code>后跟<font color=red><strong>常量表达式</strong></font>，如<code>5 + 10</code>。</li>
-</ol>
-<h3 id="第五章FAQ（P63-P64）"><a class="header-anchor" href="#第五章FAQ（P63-P64）">¶</a>第五章FAQ（P63~P64）</h3>
-<ol>
-<li>当<code>int</code>型和<code>float</code>型的值混合在一个条件表达式中时（如<code>i &gt; 0 ? i : f</code>）表达式类型为<code>float</code>型。如果<code>i &gt; 0</code>为真，那么变量i转化为<code>float</code>型后的值就是表达式的值。</li>
-<li>C89标准指出，以下划线后跟一个大写字母开头的名字是保留字，程序员不应该使用。</li>
-</ol>
-<hr>
-<h2 id="第六章-循环"><a class="header-anchor" href="#第六章-循环">¶</a>第六章 循环</h2>
-<h3 id="6-3-for语句"><a class="header-anchor" href="#6-3-for语句">¶</a>6.3 <code>for</code>语句</h3>
-<h4 id="6-3-4-逗号运算符（P76）"><a class="header-anchor" href="#6-3-4-逗号运算符（P76）">¶</a>6.3.4 逗号运算符（P76）</h4>
-<ol>
-<li>形式：表达式1, 表达式2</li>
-<li>实现方式：第一步，计算表达式1并且扔掉计算出的值。第二步，计算表达式2，把这个值作为整个表达式的值。</li>
-<li>例如：<code>i = 1</code>, <code>j = 2</code>, <code>k = i + j</code>解释为<code>((i = 1), (j = 2)), (k = (i + j))</code></li>
-</ol>
-<h3 id="6-4-退出循环"><a class="header-anchor" href="#6-4-退出循环">¶</a>6.4 退出循环</h3>
-<h4 id="6-4-3-goto语句（P79）"><a class="header-anchor" href="#6-4-3-goto语句（P79）">¶</a>6.4.3 <code>goto</code>语句（P79）</h4>
-<ol>
-<li><code>break</code>语句的目标是包含该语句的循环结束之<font color=red><strong>后</strong></font>的那一点，而<code>continue</code>语句的目标是循环结束之<font color=red><strong>前</strong></font>的那一点。</li>
-<li><code>goto</code>语句不可以用于绕过变长数组。</li>
-</ol>
-<h3 id="第六章FAQ（P83-P84）"><a class="header-anchor" href="#第六章FAQ（P83-P84）">¶</a>第六章FAQ（P83~P84）</h3>
-<ol>
-<li>早期编译器中无限循环<code>for(;;)</code>比<code>while(1)</code>高效；新编译器性能无差别。</li>
-<li>空语句可以有如下用途：</li>
-</ol>
-<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C">&#123;<br>    ...<br>    <span class="hljs-keyword">goto</span> end_of_stmt;<br>    end_of_stmt: ;<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<hr>
-<h2 id="第七章-基本类型"><a class="header-anchor" href="#第七章-基本类型">¶</a>第七章 基本类型</h2>
-<h3 id="7-1整数类型（P89"><a class="header-anchor" href="#7-1整数类型（P89">¶</a>7.1整数类型（P89)</h3>
-<p>  <code>short int</code>、<code>int</code>、<code>long int</code>取值范围有可能是一样的。但C标准规定<code>int</code>取值范围不能比<code>short int</code>小，<code>long int</code>取值范围不能比<code>int</code>小。</p>
-<h4 id="7-1-4整数溢出（P91）"><a class="header-anchor" href="#7-1-4整数溢出（P91）">¶</a>7.1.4整数溢出（P91）</h4>
-<ol>
-<li>有符号整数溢出行为未定义。</li>
-<li>无符号整数溢出为对<code>2n</code>取模，其中<code>n</code>是用于存储结果的位数。例如，如果对无符号的16位数65535加1，其结果可以保证为0。</li>
-</ol>
-<h3 id="7-3字符类型"><a class="header-anchor" href="#7-3字符类型">¶</a>7.3字符类型</h3>
-<h4 id="7-3-1字符操作（P95）"><a class="header-anchor" href="#7-3-1字符操作（P95）">¶</a>7.3.1字符操作（P95）</h4>
-<p>  C语言把字符当作小整数进行处理。</p>
-<h4 id="7-3-7用getchar和putchar读-写字符"><a class="header-anchor" href="#7-3-7用getchar和putchar读-写字符">¶</a>7.3.7用<code>getchar</code>和<code>putchar</code>读/写字符</h4>
-<p>  在同一个程序中混合使用<code>getchr</code>函数和<code>scanf</code>函数时，要注意<code>scanf</code>函数倾向于遗留下它“扫视”过但未读取的字符（包括换行符）。考虑下面程序段：</p>
-<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-built_in">printf</span>(<span class="hljs-string">"Enter an integer: "</span>);<br><span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%d"</span>, &amp;i);<br> <br><span class="hljs-built_in">printf</span>(<span class="hljs-string">"Enter a command: "</span>);<br> <br>command = getchar();<br></code></pre></div></td></tr></table></figure>
-<p>  在读入<code>i</code>的同时，<code>scanf</code>函数调用将会留下没有消耗掉的任意字符，包括（但不限于）换行符。<code>getchar</code>函数随后将取回第一个剩余字符，但这不是我们所希望的结果。</p>
-<h3 id="7-4类型转换（P100）"><a class="header-anchor" href="#7-4类型转换（P100）">¶</a>7.4类型转换（P100）</h3>
-<p>  当发生下列情况时会进行隐匿转换。</p>
-<ul>
-<li>当算术表达式或逻辑表达式中操作数的类型不相同时。（C语言执行所谓的常用算术转换）</li>
-<li>当赋值运算符右侧表达式的类型和左侧变量的类型不匹配时。</li>
-<li>当函数调用中的实参类型与其对应的形参类型不匹配时。</li>
-<li>当<code>return</code>语句中表达式的类型和函数返回值的类型不匹配时。</li>
-</ul>
-<h4 id="7-4-1常用算术转换（P101）"><a class="header-anchor" href="#7-4-1常用算术转换（P101）">¶</a>7.4.1常用算术转换（P101）</h4>
-<ol>
-<li>
-<p>任一操作数是浮点类型的情况。</p>
-<div class="hljs code-wrapper"><pre><code>         long double
-               ^
-               |
-            double
-               ^
-               |
-             float
-</code></pre></div>
-</li>
-<li>
-<p>两个操作数的类型都不是浮点类型的情况。</p>
-<div class="hljs code-wrapper"><pre><code>        unsigned long int
-                 ^
-                 |
-              long int
-                 ^
-                 |
-           unsigned int
-                 ^
-                 |
-                int
-</code></pre></div>
-</li>
-</ol>
-<p>  有一种特殊情况，只有在<code>long int</code>类型和<code>unsigned int</code>类型长度（比如32位）相同时才会发生。在这类情况下，如果一个操作数的类型是<code>long int</code>，而另一个的类型是<code>unsiged int</code>，那么两个操作数都会转换成<code>unsigned long int</code>类型。C语言把（类型名）视为一元运算符。一元运算符的优先级高于二元运算符，所以编译器会把表达。</p>
-<p>  当把有符号操作数和无符号操作数组合时，把有符号操作数“转换”成无符号的值。转换过程中需要加上或者减去<code>n + 1</code>的倍数，其中<code>n</code>是无符号类型能表示的最大值。这条规则可能会导致某此隐蔽的编程错误。</p>
-<p>  假设<code>int</code>类型的变量<code>i</code>的值为-10，而<code>unsigned int</code>类型的变量<code>u</code>的值为10。如果用&lt;运算符比较变量<code>i</code>和变量<code>u</code>，那么期望的结果应该是1（真）。但是，在比较前，变量<code>i</code>转换成为<code>unsigned int</code>类型。因为负数不能被表示成无符号整数，所以转换后的值不再为-10，而是加上4294967296的结果（假定4294967296是最大的无符号整数），即4294967286。因而<code>i &lt; u</code>比较的结果将为0。有些编译器会在程序试图比较有符号与无符号时给出一条类似“comparison between signed and unsigned”的警告消息。</p>
-<p>  由于此类陷阱的存在，所以最好尽量避免使用无符号整数，特别是不要把它和有符号整数混合使用。</p>
-<h4 id="7-4-2赋值过程中的转换（P102）"><a class="header-anchor" href="#7-4-2赋值过程中的转换（P102）">¶</a>7.4.2赋值过程中的转换（P102）</h4>
-<p>  把某种类型的值赋给类型更狭小的变量时，如果该值在变量类型范围之外，那么将会得到无意义的结果（甚至更糟）。<br>
-  如果浮点常量被赋值给<code>float</code>型变量时，一个很好的方法是在浮点常量尾部加上后辍<code>f</code>。</p>
-<h4 id="7-4-4强制类型转换（P103）"><a class="header-anchor" href="#7-4-4强制类型转换（P103）">¶</a>7.4.4强制类型转换（P103）</h4>
-<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-keyword">float</span> quotient;<br><span class="hljs-keyword">int</span> dividend, divisor;<br> <br>quotient = (<span class="hljs-keyword">float</span>) dividend / divisor;<br></code></pre></div></td></tr></table></figure>
-<p>  变量<code>divisor</code>不需要进行强制类型转换，因为把变量<code>dividend</code>强制錾成<code>float</code>类型会迫使编译器把<code>divisor</code>也转换成<code>float</code>类型。C语言把（类型名）视为一元运算符。一元运算符的优先级高于二元运算符，所以编译器会把表达式</p>
-<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C">(<span class="hljs-keyword">float</span>) dividend / divisor<br></code></pre></div></td></tr></table></figure>
-<p>  解释为</p>
-<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C">((<span class="hljs-keyword">float</span>) dividend) / divisor<br></code></pre></div></td></tr></table></figure>
-<h3 id="7-6-sizeof运算符（P106）"><a class="header-anchor" href="#7-6-sizeof运算符（P106）">¶</a>7.6 <code>sizeof</code>运算符（P106）</h3>
-<p>  显示<code>sizeof</code>值时要注意，因为<code>sizeof</code>表达式的类型是<code>size_t</code>，这是一种由实现定义的类型。在C89中，最好在显示前把表达式的值转换成一种已知的类型。<code>size_t</code>一定是无符号整型，所以最安全的方法是把<code>sizeof</code>表达式强制转换成<code>unsigned long</code>类型。(C89中最大的无符号类型)，然后使用转换说明答题<code>%lu</code>显示。</p>
-<p>  在C99中，<code>size_t</code>类型可以比<code>unsigned long</code>更长。但C99中的<code>printf</code>可以直接显示<code>size_t</code>类型值而不需要强制转换。方法是在转换说明中的一般整数（通常用<code>u</code>）代码前使用字母<code>z</code>：</p>
-<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-built_in">printf</span>(<span class="hljs-string">"Size of int: %zu\n"</span>, <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">int</span>)); <span class="hljs-comment">/* C99 only */</span><br></code></pre></div></td></tr></table></figure>
-<h3 id="第七章FAQ（P107）"><a class="header-anchor" href="#第七章FAQ（P107）">¶</a>第七章FAQ（P107）</h3>
-<p>  只要有符号整数的值不是负值，就可以用<code>%o</code>和<code>%x</code>显示。这些转换导致<code>printf</code>函数把有符号整数看成无符号的；换句话说，<code>printf</code>函数将假设符号位是数的绝对值部分。只要符号位为0，就没问题。如果符号位为1，那么<code>printf</code>函数将显示出一个走出预期的大数。没有直接的方法可以书写负数的八进制或十六进制形式。幸运的是，需要这样做的情况非常少。当然，我们可以判定这个数是否是负数，然后自己显示一个负号：</p>
-<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-keyword">if</span> (i &lt; <span class="hljs-number">0</span>)<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"-%x"</span>, -i);<br><span class="hljs-keyword">else</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%x"</span>, i);<br></code></pre></div></td></tr></table></figure>]]></content>
       <categories>
         <category>笔记</category>
       </categories>
