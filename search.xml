@@ -25,7 +25,7 @@
 </li>
 <li>在 Java 平台上，对于 AOP 的织入，有 3 种方式：
 <ol>
-<li>编译期：在编译时，由编译器把切面调用编译进字节码，这种方式需要定义新的关键字并扩展编译器，AspectJ 就扩展了 Java 编译器，使用关键字 aspect 来实现织入；</li>
+<li>编译期：在编译时，由编译器把切面调用编译进字节码，这种方式需要定义新的关键字并扩展编译器，AspectJ 就扩展了 Java 编译器，使用关键字 <code>aspect</code> 来实现织入；</li>
 <li>类加载器：在目标类被装载到 JVM 时，通过一个特殊的类加载器，对目标类的字节码重新“增强”；</li>
 <li>运行期：目标对象和切面都是普通 Java 类，通过 JVM 的动态代理功能或者第三方库实现运行期动态织入。</li>
 </ol>
@@ -173,6 +173,14 @@
 <figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs Java"><span class="hljs-keyword">public</span> UserServiceAopProxy extends UserService &#123;<br>    <span class="hljs-keyword">private</span> UserService target;<br>    <span class="hljs-keyword">private</span> LoggingAspect aspect;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">UserServiceAopProxy</span><span class="hljs-params">(UserService target, LoggingAspect aspect)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.target = target;<br>        <span class="hljs-keyword">this</span>.aspect = aspect;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> User <span class="hljs-title">login</span><span class="hljs-params">(String email, String password)</span> </span>&#123;<br>        <span class="hljs-comment">// 先执行Aspect的代码:</span><br>        aspect.doAccessCheck();<br>        <span class="hljs-comment">// 再执行UserService的逻辑:</span><br>        <span class="hljs-keyword">return</span> target.login(email, password);<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> User <span class="hljs-title">register</span><span class="hljs-params">(String email, String password, String name)</span> </span>&#123;<br>        aspect.doAccessCheck();<br>        <span class="hljs-keyword">return</span> target.register(email, password, name);<br>    &#125;<br><br>    ...<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <p>这些都是 Spring 容器启动时为我们自动创建的注入了 Aspect 的子类，它取代了原始的 <code>UserService</code>（原始的 <code>UserService</code> 实例作为内部变量隐藏在 <code>UserServiceAopProxy</code> 中）。如果我们打印从 Spring 容器获取的 <code>UserService</code> 实例类型，它类似 <code>UserService$$EnhancerBySpringCGLIB$$1f44e01c</code>，实际上是 Spring 使用 CGLIB 动态创建的子类，但对于调用方来说，感觉不到任何区别。</p>
 <p>Spring 对接口类型使用 JDK 动态代理，对普通类使用 CGLIB 创建子类。如果一个Bean 的 class 是 <code>final</code>，Spring 将无法为其创建子类。</p>
+<blockquote>
+<p>参考资料：</p>
+<hr>
+<ul>
+<li><a href="https://blog.csdn.net/elim168/article/details/78150438" target="_blank" rel="noopener">elim168 . Spring  Aop（三）——Pointcut表达式介绍 [EB/OL] . https://blog.csdn.net/elim168/article/details/78150438</a></li>
+<li><a href="https://www.liaoxuefeng.com/wiki/1252599548343744/1310052352786466" target="_blank" rel="noopener">廖雪峰 . Java教程 [EB/OL] . https://www.liaoxuefeng.com/wiki/1252599548343744/1310052352786466</a></li>
+</ul>
+</blockquote>
 ]]></content>
       <categories>
         <category>笔记</category>
@@ -183,80 +191,6 @@
         <tag>Java</tag>
         <tag>Spring</tag>
         <tag>AOP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Ubuntu 下 138a:0090、138a:0097 和 06cb:009a 指纹识别器驱动及指纹认证</title>
-    <url>/2020/07/15/Ubuntu-%E4%B8%8B-138a0090%E3%80%81138a0097-%E5%92%8C-06cb009a-%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%AB%E5%99%A8%E9%A9%B1%E5%8A%A8%E5%8F%8A%E6%8C%87%E7%BA%B9%E8%AE%A4%E8%AF%81/</url>
-    <content><![CDATA[<h1>Ubuntu 下 <code>138a:0090</code>、<code>138a:0097</code> 和 <code>06cb:009a</code> 指纹识别器驱动及指纹认证</h1>
-<p><code>06cb:009a</code> (Thinkpad L480、Thinkpad L580 及 Thinkpad T480 等设备所使用的指纹设备) 在 Ubuntu 20.04 和 Kubuntu 20.04 下测试通过。</p>
-<h2 id="1、安装驱动及-open-fprintd"><a class="header-anchor" href="#1、安装驱动及-open-fprintd">¶</a>1、安装驱动及 open-fprintd</h2>
-<p>项目地址：<a href="https://github.com/uunicorn/python-validity" target="_blank" rel="noopener">https://github.com/uunicorn/python-validity</a></p>
-<ol>
-<li>
-<p>卸载系统自带的 fprintd。</p>
-<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ sudo apt remove fprintd<br></code></pre></div></td></tr></table></figure>
-</li>
-<li>
-<p>添加 open-fprintd 软件源。</p>
-<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ sudo add-apt-repository ppa:uunicorn:open-fprintd<br>$ sudo apt update<br></code></pre></div></td></tr></table></figure>
-</li>
-<li>
-<p>安装 open-fprintd、fprintd 客户端及 python3-validity (驱动程序)。</p>
-<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ sudo apt install open-fprintd fprintd-clients python3-validity<br></code></pre></div></td></tr></table></figure>
-</li>
-<li>
-<p>注册指纹，此处需将同一指纹进行多次录入。如要录入多个指纹，再运行此命令即可。</p>
-<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ fprintd-enroll<br></code></pre></div></td></tr></table></figure>
-</li>
-</ol>
-<blockquote>
-<p><strong>注意</strong></p>
-<hr>
-<p>如果注册指纹报错，可能需要运行下面命令将指纹识别器重置成出厂设置：</p>
-<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ <span class="hljs-built_in">cd</span> /usr/share/python3-validity/playground<br>$ python3 ./factory-reset.py<br></code></pre></div></td></tr></table></figure>
-</blockquote>
-<h2 id="2、设置指纹登录"><a class="header-anchor" href="#2、设置指纹登录">¶</a>2、设置指纹登录</h2>
-<blockquote>
-<p><strong>提示</strong>：</p>
-<hr>
-<p>项目已更新自动注册程序，指纹登录和其它基本指纹认证 (如第三步的 <code>su</code> 和 <code>sudo</code> 认证等) 可以在 <strong>注册指纹后</strong> 使用如下命令自动添加：</p>
-<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ sudo pam-auth-update<br></code></pre></div></td></tr></table></figure>
-</blockquote>
-<p>Gnome “设置” -&gt; “用户” -&gt; “指纹登录” -&gt; “启用”。</p>
-<h2 id="3、设置其它指纹认证"><a class="header-anchor" href="#3、设置其它指纹认证">¶</a>3、设置其它指纹认证</h2>
-<ol>
-<li>
-<p><code>su</code> 指纹认证。</p>
-<p>编辑 <em>/etc/pam.d/su</em> 文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ sudo vim /etc/pam.d/su<br></code></pre></div></td></tr></table></figure>
-<p>在文件开始处加入：</p>
-<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">auth</span> <span class="hljs-selector-tag">sufficient</span> <span class="hljs-selector-tag">pam_fprintd</span><span class="hljs-selector-class">.so</span><br></code></pre></div></td></tr></table></figure>
-</li>
-<li>
-<p><code>sudo</code> 指纹认证。</p>
-<p>编辑 <em>/etc/pam.d/sudo</em> 文件：</p>
- <figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ sudo vim /etc/pam.d/sudo<br></code></pre></div></td></tr></table></figure>
-<p>在文件开始处加入：</p>
- <figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">auth</span> <span class="hljs-selector-tag">sufficient</span> <span class="hljs-selector-tag">pam_fprintd</span><span class="hljs-selector-class">.so</span><br></code></pre></div></td></tr></table></figure>
-</li>
-</ol>
-<blockquote>
-<p><strong>常见异常</strong>：</p>
-<hr>
-<p>如果 <code>fprintd-enroll</code> 命令返回 <code>list_devices failed:</code> 异常，那么请使用 <code>$ sudo systemctl status python3-validity</code> 查看 python3-validity 守护进程运行状态，如果未运行，则根据状态信息选择使用 <code>$ sudo systemctl enable python3-validity</code> 或 <code>$ sudo systemctl start python3-validity</code> 启用或启动守护进程。</p>
-<p>如果上一步守护进程状态显示 python3-validity 守护启动过程中发生错误，那么可能需要将指纹芯片恢复出厂设置：</p>
-<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ sudo systemctl stop python3-validity<br>$ sudo validity-sensors-firmware<br>$ sudo python3 /usr/share/python-validity/playground/factory-reset.py<br><br><span class="hljs-comment"># 上述步骤中可以会出现"device busy"异常，此时需要根据 systemctl 状态信息杀死相关进程，或重新运行 systemctl stop python3-validity 命令以防止其已重新运行或杀死其它相关进程。</span><br><br>$ sudo systemctl start python3-validity<br>$ fprintd-enroll<br></code></pre></div></td></tr></table></figure>
-</blockquote>
-]]></content>
-      <categories>
-        <category>笔记</category>
-        <category>疑难</category>
-      </categories>
-      <tags>
-        <tag>笔记</tag>
-        <tag>Linux</tag>
-        <tag>疑难</tag>
       </tags>
   </entry>
   <entry>
@@ -325,6 +259,80 @@
 </ul>
 </li>
 </ol>
+]]></content>
+      <categories>
+        <category>笔记</category>
+        <category>疑难</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
+        <tag>Linux</tag>
+        <tag>疑难</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu 下 138a:0090、138a:0097 和 06cb:009a 指纹识别器驱动及指纹认证</title>
+    <url>/2020/07/15/Ubuntu-%E4%B8%8B-138a0090%E3%80%81138a0097-%E5%92%8C-06cb009a-%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%AB%E5%99%A8%E9%A9%B1%E5%8A%A8%E5%8F%8A%E6%8C%87%E7%BA%B9%E8%AE%A4%E8%AF%81/</url>
+    <content><![CDATA[<h1>Ubuntu 下 <code>138a:0090</code>、<code>138a:0097</code> 和 <code>06cb:009a</code> 指纹识别器驱动及指纹认证</h1>
+<p><code>06cb:009a</code> (Thinkpad L480、Thinkpad L580 及 Thinkpad T480 等设备所使用的指纹设备) 在 Ubuntu 20.04 和 Kubuntu 20.04 下测试通过。</p>
+<h2 id="1、安装驱动及-open-fprintd"><a class="header-anchor" href="#1、安装驱动及-open-fprintd">¶</a>1、安装驱动及 open-fprintd</h2>
+<p>项目地址：<a href="https://github.com/uunicorn/python-validity" target="_blank" rel="noopener">https://github.com/uunicorn/python-validity</a></p>
+<ol>
+<li>
+<p>卸载系统自带的 fprintd。</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ sudo apt remove fprintd<br></code></pre></div></td></tr></table></figure>
+</li>
+<li>
+<p>添加 open-fprintd 软件源。</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ sudo add-apt-repository ppa:uunicorn:open-fprintd<br>$ sudo apt update<br></code></pre></div></td></tr></table></figure>
+</li>
+<li>
+<p>安装 open-fprintd、fprintd 客户端及 python3-validity (驱动程序)。</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ sudo apt install open-fprintd fprintd-clients python3-validity<br></code></pre></div></td></tr></table></figure>
+</li>
+<li>
+<p>注册指纹，此处需将同一指纹进行多次录入。如要录入多个指纹，再运行此命令即可。</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ fprintd-enroll<br></code></pre></div></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p><strong>注意</strong></p>
+<hr>
+<p>如果注册指纹报错，可能需要运行下面命令将指纹识别器重置成出厂设置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ <span class="hljs-built_in">cd</span> /usr/share/python3-validity/playground<br>$ python3 ./factory-reset.py<br></code></pre></div></td></tr></table></figure>
+</blockquote>
+<h2 id="2、设置指纹登录"><a class="header-anchor" href="#2、设置指纹登录">¶</a>2、设置指纹登录</h2>
+<blockquote>
+<p><strong>提示</strong>：</p>
+<hr>
+<p>项目已更新自动注册程序，指纹登录和其它基本指纹认证 (如第三步的 <code>su</code> 和 <code>sudo</code> 认证等) 可以在 <strong>注册指纹后</strong> 使用如下命令自动添加：</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ sudo pam-auth-update<br></code></pre></div></td></tr></table></figure>
+</blockquote>
+<p>Gnome “设置” -&gt; “用户” -&gt; “指纹登录” -&gt; “启用”。</p>
+<h2 id="3、设置其它指纹认证"><a class="header-anchor" href="#3、设置其它指纹认证">¶</a>3、设置其它指纹认证</h2>
+<ol>
+<li>
+<p><code>su</code> 指纹认证。</p>
+<p>编辑 <em>/etc/pam.d/su</em> 文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ sudo vim /etc/pam.d/su<br></code></pre></div></td></tr></table></figure>
+<p>在文件开始处加入：</p>
+<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">auth</span> <span class="hljs-selector-tag">sufficient</span> <span class="hljs-selector-tag">pam_fprintd</span><span class="hljs-selector-class">.so</span><br></code></pre></div></td></tr></table></figure>
+</li>
+<li>
+<p><code>sudo</code> 指纹认证。</p>
+<p>编辑 <em>/etc/pam.d/sudo</em> 文件：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ sudo vim /etc/pam.d/sudo<br></code></pre></div></td></tr></table></figure>
+<p>在文件开始处加入：</p>
+ <figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">auth</span> <span class="hljs-selector-tag">sufficient</span> <span class="hljs-selector-tag">pam_fprintd</span><span class="hljs-selector-class">.so</span><br></code></pre></div></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p><strong>常见异常</strong>：</p>
+<hr>
+<p>如果 <code>fprintd-enroll</code> 命令返回 <code>list_devices failed:</code> 异常，那么请使用 <code>$ sudo systemctl status python3-validity</code> 查看 python3-validity 守护进程运行状态，如果未运行，则根据状态信息选择使用 <code>$ sudo systemctl enable python3-validity</code> 或 <code>$ sudo systemctl start python3-validity</code> 启用或启动守护进程。</p>
+<p>如果上一步守护进程状态显示 python3-validity 守护启动过程中发生错误，那么可能需要将指纹芯片恢复出厂设置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ sudo systemctl stop python3-validity<br>$ sudo validity-sensors-firmware<br>$ sudo python3 /usr/share/python-validity/playground/factory-reset.py<br><br><span class="hljs-comment"># 上述步骤中可以会出现"device busy"异常，此时需要根据 systemctl 状态信息杀死相关进程，或重新运行 systemctl stop python3-validity 命令以防止其已重新运行或杀死其它相关进程。</span><br><br>$ sudo systemctl start python3-validity<br>$ fprintd-enroll<br></code></pre></div></td></tr></table></figure>
+</blockquote>
 ]]></content>
       <categories>
         <category>笔记</category>
@@ -4072,9 +4080,9 @@ EF Core 迁移是一组命令，您可以在 NuGet 软件包管理器控制台�
         <category>笔记</category>
       </categories>
       <tags>
+        <tag>笔记</tag>
         <tag>Python</tag>
         <tag>Windows</tag>
-        <tag>笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -4358,8 +4366,8 @@ EF Core 迁移是一组命令，您可以在 NuGet 软件包管理器控制台�
       </categories>
       <tags>
         <tag>笔记</tag>
-        <tag>git</tag>
         <tag>Hexo</tag>
+        <tag>git</tag>
         <tag>博客</tag>
       </tags>
   </entry>
@@ -4791,74 +4799,6 @@ smartparens 可以自动补全括号及各种引号：</p>
         <tag>Emacs</tag>
         <tag>笔记</tag>
         <tag>GNU</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Elisp 学习笔记（二）</title>
-    <url>/2019/10/05/Elisp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
-    <content><![CDATA[<p>[TOC]</p>
-<hr>
-<h1>Elisp 学习笔记（二）</h1>
-<h2 id="求值规则"><a class="header-anchor" href="#求值规则">¶</a>求值规则</h2>
-<p>求值是 lisp 解释器的核心，理解了求值过程也就学会了 lisp 编程的一半。正因为这样，我有点担心自己说得不清楚或者理解错误，会误导了你。所以如果真想深入了解的话，还是自己看 info elisp - Evaluation 这一章吧。<br>
-一个要求值的 lisp 对象被称为表达式（form）。所有的表达式可以分为三种：符号、列表和其它类型（废话）。下面一一说明各种表达式的求值规则。</p>
-<ul>
-<li>
-<p>第一种表达式是最简单的，自求值表达式。前面说过数字、字符串、向量都是自求值表达式。还有两个特殊的符号 <code>t</code> 和 <code>nil</code> 也可以看成是自求值表达式。</p>
-</li>
-<li>
-<p>第二种表达式是符号。符号的求值结果就是符号的值。如果它没有值，就会出现 void-variable 的错误。</p>
-</li>
-<li>
-<p>第三种表达式是列表表达式。而列表表达式又可以根据第一个元素分为函数调用、宏调用和特殊表达式（special form）三种。列表的第一个表达式如果是一个符号，解释器会查找这个表达式的函数值。</p>
-<ul>
-<li>
-<p>如果函数值是另一个符号，则会继续查找这个符号的函数值。这称为“symbol function indirection”。最后直到某个符号的函数值是一个 lisp 函数（lambda 表达式）、byte-code 函数、原子函数（primitive function）、宏、特殊表达式或 autoload 对象。如果不是这些类型，比如某个符号的函数值是前面出现的某个符号导致无限循环，或者某个符号函数值为空，都会导致一个错误 invalid-function。</p>
-<p>这个函数显示 indirection function</p>
-  <figure class="highlight lisp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs lisp">(<span class="hljs-name">symbol-function</span> 'car)                  <span class="hljs-comment">; =&gt; #&lt;subr car&gt;</span><br>(<span class="hljs-name">fset</span> 'first 'car)                      <span class="hljs-comment">; =&gt; car</span><br>(<span class="hljs-name">fset</span> 'erste 'first)                    <span class="hljs-comment">; =&gt; first</span><br>(<span class="hljs-name">erste</span> '(<span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">3</span>))                        <span class="hljs-comment">; =&gt; 1</span><br></code></pre></div></td></tr></table></figure>
-</li>
-<li>
-<p>如果第一个元素是一个宏对象，列表里的其它元素不会立即求值，而是根据宏定义进行扩展。如果扩展后还是一个宏调用，则会继续扩展下去，直到扩展的结果不再是一个宏调用为止。例如：</p>
-  <figure class="highlight lisp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs lisp">(<span class="hljs-name">defmacro</span> cadr (<span class="hljs-name">x</span>)<br>  (<span class="hljs-name">list</span> 'car (<span class="hljs-name">list</span> 'cdr x)))<br></code></pre></div></td></tr></table></figure>
-<p>这样 <code>(cadr (assq 'handler list))</code> 扩展后成为 <code>(car (cdr (assq 'handler list)))</code>。</p>
-</li>
-<li>
-<p>第一个元素如果是一个特殊表达式时，它的参数可能并不会全求值。这些特殊表达式通常是用于控制结构或者变量绑定。每个特殊表达式都有对应的求值规则。这在下面会提到。</p>
-</li>
-</ul>
-</li>
-</ul>
-<p>最后用这个伪代码来说明一下 elisp 中的求值规则：</p>
-<figure class="highlight lisp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs lisp">(<span class="hljs-name">defun</span> (<span class="hljs-name">eval</span> exp)<br>  (<span class="hljs-name">cond</span><br>   ((<span class="hljs-name">numberp</span> exp) exp)<br>   ((<span class="hljs-name">stringp</span> exp) exp)<br>   ((<span class="hljs-name">arrayp</span> exp) exp)<br>   ((<span class="hljs-name">symbolp</span> exp) (<span class="hljs-name">symbol-value</span> exp))<br>   ((<span class="hljs-name">special-form-p</span> (<span class="hljs-name">car</span> exp))<br>    (<span class="hljs-name">eval-special-form</span> exp))<br>   ((<span class="hljs-name">fboundp</span> (<span class="hljs-name">car</span> exp))<br>    (<span class="hljs-name">apply</span> (<span class="hljs-name">car</span> exp) (<span class="hljs-name">cdr</span> exp)))<br>   (<span class="hljs-name">t</span><br>    (<span class="hljs-name">error</span> <span class="hljs-string">"Unknown expression type -- EVAL %S"</span> exp))))<br></code></pre></div></td></tr></table></figure>
-<h2 id="变量"><a class="header-anchor" href="#变量">¶</a>变量</h2>
-<p><strong>当同一个变量名既是全局变量也是局部变量，或者用 <code>let</code> 多层绑定，只有最里层的那个变量是有效的，用 <code>setq</code> 改变的也只是最里层的变量，而不影响外层的变量。</strong><br>
-比如：</p>
-<figure class="highlight lisp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs lisp"><br>(<span class="hljs-name">progn</span><br>  (<span class="hljs-name">setq</span> foo <span class="hljs-string">"I'm global variable!"</span>)<br>  (<span class="hljs-name">let</span> ((<span class="hljs-name">foo</span> <span class="hljs-number">5</span>))<br>    (<span class="hljs-name">message</span> <span class="hljs-string">"foo value is: %S"</span> foo)<br>    (<span class="hljs-name">let</span> (<span class="hljs-name">foo</span>)<br>      (<span class="hljs-name">setq</span> foo <span class="hljs-string">"I'm local variable!"</span>)<br>      (<span class="hljs-name">message</span> foo))<br>    (<span class="hljs-name">message</span> <span class="hljs-string">"foo value is still: %S"</span> foo))<br>  (<span class="hljs-name">message</span> foo))<br></code></pre></div></td></tr></table></figure>
-<blockquote>
-<p>另外需要注意一点的是局部变量的绑定不能超过一定的层数，也就是说，你不能把 <code>foo</code> 用 <code>let</code> 绑定 10000 层。当然普通的函数是不可能写成这样的，但是递归函数就不一定了。限制层数的变量在 <code>max-specpdl-size</code> 中定义。如果你写的递归函数有这个需要的话，可以先设置这个变量的值</p>
-</blockquote>
-<h3 id="buffer-local-变量"><a class="header-anchor" href="#buffer-local-变量">¶</a>buffer-local 变量</h3>
-<p>emacs 能有如此丰富的模式，各个缓冲区之间能不相互冲突，很大程度上要归功于 buffer-local 变量。<br>
-声明一个 buffer-local 的变量可以用 <code>make-variable-buffer-local</code> 或用 <code>make-local-variable</code>。这两个函数的区别在于前者是相当于在所有缓冲区中都产生一个 buffer-local 的变量。而后者只在声明时所在的缓冲区内产生一个局部变量，而其它缓冲区仍然使用的是全局变量。一般来说推荐使用 <code>make-local-variable</code>。</p>
-<ul>
-<li>
-<p><code>with-current-buffer</code> 的使用形式是</p>
-  <figure class="highlight lisp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs lisp">(<span class="hljs-name">with-current-buffer</span> buffer<br>  body)<br></code></pre></div></td></tr></table></figure>
-<p>其中 <code>buffer</code> 可以是一个缓冲区对象，也可以是缓冲区的名字。它的作用是使其中的 <code>body</code> 表达式在指定的缓冲区里执行。</p>
-</li>
-<li>
-<p><code>get-buffer</code> 可以用缓冲区的名字得到对应的缓冲区对象。如果没有这样名字的缓冲区会返回 <code>nil</code>。</p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>笔记</category>
-      </categories>
-      <tags>
-        <tag>编程语言</tag>
-        <tag>Emacs</tag>
-        <tag>Lisp</tag>
-        <tag>笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -5728,6 +5668,74 @@ cons cell 的读入语法是用 . 分开两个部分，比如：</p>
       </tags>
   </entry>
   <entry>
+    <title>Elisp 学习笔记（二）</title>
+    <url>/2019/10/05/Elisp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+    <content><![CDATA[<p>[TOC]</p>
+<hr>
+<h1>Elisp 学习笔记（二）</h1>
+<h2 id="求值规则"><a class="header-anchor" href="#求值规则">¶</a>求值规则</h2>
+<p>求值是 lisp 解释器的核心，理解了求值过程也就学会了 lisp 编程的一半。正因为这样，我有点担心自己说得不清楚或者理解错误，会误导了你。所以如果真想深入了解的话，还是自己看 info elisp - Evaluation 这一章吧。<br>
+一个要求值的 lisp 对象被称为表达式（form）。所有的表达式可以分为三种：符号、列表和其它类型（废话）。下面一一说明各种表达式的求值规则。</p>
+<ul>
+<li>
+<p>第一种表达式是最简单的，自求值表达式。前面说过数字、字符串、向量都是自求值表达式。还有两个特殊的符号 <code>t</code> 和 <code>nil</code> 也可以看成是自求值表达式。</p>
+</li>
+<li>
+<p>第二种表达式是符号。符号的求值结果就是符号的值。如果它没有值，就会出现 void-variable 的错误。</p>
+</li>
+<li>
+<p>第三种表达式是列表表达式。而列表表达式又可以根据第一个元素分为函数调用、宏调用和特殊表达式（special form）三种。列表的第一个表达式如果是一个符号，解释器会查找这个表达式的函数值。</p>
+<ul>
+<li>
+<p>如果函数值是另一个符号，则会继续查找这个符号的函数值。这称为“symbol function indirection”。最后直到某个符号的函数值是一个 lisp 函数（lambda 表达式）、byte-code 函数、原子函数（primitive function）、宏、特殊表达式或 autoload 对象。如果不是这些类型，比如某个符号的函数值是前面出现的某个符号导致无限循环，或者某个符号函数值为空，都会导致一个错误 invalid-function。</p>
+<p>这个函数显示 indirection function</p>
+  <figure class="highlight lisp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs lisp">(<span class="hljs-name">symbol-function</span> 'car)                  <span class="hljs-comment">; =&gt; #&lt;subr car&gt;</span><br>(<span class="hljs-name">fset</span> 'first 'car)                      <span class="hljs-comment">; =&gt; car</span><br>(<span class="hljs-name">fset</span> 'erste 'first)                    <span class="hljs-comment">; =&gt; first</span><br>(<span class="hljs-name">erste</span> '(<span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">3</span>))                        <span class="hljs-comment">; =&gt; 1</span><br></code></pre></div></td></tr></table></figure>
+</li>
+<li>
+<p>如果第一个元素是一个宏对象，列表里的其它元素不会立即求值，而是根据宏定义进行扩展。如果扩展后还是一个宏调用，则会继续扩展下去，直到扩展的结果不再是一个宏调用为止。例如：</p>
+  <figure class="highlight lisp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs lisp">(<span class="hljs-name">defmacro</span> cadr (<span class="hljs-name">x</span>)<br>  (<span class="hljs-name">list</span> 'car (<span class="hljs-name">list</span> 'cdr x)))<br></code></pre></div></td></tr></table></figure>
+<p>这样 <code>(cadr (assq 'handler list))</code> 扩展后成为 <code>(car (cdr (assq 'handler list)))</code>。</p>
+</li>
+<li>
+<p>第一个元素如果是一个特殊表达式时，它的参数可能并不会全求值。这些特殊表达式通常是用于控制结构或者变量绑定。每个特殊表达式都有对应的求值规则。这在下面会提到。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>最后用这个伪代码来说明一下 elisp 中的求值规则：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs lisp">(<span class="hljs-name">defun</span> (<span class="hljs-name">eval</span> exp)<br>  (<span class="hljs-name">cond</span><br>   ((<span class="hljs-name">numberp</span> exp) exp)<br>   ((<span class="hljs-name">stringp</span> exp) exp)<br>   ((<span class="hljs-name">arrayp</span> exp) exp)<br>   ((<span class="hljs-name">symbolp</span> exp) (<span class="hljs-name">symbol-value</span> exp))<br>   ((<span class="hljs-name">special-form-p</span> (<span class="hljs-name">car</span> exp))<br>    (<span class="hljs-name">eval-special-form</span> exp))<br>   ((<span class="hljs-name">fboundp</span> (<span class="hljs-name">car</span> exp))<br>    (<span class="hljs-name">apply</span> (<span class="hljs-name">car</span> exp) (<span class="hljs-name">cdr</span> exp)))<br>   (<span class="hljs-name">t</span><br>    (<span class="hljs-name">error</span> <span class="hljs-string">"Unknown expression type -- EVAL %S"</span> exp))))<br></code></pre></div></td></tr></table></figure>
+<h2 id="变量"><a class="header-anchor" href="#变量">¶</a>变量</h2>
+<p><strong>当同一个变量名既是全局变量也是局部变量，或者用 <code>let</code> 多层绑定，只有最里层的那个变量是有效的，用 <code>setq</code> 改变的也只是最里层的变量，而不影响外层的变量。</strong><br>
+比如：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs lisp"><br>(<span class="hljs-name">progn</span><br>  (<span class="hljs-name">setq</span> foo <span class="hljs-string">"I'm global variable!"</span>)<br>  (<span class="hljs-name">let</span> ((<span class="hljs-name">foo</span> <span class="hljs-number">5</span>))<br>    (<span class="hljs-name">message</span> <span class="hljs-string">"foo value is: %S"</span> foo)<br>    (<span class="hljs-name">let</span> (<span class="hljs-name">foo</span>)<br>      (<span class="hljs-name">setq</span> foo <span class="hljs-string">"I'm local variable!"</span>)<br>      (<span class="hljs-name">message</span> foo))<br>    (<span class="hljs-name">message</span> <span class="hljs-string">"foo value is still: %S"</span> foo))<br>  (<span class="hljs-name">message</span> foo))<br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p>另外需要注意一点的是局部变量的绑定不能超过一定的层数，也就是说，你不能把 <code>foo</code> 用 <code>let</code> 绑定 10000 层。当然普通的函数是不可能写成这样的，但是递归函数就不一定了。限制层数的变量在 <code>max-specpdl-size</code> 中定义。如果你写的递归函数有这个需要的话，可以先设置这个变量的值</p>
+</blockquote>
+<h3 id="buffer-local-变量"><a class="header-anchor" href="#buffer-local-变量">¶</a>buffer-local 变量</h3>
+<p>emacs 能有如此丰富的模式，各个缓冲区之间能不相互冲突，很大程度上要归功于 buffer-local 变量。<br>
+声明一个 buffer-local 的变量可以用 <code>make-variable-buffer-local</code> 或用 <code>make-local-variable</code>。这两个函数的区别在于前者是相当于在所有缓冲区中都产生一个 buffer-local 的变量。而后者只在声明时所在的缓冲区内产生一个局部变量，而其它缓冲区仍然使用的是全局变量。一般来说推荐使用 <code>make-local-variable</code>。</p>
+<ul>
+<li>
+<p><code>with-current-buffer</code> 的使用形式是</p>
+  <figure class="highlight lisp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs lisp">(<span class="hljs-name">with-current-buffer</span> buffer<br>  body)<br></code></pre></div></td></tr></table></figure>
+<p>其中 <code>buffer</code> 可以是一个缓冲区对象，也可以是缓冲区的名字。它的作用是使其中的 <code>body</code> 表达式在指定的缓冲区里执行。</p>
+</li>
+<li>
+<p><code>get-buffer</code> 可以用缓冲区的名字得到对应的缓冲区对象。如果没有这样名字的缓冲区会返回 <code>nil</code>。</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>编程语言</tag>
+        <tag>Emacs</tag>
+        <tag>Lisp</tag>
+        <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>davfs2 自动挂载</title>
     <url>/2019/08/14/davfs%E8%87%AA%E5%8A%A8%E6%8C%82%E8%BD%BD/</url>
     <content><![CDATA[<h1>davfs2 自动挂载</h1>
@@ -5869,8 +5877,8 @@ cons cell 的读入语法是用 . 分开两个部分，比如：</p>
         <category>笔记</category>
       </categories>
       <tags>
-        <tag>Windows</tag>
         <tag>笔记</tag>
+        <tag>Windows</tag>
         <tag>疑难</tag>
       </tags>
   </entry>
@@ -8949,162 +8957,9 @@ Host ssttest2
       </categories>
       <tags>
         <tag>Web</tag>
-        <tag>git</tag>
         <tag>Hexo</tag>
-        <tag>博客</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>git 学习笔记</title>
-    <url>/2018/10/22/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h1>git学习笔记</h1>
-<hr>
-<p>[TOC]</p>
-<hr>
-<h2 id="时光穿梭机"><a class="header-anchor" href="#时光穿梭机">¶</a>时光穿梭机</h2>
-<h3 id="版本回退"><a class="header-anchor" href="#版本回退">¶</a>版本回退</h3>
-<ol>
-<li><code>HEAD</code>指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令<code>git reset --hard commit_id</code>。此命令是将工作目录中的修改撤回到与本地版本库一致。</li>
-<li>穿梭前，用<code>git log</code>可以查看提交历史，以便确定要回退到哪个版本。</li>
-<li>要重返未来，用<code>git reflog</code>查看命令历史，以便确定要回到未来的哪个版本。</li>
-</ol>
-<h3 id="工作区与暂存区"><a class="header-anchor" href="#工作区与暂存区">¶</a>工作区与暂存区</h3>
-<ol>
-<li><code>git diff</code> 是你工作区跟仓库（仓库也叫版本库）的比较，这个时候可以看你开发过程中修改了哪些内容</li>
-<li><code>git diff --cached</code> 是看你stage区和仓库分支上的比较，你add后但是没有commit， 这个时候只是在stage中，可以确认下修改是否正确，如果正确无误可以commit合并到分支。</li>
-<li>在<code>git commit</code>后stage区并不会清空（原贴有错误）。</li>
-</ol>
-<h3 id="撤消修改"><a class="header-anchor" href="#撤消修改">¶</a>撤消修改</h3>
-<ul>
-<li>命令<code>git checkout -- readme.txt</code>意思就是，把readme.txt文件在工作区的修改（从版本库）全部撤销，这里有两种情况：</li>
-</ul>
-<p>1. 一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；</p>
-<div class="hljs code-wrapper"><pre><code>原布局：
-    workdir            stage                 master
-     test               test                  test
-
-修改后：
-    workdir            stage                 master
-    test_mod            test                  test
-
-git checkout -- readme.txt后：
-    workdir            stage                 master
-     test               test                  test
-</code></pre></div>
-<p>2. 一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。</p>
-<div class="hljs code-wrapper"><pre><code>原布局：
-    workdir            stage                 master
-     test               test                  test
-
-修改后并git add后又修改：
-    workdir            stage                 master
-    test_mod_mod      test_mod                test
-
-git checkout -- readme.txt后：
-    workdir            stage                 master
-    test_mod          test_mod                  test
-</code></pre></div>
-<p>  <strong>总之，就是让这个文件回到最近一次<code>git commit</code>（修改后未<code>git add</code>）或<code>git add</code>（修改后已<code>git add</code>）时的状态。</strong></p>
-<ul>
-<li>命令<code>git reset HEAD file</code>意思就是，可以把暂存区的修改撤销掉（unstage），重新放回工作区。</li>
-<li>小结：
-<ul>
-<li>场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令<code>git checkout -- file</code>。</li>
-<li>场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，<strong>分两步，第一步用命令<code>git reset HEAD &lt;file&gt;</code>，就回到了场景1，第二步按场景1操作</strong>。</li>
-<li>场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。</li>
-</ul>
-</li>
-</ul>
-<p>  笔记：</p>
-<ul>
-<li><code>git checkout -- file</code>是<strong>撤回</strong>，重点是使<strong>工作区</strong>文件与邻近的且不一致的区的文件一致。</li>
-<li><code>git reset HEAD file</code>是<strong>重置</strong>，重点是将<strong>暂存区</strong>文件重置成<code>git add</code>前的状态。</li>
-</ul>
-<h3 id="删除文件"><a class="header-anchor" href="#删除文件">¶</a>删除文件</h3>
-<ol>
-<li>如果你用的<code>rm</code>删除文件，那就相当于只删除了工作区的文件，如果想要恢复，直接用<code>git checkout -- &lt;file&gt;</code>就可以。</li>
-<li>如果你用的是<code>git rm</code>删除文件，那就相当于不仅删除了文件，而且还添加到了暂存区，需要先<code>git reset HEAD &lt;file&gt;</code>，然后再<code>git checkout -- &lt;file&gt;</code>。</li>
-<li>如果你想彻底把版本库的删除掉，先<code>git rm</code>，再<code>git commit</code>就ok了。</li>
-</ol>
-<h2 id="远程仓库"><a class="header-anchor" href="#远程仓库">¶</a>远程仓库</h2>
-<h3 id="添加远程库"><a class="header-anchor" href="#添加远程库">¶</a>添加远程库</h3>
-<ol>
-<li>要关联一个远程库，使用命令<code>git remote add origin git@server-name:path/repo-name.git</code>；</li>
-<li>关联后，使用命令<code>git push -u origin master</code>第一次推送<code>master</code>分支的所有内容；</li>
-<li>此后，每次本地提交后，只要有必要，就可以使用命令<code>git push origin master</code>推送最新修改；</li>
-</ol>
-<h2 id="分支管理"><a class="header-anchor" href="#分支管理">¶</a>分支管理</h2>
-<h3 id="创建与合并分支"><a class="header-anchor" href="#创建与合并分支">¶</a>创建与合并分支</h3>
-<ol>
-<li>把<code>dev</code>分支的工作成果合并到<code>master</code>分支上：</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">git checkout master<br>git merge dev<br></code></pre></div></td></tr></table></figure>
-<p>2. Git分支常用命令：</p>
-<ul>
-<li>查看分支：<code>git branch</code></li>
-<li>创建分支：<code>git branch &lt;name&gt;</code></li>
-<li>切换分支：<code>git checkout &lt;name&gt;</code></li>
-<li>创建+切换分支：<code>git checkout -b &lt;name&gt;</code></li>
-<li>合并某分支到当前分支：<code>git merge &lt;name&gt;</code></li>
-<li>删除分支：<code>git branch -d &lt;name&gt;</code></li>
-</ul>
-<h3 id="Bug分支"><a class="header-anchor" href="#Bug分支">¶</a>Bug分支</h3>
-<ol>
-<li>工作区和暂存区是一个公开的工作台，任何分支都会用到，并能看到工作台上最新的内容，只要在工作区、暂存区的改动未能够提交到某一个版本库（分支）中，那么在任何一个分支下都可以看得到这个工作区、暂存区的最新实时改动。</li>
-<li>使用<code>git stash</code>就可以将暂存区的修改藏匿起来，使整个工作台看起来都是干净的。所以要清理整个工作台，那么前提是必须先将工作区的内容都<code>git add</code>到暂存区中去。之后在干净的工作台上可以做另外一件紧急事件与藏匿起来的内容是完全独立的。</li>
-<li>如果是修改的文件不用<code>git add</code>依然可以<code>git stash</code>，只有新文件才需要<code>git add</code>。</li>
-</ol>
-<h3 id="Feature分支"><a class="header-anchor" href="#Feature分支">¶</a>Feature分支</h3>
-<ul>
-<li>如果要丢弃一个没有被合并过的分支，可以通过<code>git branch -D &lt;name&gt;</code>强行删除。</li>
-</ul>
-<h3 id="多人协作"><a class="header-anchor" href="#多人协作">¶</a>多人协作</h3>
-<ul>
-<li>查看远程库信息，使用<code>git remote -v</code>；</li>
-<li>本地新建的分支如果不推送到远程，对其他人就是不可见的；</li>
-<li>从本地推送分支，使用<code>git push origin branch-name</code>，如果推送失败，先用<code>git pull</code>抓取远程的新提交；</li>
-<li>在本地创建和远程分支对应的分支，使用<code>git checkout -b branch-name origin/branch-name</code>，本地和远程分支的名称最好一致；</li>
-<li>建立本地分支和远程分支的关联，使用<code>git branch --set-upstream-to=origin/branch-name branch-name</code>；</li>
-<li>从远程抓取分支，使用<code>git pull</code>，如果有冲突，要先处理冲突。</li>
-</ul>
-<h3 id="Rebase"><a class="header-anchor" href="#Rebase">¶</a>Rebase</h3>
-<ul>
-<li>只对尚未推送或分享给别人的本地修改执行变基操作清理历史；</li>
-<li>从不对已推送至别处的提交执行变基操作。</li>
-<li>在重放之前的提交的时候，Git会创建新的提交，也就是说即使你重放的提交与之前的一模一样Git也会将之当做新的独立的提交进行处理。</li>
-<li><code>git rebase</code>并不会删除老的提交，也就是说你在对某个分支执行了<code>git rebase</code>操作之后，老的提交仍然会存放在.git文件夹的objects目录下。如果你对于Git是如何存放你的提交不太了解的话可以参考这篇文章：<a href="https://medium.freecodecamp.com/understanding-git-for-real-by-exploring-the-git-directory-1e079c15b807#.6ylqa5e2w" target="_blank" rel="noopener">Understanding git for real by exploring the .git directory</a><br>
-<img src="https://image-static.segmentfault.com/206/854/2068544494-5783bdd025d80" alt="rebase"></li>
-<li>设你本地有个branch A，服务器上也有branch A，然后你在本地对branch A进行了<code>git rebase</code>，然后出于某种原因必须<code>git push</code>到服务器，那么你必须使用<code>git push --force</code>。
-<ol>
-<li>如果你能确认branch A没有被其他人<code>git pull</code>过，那么接下来就没什么事了。</li>
-<li>如果branch A已经被别人<code>git pull</code>过，那么你必须告诉那些人，在本地将branch A干掉：<code>git branch -D A</code>，然后<code>git fetch</code>，然后重新checkout：<code>git checkout A</code>。</li>
-<li>如果branch A已经被别人git pull过，而且那些人在本地对branch A做了几个commit，那么，你必须让他们先<code>git push</code>上去之后，你再<code>git rebase</code>，然后参考步骤2。</li>
-</ol>
-</li>
-</ul>
-<h2 id="标签管理"><a class="header-anchor" href="#标签管理">¶</a>标签管理</h2>
-<h3 id="创建标签"><a class="header-anchor" href="#创建标签">¶</a>创建标签</h3>
-<ul>
-<li>命令<code>git tag &lt;tagname&gt;</code>用于新建一个标签，默认为HEAD，也可以指定一个commit id；</li>
-<li><code>git tag -a &lt;tagname&gt; -m &quot;blablabla...&quot;</code>可以指定标签信息；</li>
-<li>命令<code>git tag</code>可以查看所有标签。</li>
-<li><strong>标签总是和某个commit挂钩。如果这个commit既出现在master分支，又出现在dev分支，那么在这两个分支上都可以看到这个标签。</strong></li>
-<li>用GPG签名tag：<code>git tab -s &lt;tagbane&gt; -m &quot;blablabla...&quot;</code>。<a href="http://arondight.me/2016/04/17/%E4%BD%BF%E7%94%A8GPG%E7%AD%BE%E5%90%8DGit%E6%8F%90%E4%BA%A4%E5%92%8C%E6%A0%87%E7%AD%BE/" target="_blank" rel="noopener">GPG详解</a></li>
-</ul>
-<h3 id="操作标签"><a class="header-anchor" href="#操作标签">¶</a>操作标签</h3>
-<ul>
-<li>命令<code>git push origin &lt;tagname&gt;</code>可以推送一个本地标签；</li>
-<li>命令<code>git push origin --tags</code>可以推送全部未推送过的本地标签；</li>
-<li>命令<code>git tag -d &lt;tagname&gt;</code>可以删除一个本地标签；</li>
-<li>命令<code>git push origin :refs/tags/&lt;tagname&gt;</code>可以删除一个远程标签。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>笔记</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
         <tag>git</tag>
+        <tag>博客</tag>
       </tags>
   </entry>
   <entry>
@@ -9354,6 +9209,159 @@ git checkout -- readme.txt后：
         <tag>Web</tag>
         <tag>Linux</tag>
         <tag>GPG</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>git 学习笔记</title>
+    <url>/2018/10/22/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1>git学习笔记</h1>
+<hr>
+<p>[TOC]</p>
+<hr>
+<h2 id="时光穿梭机"><a class="header-anchor" href="#时光穿梭机">¶</a>时光穿梭机</h2>
+<h3 id="版本回退"><a class="header-anchor" href="#版本回退">¶</a>版本回退</h3>
+<ol>
+<li><code>HEAD</code>指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令<code>git reset --hard commit_id</code>。此命令是将工作目录中的修改撤回到与本地版本库一致。</li>
+<li>穿梭前，用<code>git log</code>可以查看提交历史，以便确定要回退到哪个版本。</li>
+<li>要重返未来，用<code>git reflog</code>查看命令历史，以便确定要回到未来的哪个版本。</li>
+</ol>
+<h3 id="工作区与暂存区"><a class="header-anchor" href="#工作区与暂存区">¶</a>工作区与暂存区</h3>
+<ol>
+<li><code>git diff</code> 是你工作区跟仓库（仓库也叫版本库）的比较，这个时候可以看你开发过程中修改了哪些内容</li>
+<li><code>git diff --cached</code> 是看你stage区和仓库分支上的比较，你add后但是没有commit， 这个时候只是在stage中，可以确认下修改是否正确，如果正确无误可以commit合并到分支。</li>
+<li>在<code>git commit</code>后stage区并不会清空（原贴有错误）。</li>
+</ol>
+<h3 id="撤消修改"><a class="header-anchor" href="#撤消修改">¶</a>撤消修改</h3>
+<ul>
+<li>命令<code>git checkout -- readme.txt</code>意思就是，把readme.txt文件在工作区的修改（从版本库）全部撤销，这里有两种情况：</li>
+</ul>
+<p>1. 一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；</p>
+<div class="hljs code-wrapper"><pre><code>原布局：
+    workdir            stage                 master
+     test               test                  test
+
+修改后：
+    workdir            stage                 master
+    test_mod            test                  test
+
+git checkout -- readme.txt后：
+    workdir            stage                 master
+     test               test                  test
+</code></pre></div>
+<p>2. 一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。</p>
+<div class="hljs code-wrapper"><pre><code>原布局：
+    workdir            stage                 master
+     test               test                  test
+
+修改后并git add后又修改：
+    workdir            stage                 master
+    test_mod_mod      test_mod                test
+
+git checkout -- readme.txt后：
+    workdir            stage                 master
+    test_mod          test_mod                  test
+</code></pre></div>
+<p>  <strong>总之，就是让这个文件回到最近一次<code>git commit</code>（修改后未<code>git add</code>）或<code>git add</code>（修改后已<code>git add</code>）时的状态。</strong></p>
+<ul>
+<li>命令<code>git reset HEAD file</code>意思就是，可以把暂存区的修改撤销掉（unstage），重新放回工作区。</li>
+<li>小结：
+<ul>
+<li>场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令<code>git checkout -- file</code>。</li>
+<li>场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，<strong>分两步，第一步用命令<code>git reset HEAD &lt;file&gt;</code>，就回到了场景1，第二步按场景1操作</strong>。</li>
+<li>场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。</li>
+</ul>
+</li>
+</ul>
+<p>  笔记：</p>
+<ul>
+<li><code>git checkout -- file</code>是<strong>撤回</strong>，重点是使<strong>工作区</strong>文件与邻近的且不一致的区的文件一致。</li>
+<li><code>git reset HEAD file</code>是<strong>重置</strong>，重点是将<strong>暂存区</strong>文件重置成<code>git add</code>前的状态。</li>
+</ul>
+<h3 id="删除文件"><a class="header-anchor" href="#删除文件">¶</a>删除文件</h3>
+<ol>
+<li>如果你用的<code>rm</code>删除文件，那就相当于只删除了工作区的文件，如果想要恢复，直接用<code>git checkout -- &lt;file&gt;</code>就可以。</li>
+<li>如果你用的是<code>git rm</code>删除文件，那就相当于不仅删除了文件，而且还添加到了暂存区，需要先<code>git reset HEAD &lt;file&gt;</code>，然后再<code>git checkout -- &lt;file&gt;</code>。</li>
+<li>如果你想彻底把版本库的删除掉，先<code>git rm</code>，再<code>git commit</code>就ok了。</li>
+</ol>
+<h2 id="远程仓库"><a class="header-anchor" href="#远程仓库">¶</a>远程仓库</h2>
+<h3 id="添加远程库"><a class="header-anchor" href="#添加远程库">¶</a>添加远程库</h3>
+<ol>
+<li>要关联一个远程库，使用命令<code>git remote add origin git@server-name:path/repo-name.git</code>；</li>
+<li>关联后，使用命令<code>git push -u origin master</code>第一次推送<code>master</code>分支的所有内容；</li>
+<li>此后，每次本地提交后，只要有必要，就可以使用命令<code>git push origin master</code>推送最新修改；</li>
+</ol>
+<h2 id="分支管理"><a class="header-anchor" href="#分支管理">¶</a>分支管理</h2>
+<h3 id="创建与合并分支"><a class="header-anchor" href="#创建与合并分支">¶</a>创建与合并分支</h3>
+<ol>
+<li>把<code>dev</code>分支的工作成果合并到<code>master</code>分支上：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">git checkout master<br>git merge dev<br></code></pre></div></td></tr></table></figure>
+<p>2. Git分支常用命令：</p>
+<ul>
+<li>查看分支：<code>git branch</code></li>
+<li>创建分支：<code>git branch &lt;name&gt;</code></li>
+<li>切换分支：<code>git checkout &lt;name&gt;</code></li>
+<li>创建+切换分支：<code>git checkout -b &lt;name&gt;</code></li>
+<li>合并某分支到当前分支：<code>git merge &lt;name&gt;</code></li>
+<li>删除分支：<code>git branch -d &lt;name&gt;</code></li>
+</ul>
+<h3 id="Bug分支"><a class="header-anchor" href="#Bug分支">¶</a>Bug分支</h3>
+<ol>
+<li>工作区和暂存区是一个公开的工作台，任何分支都会用到，并能看到工作台上最新的内容，只要在工作区、暂存区的改动未能够提交到某一个版本库（分支）中，那么在任何一个分支下都可以看得到这个工作区、暂存区的最新实时改动。</li>
+<li>使用<code>git stash</code>就可以将暂存区的修改藏匿起来，使整个工作台看起来都是干净的。所以要清理整个工作台，那么前提是必须先将工作区的内容都<code>git add</code>到暂存区中去。之后在干净的工作台上可以做另外一件紧急事件与藏匿起来的内容是完全独立的。</li>
+<li>如果是修改的文件不用<code>git add</code>依然可以<code>git stash</code>，只有新文件才需要<code>git add</code>。</li>
+</ol>
+<h3 id="Feature分支"><a class="header-anchor" href="#Feature分支">¶</a>Feature分支</h3>
+<ul>
+<li>如果要丢弃一个没有被合并过的分支，可以通过<code>git branch -D &lt;name&gt;</code>强行删除。</li>
+</ul>
+<h3 id="多人协作"><a class="header-anchor" href="#多人协作">¶</a>多人协作</h3>
+<ul>
+<li>查看远程库信息，使用<code>git remote -v</code>；</li>
+<li>本地新建的分支如果不推送到远程，对其他人就是不可见的；</li>
+<li>从本地推送分支，使用<code>git push origin branch-name</code>，如果推送失败，先用<code>git pull</code>抓取远程的新提交；</li>
+<li>在本地创建和远程分支对应的分支，使用<code>git checkout -b branch-name origin/branch-name</code>，本地和远程分支的名称最好一致；</li>
+<li>建立本地分支和远程分支的关联，使用<code>git branch --set-upstream-to=origin/branch-name branch-name</code>；</li>
+<li>从远程抓取分支，使用<code>git pull</code>，如果有冲突，要先处理冲突。</li>
+</ul>
+<h3 id="Rebase"><a class="header-anchor" href="#Rebase">¶</a>Rebase</h3>
+<ul>
+<li>只对尚未推送或分享给别人的本地修改执行变基操作清理历史；</li>
+<li>从不对已推送至别处的提交执行变基操作。</li>
+<li>在重放之前的提交的时候，Git会创建新的提交，也就是说即使你重放的提交与之前的一模一样Git也会将之当做新的独立的提交进行处理。</li>
+<li><code>git rebase</code>并不会删除老的提交，也就是说你在对某个分支执行了<code>git rebase</code>操作之后，老的提交仍然会存放在.git文件夹的objects目录下。如果你对于Git是如何存放你的提交不太了解的话可以参考这篇文章：<a href="https://medium.freecodecamp.com/understanding-git-for-real-by-exploring-the-git-directory-1e079c15b807#.6ylqa5e2w" target="_blank" rel="noopener">Understanding git for real by exploring the .git directory</a><br>
+<img src="https://image-static.segmentfault.com/206/854/2068544494-5783bdd025d80" alt="rebase"></li>
+<li>设你本地有个branch A，服务器上也有branch A，然后你在本地对branch A进行了<code>git rebase</code>，然后出于某种原因必须<code>git push</code>到服务器，那么你必须使用<code>git push --force</code>。
+<ol>
+<li>如果你能确认branch A没有被其他人<code>git pull</code>过，那么接下来就没什么事了。</li>
+<li>如果branch A已经被别人<code>git pull</code>过，那么你必须告诉那些人，在本地将branch A干掉：<code>git branch -D A</code>，然后<code>git fetch</code>，然后重新checkout：<code>git checkout A</code>。</li>
+<li>如果branch A已经被别人git pull过，而且那些人在本地对branch A做了几个commit，那么，你必须让他们先<code>git push</code>上去之后，你再<code>git rebase</code>，然后参考步骤2。</li>
+</ol>
+</li>
+</ul>
+<h2 id="标签管理"><a class="header-anchor" href="#标签管理">¶</a>标签管理</h2>
+<h3 id="创建标签"><a class="header-anchor" href="#创建标签">¶</a>创建标签</h3>
+<ul>
+<li>命令<code>git tag &lt;tagname&gt;</code>用于新建一个标签，默认为HEAD，也可以指定一个commit id；</li>
+<li><code>git tag -a &lt;tagname&gt; -m &quot;blablabla...&quot;</code>可以指定标签信息；</li>
+<li>命令<code>git tag</code>可以查看所有标签。</li>
+<li><strong>标签总是和某个commit挂钩。如果这个commit既出现在master分支，又出现在dev分支，那么在这两个分支上都可以看到这个标签。</strong></li>
+<li>用GPG签名tag：<code>git tab -s &lt;tagbane&gt; -m &quot;blablabla...&quot;</code>。<a href="http://arondight.me/2016/04/17/%E4%BD%BF%E7%94%A8GPG%E7%AD%BE%E5%90%8DGit%E6%8F%90%E4%BA%A4%E5%92%8C%E6%A0%87%E7%AD%BE/" target="_blank" rel="noopener">GPG详解</a></li>
+</ul>
+<h3 id="操作标签"><a class="header-anchor" href="#操作标签">¶</a>操作标签</h3>
+<ul>
+<li>命令<code>git push origin &lt;tagname&gt;</code>可以推送一个本地标签；</li>
+<li>命令<code>git push origin --tags</code>可以推送全部未推送过的本地标签；</li>
+<li>命令<code>git tag -d &lt;tagname&gt;</code>可以删除一个本地标签；</li>
+<li>命令<code>git push origin :refs/tags/&lt;tagname&gt;</code>可以删除一个远程标签。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>git</tag>
       </tags>
   </entry>
   <entry>

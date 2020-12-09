@@ -196,7 +196,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      42
+      43
        分钟
     </span>
   
@@ -251,7 +251,7 @@
 </li>
 <li>在 Java 平台上，对于 AOP 的织入，有 3 种方式：
 <ol>
-<li>编译期：在编译时，由编译器把切面调用编译进字节码，这种方式需要定义新的关键字并扩展编译器，AspectJ 就扩展了 Java 编译器，使用关键字 aspect 来实现织入；</li>
+<li>编译期：在编译时，由编译器把切面调用编译进字节码，这种方式需要定义新的关键字并扩展编译器，AspectJ 就扩展了 Java 编译器，使用关键字 <code>aspect</code> 来实现织入；</li>
 <li>类加载器：在目标类被装载到 JVM 时，通过一个特殊的类加载器，对目标类的字节码重新“增强”；</li>
 <li>运行期：目标对象和切面都是普通 Java 类，通过 JVM 的动态代理功能或者第三方库实现运行期动态织入。</li>
 </ol>
@@ -399,6 +399,14 @@
 <figure class="highlight java"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs Java"><span class="hljs-keyword">public</span> UserServiceAopProxy extends UserService &#123;<br>    <span class="hljs-keyword">private</span> UserService target;<br>    <span class="hljs-keyword">private</span> LoggingAspect aspect;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">UserServiceAopProxy</span><span class="hljs-params">(UserService target, LoggingAspect aspect)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.target = target;<br>        <span class="hljs-keyword">this</span>.aspect = aspect;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> User <span class="hljs-title">login</span><span class="hljs-params">(String email, String password)</span> </span>&#123;<br>        <span class="hljs-comment">// 先执行Aspect的代码:</span><br>        aspect.doAccessCheck();<br>        <span class="hljs-comment">// 再执行UserService的逻辑:</span><br>        <span class="hljs-keyword">return</span> target.login(email, password);<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> User <span class="hljs-title">register</span><span class="hljs-params">(String email, String password, String name)</span> </span>&#123;<br>        aspect.doAccessCheck();<br>        <span class="hljs-keyword">return</span> target.register(email, password, name);<br>    &#125;<br><br>    ...<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <p>这些都是 Spring 容器启动时为我们自动创建的注入了 Aspect 的子类，它取代了原始的 <code>UserService</code>（原始的 <code>UserService</code> 实例作为内部变量隐藏在 <code>UserServiceAopProxy</code> 中）。如果我们打印从 Spring 容器获取的 <code>UserService</code> 实例类型，它类似 <code>UserService$$EnhancerBySpringCGLIB$$1f44e01c</code>，实际上是 Spring 使用 CGLIB 动态创建的子类，但对于调用方来说，感觉不到任何区别。</p>
 <p>Spring 对接口类型使用 JDK 动态代理，对普通类使用 CGLIB 创建子类。如果一个Bean 的 class 是 <code>final</code>，Spring 将无法为其创建子类。</p>
+<blockquote>
+<p>参考资料：</p>
+<hr>
+<ul>
+<li><a href="https://blog.csdn.net/elim168/article/details/78150438" target="_blank" rel="noopener">elim168 . Spring  Aop（三）——Pointcut表达式介绍 [EB/OL] . https://blog.csdn.net/elim168/article/details/78150438</a></li>
+<li><a href="https://www.liaoxuefeng.com/wiki/1252599548343744/1310052352786466" target="_blank" rel="noopener">廖雪峰 . Java教程 [EB/OL] . https://www.liaoxuefeng.com/wiki/1252599548343744/1310052352786466</a></li>
+</ul>
+</blockquote>
 
             </div>
             <hr>
@@ -441,8 +449,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/07/15/Ubuntu-%E4%B8%8B-138a0090%E3%80%81138a0097-%E5%92%8C-06cb009a-%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%AB%E5%99%A8%E9%A9%B1%E5%8A%A8%E5%8F%8A%E6%8C%87%E7%BA%B9%E8%AE%A4%E8%AF%81/">
-                        <span class="hidden-mobile">Ubuntu 下 138a:0090、138a:0097 和 06cb:009a 指纹识别器驱动及指纹认证</span>
+                      <a href="/2020/07/15/Ubuntu-%E4%B8%8B-Wine-%E5%AE%89%E8%A3%85%E5%B9%B6%E8%BF%90%E8%A1%8C%E5%BE%AE%E4%BF%A1/">
+                        <span class="hidden-mobile">Ubuntu 下 Wine 安装并运行微信</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
