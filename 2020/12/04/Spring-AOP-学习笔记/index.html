@@ -321,7 +321,8 @@
 <li><code>declaring-type-pattern</code> 表示方法的声明类，如 <code>com.elim..*</code> 表示<code>com.elim</code> 包及其子包下面的所有类型；</li>
 <li><code>name-pattern</code> 表示方法的名称，如 <code>add*</code> 表示所有以 <code>add</code> 开头的方法名；</li>
 <li><code>param-pattern</code>表示方法参数的类型，<code>name-pattern(param-pattern)</code> 其实是一起的表示的方法集对应的参数类型，如 <code>add()</code> 表示不带参数的 <code>add</code> 方法，<code>add(*)</code> 表示带一个任意类型的参数的 <code>add</code> 方法，<code>add(*,String)</code> 则表示带两个参数，且第二个参数是 <code>String</code> 类型的 <code>add</code> 方法；</li>
-<li><code>throws-pattern</code> 表示异常类型；其中以问号结束的部分都是可以省略的。</li>
+<li><code>throws-pattern</code> 表示异常类型；</li>
+<li>其中以问号结束的部分都是可以省略的。</li>
 </ul>
 <p>例如：</p>
 <ul>
@@ -336,7 +337,7 @@
 <li><code>within(com.elim..*)</code>” 匹配 <code>com.elim</code> 包及其子包下面所有的类的所有方法的外部调用。</li>
 </ul>
 <h4 id="this"><a class="header-anchor" href="#this">¶</a><code>this</code></h4>
-<p>Spring AOP 是基于代理的，<code>this</code> 就表示代理对象。<code>this</code> 类型的 Pointcut 表达式的语法是 <code>this(type)</code>，当生成的代理对象可以转换为 <code>type</code> 指定的类型时则表示匹配。基于 JDK 接口的代理和基于 CGLIB 的代理生成的代理对象是不一样的。如</p>
+<p>Spring AOP 是基于代理的，<code>this</code> 就表示代理对象。<code>this</code> 类型的 Pointcut 表达式的语法是 <code>this(type)</code>，当生成的代理对象可以转换为 <code>type</code> 指定的类型时则表示匹配。基于 JDK 接口的代理和基于 CGLIB 的代理生成的代理对象是不一样的。如：</p>
 <ul>
 <li><code>this(com.elim.spring.aop.service.IUserService)</code> 匹配生成的代理对象是 <code>IUserService</code> 类型的所有方法的外部调用。</li>
 </ul>
@@ -387,7 +388,7 @@
 <li><code>bean(userService) || @annotation(MyAnnotation)</code> 匹配 id 或 name 为 <code>userService</code> 的 Bean 的方法调用，或者是方法上使用了 <code>MyAnnotation</code> 注解的方法调用。</li>
 <li><code>bean(userService) &amp;&amp; !args()</code> 匹配 id 或 name 为 <code>userService</code> 的 Bean 的所有有参方法调用。</li>
 </ul>
-<h3 id="基于-AspectJ-注解的-Pointcut-表达式应用"><a class="header-anchor" href="#基于-AspectJ-注解的-Pointcut-表达式应用">¶</a>基于 AspectJ 注解的 Pointcut 表达式应用</h3>
+<h3 id="4-基于-AspectJ-注解的-Pointcut-表达式应用"><a class="header-anchor" href="#4-基于-AspectJ-注解的-Pointcut-表达式应用">¶</a>4. 基于 AspectJ 注解的 Pointcut 表达式应用</h3>
 <p>在使用基于 AspectJ 注解的 Spring AOP 时，我们可以把通过 <code>@Pointcut</code> 注解定义 Pointcut，指定其表达式，然后在需要使用 Pointcut 表达式的时候直接指定 Pointcut。</p>
 <figure class="highlight java"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs Java"><span class="hljs-meta">@Component</span><br><span class="hljs-meta">@Aspect</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyAspect</span> </span>&#123;<br><br>	<span class="hljs-meta">@Pointcut</span>(<span class="hljs-string">"execution(* add(..))"</span>)<br>	<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">beforeAdd</span><span class="hljs-params">()</span> </span>&#123;&#125;<br>	<br>	<span class="hljs-meta">@Before</span>(<span class="hljs-string">"beforeAdd()"</span>)<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">before</span><span class="hljs-params">()</span> </span>&#123;<br>		System.out.println(<span class="hljs-string">"-----------before-----------"</span>);<br>	&#125;<br>	<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <p>上面的代码中我们就是在 <code>@Before()</code> 中直接指定使用当前类定义的 <code>beforeAdd()</code> 方法对应的 Pointcut 的表达式，如果我们需要指定的 Pointcut 定义不是在当前类中的，我们需要加上类名称，如下面这个示例中引用的就是定义在 <code>MyService</code> 中的 <code>add()</code> 方法上的 Pointcut 的表达式。</p>
