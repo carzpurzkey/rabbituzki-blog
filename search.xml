@@ -91,75 +91,75 @@
 <figure class="highlight coq"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs coq">execution(modifiers-<span class="hljs-built_in">pattern</span>? ret-type-<span class="hljs-built_in">pattern</span> declaring-type-<span class="hljs-built_in">pattern</span>? name-<span class="hljs-built_in">pattern</span>(param-<span class="hljs-built_in">pattern</span>) throws-<span class="hljs-built_in">pattern</span>?)<br></code></pre></div></td></tr></table></figure>
 <ul>
 <li><code>modifiers-pattern</code> 表示方法的访问类型，<code>public</code> 等；</li>
-<li><code>ret-type-pattern</code> 表示方法的返回值类型，如 <code>String</code> 表示返回类型是<code>String</code>，“<code>*</code>” 表示所有的返回类型；</li>
-<li><code>declaring-type-pattern</code> 表示方法的声明类，如 “<code>com.elim..*</code>” 表示<code>com.elim</code> 包及其子包下面的所有类型；</li>
-<li><code>name-pattern</code> 表示方法的名称，如 “<code>add*</code>” 表示所有以 <code>add</code> 开头的方法名；</li>
-<li><code>param-pattern</code>表示方法参数的类型，<code>name-pattern(param-pattern)</code> 其实是一起的表示的方法集对应的参数类型，如 “<code>add()</code>” 表示不带参数的 <code>add</code> 方法，“<code>add(*)</code>” 表示带一个任意类型的参数的 <code>add</code> 方法，“<code>add(*,String)</code>” 则表示带两个参数，且第二个参数是 <code>String</code> 类型的 <code>add</code> 方法；</li>
+<li><code>ret-type-pattern</code> 表示方法的返回值类型，如 <code>String</code> 表示返回类型是<code>String</code>，<code>*</code> 表示所有的返回类型；</li>
+<li><code>declaring-type-pattern</code> 表示方法的声明类，如 <code>com.elim..*</code> 表示<code>com.elim</code> 包及其子包下面的所有类型；</li>
+<li><code>name-pattern</code> 表示方法的名称，如 <code>add*</code> 表示所有以 <code>add</code> 开头的方法名；</li>
+<li><code>param-pattern</code>表示方法参数的类型，<code>name-pattern(param-pattern)</code> 其实是一起的表示的方法集对应的参数类型，如 <code>add()</code> 表示不带参数的 <code>add</code> 方法，<code>add(*)</code> 表示带一个任意类型的参数的 <code>add</code> 方法，<code>add(*,String)</code> 则表示带两个参数，且第二个参数是 <code>String</code> 类型的 <code>add</code> 方法；</li>
 <li><code>throws-pattern</code> 表示异常类型；其中以问号结束的部分都是可以省略的。</li>
 </ul>
 <p>例如：</p>
 <ul>
-<li>“<code>execution(* add())</code>” 匹配所有的不带参数的 <code>add()</code> 方法。</li>
-<li>“<code>execution(public * com.elim..*.add*(..))</code>” 匹配所有 <code>com.elim</code> 包及其子包下所有类的以 <code>add</code> 开头的所有 <code>public</code> 方法。</li>
-<li>“<code>execution(* *(..) throws Exception)</code>” 匹配所有抛出 <code>Exception</code> 的方法。</li>
+<li><code>execution(* add())</code> 匹配所有的不带参数的 <code>add()</code> 方法。</li>
+<li><code>execution(public * com.elim..*.add*(..))</code> 匹配所有 <code>com.elim</code> 包及其子包下所有类的以 <code>add</code> 开头的所有 <code>public</code> 方法。</li>
+<li><code>execution(* *(..) throws Exception)</code> 匹配所有抛出 <code>Exception</code> 的方法。</li>
 </ul>
 <h4 id="within"><a class="header-anchor" href="#within">¶</a><code>within</code></h4>
 <p><code>within</code> 是用来指定类型的，指定类型中的所有方法将被拦截。如：</p>
 <ul>
-<li>“<code>within(com.elim.spring.aop.service.UserServiceImpl)</code>” 匹配<code>UserServiceImpl</code> 类对应对象的所有方法外部调用，而且这个对象只能是 <code>UserServiceImpl</code> 类型，不能是其子类型。</li>
-<li>“<code>within(com.elim..*)</code>” 匹配 <code>com.elim</code> 包及其子包下面所有的类的所有方法的外部调用。</li>
+<li><code>within(com.elim.spring.aop.service.UserServiceImpl)</code> 匹配<code>UserServiceImpl</code> 类对应对象的所有方法外部调用，而且这个对象只能是 <code>UserServiceImpl</code> 类型，不能是其子类型。</li>
+<li><code>within(com.elim..*)</code>” 匹配 <code>com.elim</code> 包及其子包下面所有的类的所有方法的外部调用。</li>
 </ul>
 <h4 id="this"><a class="header-anchor" href="#this">¶</a><code>this</code></h4>
 <p>Spring AOP 是基于代理的，<code>this</code> 就表示代理对象。<code>this</code> 类型的 Pointcut 表达式的语法是 <code>this(type)</code>，当生成的代理对象可以转换为 <code>type</code> 指定的类型时则表示匹配。基于 JDK 接口的代理和基于 CGLIB 的代理生成的代理对象是不一样的。如</p>
 <ul>
-<li>“<code>this(com.elim.spring.aop.service.IUserService)</code>” 匹配生成的代理对象是 <code>IUserService</code> 类型的所有方法的外部调用。</li>
+<li><code>this(com.elim.spring.aop.service.IUserService)</code> 匹配生成的代理对象是 <code>IUserService</code> 类型的所有方法的外部调用。</li>
 </ul>
 <h4 id="target"><a class="header-anchor" href="#target">¶</a><code>target</code></h4>
 <p>Spring AOP 是基于代理的，<code>target</code> 则表示被代理的目标对象。当被代理的目标对象可以被转换为指定的类型时则表示匹配。如：</p>
 <ul>
-<li>“<code>target(com.elim.spring.aop.service.IUserService)</code>” 则匹配所有被代理的目标对象能够转换为 <code>IUserService</code> 类型的所有方法的外部调用。</li>
+<li><code>target(com.elim.spring.aop.service.IUserService)</code> 则匹配所有被代理的目标对象能够转换为 <code>IUserService</code> 类型的所有方法的外部调用。</li>
 </ul>
 <h4 id="args"><a class="header-anchor" href="#args">¶</a><code>args</code></h4>
 <p><code>args</code> 用来匹配方法参数的。如：</p>
 <ul>
-<li>“<code>args()</code>” 匹配任何不带参数的方法。</li>
-<li>“<code>args(java.lang.String)</code>” 匹配任何只带一个参数，而且这个参数的类型是 <code>String</code> 的方法。</li>
-<li>“<code>args(..)</code>” 带任意参数的方法。</li>
-<li>“<code>args(java.lang.String,..)</code>” 匹配带任意个参数，但是第一个参数的类型是 <code>String</code> 的方法。</li>
-<li>“<code>args(..,java.lang.String)</code>” 匹配带任意个参数，但是最后一个参数的类型是 <code>String</code> 的方法。</li>
+<li><code>args()</code> 匹配任何不带参数的方法。</li>
+<li><code>args(java.lang.String)</code> 匹配任何只带一个参数，而且这个参数的类型是 <code>String</code> 的方法。</li>
+<li><code>args(..)</code> 带任意参数的方法。</li>
+<li><code>args(java.lang.String,..)</code> 匹配带任意个参数，但是第一个参数的类型是 <code>String</code> 的方法。</li>
+<li><code>args(..,java.lang.String)</code> 匹配带任意个参数，但是最后一个参数的类型是 <code>String</code> 的方法。</li>
 </ul>
 <h4 id="target-v2"><a class="header-anchor" href="#target-v2">¶</a><code>@target</code></h4>
 <p><code>@target</code> 匹配当被代理的目标对象对应的类型及其父类型上拥有指定的注解时。如：</p>
 <ul>
-<li>“<code>@target(com.elim.spring.support.MyAnnotation)</code>” 匹配被代理的目标对象对应的类型上拥有 <code>MyAnnotation</code> 注解时。</li>
+<li><code>@target(com.elim.spring.support.MyAnnotation)</code> 匹配被代理的目标对象对应的类型上拥有 <code>MyAnnotation</code> 注解时。</li>
 </ul>
 <h4 id="args-v2"><a class="header-anchor" href="#args-v2">¶</a><code>@args</code></h4>
 <p><code>@args</code> 匹配被调用的方法上含有参数，且对应的参数类型上拥有指定的注解的情况。如：</p>
 <ul>
-<li>“<code>@args(com.elim.spring.support.MyAnnotation)</code>” 匹配方法参数类型上拥有 <code>MyAnnotation</code> 注解的方法调用。如我们有一个方法 <code>add(MyParam  param)</code> 接收一个 <code>MyParam</code> 类型的参数，而 <code>MyParam</code> 这个类是拥有注解 <code>MyAnnotation</code> 的，则它可以被 Pointcut 表达式 “<code>@args(com.elim.spring.support.MyAnnotation)</code>” 匹配上。</li>
+<li><code>@args(com.elim.spring.support.MyAnnotation)</code> 匹配方法参数类型上拥有 <code>MyAnnotation</code> 注解的方法调用。如我们有一个方法 <code>add(MyParam  param)</code> 接收一个 <code>MyParam</code> 类型的参数，而 <code>MyParam</code> 这个类是拥有注解 <code>MyAnnotation</code> 的，则它可以被 Pointcut 表达式 “、<code>@args(com.elim.spring.support.MyAnnotation)</code> 匹配上。</li>
 </ul>
 <h4 id="within-v2"><a class="header-anchor" href="#within-v2">¶</a><code>@within</code></h4>
 <p><code>@within</code> 用于匹配被代理的目标对象对应的类型或其父类型拥有指定的注解的情况，但只有在调用拥有指定注解的类上的方法时才匹配。如：</p>
 <ul>
-<li>“<code>@within(com.elim.spring.support.MyAnnotation)</code>” 匹配被调用的方法声明的类上拥有 <code>MyAnnotation</code> 注解的情况。比如有一个 <code>ClassA</code> 上使用了注解 <code>MyAnnotation</code> 标注，并且定义了一个方法 <code>a()</code>，那么在调用 <code>ClassA.a()</code> 方法时将匹配该 Pointcut；如果有一个 <code>ClassB</code> 上没有 <code>MyAnnotation</code> 注解，但是它继承自 <code>ClassA</code>，同时它上面定义了一个方法 <code>b()</code>，那么在调用 <code>ClassB().b()</code> 方法时不会匹配该 Pointcut，但是在调用 <code>ClassB().a()</code> 时将匹配该方法调用，因为 <code>a()</code> 是定义在父类型 <code>ClassA</code> 上的，且 <code>ClassA</code> 上使用了 <code>MyAnnotation</code> 注解。但是如果子类 <code>ClassB</code> 覆写了父类 <code>ClassA</code> 的 <code>a()</code> 方法，则调用 <code>ClassB.a()</code> 方法时也不匹配该 Pointcut。</li>
+<li><code>@within(com.elim.spring.support.MyAnnotation)</code> 匹配被调用的方法声明的类上拥有 <code>MyAnnotation</code> 注解的情况。比如有一个 <code>ClassA</code> 上使用了注解 <code>MyAnnotation</code> 标注，并且定义了一个方法 <code>a()</code>，那么在调用 <code>ClassA.a()</code> 方法时将匹配该 Pointcut；如果有一个 <code>ClassB</code> 上没有 <code>MyAnnotation</code> 注解，但是它继承自 <code>ClassA</code>，同时它上面定义了一个方法 <code>b()</code>，那么在调用 <code>ClassB().b()</code> 方法时不会匹配该 Pointcut，但是在调用 <code>ClassB().a()</code> 时将匹配该方法调用，因为 <code>a()</code> 是定义在父类型 <code>ClassA</code> 上的，且 <code>ClassA</code> 上使用了 <code>MyAnnotation</code> 注解。但是如果子类 <code>ClassB</code> 覆写了父类 <code>ClassA</code> 的 <code>a()</code> 方法，则调用 <code>ClassB.a()</code> 方法时也不匹配该 Pointcut。</li>
 </ul>
 <h4 id="annotation"><a class="header-anchor" href="#annotation">¶</a><code>@annotation</code></h4>
 <p><code>@annotation</code> 用于匹配方法上拥有指定注解的情况。如：</p>
 <ul>
-<li>“<code>@annotation(com.elim.spring.support.MyAnnotation)</code>” 匹配所有的方法上拥有 <code>MyAnnotation</code> 注解的方法外部调用。</li>
+<li><code>@annotation(com.elim.spring.support.MyAnnotation)</code> 匹配所有的方法上拥有 <code>MyAnnotation</code> 注解的方法外部调用。</li>
 </ul>
 <h4 id="bean"><a class="header-anchor" href="#bean">¶</a><code>bean</code></h4>
 <p><code>bean</code> 用于匹配当调用的是指定的 Spring 的某个 Bean 的方法时。</p>
 <ul>
-<li>1、“<code>bean(abc)</code>” 匹配 Spring Bean 容器中 id 或 name 为 <code>abc</code> 的 Bean 的方法调用。</li>
-<li>2、“<code>bean(user*)</code>” 匹配所有 id 或 name 为以 <code>user</code> 开头的 Bean 的方法调用。</li>
+<li><code>bean(abc)</code> 匹配 Spring Bean 容器中 id 或 name 为 <code>abc</code> 的 Bean 的方法调用。</li>
+<li><code>bean(user*)</code> 匹配所有 id 或 name 为以 <code>user</code> 开头的 Bean 的方法调用。</li>
 </ul>
 <h3 id="3-表达式组合"><a class="header-anchor" href="#3-表达式组合">¶</a>3. 表达式组合</h3>
 <p>表达式的组合其实就是对应的表达式的逻辑运算，与、或、非。可以通过它们把多个表达式组合在一起。</p>
 <ul>
-<li>“<code>bean(userService) &amp;&amp; args()</code>” 匹配 id 或 name 为 <code>userService</code> 的 Bean 的所有无参方法。</li>
-<li>“<code>bean(userService) || @annotation(MyAnnotation)</code>” 匹配 id 或 name 为 <code>userService</code> 的 Bean 的方法调用，或者是方法上使用了 <code>MyAnnotation</code> 注解的方法调用。</li>
-<li>“<code>bean(userService) &amp;&amp; !args()</code>” 匹配 id 或 name 为 <code>userService</code> 的 Bean 的所有有参方法调用。</li>
+<li><code>bean(userService) &amp;&amp; args()</code> 匹配 id 或 name 为 <code>userService</code> 的 Bean 的所有无参方法。</li>
+<li><code>bean(userService) || @annotation(MyAnnotation)</code> 匹配 id 或 name 为 <code>userService</code> 的 Bean 的方法调用，或者是方法上使用了 <code>MyAnnotation</code> 注解的方法调用。</li>
+<li><code>bean(userService) &amp;&amp; !args()</code> 匹配 id 或 name 为 <code>userService</code> 的 Bean 的所有有参方法调用。</li>
 </ul>
 <h3 id="基于-AspectJ-注解的-Pointcut-表达式应用"><a class="header-anchor" href="#基于-AspectJ-注解的-Pointcut-表达式应用">¶</a>基于 AspectJ 注解的 Pointcut 表达式应用</h3>
 <p>在使用基于 AspectJ 注解的 Spring AOP 时，我们可以把通过 <code>@Pointcut</code> 注解定义 Pointcut，指定其表达式，然后在需要使用 Pointcut 表达式的时候直接指定 Pointcut。</p>
@@ -179,9 +179,9 @@
       </categories>
       <tags>
         <tag>编程语言</tag>
+        <tag>Web</tag>
         <tag>Java</tag>
         <tag>Spring</tag>
-        <tag>Web</tag>
         <tag>AOP</tag>
       </tags>
   </entry>
@@ -10484,179 +10484,6 @@ cond(no)->sub->io</textarea><textarea id="flowchart-0-options" style="display: n
       </tags>
   </entry>
   <entry>
-    <title>《C语言程序设计·现代方法（第二版）》学习笔记 -- 之一</title>
-    <url>/2018/10/18/%E3%80%8AC%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%C2%B7%E7%8E%B0%E4%BB%A3%E6%96%B9%E6%B3%95%EF%BC%88%E7%AC%AC%E4%BA%8C%E7%89%88%EF%BC%89%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80/</url>
-    <content><![CDATA[<h1>《C语言程序设计现代方法第二版》学习笔记一</h1>
-<hr>
-<p>[toc]</p>
-<hr>
-<h2 id="第二章-C语言基本概念"><a class="header-anchor" href="#第二章-C语言基本概念">¶</a>第二章 C语言基本概念</h2>
-<h3 id="2-4-变量和赋值"><a class="header-anchor" href="#2-4-变量和赋值">¶</a>2.4 变量和赋值</h3>
-<h4 id="2-4-5-初始化（P15）"><a class="header-anchor" href="#2-4-5-初始化（P15）">¶</a>2.4.5 初始化（P15）</h4>
-<p>  当程序开始执行时，某些变量会被自动设置为0，而大多数变量则不会。如果试图访问未初始化的变量，可能会得到不可预知的结果。</p>
-<h3 id="2-7-标识符（P19）"><a class="header-anchor" href="#2-7-标识符（P19）">¶</a>2.7 标识符（P19）</h3>
-<p>  标准库中函数的名字只能包含小写字母。</p>
-<h3 id="第二章FAQ（P22-P23）"><a class="header-anchor" href="#第二章FAQ（P22-P23）">¶</a>第二章FAQ（P22~P23）</h3>
-<ol>
-<li>（在C99中）如果main函数声明中的返回类型是<code>int</code>，程序会向操作系统返回0;否则程序会返回一个不确定的值。</li>
-<li>依据C标准，编译器必须用一个空格字符替换每条注释语句。</li>
-<li>传统风格的注释（<code>/*...*/</code>）不允许嵌套;C99注释（以<code>//</code>开头）可以嵌套在传统风格的注释中。</li>
-</ol>
-<hr>
-<h2 id="第三章-格式化输入-输出"><a class="header-anchor" href="#第三章-格式化输入-输出">¶</a>第三章 格式化输入/输出</h2>
-<h3 id="3-1-printf函数"><a class="header-anchor" href="#3-1-printf函数">¶</a>3.1 <code>printf</code>函数</h3>
-<h4 id="3-1-1-转换说明（P28）"><a class="header-anchor" href="#3-1-1-转换说明（P28）">¶</a>3.1.1 转换说明（P28）</h4>
-<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> i;<br>    <span class="hljs-keyword">float</span> x;<br>    <br>    i = <span class="hljs-number">40</span>;<br>    x = <span class="hljs-number">839.21f</span>;<br>    <br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"|%d|%5d|%-5d|%5.3d|n"</span>, i, i, i, );<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"|%10.3f|%10.3e|%-10g|\n"</span>, x, x, x);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<p>输出：</p>
-<p>|40|   40|40   |  040|</p>
-<p>|   839.210| 8.392e+02|839.21    |</p>
-<h4 id="3-2-1-scanf的工作方法（P30）"><a class="header-anchor" href="#3-2-1-scanf的工作方法（P30）">¶</a>3.2.1 <code>scanf</code>的工作方法（P30）</h4>
-<p>  对于格式串中的第一个转换说明，<code>scanf</code>函数从输入的数据中定位适当类型的项，并在必要时跳过空格。然后，<code>scanf</code>函数诗篇数据项，并且在遇到 <strong>不可能属于此项的字符（笔记：如果不可能属于此项的字符为本次读取的第一个字符，则<code>scanf</code>立即停止。否则将此字符放回原位，在下次读取时作为第一个读取的字符。参考P31例子）</strong> 时停止。如果读入数据项成功，那么<code>scanf</code>函数会继续处理格式串的剩余部分；如果某一项不能成功读入，那么<code>scanf</code>函数将不再查看格式串的剩余部分（或余下的输入数据）而立即返回。</p>
-<p>  在寻找数的起始位置时，<code>scanf</code>函数会忽略空白字符。因此，我们可以把数字放在同一行或者分散在几行内输入。</p>
-<h4 id="3-2-3易混淆的printf函数和scanf函数（P32）"><a class="header-anchor" href="#3-2-3易混淆的printf函数和scanf函数（P32）">¶</a>3.2.3易混淆的<code>printf</code>函数和<code>scanf</code>函数（P32）</h4>
-<p>  <code>printf</code>格式串结党以<code>\n</code>结尾，但是在<code>scanf</code>格式串末尾旋转换行符通常是一个坏主意。对<code>scanf</code>函数来说，格式串中的换行符等价于空格，两者都会引发<code>scanf</code>函数提前进入下一个非空白字符。例如，如果格式串是&quot;<code>%d\n</code>&quot;，那么函数将跳过空白字符，读取一个整数，然后跳到下一个非空白字符处。像这样的格式串可能会导致交互式程序一直“挂起”直到用户输入一个非空白字符为止。</p>
-<h3 id="第三章FAQ（P33）"><a class="header-anchor" href="#第三章FAQ（P33）">¶</a>第三章FAQ（P33）</h3>
-<p>  <code>%i</code>与<code>%d</code>区别：<code>%i</code>可以为十进制、八进制（0开头）、十六进制（0x或0X开头）的数，<code>%d</code>只识别十进制数。</p>
-<hr>
-<h2 id="第四章-表达式"><a class="header-anchor" href="#第四章-表达式">¶</a>第四章 表达式</h2>
-<h3 id="4-2-赋值运算符"><a class="header-anchor" href="#4-2-赋值运算符">¶</a>4.2 赋值运算符</h3>
-<h4 id="4-2-1简单赋值（P40）"><a class="header-anchor" href="#4-2-1简单赋值（P40）">¶</a>4.2.1简单赋值（P40）</h4>
-<p>  大多数C语言运算符不会改变操作数的值，但是也有一些会改变。由于这类运算符所做的不再仅仅是计算出值，所以称它们有副作用。如<code>i = 0</code>求值产生的结果为0，并（作为副作用）把0值赋给i。</p>
-<h4 id="4-2-3复合赋值（P41）"><a class="header-anchor" href="#4-2-3复合赋值（P41）">¶</a>4.2.3复合赋值（P41）</h4>
-<ol>
-<li>
-<p>在极少数情况下，由于v自身的副作用，<code>v += e</code>不等同于<code>v = v + e</code> <strong>（笔记：<code>v += e</code>中v的值只计算一次，而<code>v = v + e</code>中v的值会计算两次。如：<code>a[i++] += 2</code>中i会自增一次，<code>a[i++] = a[i++] + 2</code>中i会自增两次）</strong>。类似的说明也适用于其它复合赋值运算符。</p>
-</li>
-<li>
-<p>复合赋值运算符有着和=运算符一样的特性。特别是，它们都是右结合的，所以</p>
-</li>
-</ol>
-<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C">i += j += k<br></code></pre></div></td></tr></table></figure>
-<p>意味着</p>
-<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C">i += (j += k)<br></code></pre></div></td></tr></table></figure>
-<h3 id="4-5表达式语句（P45）"><a class="header-anchor" href="#4-5表达式语句（P45）">¶</a>4.5表达式语句（P45）</h3>
-<p>  任何表达式都可以用作语句。<code>i * j - 1</code>因为i和j没有变化，所以这条语句没有任何作用。</p>
-<hr>
-<h2 id="第五章-选择语句"><a class="header-anchor" href="#第五章-选择语句">¶</a>第五章 选择语句</h2>
-<h3 id="5-2-if语句"><a class="header-anchor" href="#5-2-if语句">¶</a>5.2 <code>if</code>语句</h3>
-<h4 id="5-2-4-“悬空else”的问题（P56）"><a class="header-anchor" href="#5-2-4-“悬空else”的问题（P56）">¶</a>5.2.4 “悬空<code>else</code>”的问题（P56）</h4>
-<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-keyword">if</span> (y != <span class="hljs-number">0</span>)<br>    <span class="hljs-keyword">if</span> (x != <span class="hljs-number">0</span>)<br>        result = x / y;<br><span class="hljs-keyword">else</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Error: y is equal to 0\n"</span>);<br></code></pre></div></td></tr></table></figure>
-<p>  C语言遵循的规则是<code>else</code>子句应该属于离它最近的且还未和其它<code>else</code>匹配的<code>if</code>语句。</p>
-<h4 id="5-2-7-C99中的布尔值（P58）"><a class="header-anchor" href="#5-2-7-C99中的布尔值（P58）">¶</a>5.2.7 C99中的布尔值（P58）</h4>
-<p>  在C99中提供了<code>_Bool</code>型，<font color=red><strong><code>_Bool</code>是无符号整型，但只能赋值为0或1，一般来说，往<code>_Bool</code>变量中存储非零值会导致变量赋值为1</strong></font>。<br>
-  除了<code>_Bool</code>类型的宝座，C99还提供了一个新的头&lt;stdbool.h&gt;。该问提供了<code>bool</code>宏来代表<code>_Bool</code>，<code>true</code>来代表1，<code>false</code>来代表0。</p>
-<h3 id="5-3-switch语句"><a class="header-anchor" href="#5-3-switch语句">¶</a>5.3 <code>switch</code>语句</h3>
-<ol>
-<li><code>switch</code>后边必须跟着由圆括号括起来的<font color=red><strong>整型</strong></font>表达式，不能用浮点数和字符串。</li>
-<li><code>case</code>后跟<font color=red><strong>常量表达式</strong></font>，如<code>5 + 10</code>。</li>
-</ol>
-<h3 id="第五章FAQ（P63-P64）"><a class="header-anchor" href="#第五章FAQ（P63-P64）">¶</a>第五章FAQ（P63~P64）</h3>
-<ol>
-<li>当<code>int</code>型和<code>float</code>型的值混合在一个条件表达式中时（如<code>i &gt; 0 ? i : f</code>）表达式类型为<code>float</code>型。如果<code>i &gt; 0</code>为真，那么变量i转化为<code>float</code>型后的值就是表达式的值。</li>
-<li>C89标准指出，以下划线后跟一个大写字母开头的名字是保留字，程序员不应该使用。</li>
-</ol>
-<hr>
-<h2 id="第六章-循环"><a class="header-anchor" href="#第六章-循环">¶</a>第六章 循环</h2>
-<h3 id="6-3-for语句"><a class="header-anchor" href="#6-3-for语句">¶</a>6.3 <code>for</code>语句</h3>
-<h4 id="6-3-4-逗号运算符（P76）"><a class="header-anchor" href="#6-3-4-逗号运算符（P76）">¶</a>6.3.4 逗号运算符（P76）</h4>
-<ol>
-<li>形式：表达式1, 表达式2</li>
-<li>实现方式：第一步，计算表达式1并且扔掉计算出的值。第二步，计算表达式2，把这个值作为整个表达式的值。</li>
-<li>例如：<code>i = 1</code>, <code>j = 2</code>, <code>k = i + j</code>解释为<code>((i = 1), (j = 2)), (k = (i + j))</code></li>
-</ol>
-<h3 id="6-4-退出循环"><a class="header-anchor" href="#6-4-退出循环">¶</a>6.4 退出循环</h3>
-<h4 id="6-4-3-goto语句（P79）"><a class="header-anchor" href="#6-4-3-goto语句（P79）">¶</a>6.4.3 <code>goto</code>语句（P79）</h4>
-<ol>
-<li><code>break</code>语句的目标是包含该语句的循环结束之<font color=red><strong>后</strong></font>的那一点，而<code>continue</code>语句的目标是循环结束之<font color=red><strong>前</strong></font>的那一点。</li>
-<li><code>goto</code>语句不可以用于绕过变长数组。</li>
-</ol>
-<h3 id="第六章FAQ（P83-P84）"><a class="header-anchor" href="#第六章FAQ（P83-P84）">¶</a>第六章FAQ（P83~P84）</h3>
-<ol>
-<li>早期编译器中无限循环<code>for(;;)</code>比<code>while(1)</code>高效；新编译器性能无差别。</li>
-<li>空语句可以有如下用途：</li>
-</ol>
-<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C">&#123;<br>    ...<br>    <span class="hljs-keyword">goto</span> end_of_stmt;<br>    end_of_stmt: ;<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<hr>
-<h2 id="第七章-基本类型"><a class="header-anchor" href="#第七章-基本类型">¶</a>第七章 基本类型</h2>
-<h3 id="7-1整数类型（P89"><a class="header-anchor" href="#7-1整数类型（P89">¶</a>7.1整数类型（P89)</h3>
-<p>  <code>short int</code>、<code>int</code>、<code>long int</code>取值范围有可能是一样的。但C标准规定<code>int</code>取值范围不能比<code>short int</code>小，<code>long int</code>取值范围不能比<code>int</code>小。</p>
-<h4 id="7-1-4整数溢出（P91）"><a class="header-anchor" href="#7-1-4整数溢出（P91）">¶</a>7.1.4整数溢出（P91）</h4>
-<ol>
-<li>有符号整数溢出行为未定义。</li>
-<li>无符号整数溢出为对<code>2n</code>取模，其中<code>n</code>是用于存储结果的位数。例如，如果对无符号的16位数65535加1，其结果可以保证为0。</li>
-</ol>
-<h3 id="7-3字符类型"><a class="header-anchor" href="#7-3字符类型">¶</a>7.3字符类型</h3>
-<h4 id="7-3-1字符操作（P95）"><a class="header-anchor" href="#7-3-1字符操作（P95）">¶</a>7.3.1字符操作（P95）</h4>
-<p>  C语言把字符当作小整数进行处理。</p>
-<h4 id="7-3-7用getchar和putchar读-写字符"><a class="header-anchor" href="#7-3-7用getchar和putchar读-写字符">¶</a>7.3.7用<code>getchar</code>和<code>putchar</code>读/写字符</h4>
-<p>  在同一个程序中混合使用<code>getchr</code>函数和<code>scanf</code>函数时，要注意<code>scanf</code>函数倾向于遗留下它“扫视”过但未读取的字符（包括换行符）。考虑下面程序段：</p>
-<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-built_in">printf</span>(<span class="hljs-string">"Enter an integer: "</span>);<br><span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%d"</span>, &amp;i);<br> <br><span class="hljs-built_in">printf</span>(<span class="hljs-string">"Enter a command: "</span>);<br> <br>command = getchar();<br></code></pre></div></td></tr></table></figure>
-<p>  在读入<code>i</code>的同时，<code>scanf</code>函数调用将会留下没有消耗掉的任意字符，包括（但不限于）换行符。<code>getchar</code>函数随后将取回第一个剩余字符，但这不是我们所希望的结果。</p>
-<h3 id="7-4类型转换（P100）"><a class="header-anchor" href="#7-4类型转换（P100）">¶</a>7.4类型转换（P100）</h3>
-<p>  当发生下列情况时会进行隐匿转换。</p>
-<ul>
-<li>当算术表达式或逻辑表达式中操作数的类型不相同时。（C语言执行所谓的常用算术转换）</li>
-<li>当赋值运算符右侧表达式的类型和左侧变量的类型不匹配时。</li>
-<li>当函数调用中的实参类型与其对应的形参类型不匹配时。</li>
-<li>当<code>return</code>语句中表达式的类型和函数返回值的类型不匹配时。</li>
-</ul>
-<h4 id="7-4-1常用算术转换（P101）"><a class="header-anchor" href="#7-4-1常用算术转换（P101）">¶</a>7.4.1常用算术转换（P101）</h4>
-<ol>
-<li>
-<p>任一操作数是浮点类型的情况。</p>
-<div class="hljs code-wrapper"><pre><code>         long double
-               ^
-               |
-            double
-               ^
-               |
-             float
-</code></pre></div>
-</li>
-<li>
-<p>两个操作数的类型都不是浮点类型的情况。</p>
-<div class="hljs code-wrapper"><pre><code>        unsigned long int
-                 ^
-                 |
-              long int
-                 ^
-                 |
-           unsigned int
-                 ^
-                 |
-                int
-</code></pre></div>
-</li>
-</ol>
-<p>  有一种特殊情况，只有在<code>long int</code>类型和<code>unsigned int</code>类型长度（比如32位）相同时才会发生。在这类情况下，如果一个操作数的类型是<code>long int</code>，而另一个的类型是<code>unsiged int</code>，那么两个操作数都会转换成<code>unsigned long int</code>类型。C语言把（类型名）视为一元运算符。一元运算符的优先级高于二元运算符，所以编译器会把表达。</p>
-<p>  当把有符号操作数和无符号操作数组合时，把有符号操作数“转换”成无符号的值。转换过程中需要加上或者减去<code>n + 1</code>的倍数，其中<code>n</code>是无符号类型能表示的最大值。这条规则可能会导致某此隐蔽的编程错误。</p>
-<p>  假设<code>int</code>类型的变量<code>i</code>的值为-10，而<code>unsigned int</code>类型的变量<code>u</code>的值为10。如果用&lt;运算符比较变量<code>i</code>和变量<code>u</code>，那么期望的结果应该是1（真）。但是，在比较前，变量<code>i</code>转换成为<code>unsigned int</code>类型。因为负数不能被表示成无符号整数，所以转换后的值不再为-10，而是加上4294967296的结果（假定4294967296是最大的无符号整数），即4294967286。因而<code>i &lt; u</code>比较的结果将为0。有些编译器会在程序试图比较有符号与无符号时给出一条类似“comparison between signed and unsigned”的警告消息。</p>
-<p>  由于此类陷阱的存在，所以最好尽量避免使用无符号整数，特别是不要把它和有符号整数混合使用。</p>
-<h4 id="7-4-2赋值过程中的转换（P102）"><a class="header-anchor" href="#7-4-2赋值过程中的转换（P102）">¶</a>7.4.2赋值过程中的转换（P102）</h4>
-<p>  把某种类型的值赋给类型更狭小的变量时，如果该值在变量类型范围之外，那么将会得到无意义的结果（甚至更糟）。<br>
-  如果浮点常量被赋值给<code>float</code>型变量时，一个很好的方法是在浮点常量尾部加上后辍<code>f</code>。</p>
-<h4 id="7-4-4强制类型转换（P103）"><a class="header-anchor" href="#7-4-4强制类型转换（P103）">¶</a>7.4.4强制类型转换（P103）</h4>
-<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-keyword">float</span> quotient;<br><span class="hljs-keyword">int</span> dividend, divisor;<br> <br>quotient = (<span class="hljs-keyword">float</span>) dividend / divisor;<br></code></pre></div></td></tr></table></figure>
-<p>  变量<code>divisor</code>不需要进行强制类型转换，因为把变量<code>dividend</code>强制錾成<code>float</code>类型会迫使编译器把<code>divisor</code>也转换成<code>float</code>类型。C语言把（类型名）视为一元运算符。一元运算符的优先级高于二元运算符，所以编译器会把表达式</p>
-<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C">(<span class="hljs-keyword">float</span>) dividend / divisor<br></code></pre></div></td></tr></table></figure>
-<p>  解释为</p>
-<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C">((<span class="hljs-keyword">float</span>) dividend) / divisor<br></code></pre></div></td></tr></table></figure>
-<h3 id="7-6-sizeof运算符（P106）"><a class="header-anchor" href="#7-6-sizeof运算符（P106）">¶</a>7.6 <code>sizeof</code>运算符（P106）</h3>
-<p>  显示<code>sizeof</code>值时要注意，因为<code>sizeof</code>表达式的类型是<code>size_t</code>，这是一种由实现定义的类型。在C89中，最好在显示前把表达式的值转换成一种已知的类型。<code>size_t</code>一定是无符号整型，所以最安全的方法是把<code>sizeof</code>表达式强制转换成<code>unsigned long</code>类型。(C89中最大的无符号类型)，然后使用转换说明答题<code>%lu</code>显示。</p>
-<p>  在C99中，<code>size_t</code>类型可以比<code>unsigned long</code>更长。但C99中的<code>printf</code>可以直接显示<code>size_t</code>类型值而不需要强制转换。方法是在转换说明中的一般整数（通常用<code>u</code>）代码前使用字母<code>z</code>：</p>
-<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-built_in">printf</span>(<span class="hljs-string">"Size of int: %zu\n"</span>, <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">int</span>)); <span class="hljs-comment">/* C99 only */</span><br></code></pre></div></td></tr></table></figure>
-<h3 id="第七章FAQ（P107）"><a class="header-anchor" href="#第七章FAQ（P107）">¶</a>第七章FAQ（P107）</h3>
-<p>  只要有符号整数的值不是负值，就可以用<code>%o</code>和<code>%x</code>显示。这些转换导致<code>printf</code>函数把有符号整数看成无符号的；换句话说，<code>printf</code>函数将假设符号位是数的绝对值部分。只要符号位为0，就没问题。如果符号位为1，那么<code>printf</code>函数将显示出一个走出预期的大数。没有直接的方法可以书写负数的八进制或十六进制形式。幸运的是，需要这样做的情况非常少。当然，我们可以判定这个数是否是负数，然后自己显示一个负号：</p>
-<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-keyword">if</span> (i &lt; <span class="hljs-number">0</span>)<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"-%x"</span>, -i);<br><span class="hljs-keyword">else</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%x"</span>, i);<br></code></pre></div></td></tr></table></figure>]]></content>
-      <categories>
-        <category>笔记</category>
-      </categories>
-      <tags>
-        <tag>编程语言</tag>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>《C语言程序设计·现代方法（第二版）》学习笔记 -- 之二</title>
     <url>/2018/10/18/%E3%80%8AC%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%C2%B7%E7%8E%B0%E4%BB%A3%E6%96%B9%E6%B3%95%EF%BC%88%E7%AC%AC%E4%BA%8C%E7%89%88%EF%BC%89%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%8C/</url>
     <content><![CDATA[<h1>《C语言程序设计现代方法第二版》学习笔记二</h1>
@@ -11038,6 +10865,179 @@ cond(no)->sub->io</textarea><textarea id="flowchart-0-options" style="display: n
   <font color=red><strong>如果在文件内把这个<code>inline</code>函数声明为<code>extern</code>，则这个<code>inline</code>函数的表现就和gcc的<code>inline</code>一致了：这个函数即成为一个“external definition”（可以简单理解为全局函数）：可以在外部被调用，并且在程序内仅能存在一个这样名字的定义。</strong></font></p>
 <p>5. <code>extern inline</code>（C99标准）：C99标准没有见到<code>extern inline</code>的用法。</p>
 ]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>编程语言</tag>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>《C语言程序设计·现代方法（第二版）》学习笔记 -- 之一</title>
+    <url>/2018/10/18/%E3%80%8AC%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%C2%B7%E7%8E%B0%E4%BB%A3%E6%96%B9%E6%B3%95%EF%BC%88%E7%AC%AC%E4%BA%8C%E7%89%88%EF%BC%89%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80/</url>
+    <content><![CDATA[<h1>《C语言程序设计现代方法第二版》学习笔记一</h1>
+<hr>
+<p>[toc]</p>
+<hr>
+<h2 id="第二章-C语言基本概念"><a class="header-anchor" href="#第二章-C语言基本概念">¶</a>第二章 C语言基本概念</h2>
+<h3 id="2-4-变量和赋值"><a class="header-anchor" href="#2-4-变量和赋值">¶</a>2.4 变量和赋值</h3>
+<h4 id="2-4-5-初始化（P15）"><a class="header-anchor" href="#2-4-5-初始化（P15）">¶</a>2.4.5 初始化（P15）</h4>
+<p>  当程序开始执行时，某些变量会被自动设置为0，而大多数变量则不会。如果试图访问未初始化的变量，可能会得到不可预知的结果。</p>
+<h3 id="2-7-标识符（P19）"><a class="header-anchor" href="#2-7-标识符（P19）">¶</a>2.7 标识符（P19）</h3>
+<p>  标准库中函数的名字只能包含小写字母。</p>
+<h3 id="第二章FAQ（P22-P23）"><a class="header-anchor" href="#第二章FAQ（P22-P23）">¶</a>第二章FAQ（P22~P23）</h3>
+<ol>
+<li>（在C99中）如果main函数声明中的返回类型是<code>int</code>，程序会向操作系统返回0;否则程序会返回一个不确定的值。</li>
+<li>依据C标准，编译器必须用一个空格字符替换每条注释语句。</li>
+<li>传统风格的注释（<code>/*...*/</code>）不允许嵌套;C99注释（以<code>//</code>开头）可以嵌套在传统风格的注释中。</li>
+</ol>
+<hr>
+<h2 id="第三章-格式化输入-输出"><a class="header-anchor" href="#第三章-格式化输入-输出">¶</a>第三章 格式化输入/输出</h2>
+<h3 id="3-1-printf函数"><a class="header-anchor" href="#3-1-printf函数">¶</a>3.1 <code>printf</code>函数</h3>
+<h4 id="3-1-1-转换说明（P28）"><a class="header-anchor" href="#3-1-1-转换说明（P28）">¶</a>3.1.1 转换说明（P28）</h4>
+<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> i;<br>    <span class="hljs-keyword">float</span> x;<br>    <br>    i = <span class="hljs-number">40</span>;<br>    x = <span class="hljs-number">839.21f</span>;<br>    <br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"|%d|%5d|%-5d|%5.3d|n"</span>, i, i, i, );<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"|%10.3f|%10.3e|%-10g|\n"</span>, x, x, x);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>输出：</p>
+<p>|40|   40|40   |  040|</p>
+<p>|   839.210| 8.392e+02|839.21    |</p>
+<h4 id="3-2-1-scanf的工作方法（P30）"><a class="header-anchor" href="#3-2-1-scanf的工作方法（P30）">¶</a>3.2.1 <code>scanf</code>的工作方法（P30）</h4>
+<p>  对于格式串中的第一个转换说明，<code>scanf</code>函数从输入的数据中定位适当类型的项，并在必要时跳过空格。然后，<code>scanf</code>函数诗篇数据项，并且在遇到 <strong>不可能属于此项的字符（笔记：如果不可能属于此项的字符为本次读取的第一个字符，则<code>scanf</code>立即停止。否则将此字符放回原位，在下次读取时作为第一个读取的字符。参考P31例子）</strong> 时停止。如果读入数据项成功，那么<code>scanf</code>函数会继续处理格式串的剩余部分；如果某一项不能成功读入，那么<code>scanf</code>函数将不再查看格式串的剩余部分（或余下的输入数据）而立即返回。</p>
+<p>  在寻找数的起始位置时，<code>scanf</code>函数会忽略空白字符。因此，我们可以把数字放在同一行或者分散在几行内输入。</p>
+<h4 id="3-2-3易混淆的printf函数和scanf函数（P32）"><a class="header-anchor" href="#3-2-3易混淆的printf函数和scanf函数（P32）">¶</a>3.2.3易混淆的<code>printf</code>函数和<code>scanf</code>函数（P32）</h4>
+<p>  <code>printf</code>格式串结党以<code>\n</code>结尾，但是在<code>scanf</code>格式串末尾旋转换行符通常是一个坏主意。对<code>scanf</code>函数来说，格式串中的换行符等价于空格，两者都会引发<code>scanf</code>函数提前进入下一个非空白字符。例如，如果格式串是&quot;<code>%d\n</code>&quot;，那么函数将跳过空白字符，读取一个整数，然后跳到下一个非空白字符处。像这样的格式串可能会导致交互式程序一直“挂起”直到用户输入一个非空白字符为止。</p>
+<h3 id="第三章FAQ（P33）"><a class="header-anchor" href="#第三章FAQ（P33）">¶</a>第三章FAQ（P33）</h3>
+<p>  <code>%i</code>与<code>%d</code>区别：<code>%i</code>可以为十进制、八进制（0开头）、十六进制（0x或0X开头）的数，<code>%d</code>只识别十进制数。</p>
+<hr>
+<h2 id="第四章-表达式"><a class="header-anchor" href="#第四章-表达式">¶</a>第四章 表达式</h2>
+<h3 id="4-2-赋值运算符"><a class="header-anchor" href="#4-2-赋值运算符">¶</a>4.2 赋值运算符</h3>
+<h4 id="4-2-1简单赋值（P40）"><a class="header-anchor" href="#4-2-1简单赋值（P40）">¶</a>4.2.1简单赋值（P40）</h4>
+<p>  大多数C语言运算符不会改变操作数的值，但是也有一些会改变。由于这类运算符所做的不再仅仅是计算出值，所以称它们有副作用。如<code>i = 0</code>求值产生的结果为0，并（作为副作用）把0值赋给i。</p>
+<h4 id="4-2-3复合赋值（P41）"><a class="header-anchor" href="#4-2-3复合赋值（P41）">¶</a>4.2.3复合赋值（P41）</h4>
+<ol>
+<li>
+<p>在极少数情况下，由于v自身的副作用，<code>v += e</code>不等同于<code>v = v + e</code> <strong>（笔记：<code>v += e</code>中v的值只计算一次，而<code>v = v + e</code>中v的值会计算两次。如：<code>a[i++] += 2</code>中i会自增一次，<code>a[i++] = a[i++] + 2</code>中i会自增两次）</strong>。类似的说明也适用于其它复合赋值运算符。</p>
+</li>
+<li>
+<p>复合赋值运算符有着和=运算符一样的特性。特别是，它们都是右结合的，所以</p>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C">i += j += k<br></code></pre></div></td></tr></table></figure>
+<p>意味着</p>
+<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C">i += (j += k)<br></code></pre></div></td></tr></table></figure>
+<h3 id="4-5表达式语句（P45）"><a class="header-anchor" href="#4-5表达式语句（P45）">¶</a>4.5表达式语句（P45）</h3>
+<p>  任何表达式都可以用作语句。<code>i * j - 1</code>因为i和j没有变化，所以这条语句没有任何作用。</p>
+<hr>
+<h2 id="第五章-选择语句"><a class="header-anchor" href="#第五章-选择语句">¶</a>第五章 选择语句</h2>
+<h3 id="5-2-if语句"><a class="header-anchor" href="#5-2-if语句">¶</a>5.2 <code>if</code>语句</h3>
+<h4 id="5-2-4-“悬空else”的问题（P56）"><a class="header-anchor" href="#5-2-4-“悬空else”的问题（P56）">¶</a>5.2.4 “悬空<code>else</code>”的问题（P56）</h4>
+<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-keyword">if</span> (y != <span class="hljs-number">0</span>)<br>    <span class="hljs-keyword">if</span> (x != <span class="hljs-number">0</span>)<br>        result = x / y;<br><span class="hljs-keyword">else</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Error: y is equal to 0\n"</span>);<br></code></pre></div></td></tr></table></figure>
+<p>  C语言遵循的规则是<code>else</code>子句应该属于离它最近的且还未和其它<code>else</code>匹配的<code>if</code>语句。</p>
+<h4 id="5-2-7-C99中的布尔值（P58）"><a class="header-anchor" href="#5-2-7-C99中的布尔值（P58）">¶</a>5.2.7 C99中的布尔值（P58）</h4>
+<p>  在C99中提供了<code>_Bool</code>型，<font color=red><strong><code>_Bool</code>是无符号整型，但只能赋值为0或1，一般来说，往<code>_Bool</code>变量中存储非零值会导致变量赋值为1</strong></font>。<br>
+  除了<code>_Bool</code>类型的宝座，C99还提供了一个新的头&lt;stdbool.h&gt;。该问提供了<code>bool</code>宏来代表<code>_Bool</code>，<code>true</code>来代表1，<code>false</code>来代表0。</p>
+<h3 id="5-3-switch语句"><a class="header-anchor" href="#5-3-switch语句">¶</a>5.3 <code>switch</code>语句</h3>
+<ol>
+<li><code>switch</code>后边必须跟着由圆括号括起来的<font color=red><strong>整型</strong></font>表达式，不能用浮点数和字符串。</li>
+<li><code>case</code>后跟<font color=red><strong>常量表达式</strong></font>，如<code>5 + 10</code>。</li>
+</ol>
+<h3 id="第五章FAQ（P63-P64）"><a class="header-anchor" href="#第五章FAQ（P63-P64）">¶</a>第五章FAQ（P63~P64）</h3>
+<ol>
+<li>当<code>int</code>型和<code>float</code>型的值混合在一个条件表达式中时（如<code>i &gt; 0 ? i : f</code>）表达式类型为<code>float</code>型。如果<code>i &gt; 0</code>为真，那么变量i转化为<code>float</code>型后的值就是表达式的值。</li>
+<li>C89标准指出，以下划线后跟一个大写字母开头的名字是保留字，程序员不应该使用。</li>
+</ol>
+<hr>
+<h2 id="第六章-循环"><a class="header-anchor" href="#第六章-循环">¶</a>第六章 循环</h2>
+<h3 id="6-3-for语句"><a class="header-anchor" href="#6-3-for语句">¶</a>6.3 <code>for</code>语句</h3>
+<h4 id="6-3-4-逗号运算符（P76）"><a class="header-anchor" href="#6-3-4-逗号运算符（P76）">¶</a>6.3.4 逗号运算符（P76）</h4>
+<ol>
+<li>形式：表达式1, 表达式2</li>
+<li>实现方式：第一步，计算表达式1并且扔掉计算出的值。第二步，计算表达式2，把这个值作为整个表达式的值。</li>
+<li>例如：<code>i = 1</code>, <code>j = 2</code>, <code>k = i + j</code>解释为<code>((i = 1), (j = 2)), (k = (i + j))</code></li>
+</ol>
+<h3 id="6-4-退出循环"><a class="header-anchor" href="#6-4-退出循环">¶</a>6.4 退出循环</h3>
+<h4 id="6-4-3-goto语句（P79）"><a class="header-anchor" href="#6-4-3-goto语句（P79）">¶</a>6.4.3 <code>goto</code>语句（P79）</h4>
+<ol>
+<li><code>break</code>语句的目标是包含该语句的循环结束之<font color=red><strong>后</strong></font>的那一点，而<code>continue</code>语句的目标是循环结束之<font color=red><strong>前</strong></font>的那一点。</li>
+<li><code>goto</code>语句不可以用于绕过变长数组。</li>
+</ol>
+<h3 id="第六章FAQ（P83-P84）"><a class="header-anchor" href="#第六章FAQ（P83-P84）">¶</a>第六章FAQ（P83~P84）</h3>
+<ol>
+<li>早期编译器中无限循环<code>for(;;)</code>比<code>while(1)</code>高效；新编译器性能无差别。</li>
+<li>空语句可以有如下用途：</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C">&#123;<br>    ...<br>    <span class="hljs-keyword">goto</span> end_of_stmt;<br>    end_of_stmt: ;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<hr>
+<h2 id="第七章-基本类型"><a class="header-anchor" href="#第七章-基本类型">¶</a>第七章 基本类型</h2>
+<h3 id="7-1整数类型（P89"><a class="header-anchor" href="#7-1整数类型（P89">¶</a>7.1整数类型（P89)</h3>
+<p>  <code>short int</code>、<code>int</code>、<code>long int</code>取值范围有可能是一样的。但C标准规定<code>int</code>取值范围不能比<code>short int</code>小，<code>long int</code>取值范围不能比<code>int</code>小。</p>
+<h4 id="7-1-4整数溢出（P91）"><a class="header-anchor" href="#7-1-4整数溢出（P91）">¶</a>7.1.4整数溢出（P91）</h4>
+<ol>
+<li>有符号整数溢出行为未定义。</li>
+<li>无符号整数溢出为对<code>2n</code>取模，其中<code>n</code>是用于存储结果的位数。例如，如果对无符号的16位数65535加1，其结果可以保证为0。</li>
+</ol>
+<h3 id="7-3字符类型"><a class="header-anchor" href="#7-3字符类型">¶</a>7.3字符类型</h3>
+<h4 id="7-3-1字符操作（P95）"><a class="header-anchor" href="#7-3-1字符操作（P95）">¶</a>7.3.1字符操作（P95）</h4>
+<p>  C语言把字符当作小整数进行处理。</p>
+<h4 id="7-3-7用getchar和putchar读-写字符"><a class="header-anchor" href="#7-3-7用getchar和putchar读-写字符">¶</a>7.3.7用<code>getchar</code>和<code>putchar</code>读/写字符</h4>
+<p>  在同一个程序中混合使用<code>getchr</code>函数和<code>scanf</code>函数时，要注意<code>scanf</code>函数倾向于遗留下它“扫视”过但未读取的字符（包括换行符）。考虑下面程序段：</p>
+<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-built_in">printf</span>(<span class="hljs-string">"Enter an integer: "</span>);<br><span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%d"</span>, &amp;i);<br> <br><span class="hljs-built_in">printf</span>(<span class="hljs-string">"Enter a command: "</span>);<br> <br>command = getchar();<br></code></pre></div></td></tr></table></figure>
+<p>  在读入<code>i</code>的同时，<code>scanf</code>函数调用将会留下没有消耗掉的任意字符，包括（但不限于）换行符。<code>getchar</code>函数随后将取回第一个剩余字符，但这不是我们所希望的结果。</p>
+<h3 id="7-4类型转换（P100）"><a class="header-anchor" href="#7-4类型转换（P100）">¶</a>7.4类型转换（P100）</h3>
+<p>  当发生下列情况时会进行隐匿转换。</p>
+<ul>
+<li>当算术表达式或逻辑表达式中操作数的类型不相同时。（C语言执行所谓的常用算术转换）</li>
+<li>当赋值运算符右侧表达式的类型和左侧变量的类型不匹配时。</li>
+<li>当函数调用中的实参类型与其对应的形参类型不匹配时。</li>
+<li>当<code>return</code>语句中表达式的类型和函数返回值的类型不匹配时。</li>
+</ul>
+<h4 id="7-4-1常用算术转换（P101）"><a class="header-anchor" href="#7-4-1常用算术转换（P101）">¶</a>7.4.1常用算术转换（P101）</h4>
+<ol>
+<li>
+<p>任一操作数是浮点类型的情况。</p>
+<div class="hljs code-wrapper"><pre><code>         long double
+               ^
+               |
+            double
+               ^
+               |
+             float
+</code></pre></div>
+</li>
+<li>
+<p>两个操作数的类型都不是浮点类型的情况。</p>
+<div class="hljs code-wrapper"><pre><code>        unsigned long int
+                 ^
+                 |
+              long int
+                 ^
+                 |
+           unsigned int
+                 ^
+                 |
+                int
+</code></pre></div>
+</li>
+</ol>
+<p>  有一种特殊情况，只有在<code>long int</code>类型和<code>unsigned int</code>类型长度（比如32位）相同时才会发生。在这类情况下，如果一个操作数的类型是<code>long int</code>，而另一个的类型是<code>unsiged int</code>，那么两个操作数都会转换成<code>unsigned long int</code>类型。C语言把（类型名）视为一元运算符。一元运算符的优先级高于二元运算符，所以编译器会把表达。</p>
+<p>  当把有符号操作数和无符号操作数组合时，把有符号操作数“转换”成无符号的值。转换过程中需要加上或者减去<code>n + 1</code>的倍数，其中<code>n</code>是无符号类型能表示的最大值。这条规则可能会导致某此隐蔽的编程错误。</p>
+<p>  假设<code>int</code>类型的变量<code>i</code>的值为-10，而<code>unsigned int</code>类型的变量<code>u</code>的值为10。如果用&lt;运算符比较变量<code>i</code>和变量<code>u</code>，那么期望的结果应该是1（真）。但是，在比较前，变量<code>i</code>转换成为<code>unsigned int</code>类型。因为负数不能被表示成无符号整数，所以转换后的值不再为-10，而是加上4294967296的结果（假定4294967296是最大的无符号整数），即4294967286。因而<code>i &lt; u</code>比较的结果将为0。有些编译器会在程序试图比较有符号与无符号时给出一条类似“comparison between signed and unsigned”的警告消息。</p>
+<p>  由于此类陷阱的存在，所以最好尽量避免使用无符号整数，特别是不要把它和有符号整数混合使用。</p>
+<h4 id="7-4-2赋值过程中的转换（P102）"><a class="header-anchor" href="#7-4-2赋值过程中的转换（P102）">¶</a>7.4.2赋值过程中的转换（P102）</h4>
+<p>  把某种类型的值赋给类型更狭小的变量时，如果该值在变量类型范围之外，那么将会得到无意义的结果（甚至更糟）。<br>
+  如果浮点常量被赋值给<code>float</code>型变量时，一个很好的方法是在浮点常量尾部加上后辍<code>f</code>。</p>
+<h4 id="7-4-4强制类型转换（P103）"><a class="header-anchor" href="#7-4-4强制类型转换（P103）">¶</a>7.4.4强制类型转换（P103）</h4>
+<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-keyword">float</span> quotient;<br><span class="hljs-keyword">int</span> dividend, divisor;<br> <br>quotient = (<span class="hljs-keyword">float</span>) dividend / divisor;<br></code></pre></div></td></tr></table></figure>
+<p>  变量<code>divisor</code>不需要进行强制类型转换，因为把变量<code>dividend</code>强制錾成<code>float</code>类型会迫使编译器把<code>divisor</code>也转换成<code>float</code>类型。C语言把（类型名）视为一元运算符。一元运算符的优先级高于二元运算符，所以编译器会把表达式</p>
+<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C">(<span class="hljs-keyword">float</span>) dividend / divisor<br></code></pre></div></td></tr></table></figure>
+<p>  解释为</p>
+<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C">((<span class="hljs-keyword">float</span>) dividend) / divisor<br></code></pre></div></td></tr></table></figure>
+<h3 id="7-6-sizeof运算符（P106）"><a class="header-anchor" href="#7-6-sizeof运算符（P106）">¶</a>7.6 <code>sizeof</code>运算符（P106）</h3>
+<p>  显示<code>sizeof</code>值时要注意，因为<code>sizeof</code>表达式的类型是<code>size_t</code>，这是一种由实现定义的类型。在C89中，最好在显示前把表达式的值转换成一种已知的类型。<code>size_t</code>一定是无符号整型，所以最安全的方法是把<code>sizeof</code>表达式强制转换成<code>unsigned long</code>类型。(C89中最大的无符号类型)，然后使用转换说明答题<code>%lu</code>显示。</p>
+<p>  在C99中，<code>size_t</code>类型可以比<code>unsigned long</code>更长。但C99中的<code>printf</code>可以直接显示<code>size_t</code>类型值而不需要强制转换。方法是在转换说明中的一般整数（通常用<code>u</code>）代码前使用字母<code>z</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-built_in">printf</span>(<span class="hljs-string">"Size of int: %zu\n"</span>, <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">int</span>)); <span class="hljs-comment">/* C99 only */</span><br></code></pre></div></td></tr></table></figure>
+<h3 id="第七章FAQ（P107）"><a class="header-anchor" href="#第七章FAQ（P107）">¶</a>第七章FAQ（P107）</h3>
+<p>  只要有符号整数的值不是负值，就可以用<code>%o</code>和<code>%x</code>显示。这些转换导致<code>printf</code>函数把有符号整数看成无符号的；换句话说，<code>printf</code>函数将假设符号位是数的绝对值部分。只要符号位为0，就没问题。如果符号位为1，那么<code>printf</code>函数将显示出一个走出预期的大数。没有直接的方法可以书写负数的八进制或十六进制形式。幸运的是，需要这样做的情况非常少。当然，我们可以判定这个数是否是负数，然后自己显示一个负号：</p>
+<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C"><span class="hljs-keyword">if</span> (i &lt; <span class="hljs-number">0</span>)<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"-%x"</span>, -i);<br><span class="hljs-keyword">else</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%x"</span>, i);<br></code></pre></div></td></tr></table></figure>]]></content>
       <categories>
         <category>笔记</category>
       </categories>
