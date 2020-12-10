@@ -286,7 +286,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">tmux list-session <span class="hljs-comment"># 查看所有会话</span><br>tmux ls <span class="hljs-comment"># 查看所有会话，提倡使用简写形式</span><br></code></pre></div></td></tr></table></figure>
 <p>  如果刚好处于会话中怎么办？别担心，我们可以使用对应的 tmux 快捷键Ctrl+b+s，此时 tmux 将打开一个会话列表，按上下键（↑↓︎）或者鼠标滚轮，可选中目标会话，按左右键（←→︎）可收起或展开会话的窗口，选中目标会话或窗口后，按回车键即可完成切换。</p>
 <p><img src="https://rabbituzki-blog-images.oss-cn-beijing.aliyuncs.com/tmux/tmux02.png" alt="查看会话"></p>
-<h2 id="Tmux快捷指令"><a class="header-anchor" href="#Tmux快捷指令">¶</a>Tmux快捷指令</h2>
+<h2 id="Tmux-快捷指令"><a class="header-anchor" href="#Tmux-快捷指令">¶</a>Tmux 快捷指令</h2>
 <p>  关于快捷指令，首先要认识到的是：tmux 的所有指令，都包含同一个前缀，默认为 Ctrl+b，输入完前缀过后，控制台激活，命令按键才能生效。前面 tmux 会话相关的操作中，我们共用到了两个快捷键 Ctrl+b+d、Ctrl+b+s，但这仅仅是冰山一角，欲窥 tmux 庞大的快捷键体系，请看下表。</p>
 <p>表一：系统指令。</p>
 <table>
@@ -507,7 +507,7 @@
 <p>  相信只要你用过几次 tmux，就会发现 Ctrl+b 指令前缀，着实不太方便。这两个键相距太远，按键成本太高了。因此我们首先需要将它更换为距离更近的 Ctrl+a 组合键，或者不常用的 ` 键（当然其他键也是可以的）。<br>
   tmux 的用户级配置文件为 <em>~/.tmux.conf</em>（没有的话就创建一个），修改快捷指令，只需要增加如下三行即可。</p>
 <figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash"><span class="hljs-built_in">set</span> -g prefix C<span class="hljs-_">-a</span> <span class="hljs-comment">#</span><br>unbind C-b <span class="hljs-comment"># C-b即Ctrl+b键，unbind意味着解除绑定</span><br><span class="hljs-built_in">bind</span> C<span class="hljs-_">-a</span> send-prefix <span class="hljs-comment"># 绑定Ctrl+a为新的指令前缀</span><br><br><span class="hljs-comment"># 从tmux v1.6版起，支持设置第二个指令前缀</span><br><span class="hljs-built_in">set</span>-option -g prefix2 ` <span class="hljs-comment"># 设置一个不常用的`键作为指令前缀，按键更快些</span><br></code></pre></div></td></tr></table></figure>
-<p>  修改的 _~/.tmux.conf配置文件有如下两种方式可以令其生效：</p>
+<p>  修改的 <em>~/.tmux.conf</em> 配置文件有如下两种方式可以令其生效：</p>
 <ul>
 <li>restart tmux。</li>
 <li>在 tmux 窗口中，先按下 Ctrl+b 指令前缀，然后按下系统指令 <code>:</code>，进入到命令模式后输入 <code>source-file ~/.tmux.conf</code>，回车后生效。</li>
@@ -517,11 +517,11 @@
 <p>  请特别注意，在已经创建的窗口中，即使加载了新的配置，旧的配置依然有效（只要你新加的功能没有覆盖旧的配置，因此如果你第一次绑定快捷指令为 x 键，然后又改为绑定 y 键，那么 x 和 y 都将有效），新建会话不受此影响，将直接采用新的配置。<br>
   既然我们已经迈出配置化的第一步，那么接下来我们可以做得更多。</p>
 <h3 id="新增面板"><a class="header-anchor" href="#新增面板">¶</a>新增面板</h3>
-<p>  tmux 中，使用最多的功能之一就是新增一个面板。水平方向新增面板的指令是 prefix + &quot; ，垂直方向是 prefix + %，&quot; 和 % 需要两个键同时按下才能完成，加上指令前缀至少需要3~4次按键才能组成一个完整的指令，同时这个两个键也不够醒目和方便，因此我们可以绑定两个更常用的指令 -、|，如下所示：</p>
+<p>  tmux 中，使用最多的功能之一就是新增一个面板。水平方向新增面板的指令是 prefix + &quot; ，垂直方向是 prefix + %，&quot; 和 % 需要两个键同时按下才能完成，加上指令前缀至少需要3~4次按键才能组成一个完整的指令，同时这个两个键也不够醒目和方便，因此我们可以绑定两个更常用的指令 <code>-</code>、<code>|</code>，如下所示：</p>
 <figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">unbind <span class="hljs-string">'"'</span><br><span class="hljs-built_in">bind</span> - splitw -v -c <span class="hljs-string">'#&#123;pane_current_path&#125;'</span> <span class="hljs-comment"># 垂直方向新增面板，默认进入当前目录</span><br>unbind %<br><span class="hljs-built_in">bind</span> | splitw -h -c <span class="hljs-string">'#&#123;pane_current_path&#125;'</span> <span class="hljs-comment"># 水平方向新增面板，默认进入当前目录</span><br></code></pre></div></td></tr></table></figure>
 <h3 id="开启鼠标支持"><a class="header-anchor" href="#开启鼠标支持">¶</a>开启鼠标支持</h3>
 <p>  默认情况下，tmux 的多窗口之间的切换以及面板大小调整，需要输入指令才能完成，这一过程，涉及到的指令较多，而且操作麻烦，特别是面板大小调整，指令难以一步到位，这个时候开启鼠标支持就完美了。<br>
- &amp;em sp;对于tmux v2.1(2015.10.28) 之前的版本，需加入如下配置：</p>
+  对于tmux v2.1(2015.10.28) 之前的版本，需加入如下配置：</p>
 <figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">setw -g mode-mouse on <span class="hljs-comment"># 支持鼠标选取文本等</span><br>setw -g mouse-resize-pane on <span class="hljs-comment"># 支持鼠标拖动调整面板的大小(通过拖动面板间的分割线)</span><br>setw -g mouse-select-pane on <span class="hljs-comment"># 支持鼠标选中并切换面板</span><br>setw -g mouse-select-window on <span class="hljs-comment"># 支持鼠标选中并切换窗口(通过点击状态栏窗口名称)</span><br></code></pre></div></td></tr></table></figure>
 <p>  有的地方可能会出现 <code>set-window-option</code> 的写法，<code>setw</code> 就是它的别名。<br>
   对于 tmux v2.1 及以上的版本，仅需加入如下配置：</p>
@@ -531,7 +531,7 @@
 <p>  鼠标支持确实能带来很大的便捷性，特别是对于习惯了鼠标操作的 tmux 新手，但对于键盘爱好者而言，这不是什么好消息，对他们而言，双手不离键盘是基本素质。<br>
 虽然指令前缀加方向键可以切换面板，但方向键太远，不够快，不够 Geek。没关系，我们可以将面板切换升级为熟悉的 h、j、k、l 键位。</p>
 <figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash"><span class="hljs-comment"># 绑定hjkl键为面板切换的上下左右键</span><br><span class="hljs-built_in">bind</span> -r k select-pane -U <span class="hljs-comment"># 绑定k为↑</span><br><span class="hljs-built_in">bind</span> -r j select-pane -D <span class="hljs-comment"># 绑定j为↓</span><br><span class="hljs-built_in">bind</span> -r h select-pane -L <span class="hljs-comment"># 绑定h为←</span><br><span class="hljs-built_in">bind</span> -r l select-pane -R <span class="hljs-comment"># 绑定l为→</span><br></code></pre></div></td></tr></table></figure>
-<p>  -r 表示可重复按键，大概 500ms 之内，重复的 h、j、k、l 按键都将有效，完美支持了快速切换的 Geek 需求。<br>
+<p>  <code>-r</code> 表示可重复按键，大概 500ms 之内，重复的 h、j、k、l 按键都将有效，完美支持了快速切换的 Geek 需求。<br>
   除了上下左右外， 还有几个快捷指令可以设置。</p>
 <figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash"><span class="hljs-built_in">bind</span> -r e lastp <span class="hljs-comment"># 选择最后一个面板</span><br><span class="hljs-built_in">bind</span> -r ^e last <span class="hljs-comment"># 选择最后一个窗口</span><br><br><span class="hljs-built_in">bind</span> -r ^u swapp -U <span class="hljs-comment"># 与前一个面板交换位置</span><br><span class="hljs-built_in">bind</span> -r ^d swapp -D <span class="hljs-comment"># 与后一个面板交换位置</span><br></code></pre></div></td></tr></table></figure>
 <h3 id="面板大小调整"><a class="header-anchor" href="#面板大小调整">¶</a>面板大小调整</h3>
@@ -540,7 +540,7 @@
 <p>  以上，<code>resizep</code> 即 <code>resize-pane</code> 的别名。</p>
 <h3 id="面板最大化"><a class="header-anchor" href="#面板最大化">¶</a>面板最大化</h3>
 <p>  当窗口中面板的数量逐渐增多时，每个面板的空间就会逐渐减少。为了保证有足够的空间显示内容，tmux 从 v1.8 版本起，提供了面板的最大化功能，输入 tmux-prefix+z，就可以最大化当前面板至窗口大小，只要再重复输入一次，便恢复正常。那么 tmux v1.8 以下的版本，怎么办呢？别急，有大神提供了如下的解决方案。<br>
-  首先编写一个zoom 脚本，该脚本通过新建一个窗口，交换当前面板与新的窗口默认面板位置，来模拟最大的功能；通过重复一次按键，还原面板位置，并关闭新建的窗口，来模拟还原功能，如下所示：</p>
+  首先编写一个 zoom 脚本，该脚本通过新建一个窗口，交换当前面板与新的窗口默认面板位置，来模拟最大的功能；通过重复一次按键，还原面板位置，并关闭新建的窗口，来模拟还原功能，如下所示：</p>
 <figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash"><span class="hljs-comment">#!/bin/bash -f</span><br>currentwindow=`tmux list-window | tr <span class="hljs-string">'\t'</span> <span class="hljs-string">' '</span> | sed -n -e <span class="hljs-string">'/(active)/s/^[^:]*: *\([^ ]*\) .*/\1/gp'</span>`;<br>currentpane=`tmux list-panes | sed -n -e <span class="hljs-string">'/(active)/s/^\([^:]*\):.*/\1/gp'</span>`;<br>panecount=`tmux list-panes | wc | sed -e <span class="hljs-string">'s/^ *//g'</span> -e <span class="hljs-string">'s/ .*$//g'</span>`;<br>inzoom=`<span class="hljs-built_in">echo</span> <span class="hljs-variable">$currentwindow</span> | sed -n -e <span class="hljs-string">'/^zoom/p'</span>`;<br><span class="hljs-keyword">if</span> [ <span class="hljs-variable">$panecount</span> -ne 1 ]; <span class="hljs-keyword">then</span><br>    inzoom=<span class="hljs-string">""</span>;<br><span class="hljs-keyword">fi</span><br><span class="hljs-keyword">if</span> [ <span class="hljs-variable">$inzoom</span> ]; <span class="hljs-keyword">then</span><br>    lastpane=`<span class="hljs-built_in">echo</span> <span class="hljs-variable">$currentwindow</span> | rev | cut -f 1 -d <span class="hljs-string">'@'</span> | rev`;<br>    lastwindow=`<span class="hljs-built_in">echo</span> <span class="hljs-variable">$currentwindow</span> | cut -f 2- -d <span class="hljs-string">'@'</span> | rev | cut -f 2- -d <span class="hljs-string">'@'</span> | rev`;<br>    tmux select-window -t <span class="hljs-variable">$lastwindow</span>;<br>    tmux select-pane -t <span class="hljs-variable">$lastpane</span>;<br>    tmux swap-pane -s <span class="hljs-variable">$currentwindow</span>;<br>    tmux <span class="hljs-built_in">kill</span>-window -t <span class="hljs-variable">$currentwindow</span>;<br><span class="hljs-keyword">else</span><br>    newwindowname=zoom@<span class="hljs-variable">$currentwindow</span>@<span class="hljs-variable">$currentpane</span>;<br>    tmux new-window -d -n <span class="hljs-variable">$newwindowname</span>;<br>    tmux swap-pane -s <span class="hljs-variable">$newwindowname</span>;<br>    tmux select-window -t <span class="hljs-variable">$newwindowname</span>;<br><span class="hljs-keyword">fi</span><br></code></pre></div></td></tr></table></figure>
 <p>  不妨将该脚本存放在 <em>~/.tmux</em> 目录中（没有则新建目录），接下来只需要绑定一个快捷指令就行，如下。</p>
 <figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">unbind z<br><span class="hljs-built_in">bind</span> z run <span class="hljs-string">". ~/.tmux/zoom"</span><br></code></pre></div></td></tr></table></figure>
@@ -553,7 +553,9 @@
 <figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">join-pane -s window01 <span class="hljs-comment"># 合并名称为window01的窗口的默认（第一个）面板到当前窗口中</span><br>join-pane -s window01.1 <span class="hljs-comment"># .1显式指定了第一个面板，.2就是第二个面板(我本地将面板编号起始值设置为1，默认是0)</span><br></code></pre></div></td></tr></table></figure>
 <p>   每次执行 <code>join-pane</code> 命令都会合并一个面板，并且指定的窗口会减少一个面板，直到面板数量为 0，窗口关闭。<br>
   除了在当前会话中操作外，<code>join-pane</code> 命令甚至可以从其它指定会话中合并面板，格式为 <code>join-pane -s [session_name]:[window].[pane]</code>，如 <code>join-pane -s 2:1.1</code> 即合并第二个会话的第一个窗口的第一个面板到当前窗口，当目标会话的窗口和面板数量为 0 时，会话便会关闭。</p>
-<p>  注：上一节中的 <code>swap-pane</code> 命令与 <code>join-pane</code> 语法基本一致。</p>
+<blockquote>
+<p>注：上一节中的 <code>swap-pane</code> 命令与 <code>join-pane</code> 语法基本一致。</p>
+</blockquote>
 <h3 id="其他配置"><a class="header-anchor" href="#其他配置">¶</a>其他配置</h3>
 <figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash"><span class="hljs-built_in">bind</span> m <span class="hljs-built_in">command</span>-prompt <span class="hljs-string">"splitw -h 'exec man %%'"</span>   <span class="hljs-comment"># 绑定m键为在新的panel打开man</span><br><span class="hljs-comment"># 绑定P键为开启日志功能，如下，面板的输出日志将存储到桌面</span><br><span class="hljs-built_in">bind</span> P pipe-pane -o <span class="hljs-string">"cat &gt;&gt;~/Desktop/#W.log"</span> \; display <span class="hljs-string">"Toggled logging to ~/Desktop/#W.log"</span><br></code></pre></div></td></tr></table></figure>
 <h3 id="恢复用户空间"><a class="header-anchor" href="#恢复用户空间">¶</a>恢复用户空间</h3>
@@ -738,7 +740,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">tmux new -t groupSession -s otherSession<br></code></pre></div></td></tr></table></figure>
 <p>  此时两个用户都可以在同一个会话里操作，就会好像第二个用户连接到了 groupSession 的会话一样。此时两个用户都可以创建新建的窗口，新窗口的内容依然会实时同步，但是其中一个用户切换到其它窗口，对另外一个用户没有任何影响，因此在这个共享的组会话中，用户各自的操作可以通过新建窗口来执行。即使第二个用户关闭 otherSession 会话，共享会话 groupSession 依然存在。<br>
   组会话在共享的同时，又保留了相对的独立，非常适合结对编程场景，它是结对编程最简单的方式，如果账号不能共享，我们就要使用下面的方案了。</p>
-<h3 id="独立账号-Socket共享会话"><a class="header-anchor" href="#独立账号-Socket共享会话">¶</a>独立账号 &amp; Socket共享会话</h3>
+<h3 id="独立账号-Socket-共享会话"><a class="header-anchor" href="#独立账号-Socket-共享会话">¶</a>独立账号 &amp; Socket 共享会话</h3>
 <p>  开始之前我们需要确保用户对远程服务器上同一个目录拥有相同的读写权限，假设这个目录为 <em>/var/tmux/</em>。<br>
   使用 <code>new-session</code>（简写 <code>new</code>）创建会话时，使用的是默认的 socket 位置，默认 socket 无法操作，所以我们需要创建一个指定 socket 文件的会话。</p>
 <figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">tmux -S /var/tmux/sharefile<br></code></pre></div></td></tr></table></figure>
@@ -746,7 +748,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">tmux -S /var/tmux/sharefile attach<br></code></pre></div></td></tr></table></figure>
 <p>  这样，两个不同的用户就可以共享同一个会话了。<br>
   通常情况下，不同的用户使用不同的配置文件来创建会话，但是，使用指定 socket 文件创建的 tmux 会话，会话加载的是第一个创建会话的用户的 <em>~/.tmux.conf</em> 配置文件，随后加入会话的其他用户，依然使用同一份配置文件。</p>
-<h2 id="Tmux优化"><a class="header-anchor" href="#Tmux优化">¶</a>Tmux优化</h2>
+<h2 id="Tmux-优化"><a class="header-anchor" href="#Tmux-优化">¶</a>Tmux 优化</h2>
 <p>  要想 tmux 更加人性化、性能更佳，不妨参考下如下配置。</p>
 <h3 id="设置窗口面板起始序号"><a class="header-anchor" href="#设置窗口面板起始序号">¶</a>设置窗口面板起始序号</h3>
 <figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash"><span class="hljs-built_in">set</span> -g base-index 1 <span class="hljs-comment"># 设置窗口的起始下标为1</span><br><span class="hljs-built_in">set</span> -g pane-base-index 1 <span class="hljs-comment"># 设置面板的起始下标为1</span><br></code></pre></div></td></tr></table></figure>
@@ -821,9 +823,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Tmux/">Tmux</a>
-                    
                       <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Tmux/">Tmux</a>
                     
                   </div>
                 
