@@ -1,0 +1,664 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" href="/images/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="When in doubt, use brute force.">
+  <meta name="author" content="Rabbituzki">
+  <meta name="keywords" content="">
+  <title>OpenSSL 自签发配置有多域名或 IP 地址的证书 - Rabbituzki 的笔记们</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/gruvbox-dark.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"blog.rabbituzki.com.cn","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"a9b0666290f750544a1900dff36c0349","google":"UA-127726236-2","gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TMgxzCpM2zFnsClsMHJY2LLc-gzGzoHsz","app_key":"1kPLieLtoBQWf0w6iNxLqkMV","server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Rabbituzki 的笔记们</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/images/background1.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="OpenSSL 自签发配置有多域名或 IP 地址的证书">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-02-19 00:00" pubdate>
+        2020年2月19日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      33
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">OpenSSL 自签发配置有多域名或 IP 地址的证书</h1>
+            
+            <div class="markdown-body">
+              <h1>OpenSSL 自签发配置有多域名或 IP 地址的证书</h1>
+<hr>
+<p>[TOC]</p>
+<hr>
+<h2 id="概述"><a class="header-anchor" href="#概述">¶</a>概述</h2>
+<p>HTTPS 服务是工作在 SSL/TLS上 的 HTTP。<br>
+首先简单区分一下 HTTPS、SSL 、TLS 和 OpenSSL 这四者的关系：</p>
+<ul>
+<li>SSL：（Secure Socket Layer，安全套接字层）是在客户端和服务器之间建立一条 SSL 安全通道的安全协议；</li>
+<li>TLS：（Transport Layer Security，传输层安全协议），用于两个应用程序之间提供保密性和数据完整性；</li>
+<li>TLS 的前身是 SSL；</li>
+<li>OpenSSL 是 TLS/SSL 协议的开源实现，提供开发库和命令行程序；</li>
+<li>HTTPS 是 HTTP 的加密版，底层使用的加密协议是 TLS。</li>
+</ul>
+<p>结论：SSL/TLS 是协议，OpenSSL 是协议的代码实现。</p>
+<h3 id="本文采用的目录结构"><a class="header-anchor" href="#本文采用的目录结构">¶</a>本文采用的目录结构</h3>
+<figure class="highlight plain"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs text">ca<br>├── certs               证书目录<br>├── crl                 证书吊销目录<br>├── index.txt           CA 签发证书列表<br>├── index.txt.attr      CA 签发证书列表配置<br>├── newcerts            CA 签发的证书备份目录<br>├── openssl.cnf         openssl 配置文件，-config 参数用<br>├── private             私钥目录<br>└── serial              CA 下一次签发证书时使用的序列号，文本文件<br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p><strong>注意</strong>：</p>
+<hr>
+<p><em>serial</em> 文件在建立时应添加初始内容“00”。</p>
+</blockquote>
+<h3 id="用-OpenSSL-配置带有-SubjectAltName-的-SSL-请求"><a class="header-anchor" href="#用-OpenSSL-配置带有-SubjectAltName-的-SSL-请求">¶</a>用 OpenSSL 配置带有 SubjectAltName 的 SSL 请求</h3>
+<p>对于多域名，只需要一个证书就可以保护非常多的域名。</p>
+<p>SubjectAltName 是 X509 Version 3 (RFC 2459) 的扩展，允许 SSL 证书指定多个可以匹配的名称。</p>
+<p>SubjectAltName 可以包含 Email 地址，IP 地址，正则匹配 DNS 主机名，等等。SSL 这样的一个特性叫做：SubjectAlternativeName（简称：SAN）。</p>
+<h2 id="第一部分-生成证书"><a class="header-anchor" href="#第一部分-生成证书">¶</a>第一部分 生成证书</h2>
+<h3 id="第一步-生成证书请求文件"><a class="header-anchor" href="#第一步-生成证书请求文件">¶</a>第一步 生成证书请求文件</h3>
+<p>对于一个通用的 SSL 证书请求文件（CSR），OpenSSL 不需要很多操作。因为我们可能需要添加一个或者两个 SAN 到我们 CSR，我们需要在 OpenSSL 配置文件中添加一些东西：你需要告诉 OpenSSL 创建一个包含 x509 V3 扩展的 CSR，并且你也需要告诉 OpenSSL 在你的 CSR 中包含 SubjectAlternativeNames 列表。</p>
+<p>创建一个<code>OpenSSL</code>配置文件（<em>openssl.cnf</em>），并启用 SubjectAlternativeNames：</p>
+<ol>
+<li>
+<p>找到 <code>req</code> 段落。这段落的内容将会告诉 OpenSSL如何去处理证书请求（CSR）。</p>
+</li>
+<li>
+<p>在 <code>req</code> 段落中应该要包含一个以 <code>req_extensions</code> 开始的行。如下：</p>
+ <figure class="highlight toml"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs toml"><span class="hljs-section">[req]</span><br><span class="hljs-attr">distinguished_name</span> = req_distinguished_name<br><span class="hljs-attr">req_extensions</span> = v3_req<br></code></pre></div></td></tr></table></figure>
+<p>这个配置是告诉  OpenSSL 在 CSR 中要包含 <code>v3_req</code> 段落的部分。</p>
+</li>
+<li>
+<p>现在我们来配置 <code>v3_req</code>，如下：</p>
+ <figure class="highlight toml"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs toml"><span class="hljs-section">[req_distinguished_name]</span><br><span class="hljs-attr">countryName</span> = Country Name (<span class="hljs-number">2</span> letter code)<br><span class="hljs-attr">countryName_default</span> = US<br><span class="hljs-attr">stateOrProvinceName</span> = State or Province Name (full name)<br><span class="hljs-attr">stateOrProvinceName_default</span> = MN<br><span class="hljs-attr">localityName</span> = Locality Name (eg, city)<br><span class="hljs-attr">localityName_default</span> = Minneapolis<br><span class="hljs-attr">organizationalUnitName</span>  = Organizational Unit Name (eg, section)<br><span class="hljs-attr">organizationalUnitName_default</span>  = Domain Control Validated<br><span class="hljs-attr">commonName</span> = Internet Widgits Ltd<br><span class="hljs-attr">commonName_max</span>  = <span class="hljs-number">64</span><br><br><span class="hljs-section">[ v3_req ]</span><br><span class="hljs-comment"># Extensions to add to a certificate request</span><br><span class="hljs-attr">basicConstraints</span> = CA:<span class="hljs-literal">FALSE</span><br><span class="hljs-attr">keyUsage</span> = nonRepudiation, digitalSignature, keyEncipherment<br><span class="hljs-attr">subjectAltName</span> = @alt_names<br><br><span class="hljs-section">[alt_names]</span><br><span class="hljs-attr">DNS.1</span> = kb.example.com<br><span class="hljs-attr">DNS.2</span> = helpdesk.example.org<br><span class="hljs-attr">DNS.3</span> = systems.example.net<br><span class="hljs-attr">DNS.4</span> = *.example.cn<br><span class="hljs-attr">IP.1</span> = <span class="hljs-number">192.168</span>.<span class="hljs-number">1.1</span><br><span class="hljs-attr">IP.2</span> = <span class="hljs-number">192.168</span>.<span class="hljs-number">69.14</span><br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p><strong>注意</strong>：</p>
+<hr>
+<p>无论 <code>v3_req</code> 放哪里，都是可以的，都会在所有生成的 CSR 中。<br>
+要是之后，你又想生成一个不同的 SAN 的 CSR 文件，你需要编辑这个配置文件，并改变 <code>DNS.x</code> 列表。</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="第二步-生成私钥"><a class="header-anchor" href="#第二步-生成私钥">¶</a>第二步 生成私钥</h3>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash"><span class="hljs-comment"># 使用椭圆曲线算法生成私钥</span><br>openssl ecparam -genkey -name secp256r1 | openssl ec -out private/san_domain_com.key.pem<br><br><span class="hljs-comment"># 或</span><br><br><span class="hljs-comment"># 使用 RSA 算法生成私钥</span><br>openssl genrsa -out private/san_domain_com.key.pem 2048<br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p><strong>注意</strong>：</p>
+<hr>
+<ol>
+<li>
+<p><code>ecparam</code> 为椭圆曲线密钥参数生成：</p>
+<figure class="highlight haml"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs haml">-<span class="ruby">genkey        生成椭圆曲线密钥</span><br><span class="ruby">-name          使用短名称（<span class="hljs-string">"short name"</span>）命名的椭圆曲线参数</span><br></code></pre></div></td></tr></table></figure>
+</li>
+<li>
+<p><code>ec</code> 为椭圆曲线密钥处理工具。</p>
+</li>
+<li>
+<p>这里的 <code>san_domain_com</code>，是你正式使用的服务器的全称地址，这不是必须的，也就是说，你可以随便取名字；但是按照这个格式去，会更清晰点。</p>
+</li>
+</ol>
+</blockquote>
+<h3 id="第三步-创建-CSR-文件"><a class="header-anchor" href="#第三步-创建-CSR-文件">¶</a>第三步 创建 CSR 文件</h3>
+<ol>
+<li>
+<p>执行下面语句：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">openssl req -config openssl.cnf -new -key private/san_domain_com.key.pem -out certs/san_domain_com.csr.pem<br><span class="hljs-comment"># 注意这里指定了openssl.cnf，使用了上面我们创建的，因为默认是没有`san`。</span><br></code></pre></div></td></tr></table></figure>
+<p>执行后，系统会提示你要你输入组织信息，并询问你是否想要包含密码（你可以不需要）。接着你将会看到 <em>san_domain_com.csr</em> 被创建。</p>
+</li>
+<li>
+<p>我们可以使用下面的命令来查看 CSR 包含的信息：</p>
+ <figure class="highlight shell"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">openssl req -text -noout -in certs/san_domain_com.csr.pem<br></code></pre></div></td></tr></table></figure>
+<p>你将会看到类似如下的信息：</p>
+ <figure class="highlight groovy"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs groovy">Certificate <span class="hljs-string">Request:</span><br><span class="hljs-symbol">        Data:</span><br><span class="hljs-symbol">            Version:</span> <span class="hljs-number">1</span> (<span class="hljs-number">0x0</span>)<br><span class="hljs-symbol">            Subject:</span> C = US, ST = Texas, L = Fort Worth, O = <span class="hljs-string">"My Company"</span>, OU = My Department, CN = server.example<br>            Subject Public Key <span class="hljs-string">Info:</span><br>                Public Key <span class="hljs-string">Algorithm:</span> id-ecPublicKey<br>                    Public-<span class="hljs-string">Key:</span> (<span class="hljs-number">256</span> bit)<br><span class="hljs-symbol">                    pub:</span><br><span class="hljs-symbol">                        xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><br><span class="hljs-symbol">                        xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><br><span class="hljs-symbol">                        xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><br><span class="hljs-symbol">                        xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><br><span class="hljs-symbol">                        xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span><span class="hljs-string">xx:</span>xx<br>                    ASN1 <span class="hljs-string">OID:</span> prime256v1<br>                    NIST <span class="hljs-string">CURVE:</span> P<span class="hljs-number">-256</span><br><span class="hljs-symbol">            Attributes:</span><br>            Requested <span class="hljs-string">Extensions:</span><br>                X509v3 Basic <span class="hljs-string">Constraints:</span><br><span class="hljs-symbol">                    CA:</span>FALSE<br>                X509v3 Key <span class="hljs-string">Usage:</span><br>                    Digital Signature, Non Repudiation, Key Encipherment<br>                X509v3 Subject Alternative <span class="hljs-string">Name:</span><br><span class="hljs-symbol">                    DNS:</span>kb.example.com, <span class="hljs-string">DNS:</span>helpdesk.example.org, <span class="hljs-string">DNS:</span>systems.example.net, <span class="hljs-string">DNS:</span>*.example.cn, IP <span class="hljs-string">Address:</span><span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.1</span>, IP <span class="hljs-string">Address:</span><span class="hljs-number">192.168</span><span class="hljs-number">.69</span><span class="hljs-number">.14</span><br>        Signature <span class="hljs-string">Algorithm:</span> ecdsa-with-SHA256<br><span class="hljs-symbol">             yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><br><span class="hljs-symbol">             yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><br><span class="hljs-symbol">             yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><br><span class="hljs-symbol">             yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span><span class="hljs-string">yy:</span>yy<br></code></pre></div></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="第四步-自签名并创建证书"><a class="header-anchor" href="#第四步-自签名并创建证书">¶</a>第四步 自签名并创建证书</h3>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">openssl x509 -req -days 3650 -<span class="hljs-keyword">in</span> certs/san_domain_com.csr.pem -signkey private/san_domain_com.key.pem<br> -out certs/san_domain_com.crt.pem -extensions v3_req -extfile openssl.cnf<br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p><strong>注意</strong>：</p>
+<hr>
+<p>上面的证书 有效期是 3650 天。</p>
+</blockquote>
+<h2 id="第二部分-使用-CA-证书签名证书"><a class="header-anchor" href="#第二部分-使用-CA-证书签名证书">¶</a>第二部分 使用 CA 证书签名证书</h2>
+<h3 id="第一步-修改-openssl-cnf，添加-CA-信息"><a class="header-anchor" href="#第一步-修改-openssl-cnf，添加-CA-信息">¶</a>第一步 修改 <em>openssl.cnf</em>，添加 CA 信息</h3>
+<figure class="highlight"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs toml">...<br><br><span class="hljs-section">[ ca ]</span><br><span class="hljs-comment"># `man ca`</span><br><span class="hljs-attr">default_ca</span> = CA_default<br><br>...<br><br><span class="hljs-section">[ CA_default ]</span><br><span class="hljs-comment"># Directory and file locations.</span><br><span class="hljs-attr">dir</span>               = /path/to/some/dir <span class="hljs-comment">#这里改成实际目录</span><br><span class="hljs-attr">certs</span>             = <span class="hljs-variable">$dir</span>/certs<br><span class="hljs-attr">crl_dir</span>           = <span class="hljs-variable">$dir</span>/crl<br><span class="hljs-attr">new_certs_dir</span>     = <span class="hljs-variable">$dir</span>/newcerts<br><span class="hljs-attr">database</span>          = <span class="hljs-variable">$dir</span>/index.txt<br><span class="hljs-attr">serial</span>            = <span class="hljs-variable">$dir</span>/serial<br><span class="hljs-attr">RANDFILE</span>          = <span class="hljs-variable">$dir</span>/private/.rand<br><br><span class="hljs-comment"># The root key and root certificate.</span><br><span class="hljs-attr">private_key</span>       = <span class="hljs-variable">$dir</span>/private/ca.key.pem<br><span class="hljs-attr">certificate</span>       = <span class="hljs-variable">$dir</span>/certs/ca.cert.pem<br><br><span class="hljs-comment"># For certificate revocation lists.</span><br><span class="hljs-attr">crlnumber</span>         = <span class="hljs-variable">$dir</span>/crlnumber<br><span class="hljs-attr">crl</span>               = <span class="hljs-variable">$dir</span>/crl/ca.crl.pem<br><span class="hljs-attr">crl_extensions</span>    = crl_ext<br><span class="hljs-attr">default_crl_days</span>  = <span class="hljs-number">30</span><br><br><span class="hljs-comment"># SHA-1 is deprecated, so use SHA-2 instead.</span><br><span class="hljs-attr">default_md</span>        = sha256<br><br><span class="hljs-attr">name_opt</span>          = ca_default<br><span class="hljs-attr">cert_opt</span>          = ca_default<br><span class="hljs-attr">default_days</span>      = <span class="hljs-number">375</span><br><span class="hljs-attr">preserve</span>          = <span class="hljs-literal">no</span><br><span class="hljs-attr">policy</span>            = policy_strict<br><br>...<br><br><span class="hljs-section">[req]</span><br><br>...<br><br><span class="hljs-attr">x509_extensions</span>     = v3_ca<br><br>...<br><br><span class="hljs-section">[ v3_ca ]</span><br><span class="hljs-comment"># Extensions for a typical CA (`man x509v3_config`).</span><br><span class="hljs-attr">subjectKeyIdentifier</span> = hash<br><span class="hljs-attr">authorityKeyIdentifier</span> = keyid:always,issuer<br><span class="hljs-attr">basicConstraints</span> = critical, CA:<span class="hljs-literal">true</span><br><span class="hljs-attr">keyUsage</span> = critical, digitalSignature, cRLSign, keyCertSign<br><br>...<br><br><span class="hljs-section">[ v3_intermediate_ca ]</span><br><span class="hljs-comment"># Extensions for a typical intermediate CA (`man x509v3_config`).</span><br><span class="hljs-attr">subjectKeyIdentifier</span> = hash<br><span class="hljs-attr">authorityKeyIdentifier</span> = keyid:always,issuer<br><span class="hljs-attr">basicConstraints</span> = critical, CA:<span class="hljs-literal">true</span>, pathlen:<span class="hljs-number">0</span><br><span class="hljs-attr">keyUsage</span> = critical, digitalSignature, cRLSign, keyCertSign<br><br>...<br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p><strong>注意</strong>：</p>
+<hr>
+<p>当生成 CA 证书时 <code>basicConstraints</code> 字段值应包含 <code>CA:true</code>。</p>
+</blockquote>
+<h3 id="第二步-创建-CA-私钥"><a class="header-anchor" href="#第二步-创建-CA-私钥">¶</a>第二步 创建 CA 私钥</h3>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash"><span class="hljs-comment"># 使用椭圆曲线算法生成私钥</span><br>openssl ecparam -genkey -name secp256r1 | openssl ec -out private/ca.key.pem<br><br><span class="hljs-comment"># 或</span><br><br><span class="hljs-comment"># 使用 RSA 算法生成私钥</span><br>openssl genrsa -out private/ca.key.pem 2048<br></code></pre></div></td></tr></table></figure>
+<h3 id="第三步-生成-CA-证书"><a class="header-anchor" href="#第三步-生成-CA-证书">¶</a>第三步 生成 CA 证书</h3>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">openssl req -config openssl.cnf -key private/ca.key.pem -new -x509 -days 7300 -sha256 -extensions v3_ca -out certs/ca.cert.pem<br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p><strong>注意</strong>：</p>
+<hr>
+<p>任何证书的生成都可以不生成请求文件而直接生成证书文件。</p>
+</blockquote>
+<h3 id="第四步-生成服务端或客户端证书"><a class="header-anchor" href="#第四步-生成服务端或客户端证书">¶</a>第四步 生成服务端或客户端证书</h3>
+<p>见第一部分。</p>
+<h3 id="第五步-利用-ca-cert-pem-来签署证书"><a class="header-anchor" href="#第五步-利用-ca-cert-pem-来签署证书">¶</a>第五步 利用 <em>ca.cert.pem</em> 来签署证书</h3>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">openssl ca -config openssl.cnf -extensions server_cert -days 1095 -md sha256 -<span class="hljs-keyword">in</span> certs/san_domain_com.csr.pem -out certs/san_domain_com.cert.pem<br><br><span class="hljs-comment"># 或</span><br>openssl x509 -req -sha256 -extfile v3.ext -CA certs/ca.cert.pem -CAkey private/ca.key.pem -CAcreateserial -<span class="hljs-keyword">in</span> certs/san_domain_com.csr.pem -out certs/san_domain_com.cert.pem<br><br><span class="hljs-comment"># 或者 把v3.ext 改为 openssl.cnf</span><br>openssl x509 -req -sha256 -extfile openssl.cnf -CA certs/ca.cert.pem -CAkey private/ca.key.pem -CAcreateserial -<span class="hljs-keyword">in</span> certs/san_domain_com.csr.pem -out certs/san_domain_com.cert.pem<br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p><strong>注意</strong>：</p>
+<hr>
+<ol>
+<li><code>sha256</code> 是哈希算法</li>
+<li><code>v3.ext</code> 是要自己创建的</li>
+</ol>
+</blockquote>
+<p><em>v3.ext</em> 内容：</p>
+<figure class="highlight toml"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs toml"><span class="hljs-attr">authorityKeyIdentifier</span>=keyid,issuer<br><span class="hljs-attr">basicConstraints</span>=CA:<span class="hljs-literal">FALSE</span><br><span class="hljs-attr">keyUsage</span>=digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment<br><span class="hljs-attr">subjectAltName</span>=@alt_names<br><br><span class="hljs-section">[alt_names]</span><br><span class="hljs-attr">DNS.1</span>=www.test.com<br><span class="hljs-attr">IP.1</span> = <span class="hljs-number">192.168</span>.<span class="hljs-number">1.1</span><br></code></pre></div></td></tr></table></figure>
+<h2 id="完整的-openssl-cnf-示例内容"><a class="header-anchor" href="#完整的-openssl-cnf-示例内容">¶</a>完整的 <em>openssl.cnf</em> 示例内容</h2>
+<figure class="highlight toml"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs toml"><span class="hljs-section">[ ca ]</span><br><span class="hljs-comment"># `man ca`</span><br><span class="hljs-attr">default_ca</span> = CA_default<br><br><span class="hljs-section">[ CA_default ]</span><br><span class="hljs-comment"># Directory and file locations.</span><br><span class="hljs-attr">dir</span>               = /path/to/some/dir <span class="hljs-comment">#这里改成实际目录</span><br><span class="hljs-attr">certs</span>             = <span class="hljs-variable">$dir</span>/certs<br><span class="hljs-attr">crl_dir</span>           = <span class="hljs-variable">$dir</span>/crl<br><span class="hljs-attr">new_certs_dir</span>     = <span class="hljs-variable">$dir</span>/newcerts<br><span class="hljs-attr">database</span>          = <span class="hljs-variable">$dir</span>/index.txt<br><span class="hljs-attr">serial</span>            = <span class="hljs-variable">$dir</span>/serial<br><span class="hljs-attr">RANDFILE</span>          = <span class="hljs-variable">$dir</span>/private/.rand<br><br><span class="hljs-comment"># The root key and root certificate.</span><br><span class="hljs-attr">private_key</span>       = <span class="hljs-variable">$dir</span>/private/ca.key.pem<br><span class="hljs-attr">certificate</span>       = <span class="hljs-variable">$dir</span>/certs/ca.cert.pem<br><br><span class="hljs-comment"># For certificate revocation lists.</span><br><span class="hljs-attr">crlnumber</span>         = <span class="hljs-variable">$dir</span>/crlnumber<br><span class="hljs-attr">crl</span>               = <span class="hljs-variable">$dir</span>/crl/ca.crl.pem<br><span class="hljs-attr">crl_extensions</span>    = crl_ext<br><span class="hljs-attr">default_crl_days</span>  = <span class="hljs-number">30</span><br><br><span class="hljs-comment"># SHA-1 is deprecated, so use SHA-2 instead.</span><br><span class="hljs-attr">default_md</span>        = sha256<br><br><span class="hljs-attr">name_opt</span>          = ca_default<br><span class="hljs-attr">cert_opt</span>          = ca_default<br><span class="hljs-attr">default_days</span>      = <span class="hljs-number">375</span><br><span class="hljs-attr">preserve</span>          = <span class="hljs-literal">no</span><br><span class="hljs-attr">policy</span>            = policy_strict<br><br><span class="hljs-section">[ policy_strict ]</span><br><span class="hljs-comment"># The root CA should only sign intermediate certificates that match.</span><br><span class="hljs-comment"># See the POLICY FORMAT section of `man ca`.</span><br><span class="hljs-attr">countryName</span>             = match<br><span class="hljs-attr">stateOrProvinceName</span>     = match<br><span class="hljs-attr">organizationName</span>        = match<br><span class="hljs-attr">organizationalUnitName</span>  = optional<br><span class="hljs-attr">commonName</span>              = supplied<br><span class="hljs-attr">emailAddress</span>            = optional<br><br><span class="hljs-section">[ policy_loose ]</span><br><span class="hljs-comment"># Allow the intermediate CA to sign a more diverse range of certificates.</span><br><span class="hljs-comment"># See the POLICY FORMAT section of the `ca` man page.</span><br><span class="hljs-attr">countryName</span>             = optional<br><span class="hljs-attr">stateOrProvinceName</span>     = optional<br><span class="hljs-attr">localityName</span>            = optional<br><span class="hljs-attr">organizationName</span>        = optional<br><span class="hljs-attr">organizationalUnitName</span>  = optional<br><span class="hljs-attr">commonName</span>              = supplied<br><span class="hljs-attr">emailAddress</span>            = optional<br><br><span class="hljs-section">[ req ]</span><br><span class="hljs-comment"># Options for the `req` tool (`man req`).</span><br><span class="hljs-attr">default_bits</span>        = <span class="hljs-number">2048</span><br><span class="hljs-attr">distinguished_name</span>  = req_distinguished_name<br><span class="hljs-attr">string_mask</span>         = utf8only<br><br><span class="hljs-comment"># SHA-1 is deprecated, so use SHA-2 instead.</span><br><span class="hljs-attr">default_md</span>          = sha256<br><br><span class="hljs-comment"># Extension to add when the -x509 option is used.</span><br><span class="hljs-attr">x509_extensions</span>     = v3_ca<br><br><span class="hljs-attr">req_extensions</span> = v3_req<br><br><span class="hljs-section">[ req_distinguished_name ]</span><br><span class="hljs-comment"># See &lt;https://en.wikipedia.org/wiki/Certificate_signing_request&gt;.</span><br><span class="hljs-attr">countryName</span>                     = Country Name (<span class="hljs-number">2</span> letter code)<br><span class="hljs-attr">stateOrProvinceName</span>             = State or Province Name<br><span class="hljs-attr">localityName</span>                    = Locality Name<br><span class="hljs-attr">0.organizationName</span>              = Organization Name<br><span class="hljs-attr">organizationalUnitName</span>          = Organizational Unit Name<br><span class="hljs-attr">commonName</span>                      = Common Name<br><span class="hljs-attr">emailAddress</span>                    = Email Address<br><br><span class="hljs-comment"># Optionally, specify some defaults.</span><br><span class="hljs-attr">countryName_default</span>             = US<br><span class="hljs-attr">stateOrProvinceName_default</span>     = Texas<br><span class="hljs-attr">localityName_default</span>            = Fort Worth<br><span class="hljs-attr">0.organizationName_default</span>      = My Company<br><span class="hljs-comment">#organizationalUnitName_default =</span><br><span class="hljs-comment">#emailAddress_default           =</span><br><br><span class="hljs-section">[ v3_req ]</span><br><br><span class="hljs-comment"># Extensions to add to a certificate request</span><br><br><span class="hljs-attr">basicConstraints</span> = CA:<span class="hljs-literal">FALSE</span><br><span class="hljs-attr">keyUsage</span> = nonRepudiation, digitalSignature, keyEncipherment<br><span class="hljs-attr">subjectAltName</span> = @alt_names<br><br><span class="hljs-section">[ v3_ca ]</span><br><span class="hljs-comment"># Extensions for a typical CA (`man x509v3_config`).</span><br><span class="hljs-attr">subjectKeyIdentifier</span> = hash<br><span class="hljs-attr">authorityKeyIdentifier</span> = keyid:always,issuer<br><span class="hljs-attr">basicConstraints</span> = critical, CA:<span class="hljs-literal">true</span><br><span class="hljs-attr">keyUsage</span> = critical, digitalSignature, cRLSign, keyCertSign<br><br><span class="hljs-section">[ v3_intermediate_ca ]</span><br><span class="hljs-comment"># Extensions for a typical intermediate CA (`man x509v3_config`).</span><br><span class="hljs-attr">subjectKeyIdentifier</span> = hash<br><span class="hljs-attr">authorityKeyIdentifier</span> = keyid:always,issuer<br><span class="hljs-attr">basicConstraints</span> = critical, CA:<span class="hljs-literal">true</span>, pathlen:<span class="hljs-number">0</span><br><span class="hljs-attr">keyUsage</span> = critical, digitalSignature, cRLSign, keyCertSign<br><br><span class="hljs-section">[ usr_cert ]</span><br><span class="hljs-comment"># Extensions for client certificates (`man x509v3_config`).</span><br><span class="hljs-attr">basicConstraints</span> = CA:<span class="hljs-literal">FALSE</span><br><span class="hljs-attr">nsCertType</span> = client, email<br><span class="hljs-attr">nsComment</span> = <span class="hljs-string">"OpenSSL Generated Client Certificate"</span><br><span class="hljs-attr">subjectKeyIdentifier</span> = hash<br><span class="hljs-attr">authorityKeyIdentifier</span> = keyid,issuer<br><span class="hljs-attr">keyUsage</span> = critical, nonRepudiation, digitalSignature, keyEncipherment<br><span class="hljs-attr">extendedKeyUsage</span> = clientAuth, emailProtection<br><br><span class="hljs-section">[ server_cert ]</span><br><span class="hljs-comment"># Extensions for server certificates (`man x509v3_config`).</span><br><span class="hljs-attr">basicConstraints</span> = CA:<span class="hljs-literal">FALSE</span><br><span class="hljs-attr">nsCertType</span> = server<br><span class="hljs-attr">nsComment</span> = <span class="hljs-string">"OpenSSL Generated Server Certificate"</span><br><span class="hljs-attr">subjectKeyIdentifier</span> = hash<br><span class="hljs-attr">authorityKeyIdentifier</span> = keyid,issuer:always<br><span class="hljs-attr">keyUsage</span> = critical, digitalSignature, keyEncipherment<br><span class="hljs-attr">extendedKeyUsage</span> = serverAuth<br><span class="hljs-attr">subjectAltName</span> = @alt_names<br><br><span class="hljs-section">[ crl_ext ]</span><br><span class="hljs-comment"># Extension for CRLs (`man x509v3_config`).</span><br><span class="hljs-attr">authorityKeyIdentifier</span>=keyid:always<br><br><span class="hljs-section">[ ocsp ]</span><br><span class="hljs-comment"># Extension for OCSP signing certificates (`man ocsp`).</span><br><span class="hljs-attr">basicConstraints</span> = CA:<span class="hljs-literal">FALSE</span><br><span class="hljs-attr">subjectKeyIdentifier</span> = hash<br><span class="hljs-attr">authorityKeyIdentifier</span> = keyid,issuer<br><span class="hljs-attr">keyUsage</span> = critical, digitalSignature<br><span class="hljs-attr">extendedKeyUsage</span> = critical, OCSPSigning<br><br><span class="hljs-section">[alt_names]</span><br><span class="hljs-attr">DNS.1</span> = *.example.com<br><span class="hljs-attr">DNS.2</span> = test.example.net<br><span class="hljs-attr">IP.1</span> = <span class="hljs-number">192.168</span>.<span class="hljs-number">1.0</span>/<span class="hljs-number">24</span><br><span class="hljs-attr">IP.2</span> = <span class="hljs-number">192.168</span>.<span class="hljs-number">2.111</span><br></code></pre></div></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Web/">Web</a>
+                    
+                      <a class="hover-with-bg" href="/tags/OpenSSL/">OpenSSL</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/03/21/C++-Primer-%E7%AC%AC%E4%BA%94%E7%89%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">《C++ Primer （第五版）》学习笔记 -- 之三</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/02/18/C++-Primer-%E7%AC%AC%E4%BA%94%E7%89%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/">
+                        <span class="hidden-mobile">《C++ Primer （第五版）》学习笔记 -- 之一</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "TMgxzCpM2zFnsClsMHJY2LLc-gzGzoHsz",
+          app_key: "1kPLieLtoBQWf0w6iNxLqkMV",
+          placeholder: "说点什么....",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="https://valine.js.org" target="_blank" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> &nbsp;and&nbsp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a9b0666290f750544a1900dff36c0349";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+    <!-- Google Analytics -->
+    <script defer>
+      window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) };
+      ga.l = +new Date;
+      ga('create', 'UA-127726236-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

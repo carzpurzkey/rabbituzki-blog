@@ -1,0 +1,696 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" href="/images/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="When in doubt, use brute force.">
+  <meta name="author" content="Rabbituzki">
+  <meta name="keywords" content="">
+  <title>使用 Hexo 免费搭建属于自己的个人博客 - Rabbituzki 的笔记们</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/gruvbox-dark.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"blog.rabbituzki.com.cn","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"a9b0666290f750544a1900dff36c0349","google":"UA-127726236-2","gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TMgxzCpM2zFnsClsMHJY2LLc-gzGzoHsz","app_key":"1kPLieLtoBQWf0w6iNxLqkMV","server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Rabbituzki 的笔记们</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/images/background1.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="使用 Hexo 免费搭建属于自己的个人博客">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-10-23 00:00" pubdate>
+        2018年10月23日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      21
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">使用 Hexo 免费搭建属于自己的个人博客</h1>
+            
+            <div class="markdown-body">
+              <h1>使用 Hexo 免费搭建属于自己的个人博客</h1>
+<hr>
+<p>[TOC]</p>
+<hr>
+<h2 id="安装搭建博客必须的环境"><a class="header-anchor" href="#安装搭建博客必须的环境">¶</a>安装搭建博客必须的环境</h2>
+<ol>
+<li>安装 Git<br>
+这里就不说怎么安装了，相信会看这篇文章的一般都已经装了。</li>
+<li>申请 GitHub 账号<br>
+<code>博客</code> 的 <code>远程创库</code>、<code>域名</code>、<code>服务器</code> 等都和 <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a> 有关，这个必须要。</li>
+<li>安装 Node.js<br>
+前往 <a href="https://nodejs.org/" target="_blank" rel="noopener">Node.js 官网</a> 下载最新版本的安装包安装即可。<br>
+<img src="https://upload-images.jianshu.io/upload_images/1930874-31fc3087c49f43af.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="安装Node.js"></li>
+<li>安装 Hexo<br>
+打开终端，输入以下命令安装 Hexo ，安装时间可能有点长，要多等一下。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">npm install hexo-cli -g<br></code></pre></div></td></tr></table></figure>
+<h2 id="开始搭建博客"><a class="header-anchor" href="#开始搭建博客">¶</a>开始搭建博客</h2>
+<p>以上环境必须全部安装完成后，才能开始搭建 <code>博客</code>。</p>
+<h3 id="1-创建-GitHub-仓库"><a class="header-anchor" href="#1-创建-GitHub-仓库">¶</a>1. 创建 GitHub 仓库</h3>
+<p>打开 GitHub 创建一个仓库，Repository name 为 <a href="http://xxx.github.io" target="_blank" rel="noopener">xxx.github.io</a>，xxx 处就是你 GitHub 的用户名，也就是前面 Owner 处显示的名字，命名必须这样，不能更改，这个仓库的名字也会是 博客 搭建完成后的域名。<br>
+<img src="https://upload-images.jianshu.io/upload_images/1930874-6fe8a4a5a643e017.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="创建GitHub仓库"></p>
+<h3 id="2-初始化-Hexo-博客"><a class="header-anchor" href="#2-初始化-Hexo-博客">¶</a>2. 初始化 Hexo 博客</h3>
+<p>打开终端，执行以下命令初始化 博客，初始化完成后，你的系统根目录中会多一个名为 Blog 的文件夹，Blog 也可以更改成自己喜欢的名字，初始化时间也比较久，耐心等一下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">hexo init Blog<br></code></pre></div></td></tr></table></figure>
+<h3 id="3-下载博客主题"><a class="header-anchor" href="#3-下载博客主题">¶</a>3. 下载博客主题</h3>
+<ul>
+<li>
+<p><code>博客</code> 初始化完成以后，会有一个自带的 <code>博客主题</code> ，在 <code>Blog / themes </code>文件夹下，但是比较丑，你可以下载一个自己喜欢的 <code>博客主题</code> 。</p>
+</li>
+<li>
+<p>这里是 <code>博客主题</code> 的 <a href="https://hexo.io/themes/" target="_blank" rel="noopener">下载地址</a> ，只需要到主题对应的 <code>GitHub</code> 仓库将主题 <code>clone</code> 下来即可，这是我使用的主题 <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank" rel="noopener">下载地址</a> 。</p>
+</li>
+<li>
+<p><code>clone</code> 完成后，将主题文件夹复制到 <code>Blog</code> 文件夹下的 <code>themes</code> 文件夹中。</p>
+</li>
+<li>
+<p>启用 About 页（限archer主题，其它主题查看相应文档）</p>
+<ul>
+<li>在<strong>hexo目录</strong>下执行</li>
+</ul>
+  <figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">hexo new page <span class="hljs-string">"about"</span><br></code></pre></div></td></tr></table></figure>
+<ul>
+<li>在hexo目录下<code>source/about/index.md</code>中添加字段<code>layout: about</code>（这个字段必须有且不可更改为其他），<code>title</code>字段修改为about页的标题（自行修改），正文为about页的内容（自行修改），例如：</li>
+</ul>
+  <figure class="highlight markdown"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs markdown">---<br>title: 这是自我介绍的题目<br>layout: about<br>---<br>这是一段自我介绍<br></code></pre></div></td></tr></table></figure>
+<ul>
+<li>在<strong>主题配置文件</strong>中添加以下字段，<code>enable</code>字段控制是否开启about，<code>image</code>字段内容为about页的banner图像地址，不填写则默认使用首页banner图像。</li>
+</ul>
+  <figure class="highlight yaml"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs yaml"><span class="hljs-attr">about:</span><br>    <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">'/intro/about-page.jpg'</span><br></code></pre></div></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="4-修改博客配置文件"><a class="header-anchor" href="#4-修改博客配置文件">¶</a>4. 修改博客配置文件</h3>
+<ul>
+<li>
+<p>打开 <code>Blog</code> 文件夹下的 <code>_config.yml</code> 文件，修改其中的配置。</p>
+</li>
+<li>
+<p>下面把几个必须修改的配置列出来按需求修改即可，配置的键值之间一定要有空格，否则会报错，想了解更多配置点击 <a href="https://hexo.io/zh-cn/docs/configuration.html" target="_blank" rel="noopener">这里</a> 。</p>
+  <figure class="highlight yaml"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs yaml"><span class="hljs-attr">title:</span> <span class="hljs-string">Jonzzs</span>  <span class="hljs-string">//博客的标题</span><br><span class="hljs-attr">subtitle:</span> <span class="hljs-string">个人博客</span> <span class="hljs-string">//博客的副标题</span><br><span class="hljs-attr">description:</span> <span class="hljs-string">将来的你</span> <span class="hljs-string">一定会感激现在拼命的自己</span> <span class="hljs-string">//博客的描述</span><br><span class="hljs-attr">author:</span> <span class="hljs-string">Jonzzs</span> <span class="hljs-string">//博客作者的名字</span><br><span class="hljs-attr">language:</span> <span class="hljs-string">zh-Hans</span> <span class="hljs-string">//语言中文</span><br><br><span class="hljs-attr">theme:</span> <span class="hljs-string">new-vno</span> <span class="hljs-string">//刚刚复制到</span> <span class="hljs-string">themes</span> <span class="hljs-string">文件夹下的主题名称</span><br><br><span class="hljs-attr">deploy:</span><br>    <span class="hljs-attr">type:</span> <span class="hljs-string">git</span> <span class="hljs-string">//使用</span> <span class="hljs-string">Git</span> <span class="hljs-string">发布</span><br>    <span class="hljs-attr">repo:</span> <span class="hljs-string">https://github.com/Jonzzs/Jonzzs.github.io.git</span> <span class="hljs-string">//刚创建的</span> <span class="hljs-string">Github</span> <span class="hljs-string">仓库地址</span><br></code></pre></div></td></tr></table></figure>
+</li>
+<li>
+<p>关于主题的配置在各自主题文件夹下的 _config.yml 文件中修改。</p>
+</li>
+</ul>
+<h3 id="5-写博客文章"><a class="header-anchor" href="#5-写博客文章">¶</a>5. 写博客文章</h3>
+<ul>
+<li>
+<p>接下来可以开始写你的第一篇 <code>博客</code> 文章了，博客文章保存在 <code>Blog / source / _posts</code> 文件夹下，格式为 <code>MarkDown</code> 格式，也就是 <code>.md</code> 后缀的文件，编码格式为 <code>UTF-8</code> ，否则会显示乱码。<br>
+<strong>例如</strong>： 创建一个名为 <code>测试文章.md</code> 的文件，内容为：</p>
+  <figure class="highlight markdown"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs markdown">---<br>title: 测试文章 //文章的标题<br>date: 2017-05-03 17:47 //文章的发布时间<br>categories: 测试分类 //分类名称<br>tags: 测试标签 //标签名称<br>photos: http://jonzzs.cn/images/Jonzzs.jpg //需要展示的图片地址<br>---<br><span class="hljs-code">    </span><br> &gt; 这是一篇测试文章。<br></code></pre></div></td></tr></table></figure>
+<p><strong>注意</strong>：每一篇文章中，开头都必须有 — 之间的那些参数，参数 : 后面必须有空格，文章的 标题 是必填的，否则文章不会显示在博客中，其他参数看自己的需求填写，categories 、tags 、photos 这三个参数可填写多个，填写多个时用 [ xx, xx ] 格式区分，例如：</p>
+  <figure class="highlight markdown"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs markdown">---<br>title: 测试文章 //文章的标题<br>date: 2017-05-03 17:47 //文章的发布时间<br>categories: [测试分类1, 测试分类2, 测试分类3] //分类名称<br>tags: [测试标签1, 测试标签2, 测试标签3] //标签名称<br>photos: [http://jonzzs.cn/images/Jonzzs.jpg, http://jonzzs.cn/images/Jonzzs.jpg, http://jonzzs.cn/images/Jonzzs.jpg] //需要展示的图片地址<br>---<br></code></pre></div></td></tr></table></figure>
+</li>
+<li>
+<p>如果要在博客的首页显示每篇文章的 <code>摘要</code> ，只要在文章中加入以下 <code>分隔符</code> 即可，该 <code>分隔符</code> 之前的所有内容都会被自动截取为文章的 <code>摘要</code> 。</p>
+  <figure class="highlight markdown"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs markdown"><span class="xml"><span class="hljs-comment">&lt;!-- more --&gt;</span></span><br></code></pre></div></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="6-本地测试博客"><a class="header-anchor" href="#6-本地测试博客">¶</a>6. 本地测试博客</h3>
+<ul>
+<li>
+<p>打开终端 <code>cd</code> 到 <code>Blog</code> 目录下，输入以下命令：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">hexo s<br></code></pre></div></td></tr></table></figure>
+</li>
+<li>
+<p>接着浏览器中输入 <a href="http://localhost:4000/" target="_blank" rel="noopener">http://localhost:4000/</a> 就能够看到 <code>博客</code> 的搭建效果。</p>
+</li>
+</ul>
+<h2 id="发布博客"><a class="header-anchor" href="#发布博客">¶</a>发布博客</h2>
+<p>本地显示没问题以后，就可以将 <code>博客</code> 发布到 <code>GitHub</code> 服务器上了。</p>
+<h3 id="1-安装自动部署发布插件"><a class="header-anchor" href="#1-安装自动部署发布插件">¶</a>1. 安装自动部署发布插件</h3>
+<p>第一次配置时需要安装 <code>hexo-deployer-git</code> 自动部署发布工具，打开终端 <code>cd</code> 到 <code>Blog</code> 目录下，执行以下命令安装。</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">npm install hexo-deployer-git --save<br></code></pre></div></td></tr></table></figure>
+<h3 id="2-发布博客到服务器"><a class="header-anchor" href="#2-发布博客到服务器">¶</a>2. 发布博客到服务器</h3>
+<ul>
+<li>打开终端 <code>cd</code> 到 <code>Blog</code> 目录下，输入以下命令：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d<br></code></pre></div></td></tr></table></figure>
+<ul>
+<li>如果这是你的第一次，终端可能会让你输入 <code>Github</code> 的邮箱和密码，输入完成后，就会把你的 <code>博客</code> 自动上传至 <code>Github</code> 了。</li>
+<li>以后在每一次添加新的 <code>博客</code> 文章或者改变配置时，执行一下这个命令就可以直接发布了。<br>
+发布完成后，浏览器中输入之前创建的 <code>Github</code> 仓库名，就能访问到你搭建的 博客 了，我的是 <code>carzpurzkey.github.io</code> 。</li>
+</ul>
+<hr>
+<blockquote>
+<p>简单的 <code>博客</code> 搭建流程就是这样了，还有很多不错的 <a href="https://hexo.io/plugins/" target="_blank" rel="noopener">插件</a> ，比如 <code>评论</code>、<code>标签</code>、<code>统计</code> 等等，这些自己去研究并慢慢完善自己的博客吧。</p>
+</blockquote>
+<h2 id="使用-码云-来托管-Hexo-搭建的博客"><a class="header-anchor" href="#使用-码云-来托管-Hexo-搭建的博客">¶</a>使用 码云 来托管 Hexo 搭建的博客</h2>
+<ol>
+<li>
+<p>首先进入 <a href="https://gitee.com" target="_blank" rel="noopener">码云</a> 创建一个仓库，<code>仓库名称</code> 和 <code>仓库路径</code> 都必须和你的 <code>用户名</code> 也就是上面的 <code>归属</code> 一样。<br>
+<img src="https://upload-images.jianshu.io/upload_images/1930874-ef54f8b245f993a6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="创建仓库"></p>
+</li>
+<li>
+<p>打开本地 <code>博客</code> 下的 <code>_config.yml</code> 文件，将刚才创建的仓库 <code>Git</code> 地址配置进去。<br>
+<img src="https://upload-images.jianshu.io/upload_images/1930874-732a1474b74dae5d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/772/format/webp" alt="仓库Git地址"></p>
+</li>
+<li>
+<p>添加托管</p>
+</li>
+</ol>
+<ul>
+<li>
+<p>如果想使用 GitHub 和 码云 同时托管 博客 ，就这样配置：</p>
+  <figure class="highlight yaml"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs yaml"><span class="hljs-attr">deploy:</span><br>    <span class="hljs-attr">type:</span> <span class="hljs-string">git</span><br>    <span class="hljs-attr">repo:</span><br>        <span class="hljs-attr">github:</span> <span class="hljs-string">https://github.com/Jonzzs/Jonzzs.github.io.git</span><br>        <span class="hljs-attr">oschina:</span> <span class="hljs-string">https://git.oschina.net/Jonzzs/Jonzzs.git</span><br></code></pre></div></td></tr></table></figure>
+</li>
+<li>
+<p>如果只想使用 码云 托管 博客 ，就这样配置：</p>
+  <figure class="highlight yaml"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs yaml"><span class="hljs-attr">deploy:</span><br>    <span class="hljs-attr">type:</span> <span class="hljs-string">git</span><br>    <span class="hljs-attr">repo:</span> <span class="hljs-string">https://git.oschina.net/Jonzzs/Jonzzs.git</span><br></code></pre></div></td></tr></table></figure>
+</li>
+</ul>
+<ol start="4">
+<li>
+<p>保存文件后打开终端 <code>cd</code> 到 <code>博客</code> 目录下，使用以下命令重新部署一下博客。</p>
+ <figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d<br></code></pre></div></td></tr></table></figure>
+</li>
+<li>
+<p>再次打开刚才 <code>码云</code> 上创建的仓库刷新一下，博客 的 <code>HTML</code> 页面应该已经传到仓库中了，打开 <code>服务</code> 中的 <code>Pages</code>，点击 <code>启动服务</code> 。<br>
+<img src="https://upload-images.jianshu.io/upload_images/1930874-4556b0dc9fa60ecd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="Pages"></p>
+</li>
+<li>
+<p>此时你就可以使用 <code>用户名.gitee.io</code> 来访问你的 <code>博客</code> 了。<br>
+<img src="https://upload-images.jianshu.io/upload_images/1930874-be5eeac4cb380f7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="jonzzs.gitee.io"></p>
+</li>
+</ol>
+<blockquote>
+<p>大功告成，使用 <code>码云</code> 托管 <code>博客</code> 后访问速度会快很多，大家块试试看吧。</p>
+</blockquote>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%95%99%E7%A8%8B/">教程</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Web/">Web</a>
+                    
+                      <a class="hover-with-bg" href="/tags/git/">git</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Hexo/">Hexo</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8D%9A%E5%AE%A2/">博客</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2018/10/24/%E5%88%A9%E7%94%A8gitlab-pages%E5%92%8Chexo%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">利用gitlab pages和hexo搭建一个个人博客</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2018/10/22/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                        <span class="hidden-mobile">git 学习笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "TMgxzCpM2zFnsClsMHJY2LLc-gzGzoHsz",
+          app_key: "1kPLieLtoBQWf0w6iNxLqkMV",
+          placeholder: "说点什么....",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="https://valine.js.org" target="_blank" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> &nbsp;and&nbsp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a9b0666290f750544a1900dff36c0349";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+    <!-- Google Analytics -->
+    <script defer>
+      window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) };
+      ga.l = +new Date;
+      ga('create', 'UA-127726236-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
