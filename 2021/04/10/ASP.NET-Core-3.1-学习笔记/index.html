@@ -186,7 +186,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      9.1k 字
+      10.8k 字
     </span>
   
 
@@ -196,7 +196,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      115
+      138
        分钟
     </span>
   
@@ -229,7 +229,7 @@
             <h1 style="display: none">ASP.NET Core 3.1 学习笔记（一）</h1>
             
             <div class="markdown-body">
-              <h1><a href="http://ASP.NET" target="_blank" rel="noopener">ASP.NET</a> Core 3.1 学习笔记</h1>
+              <h1><a href="http://ASP.NET" target="_blank" rel="noopener">ASP.NET</a> Core 3.1 学习笔记（一）</h1>
 <p><a href="http://www.zyiz.net/tutorial/xilie-293.html" target="_blank" rel="noopener">教程</a></p>
 <hr>
 <p>[TOC]</p>
@@ -925,7 +925,7 @@
 <h4 id="服务处理"><a class="header-anchor" href="#服务处理">¶</a>服务处理</h4>
 <p>容器为其创建的 <a href="https://docs.microsoft.com/zh-cn/dotnet/api/system.idisposable" target="_blank" rel="noopener"><code>IDisposable</code></a> 类型调用 <a href="https://docs.microsoft.com/zh-cn/dotnet/api/system.idisposable.dispose" target="_blank" rel="noopener"><code>Dispose</code></a>。 如果通过<strong>用户代码直接</strong>将实例添加到容器中，则不会自动处理该实例。</p>
 <figure class="highlight plain"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C#">&#x2F;&#x2F; Services that implement IDisposable:<br>public class Service1 : IDisposable &#123;&#125;<br>public class Service2 : IDisposable &#123;&#125;<br>public class Service3 : IDisposable &#123;&#125;<br> <br>public interface ISomeService &#123;&#125;<br>public class SomeServiceImplementation : ISomeService, IDisposable &#123;&#125;<br> <br>public void ConfigureServices(IServiceCollection services)<br>&#123;<br>    &#x2F;&#x2F; The container creates the following instances and disposes them automatically:<br>    services.AddScoped&lt;Service1&gt;();<br>    services.AddSingleton&lt;Service2&gt;();<br>    services.AddSingleton&lt;ISomeService&gt;(sp &#x3D;&gt; new SomeServiceImplementation());<br> <br>    &#x2F;&#x2F; The container doesn&#39;t create the following instances, so it doesn&#39;t dispose of<br>    &#x2F;&#x2F; the instances automatically:<br>    services.AddSingleton&lt;Service3&gt;(new Service3());<br>    services.AddSingleton(new Service3());<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<h3 id="默认服务容器替换"><a class="header-anchor" href="#默认服务容器替换">¶</a>默认服务容器替换</h3>
+<h4 id="默认服务容器替换"><a class="header-anchor" href="#默认服务容器替换">¶</a>默认服务容器替换</h4>
 <p>内置的服务容器旨在满足框架和大多数消费者应用的需求。 我们建议使用内置容器，除非你需要的特定功能不受内置容器支持，例如：</p>
 <ul>
 <li>属性注入</li>
@@ -980,8 +980,8 @@
 <h3 id="四、Startup-类"><a class="header-anchor" href="#四、Startup-类">¶</a>四、<code>Startup</code> 类</h3>
 <p><a href="http://ASP.NET" target="_blank" rel="noopener">ASP.NET</a> Core 应用使用 <code>Startup</code> 类，按照约定命名为 <code>Startup</code>。 <code>Startup</code> 类：</p>
 <ul>
-<li><strong>可选择性地</strong>包括  <code>ConfigureServices</code> 方法以配置应用的服务<sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup> 。在 <code>ConfigureServices</code> 中注册服务，并通过依赖关系注入 （DI）或 <code>ApplicationServices</code>在整个应用中使用服务 。</li>
-<li>包括  <code>Configure</code> 方法以创建应用的请求处理管道。</li>
+<li><strong>可选择性地</strong>包括  <a href="https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configureservices" target="_blank" rel="noopener"><code>ConfigureServices</code></a> 方法以配置应用的服务<sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup> 。在 <code>ConfigureServices</code> 中注册服务，并通过依赖关系注入 （DI）或 <a href="https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.builder.iapplicationbuilder.applicationservices" target="_blank" rel="noopener"><code>ApplicationServices</code></a> 在整个应用中使用服务 。</li>
+<li>包括  <a href="https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configure" target="_blank" rel="noopener"><code>Configure</code></a> 方法以创建应用的请求处理管道。</li>
 </ul>
 <blockquote></blockquote>
 <p>在应用启动时，<a href="http://ASP.NET" target="_blank" rel="noopener">ASP.NET</a> Core 运行时会调用 <code>ConfigureServices</code> 和 <code>Configure</code>：</p>
@@ -989,6 +989,87 @@
 <blockquote>
 <p>前面的示例适用于 Razor Pages，MVC 版本类似。</p>
 </blockquote>
+<p>在构建应用<a href="http://www.zyiz.net/tutorial/detail-4541.html#host" target="_blank" rel="noopener">主机</a>时指定 <code>Startup</code> 类。 通常通过在主机生成器上调用 <a href="https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilderextensions.usestartup" target="_blank" rel="noopener"><code>WebHostBuilderExtensions.UseStartup</code></a> 方法来指定 <code>Startup</code> 类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C#">public class Program<br>&#123;<br>    public static void Main(string[] args)<br>    &#123;<br>        CreateHostBuilder(args).Build().Run();<br>    &#125;<br>    <br>    public static IHostBuilder CreateHostBuilder(string[] args) &#x3D;&gt;<br>        Host.CreateDefaultBuilder(args)<br>        .ConfigureWebHostDefaults(webBuilder &#x3D;&gt;<br>        &#123;<br>            webBuilder.UseStartup&lt;Startup&gt;();<br>        &#125;);<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>主机提供 <code>Startup</code> 类构造函数可用的<strong>某些</strong>服务；应用通过 <code>ConfigureServices</code> 添加<strong>其他</strong>服务。<strong>服务都可以在 <code>Configure</code> 和整个应用中使用</strong>。</p>
+<p>使用泛型主机（<a href="https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.extensions.hosting.ihostbuilder" target="_blank" rel="noopener"><code>IHostBuilder</code></a>）时，只能将以下服务类型注入 <code>Startup</code> 构造函数：</p>
+<ul>
+<li><a href="https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.hosting.iwebhostenvironment" target="_blank" rel="noopener"><code>IWebHostEnvironment</code></a></li>
+<li><a href="https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.extensions.hosting.ihostenvironment" target="_blank" rel="noopener"><code>IHostEnvironment</code></a></li>
+<li><a href="https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.extensions.configuration.iconfiguration" target="_blank" rel="noopener"><code>IConfiguration</code></a></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c#">public class Startup<br>&#123;<br>    private readonly IWebHostEnvironment _env;<br> <br>    public Startup(IConfiguration configuration, IWebHostEnvironment env)<br>    &#123;<br>        Configuration &#x3D; configuration;<br>        _env &#x3D; env;<br>    &#125;<br> <br>    public IConfiguration Configuration &#123; get; &#125;<br> <br>    public void ConfigureServices(IServiceCollection services)<br>    &#123;<br>        if (_env.IsDevelopment())<br>        &#123;<br>        &#125;<br>        else<br>        &#123;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p><strong>注意</strong>：</p>
+<hr>
+<p>在调用 <code>Configure</code> 方法之前，大多数服务都不可用。</p>
+</blockquote>
+<h4 id="多个-Startup-类"><a class="header-anchor" href="#多个-Startup-类">¶</a>多个 <code>Startup</code> 类</h4>
+<p>应用为不同的环境（例如，<code>StartupDevelopment</code>）单独定义 <code>Startup</code> 类时，相应的 <code>Startup</code> 类会在运行时被选中。 优先考虑名称后缀与当前环境相匹配的类。 如果应用在开发环境中运行并包含 <code>Startup</code> 类和 <code>StartupDevelopment</code> 类，则使用 <code>StartupDevelopment</code> 类。</p>
+<h4 id="ConfigureServices-方法"><a class="header-anchor" href="#ConfigureServices-方法">¶</a><code>ConfigureServices</code> 方法</h4>
+<p><a href="https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configureservices" target="_blank" rel="noopener"><code>ConfigureServices</code></a> 方法：</p>
+<ul>
+<li>可选。</li>
+<li>在 <code>Configure</code> 方法配置应用服务之前，由主机调用。</li>
+<li>其中按常规设置配置选项。</li>
+</ul>
+<p>主机可能会在调用 <code>Startup</code> 方法之前配置某些服务。</p>
+<p>对于需要大量设置的功能，<a href="https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection" target="_blank" rel="noopener"><code>IServiceCollection</code></a> 上有 <code>Add{Service}</code> 扩展方法。 例如，<code>AddDbContext</code>、<code>AddDefaultIdentity</code>、<code>AddEntityFrameworkStores</code> 和 <code>AddRazorPages</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C#">public class Startup<br>&#123;<br>    public Startup(IConfiguration configuration)<br>    &#123;<br>        Configuration &#x3D; configuration;<br>    &#125;<br> <br>    public IConfiguration Configuration &#123; get; &#125;<br> <br>    public void ConfigureServices(IServiceCollection services)<br>    &#123;<br> <br>        services.AddDbContext&lt;ApplicationDbContext&gt;(options &#x3D;&gt;<br>            options.UseSqlServer(<br>                Configuration.GetConnectionString(&quot;DefaultConnection&quot;)));<br>        services.AddDefaultIdentity&lt;IdentityUser&gt;(<br>            options &#x3D;&gt; options.SignIn.RequireConfirmedAccount &#x3D; true)<br>            .AddEntityFrameworkStores&lt;ApplicationDbContext&gt;();<br> <br>        services.AddRazorPages();<br>    &#125;<br></code></pre></div></td></tr></table></figure>
+<p>将服务添加到服务容器，使其在应用和 <code>Configure</code> 方法中可用。 服务通过依赖关系注入或 <a href="https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.builder.iapplicationbuilder.applicationservices" target="_blank" rel="noopener"><code>ApplicationServices</code></a> 进行解析。</p>
+<h4 id="Configure-方法"><a class="header-anchor" href="#Configure-方法">¶</a><code>Configure</code> 方法</h4>
+<p><a href="https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configure" target="_blank" rel="noopener"><code>Configure</code></a> 方法用于指定应用响应 HTTP 请求的方式。 可通过将中间件组件添加到 <a href="https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.builder.iapplicationbuilder" target="_blank" rel="noopener"><code>IApplicationBuilder</code></a> 实例来配置请求管道。 <code>Configure</code> 方法可使用 <code>IApplicationBuilder</code>，而无需在服务容器中注册。 托管创建 <code>IApplicationBuilder</code> 并将其直接传递到 <code>Configure</code>。</p>
+<p><a href="https://docs.microsoft.com/zh-cn/dotnet/core/tools/dotnet-new" target="_blank" rel="noopener">ASP.NET Core 模板</a>配置的管道支持：</p>
+<ul>
+<li>开发人员异常页</li>
+<li>异常处理程序</li>
+<li>HTTP 严格传输安全性 (HSTS)</li>
+<li>HTTPS 重定向</li>
+<li>静态文件</li>
+<li><a href="http://ASP.NET" target="_blank" rel="noopener">ASP.NET</a> Core MVC 和 Razor Pages</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C#">public class Startup<br>&#123;<br>    public Startup(IConfiguration configuration)<br>    &#123;<br>        Configuration &#x3D; configuration;<br>    &#125;<br> <br>    public IConfiguration Configuration &#123; get; &#125;<br> <br>    public void ConfigureServices(IServiceCollection services)<br>    &#123;<br>        services.AddRazorPages();<br>    &#125;<br> <br>    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)<br>    &#123;<br>        if (env.IsDevelopment())<br>        &#123;<br>            app.UseDeveloperExceptionPage();<br>        &#125;<br>        else<br>        &#123;<br>            app.UseExceptionHandler(&quot;&#x2F;Error&quot;);<br>            app.UseHsts();<br>        &#125;<br> <br>        app.UseHttpsRedirection();<br>        app.UseStaticFiles();<br> <br>        app.UseRouting();<br> <br>        app.UseAuthorization();<br> <br>        app.UseEndpoints(endpoints &#x3D;&gt;<br>        &#123;<br>            endpoints.MapRazorPages();<br>        &#125;);<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p>前面的示例适用于 Razor Pages；MVC 版本类似。</p>
+</blockquote>
+<p>每个 <code>Use</code> 扩展方法将一个或多个中间件组件添加到请求管道。 例如，<a href="https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles" target="_blank" rel="noopener"><code>UseStaticFiles</code></a> 配置中间件提供静态文件。</p>
+<p>请求管道中的每个中间件组件负责调用管道中的下一个组件，或在适当情况下使链发生短路。</p>
+<p>可以在 <code>Configure</code> 方法签名中指定其他服务，如 <code>IWebHostEnvironment</code>、<code>ILoggerFactory</code> 或 <code>ConfigureServices</code> 中定义的任何内容。 如果这些服务可用，则会被注入。</p>
+<h4 id="在不使用-Startup-类的情况下配置服务"><a class="header-anchor" href="#在不使用-Startup-类的情况下配置服务">¶</a>在不使用 <code>Startup</code> 类的情况下配置服务</h4>
+<p>若要配置服务和请求处理管道，而不使用 <code>Startup</code> 类，请在主机生成器上调用 <code>ConfigureServices</code> 和 <code>Configure</code> 便捷方法。 多次调用 <code>ConfigureServices</code> 将追加到另一个。</p>
+<blockquote>
+<p><strong>注意</strong>：</p>
+<hr>
+<p>如果存在多个 <code>Configure</code> 方法调用，则使用最后一个 <code>Configure</code> 调用。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C#">public class Program<br>&#123;<br>    public static void Main(string[] args)<br>    &#123;<br>        CreateHostBuilder(args).Build().Run();<br>    &#125;<br> <br>    public static IHostBuilder CreateHostBuilder(string[] args) &#x3D;&gt;<br>        Host.CreateDefaultBuilder(args)<br>            .ConfigureAppConfiguration((hostingContext, config) &#x3D;&gt;<br>            &#123;<br>            &#125;)<br>            .ConfigureWebHostDefaults(webBuilder &#x3D;&gt;<br>            &#123;<br>                webBuilder.ConfigureServices(services &#x3D;&gt;<br>                &#123;<br>                    services.AddControllersWithViews();<br>                &#125;)<br>                .Configure(app &#x3D;&gt;<br>                &#123;<br>                    var loggerFactory &#x3D; app.ApplicationServices<br>                        .GetRequiredService&lt;ILoggerFactory&gt;();<br>                    var logger &#x3D; loggerFactory.CreateLogger&lt;Program&gt;();<br>                    var env &#x3D; app.ApplicationServices.GetRequiredService&lt;IWebHostEnvironment&gt;();<br>                    var config &#x3D; app.ApplicationServices.GetRequiredService&lt;IConfiguration&gt;();<br> <br>                    logger.LogInformation(&quot;Logged in Configure&quot;);<br> <br>                    if (env.IsDevelopment())<br>                    &#123;<br>                        app.UseDeveloperExceptionPage();<br>                    &#125;<br>                    else<br>                    &#123;<br>                        app.UseExceptionHandler(&quot;&#x2F;Home&#x2F;Error&quot;);<br>                        app.UseHsts();<br>                    &#125;<br> <br>                    var configValue &#x3D; config[&quot;MyConfigKey&quot;];<br>                &#125;);<br>            &#125;);<br>        &#125;);<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h4 id="使用-Startup-筛选器扩展-Startup"><a class="header-anchor" href="#使用-Startup-筛选器扩展-Startup">¶</a>使用 <code>Startup</code> 筛选器扩展 <code>Startup</code></h4>
+<p>使用 <a href="https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.hosting.istartupfilter" target="_blank" rel="noopener"><code>IStartupFilter</code></a>：</p>
+<ul>
+<li>在应用的 <code>Configure</code> 中间件管道的开头或末尾配置中间件，而无需显式调用 <code>Use{Middleware}</code>。 <code>IStartupFilter</code> 由 <a href="http://ASP.NET" target="_blank" rel="noopener">ASP.NET</a> Core 用于将默认值添加到管道的开头，而无需使应用作者显式注册默认中间件。 <code>IStartupFilter</code> 允许代表应用作者使用不同的组件调用 <code>Use{Middleware}</code>。</li>
+<li>创建 <code>Configure</code> 方法的管道。 <a href="https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.hosting.istartupfilter.configure" target="_blank" rel="noopener"><code>IStartupFilter.Configure</code></a> 可以将中间件设置为在库添加的中间件之前或之后运行。</li>
+</ul>
+<p><code>IStartupFilter</code> 实现了抽象方法 <a href="https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configure" target="_blank" rel="noopener"><code>Configure</code></a>，即接收并返回 <code>Action&lt;IApplicationBuilder&gt;</code>。 <a href="https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.builder.iapplicationbuilder" target="_blank" rel="noopener"><code>IApplicationBuilder</code></a> 定义用于配置应用请求管道的类。</p>
+<p>每个 <code>IStartupFilter</code> 可以在请求管道中添加一个或多个中间件。 筛选器按照添加到服务容器的顺序调用。 筛选器可在将控件传递给下一个筛选器之前或之后添加中间件，从而附加到应用管道的开头或末尾。</p>
+<p>下面的示例演示如何使用 <code>IStartupFilter</code> 注册中间件。 <code>RequestSetOptionsMiddleware</code> 中间件从查询字符串参数中设置选项值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C#">public class RequestSetOptionsMiddleware<br>&#123;<br>    private readonly RequestDelegate _next;<br> <br>    public RequestSetOptionsMiddleware( RequestDelegate next )<br>    &#123;<br>        _next &#x3D; next;<br>    &#125;<br> <br>    &#x2F;&#x2F; Test with https:&#x2F;&#x2F;localhost:5001&#x2F;Privacy&#x2F;?option&#x3D;Hello<br>    public async Task Invoke(HttpContext httpContext)<br>    &#123;<br>        var option &#x3D; httpContext.Request.Query[&quot;option&quot;];<br> <br>        if (!string.IsNullOrWhiteSpace(option))<br>        &#123;<br>            httpContext.Items[&quot;option&quot;] &#x3D; WebUtility.HtmlEncode(option);<br>        &#125;<br> <br>        await _next(httpContext);<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>在 <code>RequestSetOptionsStartupFilter</code> 类中配置 <code>RequestSetOptionsMiddleware</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C#">public class RequestSetOptionsStartupFilter : IStartupFilter<br>&#123;<br>    public Action&lt;IApplicationBuilder&gt; Configure(Action&lt;IApplicationBuilder&gt; next)<br>    &#123;<br>        return builder &#x3D;&gt;<br>        &#123;<br>            builder.UseMiddleware&lt;RequestSetOptionsMiddleware&gt;();<br>            next(builder);<br>        &#125;;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>在 <a href="https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.hosting.startupbase.configureservices" target="_blank" rel="noopener"><code>ConfigureServices</code></a> 中的服务容器中注册 <code>IStartupFilter</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C#">public class Program<br>&#123;<br>    public static void Main(string[] args)<br>    &#123;<br>        CreateHostBuilder(args).Build().Run();<br>    &#125;<br> <br>    public static IHostBuilder CreateHostBuilder(string[] args) &#x3D;&gt;<br>        Host.CreateDefaultBuilder(args)<br>           .ConfigureAppConfiguration((hostingContext, config) &#x3D;&gt;<br>           &#123;<br>           &#125;)<br>         .ConfigureWebHostDefaults(webBuilder &#x3D;&gt;<br>         &#123;<br>             webBuilder.UseStartup&lt;Startup&gt;();<br>         &#125;)<br>        .ConfigureServices(services &#x3D;&gt;<br>        &#123;<br>            services.AddTransient&lt;IStartupFilter,<br>                      RequestSetOptionsStartupFilter&gt;();<br>        &#125;);<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>当提供 <code>option</code> 的查询字符串参数时，中间件在 <a href="http://ASP.NET" target="_blank" rel="noopener">ASP.NET</a> Core 中间件呈现响应之前处理分配值。</p>
+<p>中间件执行顺序由 <code>IStartupFilter</code> 注册顺序设置：</p>
+<ul>
+<li>多个 <code>IStartupFilter</code> 实现可能与相同的对象进行交互。 如果顺序很重要，请将它们的 <code>IStartupFilter</code> 服务注册进行排序，以匹配其中间件应有的运行顺序。</li>
+<li>库可能添加包含一个或多个 <code>IStartupFilter</code> 实现的中间件，这些实现在向 <code>IStartupFilter</code> 注册的其他应用中间件之前或之后运行。 若要在库的 <code>IStartupFilter</code> 添加的中间件之前调用 <code>IStartupFilter</code> 中间件，请执行以下操作：
+<ul>
+<li>在库添加到服务容器之前定位服务注册。</li>
+<li>要在此后调用，请在添加库之后定位服务注册。</li>
+</ul>
+</li>
+</ul>
+<h4 id="在启动时从外部程序集添加配置"><a class="header-anchor" href="#在启动时从外部程序集添加配置">¶</a>在启动时从外部程序集添加配置</h4>
+<p>通过 <a href="https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.hosting.ihostingstartup" target="_blank" rel="noopener"><code>IHostingStartup</code></a> 实现，可在启动时从应用 <code>Startup</code> 类之外的外部程序集向应用添加增强功能。</p>
 <hr class="footnotes-sep">
 <section class="footnotes">
 <ol class="footnotes-list">
@@ -1036,12 +1117,18 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2021/04/10/Linux-IO/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Linux I/O 模式及 select、poll 和 epoll 详解</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/04/10/Linux-IO/">
-                        <span class="hidden-mobile">Linux I/O 模式及 select、poll 和 epoll 详解</span>
+                      <a href="/2020/12/04/Spring-AOP-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                        <span class="hidden-mobile">Spring AOP 学习笔记</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
