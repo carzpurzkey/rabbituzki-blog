@@ -582,8 +582,6 @@
 <li>
 <p>带种子值的 <code>Aggregate</code> 方法</p>
 <p><code>Aggregate</code> 的第二个重载方法需要第一个参数来累积种子值。第二个参数是 <code>Func</code> 类型的委托：</p>
-</li>
-</ol>
 <figure class="highlight csharp"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs csharp">TAccumulate Aggregate&lt;TSource, TAccumulate&gt;(TAccumulate seed, Func&lt;TAccumulate, TSource, TAccumulate&gt; func);<br></code></pre></div></td></tr></table></figure>
 <p>下面的示例在 <code>Aggregate</code> 扩展方法中将字符串用作种子值：</p>
 <figure class="highlight csharp"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs csharp"><span class="hljs-comment">// 学生集合</span><br>IList&lt;Student&gt; studentList = <span class="hljs-keyword">new</span> List&lt;Student&gt;&gt;() &#123; <br>     <span class="hljs-keyword">new</span> Student() &#123; StudentID = <span class="hljs-number">1</span>, StudentName = <span class="hljs-string">"John"</span>, Age = <span class="hljs-number">13</span>&#125; ,<br>     <span class="hljs-keyword">new</span> Student() &#123; StudentID = <span class="hljs-number">2</span>, StudentName = <span class="hljs-string">"Moin"</span>,  Age = <span class="hljs-number">21</span> &#125; ,<br>     <span class="hljs-keyword">new</span> Student() &#123; StudentID = <span class="hljs-number">3</span>, StudentName = <span class="hljs-string">"Bill"</span>,  Age = <span class="hljs-number">18</span> &#125; ,<br>     <span class="hljs-keyword">new</span> Student() &#123; StudentID = <span class="hljs-number">4</span>, StudentName = <span class="hljs-string">"Ram"</span> , Age = <span class="hljs-number">20</span>&#125; ,<br>     <span class="hljs-keyword">new</span> Student() &#123; StudentID = <span class="hljs-number">5</span>, StudentName = <span class="hljs-string">"Ron"</span> , Age = <span class="hljs-number">15</span> &#125; <br>&#125;;<br><br><span class="hljs-keyword">string</span> commaSeparatedStudentNames = studentList.Aggregate&lt;Student, <span class="hljs-keyword">string</span>&gt;(<br>                                     <span class="hljs-string">"Student Names: "</span>,  <span class="hljs-comment">// 种子价值</span><br>                                     (str, s) =&gt; str += s.StudentName + <span class="hljs-string">","</span> ); <br><br>Console.WriteLine(commaSeparatedStudentNames);<br></code></pre></div></td></tr></table></figure>
@@ -591,7 +589,7 @@
 <figure class="highlight mipsasm"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs mipsasm">Student Names: <span class="hljs-keyword">John, </span>Moin, <span class="hljs-keyword">Bill, </span>Ram, Ron,<br></code></pre></div></td></tr></table></figure>
 <p>下面的示例使用 <code>Aggregate</code> 运算符添加所有学生的年龄：</p>
 <figure class="highlight csharp"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs csharp"><span class="hljs-comment">// 学生集合</span><br>IList&lt;Student&gt; studentList = <span class="hljs-keyword">new</span> List&lt;Student&gt;() &#123; <br>         <span class="hljs-keyword">new</span> Student() &#123; StudentID = <span class="hljs-number">1</span>, StudentName = <span class="hljs-string">"John"</span>, Age = <span class="hljs-number">13</span>&#125; ,<br>         <span class="hljs-keyword">new</span> Student() &#123; StudentID = <span class="hljs-number">2</span>, StudentName = <span class="hljs-string">"Moin"</span>,  Age = <span class="hljs-number">21</span> &#125; ,<br>         <span class="hljs-keyword">new</span> Student() &#123; StudentID = <span class="hljs-number">3</span>, StudentName = <span class="hljs-string">"Bill"</span>,  Age = <span class="hljs-number">18</span> &#125; ,<br>         <span class="hljs-keyword">new</span> Student() &#123; StudentID = <span class="hljs-number">4</span>, StudentName = <span class="hljs-string">"Ram"</span> , Age = <span class="hljs-number">20</span>&#125; ,<br>         <span class="hljs-keyword">new</span> Student() &#123; StudentID = <span class="hljs-number">5</span>, StudentName = <span class="hljs-string">"Ron"</span> , Age = <span class="hljs-number">15</span> &#125; <br>&#125;;<br><br><span class="hljs-keyword">int</span> SumOfStudentsAge = studentList.Aggregate&lt;Student, <span class="hljs-keyword">int</span>&gt;(<span class="hljs-number">0</span>,                                                   (totalAge, s) =&gt; totalAge += s.Age);<br>Console.WriteLine(studentList);<br></code></pre></div></td></tr></table></figure>
-<ol start="3">
+</li>
 <li>
 <p>带有结果选择器的 <code>Aggregate</code> 方法</p>
 <p>现在，让我们看看第三个重载方法，它需要 <code>Func</code> 委托表达式的第三个参数作为结果选择器，这样您就可以公式化结果：</p>
@@ -1015,13 +1013,13 @@
 <hr>
 <p>C# 查询语法不支持 <code>Skip</code> 和 <code>SkipWhile</code> 运算符。但是，您可以对查询变量使用 <code>Skip</code>/<code>SkipWhile</code> 方法，或者将整个查询包装到括号中，然后调用 <code>Skip</code>/<code>SkipWhile</code>。</p>
 </blockquote>
+</li>
+</ol>
 <blockquote>
 <p><strong>提示</strong></p>
 <hr>
 <p><code>Take</code> 和 <code>TakeWhile</code> 与 <code>Skip</code> 和 <code>SkipWhile</code> 用法相同，但作用相反。</p>
 </blockquote>
-</li>
-</ol>
 <h2 id="二、转换运算符"><a class="header-anchor" href="#二、转换运算符">¶</a>二、转换运算符</h2>
 <p>LINQ 中的 转换运算符可用于转换序列（集合）中元素的类型。转换运算符分为三种：As 运算符（<code>AsEnumerable</code> 和 <code>AsQueryable</code>），To 运算符（<code>ToArray</code>、<code>ToDictionary</code>、<code>ToList</code> 和 <code>ToLookup</code>）和转换运算符（<code>Cast</code> 和 <code>OfType</code>）。</p>
 <table>
