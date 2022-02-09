@@ -1,0 +1,630 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" href="/images/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="When in doubt, use brute force.">
+  <meta name="author" content="Shawn Han">
+  <meta name="keywords" content="">
+  <title>ASP.NET Core 认证与授权 - Rabbituzki 的笔记们</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/gruvbox-dark.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"blog.rabbituzki.com.cn","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"a9b0666290f750544a1900dff36c0349","google":"UA-127726236-2","gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TMgxzCpM2zFnsClsMHJY2LLc-gzGzoHsz","app_key":"1kPLieLtoBQWf0w6iNxLqkMV","server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Rabbituzki 的笔记们</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/images/background1.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="ASP.NET Core 认证与授权">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-12-13 10:00" pubdate>
+        2021年12月13日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      46
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">ASP.NET Core 认证与授权</h1>
+            
+            <div class="markdown-body">
+              <h1><a href="http://ASP.NET" target="_blank" rel="noopener">ASP.NET</a> Core 认证与授权</h1>
+<h2 id="基于声明的认证"><a class="header-anchor" href="#基于声明的认证">¶</a>基于声明的认证</h2>
+<p>Claim 通常被翻译成声明，但是感觉过于生硬，还是使用 <strong>Claim</strong> 来称呼更加自然一些。Claim 是关于一个人或组织的某个主题的陈述，比如：一个人的名称，角色，个人喜好，种族，特权，社团，能力等等。它本质上就是一个键值对，是一种非常通用的保存用户信息的方式，可以很容易的将认证和授权分离开来，前者用来表示用户是/不是什么，后者用来表示用户能/不能做什么。</p>
+<h2 id="ASP-NET-Core-中的用户身份"><a class="header-anchor" href="#ASP-NET-Core-中的用户身份">¶</a><a href="http://ASP.NET" target="_blank" rel="noopener">ASP.NET</a> Core 中的用户身份</h2>
+<h3 id="Claim"><a class="header-anchor" href="#Claim">¶</a>Claim</h3>
+<p>在 <a href="http://ASP.NET" target="_blank" rel="noopener">ASP.NET</a> Core 中，使用 <code>Claim</code> 类来表示用户身份中的一项信息，它由核心的 <code>Type</code> 和 <code>Value</code> 属性构成：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Claim</span><br>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">string</span> _type;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">string</span> _value;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Claim</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> type, <span class="hljs-keyword">string</span> <span class="hljs-keyword">value</span></span>)</span><br><span class="hljs-function">        : <span class="hljs-title">this</span>(<span class="hljs-params">type, <span class="hljs-keyword">value</span>, ClaimValueTypes.String, ClaimsIdentity.DefaultIssuer, ClaimsIdentity.DefaultIssuer, <span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, <span class="hljs-literal">null</span></span>)</span><br><span class="hljs-function"></span>    &#123;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">internal</span> <span class="hljs-title">Claim</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> type, <span class="hljs-keyword">string</span> <span class="hljs-keyword">value</span>, <span class="hljs-keyword">string</span> valueType, <span class="hljs-keyword">string</span> issuer, <span class="hljs-keyword">string</span> originalIssuer, ClaimsIdentity subject, <span class="hljs-keyword">string</span> propertyKey, <span class="hljs-keyword">string</span> propertyValue</span>)</span><br><span class="hljs-function"></span>    &#123;<br>        ...<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> Type =&gt; _type;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> Value =&gt; _value;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>一个 Claim 可以是“用户的姓名”，“邮箱地址”，“电话”，等等，而多个 Claim 构成一个用户的身份，使用 <code>ClaimsIdentity</code> 类来表示：</p>
+<h3 id="ClaimsIdentity"><a class="header-anchor" href="#ClaimsIdentity">¶</a>ClaimsIdentity</h3>
+<figure class="highlight csharp"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">ClaimsIdentity</span> : <span class="hljs-title">IIdentity</span><br>&#123;    <br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">virtual</span> IEnumerable&lt;Claim&gt; Claims &#123;<span class="hljs-keyword">get</span>;&#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">virtual</span> <span class="hljs-keyword">string</span> AuthenticationType =&gt; _authenticationType;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">virtual</span> <span class="hljs-keyword">bool</span> IsAuthenticated =&gt; !<span class="hljs-keyword">string</span>.IsNullOrEmpty(_authenticationType);<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">virtual</span> <span class="hljs-keyword">string</span> Name<br>    &#123;<br>        <span class="hljs-keyword">get</span><br>        &#123;<br>            Claim claim = FindFirst(_nameClaimType);<br>            <span class="hljs-keyword">if</span> (claim != <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> claim.Value;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>        &#125;<br>    &#125;<br><br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>如上，其 <code>Name</code> 属性用来查找 Claims 中，<strong>第一个 Type 为我们创建 <code>ClaimsIdentity</code> 时指定的 NameClaimType 的 Claim 的值，若未指定Type时则使用默认的 <code>ClaimTypes.Name</code></strong>。而 <code>IsAuthenticated</code> 只是判断 <code>_authenticationType</code> 是否为空。<code>_authenticationType</code> 对应 Scheme <sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="¶ClaimsPrincipal
+">[1]</span></a></sup></p>
+<p>下面，我们演示一下用户身份的创建：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs csharp"><span class="hljs-comment">// 创建一个用户身份，注意需要指定AuthenticationType，否则IsAuthenticated将为false。</span><br><span class="hljs-keyword">var</span> claimIdentity = <span class="hljs-keyword">new</span> ClaimsIdentity(<span class="hljs-string">"myAuthenticationType"</span>);<br><span class="hljs-comment">// 添加几个Claim</span><br>claimIdentity.AddClaim(<span class="hljs-keyword">new</span> Claim(ClaimTypes.Name, <span class="hljs-string">"bob"</span>));<br>claimIdentity.AddClaim(<span class="hljs-keyword">new</span> Claim(ClaimTypes.Email, <span class="hljs-string">"bob@gmail.com"</span>));<br>claimIdentity.AddClaim(<span class="hljs-keyword">new</span> Claim(ClaimTypes.MobilePhone, <span class="hljs-string">"18888888888"</span>));<br></code></pre></div></td></tr></table></figure>
+<p>如上，我们可以根据需要添加任意个的 Claim，最后我们还需要再将用户身份放到 <code>ClaimsPrincipal</code> 对象中。</p>
+<blockquote></blockquote>
+<p>在 <a href="http://ASP.NET" target="_blank" rel="noopener">ASP.NET</a> Core 中，HttpContext 直接使用的就是 <code>ClaimsPrincipal</code> 代表用户：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title">HttpContext</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> ClaimsPrincipal User &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>在 ClaimsPrincipal 中，可以包含多个用户身份 (ClaimsIdentity)，除了对用户身份的操作，还提供了针对 Claims 的查询：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">ClaimsPrincipal</span> : <span class="hljs-title">IPrincipal</span><br>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> List&lt;ClaimsIdentity&gt; _identities = <span class="hljs-keyword">new</span> List&lt;ClaimsIdentity&gt;();<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ClaimsPrincipal</span>(<span class="hljs-params">IEnumerable&lt;ClaimsIdentity&gt; identities</span>) </span><br><span class="hljs-function"></span>    &#123;<br>        _identities.AddRange(identities);<br>    &#125;<br><br>    <span class="hljs-comment">// 默认从_identities中查找第一个不为空的ClaimsIdentity，也可以自定义查找方式。</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">virtual</span> System.Security.Principal.IIdentity Identity &#123;&#125;<br><br>    <span class="hljs-comment">// 查找_identities中是否包含类型为RoleClaimType(在创建ClaimsIdentity时指定，或者默认的ClaimTypes.Role)的Claim。</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">virtual</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">IsInRole</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> role</span>)</span> &#123;&#125;<br><br>    <span class="hljs-comment">// 获取所有身份的Claim集合</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">virtual</span> IEnumerable&lt;Claim&gt; Claims<br>    &#123;<br>        <span class="hljs-keyword">get</span><br>        &#123;<br>            <span class="hljs-keyword">foreach</span> (ClaimsIdentity identity <span class="hljs-keyword">in</span> Identities)<br>            &#123;<br>                <span class="hljs-keyword">foreach</span> (Claim claim <span class="hljs-keyword">in</span> identity.Claims)<br>                &#123;<br>                    <span class="hljs-keyword">yield</span> <span class="hljs-keyword">return</span> claim;<br>                &#125;<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p><code>IPrincipal</code> 来源于 <a href="http://ASP.NET" target="_blank" rel="noopener">ASP.NET</a> 4.x：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title">IPrincipal</span><br>&#123;<br>    IIdentity Identity &#123; <span class="hljs-keyword">get</span>; &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">IsInRole</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> role</span>)</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+</blockquote>
+<p>ClaimsPrincipal 的创建非常简单，只需传入我们上面创建的用户身份即可：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs csharp"><span class="hljs-keyword">var</span> principal = <span class="hljs-keyword">new</span> ClaimsPrincipal(claimIdentity);<br></code></pre></div></td></tr></table></figure>
+<p>由于 HTTP 是无状态的，我们通常使用 Cookie，请求头或请求参数等方式来附加用户的信息，在网络上进行传输，这就涉及到序列化和安全方面的问题。因此，还需要将 ClaimPrincipal 对象包装成 <code>AuthenticationTicket</code> 对象。</p>
+<h3 id="AuthenticationTicket"><a class="header-anchor" href="#AuthenticationTicket">¶</a>AuthenticationTicket</h3>
+<p>当我们创建完 <code>ClaimsPrincipal</code> 对象后，需要将它生成一个用户票据并颁发给用户，然后用户拿着这个票据，便可以访问受保持的资源，而在 <a href="http://ASP.NET" target="_blank" rel="noopener">ASP.NET</a> Core 中，用户票据用 <code>AuthenticationTicket</code> 来表示，如在Cookie认证中，其认证后的Cookie值便是对该对象序列化后的结果，它的定义如下：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">AuthenticationTicket</span><br>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">AuthenticationTicket</span>(<span class="hljs-params">ClaimsPrincipal principal, AuthenticationProperties properties, <span class="hljs-keyword">string</span> authenticationScheme</span>)</span><br><span class="hljs-function"></span>    &#123;<br>        AuthenticationScheme = authenticationScheme;<br>        Principal = principal;<br>        Properties = properties ?? <span class="hljs-keyword">new</span> AuthenticationProperties();<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">AuthenticationTicket</span>(<span class="hljs-params">ClaimsPrincipal principal, <span class="hljs-keyword">string</span> authenticationScheme</span>) </span><br><span class="hljs-function">        : <span class="hljs-title">this</span>(<span class="hljs-params">principal, properties: <span class="hljs-literal">null</span>, authenticationScheme: authenticationScheme</span>)</span> &#123; &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> AuthenticationScheme &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">private</span> <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-keyword">public</span> ClaimsPrincipal Principal &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">private</span> <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-keyword">public</span> AuthenticationProperties Properties &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">private</span> <span class="hljs-keyword">set</span>; &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>用户票据除了包含上面创建的 ClaimPrincipal 对象外，还需要指定一个 <code>AuthenticationScheme</code> (通常在授权中用来验证 Scheme)，并且 <strong>还包含一个 <code>AuthenticationProperties</code> 对象，它主要是一些用户票据安全方面的一些配置，如过期时间，是否持久等</strong>。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs csharp"><span class="hljs-keyword">var</span> properties = <span class="hljs-keyword">new</span> AuthenticationProperties();<br><span class="hljs-keyword">var</span> ticket = <span class="hljs-keyword">new</span> AuthenticationTicket(principal, properties, <span class="hljs-string">"myScheme"</span>);<br><span class="hljs-comment">// 加密 序列化</span><br><span class="hljs-keyword">var</span> token = Protect(ticket);<br></code></pre></div></td></tr></table></figure>
+<p>最后，我们可以将票据<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="即 Token。
+">[2]</span></a></sup> 写入到 Cookie 中，或是也可以以 JSON 的形式返回让客户端自行保存，由于我们对票据进行了加密，可以保证在网络中安全的传输而不会被篡改。</p>
+<blockquote></blockquote>
+<p>最终身份令牌的结构大概是这样的：</p>
+<p><img src="/images/ASP.NETCORE-AUTH/1.png" alt="TOKEN_LAYOUT"></p>
+<h2 id="ASP-NET-Core-中的身份认证-Microsoft-AspNetCore-Authentication"><a class="header-anchor" href="#ASP-NET-Core-中的身份认证-Microsoft-AspNetCore-Authentication">¶</a><a href="http://ASP.NET" target="_blank" rel="noopener">ASP.NET</a> Core 中的身份认证 <code>Microsoft.AspNetCore.Authentication</code></h2>
+<p><a href="http://ASP.NET" target="_blank" rel="noopener">ASP.NET</a> Core 中的认证系统具体实现在 <a href="https://github.com/aspnet/Security" target="_blank" rel="noopener">Security</a> 项目中，它包含 <code>Cookie</code>, <code>JwtBearer</code>, <code>OAuth</code>, <code>OpenIdConnect</code> 等：</p>
+<p><img src="/images/ASP.NETCORE-AUTH/2.png" alt="Microsoft.AspNetCore.Authentication"></p>
+<p>认证系统提供了非常灵活的扩展，可以让我们<strong>很容易的实现自定义认证方式</strong>。</p>
+<p>而对于认证系统的配置，分为两步，也是我们所熟悉的注册服务和配置中间件：</p>
+<ol>
+<li>
+<p>在 DI 中注册服务认证所需的服务：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs csharp">   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ConfigureServices</span>(<span class="hljs-params">IServiceCollection services</span>)</span> &#123;<br>    services.AddAuthentication(options =&gt;<br>    &#123;<br>        options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;<br>        options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;<br>        options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;<br>    &#125;)<br>    .AddCookie()<br>    .AddOpenIdConnect(o =&gt;<br>    &#123;<br>        o.ClientId = <span class="hljs-string">"server.hybrid"</span>;<br>        o.ClientSecret = <span class="hljs-string">"secret"</span>;<br>        o.Authority = <span class="hljs-string">"https://demo.identityserver.io/"</span>;<br>        o.ResponseType = OpenIdConnectResponseType.CodeIdToken;<br>    &#125;);<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight angelscript"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs angelscript"><br><span class="hljs-number">2.</span> 注册认证中间件：<br>   <br>   ```csharp<br>   <span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> Configure(IApplicationBuilder app)<br>   &#123;<br>       app.UseAuthentication();<br>   &#125;<br></code></pre></div></td></tr></table></figure>
+</li>
+</ol>
+<p>如上，我们的系统便支持了<code>Cookie</code>和<code>JwtBearer</code>两种认证方式，在我们的应用程序中使用认证系统时，只需要调用 <code>HttpContext</code> <sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="Microsoft.AspNetCore.Authentication，是所有认证实现的公共抽象类，它定义了实现认证Handler的规范，并包含一些共用的方法，如令牌加密，序列化等，AddAuthentication 便是其提供的统一的注册认证服务的扩展方法：
+">[3]</span></a></sup> 中认证相关的扩展方法即可。</p>
+<blockquote></blockquote>
+<h3 id="AddAuthentication"><a class="header-anchor" href="#AddAuthentication">¶</a>AddAuthentication</h3>
+<figure class="highlight csharp"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs csharp"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> AuthenticationBuilder <span class="hljs-title">AddAuthentication</span>(<span class="hljs-params"><span class="hljs-keyword">this</span> IServiceCollection services</span>)</span><br><span class="hljs-function"></span>&#123;<br>    services.AddAuthenticationCore();<br>    services.AddDataProtection();<br>    services.AddWebEncoders();<br>    services.TryAddSingleton&lt;ISystemClock, SystemClock&gt;();<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> AuthenticationBuilder(services);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> AuthenticationBuilder <span class="hljs-title">AddAuthentication</span>(<span class="hljs-params"><span class="hljs-keyword">this</span> IServiceCollection services, Action&lt;AuthenticationOptions&gt; configureOptions</span>) </span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">var</span> builder = services.AddAuthentication();<br>    services.Configure(configureOptions);<br>    <span class="hljs-keyword">return</span> builder;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>如上，它首先会调用 <code>AddAuthenticationCore</code> [^4] 方法，然后注册了<code>DataProtection</code>和<code>WebEncoders</code>两个服务。而对 <code>AuthenticationOptions</code> 我们在介绍<code>IAuthenticationSchemeProvider</code> [^5] 时会介绍到，它用来配置 Scheme。</p>
+<h3 id="AddScheme"><a class="header-anchor" href="#AddScheme">¶</a>AddScheme</h3>
+<p>在上面的 <code>AddAuthentication</code> 中返回的是一个 <code>AuthenticationBuilder</code> 类型，所有认证 Handler 的注册都是以它的扩展形式来实现的，它同时也提供了 <code>AddScheme</code> 扩展方法，使我们可以更加方便的来配置 Scheme：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">AuthenticationBuilder</span><br>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">AuthenticationBuilder</span>(<span class="hljs-params">IServiceCollection services</span>)</span><br><span class="hljs-function"></span>        =&gt; Services = services;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">virtual</span> IServiceCollection Services &#123; <span class="hljs-keyword">get</span>; &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">virtual</span> AuthenticationBuilder AddScheme&lt;TOptions, THandler&gt;(<span class="hljs-keyword">string</span> authenticationScheme, Action&lt;TOptions&gt; configureOptions)        <span class="hljs-keyword">where</span> TOptions : AuthenticationSchemeOptions, <span class="hljs-keyword">new</span>()        <span class="hljs-keyword">where</span> THandler : AuthenticationHandler&lt;TOptions&gt;<br>        =&gt; AddScheme&lt;TOptions, THandler&gt;(authenticationScheme, displayName: <span class="hljs-literal">null</span>, configureOptions: configureOptions);<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">virtual</span> AuthenticationBuilder AddScheme&lt;TOptions, THandler&gt;(<span class="hljs-keyword">string</span> authenticationScheme, <span class="hljs-keyword">string</span> displayName, Action&lt;TOptions&gt; configureOptions)        <span class="hljs-keyword">where</span> TOptions : AuthenticationSchemeOptions, <span class="hljs-keyword">new</span>()        <span class="hljs-keyword">where</span> THandler : AuthenticationHandler&lt;TOptions&gt;<br>    &#123;<br>        Services.Configure&lt;AuthenticationOptions&gt;(o =&gt;<br>        &#123;<br>            o.AddScheme(authenticationScheme, scheme =&gt; &#123;<br>                scheme.HandlerType = <span class="hljs-keyword">typeof</span>(THandler);<br>                scheme.DisplayName = displayName;<br>            &#125;);<br>        &#125;);<br>        <span class="hljs-keyword">if</span> (configureOptions != <span class="hljs-literal">null</span>)<br>        &#123;<br>            Services.Configure(authenticationScheme, configureOptions);<br>        &#125;<br>        Services.AddTransient&lt;THandler&gt;();<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>在这里的 <code>AddScheme</code> 扩展方法只是封装了对 <code>AuthenticationOptions</code> 中 <code>AddScheme</code> 的调用，如上面示例中的 <code>AddCookie</code> 便是调用该扩展方法来实现的。</p>
+<h3 id="AddRemoteScheme"><a class="header-anchor" href="#AddRemoteScheme">¶</a>AddRemoteScheme</h3>
+<p>看到 “Remote” 我们应该就可以猜到它是一种远程验证方式，先看一下它的定义：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">AuthenticationBuilder</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">virtual</span> AuthenticationBuilder AddRemoteScheme&lt;TOptions, THandler&gt;(<span class="hljs-keyword">string</span> authenticationScheme, <span class="hljs-keyword">string</span> displayName, Action&lt;TOptions&gt; configureOptions)        <span class="hljs-keyword">where</span> TOptions : RemoteAuthenticationOptions, <span class="hljs-keyword">new</span>()        <span class="hljs-keyword">where</span> THandler : RemoteAuthenticationHandler&lt;TOptions&gt;<br>    &#123;<br>        Services.TryAddEnumerable(ServiceDescriptor.Singleton&lt;IPostConfigureOptions&lt;TOptions&gt;, EnsureSignInScheme&lt;TOptions&gt;&gt;());<br>        <span class="hljs-keyword">return</span> AddScheme&lt;TOptions, THandler&gt;(authenticationScheme, displayName, configureOptions: configureOptions);<br>    &#125;<br><br>    private class EnsureSignInScheme&lt;TOptions&gt; : IPostConfigureOptions&lt;TOptions&gt; where TOptions : RemoteAuthenticationOptions<br>    &#123;<br>        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> AuthenticationOptions _authOptions;<br><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">EnsureSignInScheme</span>(<span class="hljs-params">IOptions&lt;AuthenticationOptions&gt; authOptions</span>)</span><br><span class="hljs-function"></span>        &#123;<br>            _authOptions = authOptions.Value;<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">PostConfigure</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> name, TOptions options</span>)</span><br><span class="hljs-function"></span>        &#123;<br>            options.SignInScheme = options.SignInScheme ?? _authOptions.DefaultSignInScheme ?? _authOptions.DefaultScheme;<br>            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">string</span>.Equals(options.SignInScheme, name, StringComparison.Ordinal))<br>            &#123;<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> InvalidOperationException(Resources.Exception_RemoteSignInSchemeCannotBeSelf);<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>首先使用 PostConfigure 模式（参见：<a href="http://www.cnblogs.com/RainingNight/p/strongly-typed-options-configure-in-asp-net-core.html#postconfigure%E6%96%B9%E6%B3%95" target="_blank" rel="noopener">Options[1]:Configure</a>），对 <code>RemoteAuthenticationOptions</code> 进行验证，要求远程验证中指定的 <code>SignInScheme</code> 不能为自身，这是为什么呢？后文再来解释。然后便是直接调用上面介绍的 <code>AddScheme</code> 方法。</p>
+<blockquote>
+<p>关于远程验证相对比较复杂，在本章中并不会太过深入的来介绍，在后续其它文章中会逐渐深入。</p>
+</blockquote>
+<h3 id="UseAuthentication"><a class="header-anchor" href="#UseAuthentication">¶</a>UseAuthentication</h3>
+<p>在上面，注册认证中间件时，我们只需调用一个 <code>UseAuthentication</code> 扩展方法，因为它会执行我们注册的所有认证 Handler：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs csharp"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> IApplicationBuilder <span class="hljs-title">UseAuthentication</span>(<span class="hljs-params"><span class="hljs-keyword">this</span> IApplicationBuilder app</span>)</span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">return</span> app.UseMiddleware&lt;AuthenticationMiddleware&gt;();<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>咦，它的代码好简单，只是注册了一个 <code>AuthenticationMiddleware</code> 而已，迫不及待的想看看它的实现：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">AuthenticationMiddleware</span><br>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> RequestDelegate _next;<br>    <span class="hljs-keyword">public</span> IAuthenticationSchemeProvider Schemes &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task <span class="hljs-title">Invoke</span>(<span class="hljs-params">HttpContext context</span>)</span><br><span class="hljs-function"></span>    &#123;<br>        context.Features.Set&lt;IAuthenticationFeature&gt;(<span class="hljs-keyword">new</span> AuthenticationFeature<br>        &#123;<br>            OriginalPath = context.Request.Path,<br>            OriginalPathBase = context.Request.PathBase<br>        &#125;);<br><br>        <span class="hljs-keyword">var</span> handlers = context.RequestServices.GetRequiredService&lt;IAuthenticationHandlerProvider&gt;();<br>        <span class="hljs-keyword">foreach</span> (<span class="hljs-keyword">var</span> scheme <span class="hljs-keyword">in</span> <span class="hljs-keyword">await</span> Schemes.GetRequestHandlerSchemesAsync())<br>        &#123;<br>            <span class="hljs-keyword">var</span> handler = <span class="hljs-keyword">await</span> handlers.GetHandlerAsync(context, scheme.Name) <span class="hljs-keyword">as</span> IAuthenticationRequestHandler;<br>            <span class="hljs-keyword">if</span> (handler != <span class="hljs-literal">null</span> &amp;&amp; <span class="hljs-keyword">await</span> handler.HandleRequestAsync())<br>            &#123;<br>                <span class="hljs-keyword">return</span>;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">var</span> defaultAuthenticate = <span class="hljs-keyword">await</span> Schemes.GetDefaultAuthenticateSchemeAsync();<br>        <span class="hljs-keyword">if</span> (defaultAuthenticate != <span class="hljs-literal">null</span>)<br>        &#123;<br>            <span class="hljs-keyword">var</span> result = <span class="hljs-keyword">await</span> context.AuthenticateAsync(defaultAuthenticate.Name);<br>            <span class="hljs-keyword">if</span> (result?.Principal != <span class="hljs-literal">null</span>)<br>            &#123;<br>                context.User = result.Principal;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">await</span> _next(context);<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>很简单，但是很强大，不管我们是使用 Cookie 认证，还是 Bearer 认证，等等，都只需要这一个中间件，因为它会解析所有的 Handler 来执行。</p>
+<p>不过，在这里，这会先判断是否具体实现了 <code>IAuthenticationRequestHandler</code> 的 Handler，优先来执行，这个是什么鬼?</p>
+<p>查了一下，发现 <code>IAuthenticationRequestHandler</code> 是在 <a href="https://github.com/aspnet/HttpAbstractions" target="_blank" rel="noopener"><code>HttpAbstractions</code></a> 中定义的：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title">IAuthenticationRequestHandler</span> : <span class="hljs-title">IAuthenticationHandler</span><br>&#123;<br>    <span class="hljs-function">Task&lt;<span class="hljs-keyword">bool</span>&gt; <span class="hljs-title">HandleRequestAsync</span>(<span class="hljs-params"></span>)</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>它多了一个 <code>HandleRequestAsync</code> 方法，那么它存在的意义是什么呢？其实<strong>在 Cookie 认证中并没有用到它，它通常在远程认证（如：OAuth、 OIDC 等）中使用</strong>，<a href="#HandleRequestAsync">下文再来介绍</a>。</p>
+<h2 id="认证Handler"><a class="header-anchor" href="#认证Handler">¶</a>认证Handler</h2>
+<p>上文中多次提到认证 Handler，它由统一的 <code>AuthenticationMiddleware</code> 来调用，负责具体的认证实现，并分为本地认证与远程认证两种方式。</p>
+<p>在本地验证中，身份令牌的发放与认证通常是由同一个服务器来完成，这也是我们比较熟悉的场景，对于 Cookie、JwtBearer 等认证来说，都属于是本地验证。而当我们使用 OAuth、OIDC 等验证方式时，身份令牌的发放则是由独立的服务或是第三方（QQ、Weibo 等）认证来提供，此时在我们的应用程序中获取身份令牌时需要请求远程服务器，因此称之为远程验证。</p>
+<h3 id="AuthenticationHandler"><a class="header-anchor" href="#AuthenticationHandler">¶</a>AuthenticationHandler</h3>
+<p><code>AuthenticationHandler</code> 是所有认证 Handler 的抽象基类，<strong>对于<span style="color: black; text-decoration-line: underline; text-decoration-style: double">本地</span>认证直接实现该类即可</strong>，定义如下：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs csharp">public abstract class AuthenticationHandler&lt;TOptions&gt; : IAuthenticationHandler where TOptions : AuthenticationSchemeOptions, new()<br>&#123;<br>    ...<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task <span class="hljs-title">InitializeAsync</span>(<span class="hljs-params">AuthenticationScheme scheme, HttpContext context</span>)</span><br><span class="hljs-function"></span>    &#123;<br>        ...<br><br>        <span class="hljs-keyword">await</span> InitializeEventsAsync();<br>        <span class="hljs-keyword">await</span> InitializeHandlerAsync();<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">virtual</span> <span class="hljs-keyword">async</span> Task <span class="hljs-title">InitializeEventsAsync</span>(<span class="hljs-params"></span>)</span> &#123; &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">virtual</span> Task&lt;<span class="hljs-keyword">object</span>&gt; <span class="hljs-title">CreateEventsAsync</span>(<span class="hljs-params"></span>)</span> =&gt; Task.FromResult(<span class="hljs-keyword">new</span> <span class="hljs-keyword">object</span>());<br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">virtual</span> Task <span class="hljs-title">InitializeHandlerAsync</span>(<span class="hljs-params"></span>)</span> =&gt; Task.CompletedTask;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task&lt;AuthenticateResult&gt; <span class="hljs-title">AuthenticateAsync</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function"></span>    &#123;<br>        <span class="hljs-keyword">var</span> result = <span class="hljs-keyword">await</span> HandleAuthenticateOnceAsync();<br><br>        ...<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> Task&lt;AuthenticateResult&gt; <span class="hljs-title">HandleAuthenticateOnceAsync</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function"></span>    &#123;<br>        <span class="hljs-keyword">if</span> (_authenticateTask == <span class="hljs-literal">null</span>)<br>        &#123;<br>            _authenticateTask = HandleAuthenticateAsync();<br>        &#125;<br>        <span class="hljs-keyword">return</span> _authenticateTask;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">abstract</span> Task&lt;AuthenticateResult&gt; <span class="hljs-title">HandleAuthenticateAsync</span>(<span class="hljs-params"></span>)</span>;<br><br><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">virtual</span> Task <span class="hljs-title">HandleForbiddenAsync</span>(<span class="hljs-params">AuthenticationProperties properties</span>)</span><br><span class="hljs-function"></span>    &#123;<br>        Response.StatusCode = <span class="hljs-number">403</span>;<br>        <span class="hljs-keyword">return</span> Task.CompletedTask;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">virtual</span> Task <span class="hljs-title">HandleChallengeAsync</span>(<span class="hljs-params">AuthenticationProperties properties</span>)</span><br><span class="hljs-function"></span>    &#123;<br>        Response.StatusCode = <span class="hljs-number">401</span>;<br>        <span class="hljs-keyword">return</span> Task.CompletedTask;<br>    &#125;<br><br>    ...<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>如上，它定义一个抽象方法 <code>HandleAuthenticateAsync</code>，并使用 <code>HandleAuthenticateOnceAsync</code> 方法来保证其在每次认证只执行一次。而 <code>HandleAuthenticateAsync</code> 是认证的核心，交给具体的认证Handler负责实现。而对于 <code>ChallengeAsync</code>、 <code>ForbidAsync</code> 等方法也提供了默认的实现。</p>
+<p>而对于 <code>HandleAuthenticateAsync</code> 的实现，大致的逻辑就是从请求中获取上面发放的身份令牌，然后解析成 <code>AuthenticationTicket</code>，并经过一系列的验证，最终返回 <code>ClaimsPrincipal</code> 对象。</p>
+<h3 id="RemoteAuthenticationHandler"><a class="header-anchor" href="#RemoteAuthenticationHandler">¶</a>RemoteAuthenticationHandler</h3>
+<p><code>RemoteAuthenticationHandler</code> 便是所有<strong>远程</strong>认证的抽象基类了，它继承自 <code>AuthenticationHandler</code>，并实现了 <code>IAuthenticationRequestHandler</code> 接口：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs csharp">public abstract class RemoteAuthenticationHandler&lt;TOptions&gt; : AuthenticationHandler&lt;TOptions&gt;, IAuthenticationRequestHandler<br>    <span class="hljs-keyword">where</span> TOptions : RemoteAuthenticationOptions, <span class="hljs-keyword">new</span>()<br>&#123;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">virtual</span> Task&lt;<span class="hljs-keyword">bool</span>&gt; <span class="hljs-title">ShouldHandleRequestAsync</span>(<span class="hljs-params"></span>)</span> =&gt; Task.FromResult(Options.CallbackPath == Request.Path);<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">virtual</span> <span class="hljs-keyword">async</span> Task&lt;<span class="hljs-keyword">bool</span>&gt; <span class="hljs-title">HandleRequestAsync</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function"></span>    &#123;<br>        <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">await</span> ShouldHandleRequestAsync())<br>        &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br><br>        <span class="hljs-keyword">var</span> authResult = <span class="hljs-keyword">await</span> HandleRemoteAuthenticateAsync();<br> <br>        ...<br><br>        <span class="hljs-keyword">await</span> Context.SignInAsync(SignInScheme, ticketContext.Principal, ticketContext.Properties);<br><br>        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">string</span>.IsNullOrEmpty(ticketContext.ReturnUri)) ticketContext.ReturnUri = <span class="hljs-string">"/"</span>;<br>        Response.Redirect(ticketContext.ReturnUri);<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">abstract</span> Task&lt;HandleRequestResult&gt; <span class="hljs-title">HandleRemoteAuthenticateAsync</span>(<span class="hljs-params"></span>)</span>;<br><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">async</span> Task&lt;AuthenticateResult&gt; <span class="hljs-title">HandleAuthenticateAsync</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function"></span>    &#123;<br>        <span class="hljs-keyword">var</span> result = <span class="hljs-keyword">await</span> Context.AuthenticateAsync(SignInScheme);<br><br>        ...<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">override</span> Task <span class="hljs-title">HandleForbiddenAsync</span>(<span class="hljs-params">AuthenticationProperties properties</span>)</span><br><span class="hljs-function"></span>        =&gt; Context.ForbidAsync(SignInScheme);<br><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">GenerateCorrelationId</span>(<span class="hljs-params">AuthenticationProperties properties</span>)</span> &#123;&#125;<br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">virtual</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">ValidateCorrelationId</span>(<span class="hljs-params">AuthenticationProperties properties</span>)</span> &#123;&#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p><span name="HandleRequestAsync">在上面介绍的 <code>AuthenticationMiddleware</code> 中，提到它会先执行实现了 <code>IAuthenticationRequestHandler</code> 接口的 Handler（远程认证），之后（若未完成认证）再执行本地认证 Handler</span>。</p>
+<p>而<code>RemoteAuthenticationHandler</code>中核心的认证逻辑便是 <code>HandleRequestAsync</code> 方法，它主要包含2个步骤：</p>
+<ol>
+<li>
+<p>首先执行一个抽象方法 <code>HandleRemoteAuthenticateAsync</code>，由具体的 Handler 来实现，该方法返回的 <code>HandleRequestResult</code> 对象包含验证的结果（跳过、失败和成功等），在成功时会包含一个 ticket 对象。</p>
+</li>
+<li>
+<p>若上一步验证成功，则根据返回的 ticket，获取到 <code>ClaimsPrincipal</code> 对象，并调用其它认证 Handler 的 <code>Context.SignInAsync</code> 方法。</p>
+</li>
+</ol>
+<p>也就是说，远程 Handler 会在用户未登录时，指引用户跳转到认证服务器，登录成功后，解析认证服务器传回的凭证，最终依赖于本地 Handler 来保存身份令牌。当用户再次访问则无需经过远程 Handler，直接交给本地 Handler 来处理。</p>
+<p>由此也可以知道，<strong>远程认证中本身并不具备 SignIn 的能力，所以必须通过指定其它 <code>SignInScheme</code> 交给本地认证来完成 SignIn</strong>。</p>
+<p>对于其父类的<code>HandleAuthenticateAsync</code>抽象方法则定义了一个默认实现：“直接转交给本地验证来处理”。当我们需要定义自己的远程认证方式时，通常只需实现 <code>HandleRemoteAuthenticateAsync</code> 即可，而不用再去处理 <code>HandleAuthenticateAsync</code>。</p>
+<section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><h3 id="ClaimsPrincipal"><a class="header-anchor" href="#ClaimsPrincipal">¶</a>ClaimsPrincipal</h3>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span>即 Token。
+<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span><a href="https://github.com/aspnet/Security/tree/dev/src/Microsoft.AspNetCore.Authentication" target="_blank" rel="noopener"><code>Microsoft.AspNetCore.Authentication</code></a>，是所有认证实现的公共抽象类，它定义了实现认证Handler的规范，并包含一些共用的方法，如令牌加密，序列化等，<code>AddAuthentication</code> 便是其提供的统一的注册认证服务的扩展方法：
+<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/02/09/LINQ-%E6%95%99%E7%A8%8B/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">LINQ 教程</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/04/10/Linux-IO/">
+                        <span class="hidden-mobile">Linux I/O 模式及 select、poll 和 epoll 详解</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "TMgxzCpM2zFnsClsMHJY2LLc-gzGzoHsz",
+          app_key: "1kPLieLtoBQWf0w6iNxLqkMV",
+          placeholder: "说点什么....",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="https://valine.js.org" target="_blank" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> &nbsp;and&nbsp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a9b0666290f750544a1900dff36c0349";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+    <!-- Google Analytics -->
+    <script defer>
+      window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) };
+      ga.l = +new Date;
+      ga('create', 'UA-127726236-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
