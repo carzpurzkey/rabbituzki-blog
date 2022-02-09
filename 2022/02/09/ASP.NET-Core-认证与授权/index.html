@@ -17,7 +17,7 @@
   
   <meta name="theme-color" content="#2f4154">
   <meta name="description" content="When in doubt, use brute force.">
-  <meta name="author" content="Shawn Han">
+  <meta name="author" content="Rabbituzki">
   <meta name="keywords" content="">
   <title>ASP.NET Core 认证与授权 - Rabbituzki 的笔记们</title>
 
@@ -174,8 +174,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-12-13 10:00" pubdate>
-        2021年12月13日 上午
+      <time datetime="2022-02-09 00:00" pubdate>
+        2022年2月9日 凌晨
       </time>
     </span>
   
@@ -315,7 +315,7 @@
 <p>而对于 <code>HandleAuthenticateAsync</code> 的实现，大致的逻辑就是从请求中获取上面发放的身份令牌，然后解析成 <code>AuthenticationTicket</code>，并经过一系列的验证，最终返回 <code>ClaimsPrincipal</code> 对象。</p>
 <h3 id="RemoteAuthenticationHandler"><a class="header-anchor" href="#RemoteAuthenticationHandler">¶</a>RemoteAuthenticationHandler</h3>
 <p><code>RemoteAuthenticationHandler</code> 便是所有<strong>远程</strong>认证的抽象基类了，它继承自 <code>AuthenticationHandler</code>，并实现了 <code>IAuthenticationRequestHandler</code> 接口：</p>
-<figure class="highlight csharp"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs csharp">public abstract class RemoteAuthenticationHandler&lt;TOptions&gt; : AuthenticationHandler&lt;TOptions&gt;, IAuthenticationRequestHandler<br>    <span class="hljs-keyword">where</span> TOptions : RemoteAuthenticationOptions, <span class="hljs-keyword">new</span>()<br>&#123;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">virtual</span> Task&lt;<span class="hljs-keyword">bool</span>&gt; <span class="hljs-title">ShouldHandleRequestAsync</span>(<span class="hljs-params"></span>)</span> =&gt; Task.FromResult(Options.CallbackPath == Request.Path);<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">virtual</span> <span class="hljs-keyword">async</span> Task&lt;<span class="hljs-keyword">bool</span>&gt; <span class="hljs-title">HandleRequestAsync</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function"></span>    &#123;<br>        <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">await</span> ShouldHandleRequestAsync())<br>        &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br><br>        <span class="hljs-keyword">var</span> authResult = <span class="hljs-keyword">await</span> HandleRemoteAuthenticateAsync();<br> <br>        ...<br><br>        <span class="hljs-keyword">await</span> Context.SignInAsync(SignInScheme, ticketContext.Principal, ticketContext.Properties);<br><br>        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">string</span>.IsNullOrEmpty(ticketContext.ReturnUri)) ticketContext.ReturnUri = <span class="hljs-string">"/"</span>;<br>        Response.Redirect(ticketContext.ReturnUri);<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">abstract</span> Task&lt;HandleRequestResult&gt; <span class="hljs-title">HandleRemoteAuthenticateAsync</span>(<span class="hljs-params"></span>)</span>;<br><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">async</span> Task&lt;AuthenticateResult&gt; <span class="hljs-title">HandleAuthenticateAsync</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function"></span>    &#123;<br>        <span class="hljs-keyword">var</span> result = <span class="hljs-keyword">await</span> Context.AuthenticateAsync(SignInScheme);<br><br>        ...<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">override</span> Task <span class="hljs-title">HandleForbiddenAsync</span>(<span class="hljs-params">AuthenticationProperties properties</span>)</span><br><span class="hljs-function"></span>        =&gt; Context.ForbidAsync(SignInScheme);<br><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">GenerateCorrelationId</span>(<span class="hljs-params">AuthenticationProperties properties</span>)</span> &#123;&#125;<br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">virtual</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">ValidateCorrelationId</span>(<span class="hljs-params">AuthenticationProperties properties</span>)</span> &#123;&#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight csharp"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs csharp">public abstract class RemoteAuthenticationHandler&lt;TOptions&gt; : AuthenticationHandler&lt;TOptions&gt;, IAuthenticationRequestHandler<br>    <span class="hljs-keyword">where</span> TOptions : RemoteAuthenticationOptions, <span class="hljs-keyword">new</span>()<br>&#123;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">virtual</span> Task&lt;<span class="hljs-keyword">bool</span>&gt; <span class="hljs-title">ShouldHandleRequestAsync</span>(<span class="hljs-params"></span>)</span> =&gt; Task.FromResult(Options.CallbackPath == Request.Path);<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">virtual</span> <span class="hljs-keyword">async</span> Task&lt;<span class="hljs-keyword">bool</span>&gt; <span class="hljs-title">HandleRequestAsync</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function"></span>    &#123;<br>        <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">await</span> ShouldHandleRequestAsync())<br>        &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br><br>        <span class="hljs-keyword">var</span> authResult = <span class="hljs-keyword">await</span> HandleRemoteAuthenticateAsync();<br><br>        ...<br><br>        <span class="hljs-keyword">await</span> Context.SignInAsync(SignInScheme, ticketContext.Principal, ticketContext.Properties);<br><br>        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">string</span>.IsNullOrEmpty(ticketContext.ReturnUri)) ticketContext.ReturnUri = <span class="hljs-string">"/"</span>;<br>        Response.Redirect(ticketContext.ReturnUri);<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">abstract</span> Task&lt;HandleRequestResult&gt; <span class="hljs-title">HandleRemoteAuthenticateAsync</span>(<span class="hljs-params"></span>)</span>;<br><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">async</span> Task&lt;AuthenticateResult&gt; <span class="hljs-title">HandleAuthenticateAsync</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function"></span>    &#123;<br>        <span class="hljs-keyword">var</span> result = <span class="hljs-keyword">await</span> Context.AuthenticateAsync(SignInScheme);<br><br>        ...<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">override</span> Task <span class="hljs-title">HandleForbiddenAsync</span>(<span class="hljs-params">AuthenticationProperties properties</span>)</span><br><span class="hljs-function"></span>        =&gt; Context.ForbidAsync(SignInScheme);<br><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">GenerateCorrelationId</span>(<span class="hljs-params">AuthenticationProperties properties</span>)</span> &#123;&#125;<br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">virtual</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">ValidateCorrelationId</span>(<span class="hljs-params">AuthenticationProperties properties</span>)</span> &#123;&#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <p><span name="HandleRequestAsync">在上面介绍的 <code>AuthenticationMiddleware</code> 中，提到它会先执行实现了 <code>IAuthenticationRequestHandler</code> 接口的 Handler（远程认证），之后（若未完成认证）再执行本地认证 Handler</span>。</p>
 <p>而<code>RemoteAuthenticationHandler</code>中核心的认证逻辑便是 <code>HandleRequestAsync</code> 方法，它主要包含2个步骤：</p>
 <ol>
@@ -338,6 +338,30 @@
             <div>
               <div class="post-metas mb-3">
                 
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/NET/">.NET</a>
+                    
+                      <a class="hover-with-bg" href="/tags/NETCore/">.NETCore</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Microsoft/">Microsoft</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%AE%A4%E8%AF%81/">认证</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%8E%88%E6%9D%83/">授权</a>
+                    
+                      <a class="hover-with-bg" href="/tags/IdentityServer/">IdentityServer</a>
+                    
+                  </div>
                 
               </div>
               
@@ -348,18 +372,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/02/09/LINQ-%E6%95%99%E7%A8%8B/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LINQ 教程</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/04/10/Linux-IO/">
-                        <span class="hidden-mobile">Linux I/O 模式及 select、poll 和 epoll 详解</span>
+                      <a href="/2022/02/09/LINQ-%E6%95%99%E7%A8%8B/">
+                        <span class="hidden-mobile">LINQ 教程</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
