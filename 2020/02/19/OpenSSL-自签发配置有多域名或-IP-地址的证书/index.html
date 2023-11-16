@@ -196,7 +196,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      36
+      37
        分钟
     </span>
   
@@ -321,6 +321,13 @@
 <li><span style="border-bottom: 3px black double; font-weight: bold">对于服务器证书，<code>-extensions</code> 参数为 <code>server_cert</code>；对于客户端证书 <code>-extensions</code> 参数 为 <code>user_cert</code>。但服务器和客户端证书都可以使用通用参数 <code>v3_req</code>。<code>server_cert</code>、<code>user_cert</code> 和 <code>v3_req</code> 的定义参见本文最后 <em>openssl.cnf</em> 文件示例。</span></li>
 </ol>
 </blockquote>
+<blockquote>
+<p><strong>提示</strong>：</p>
+<hr>
+<p>tomcat 使用 Nio 实现配置 https 时需要使用 p12（JKS）格式证书，转换方式：</p>
+<div class="hljs code-wrapper"><pre><code><figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">openssl pkcs12 -<span class="hljs-built_in">export</span> -out certs/san_domain_com.jks -<span class="hljs-keyword">in</span> certs/san_domain_com.cert.pem -inkey private/san_domain_com.key.pem<br></code></pre></div></td></tr></table></figure>
+</code></pre>
+</blockquote>
 <h3 id="第五步-自签名并创建（双向认证）客户端证书"><a class="header-anchor" href="#第五步-自签名并创建（双向认证）客户端证书">¶</a>第五步 自签名并创建（双向认证）客户端证书</h3>
 <p>抓包工具可以轻松获取到你请求的接口名称字段结构等，虽然不能修改本次请求，但是得到你的请求规则以后就可以脱离你的软件自行进行访问，这也是我们不想看到的，所以双向认证就是很有需要的了。</p>
 <ol>
@@ -364,7 +371,7 @@
 <h3 id="第四步-生成服务端或客户端证书"><a class="header-anchor" href="#第四步-生成服务端或客户端证书">¶</a>第四步 生成服务端或客户端证书</h3>
 <p>见第一部分。</p>
 <h3 id="第五步-利用-ca-cert-pem-来签署证书"><a class="header-anchor" href="#第五步-利用-ca-cert-pem-来签署证书">¶</a>第五步 利用 <em>ca.cert.pem</em> 来签署证书</h3>
-<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">openssl ca -config openssl.cnf -extensions server_cert -days 1095 -md sha256 -<span class="hljs-keyword">in</span> certs/san_domain_com.csr.pem -out certs/san_domain_com.cert.pem<br><br><span class="hljs-comment"># 或</span><br>openssl x509 -req -sha256 -extfile v3.ext -CA certs/ca.cert.pem -CAkey private/ca.key.pem -CAcreateserial -<span class="hljs-keyword">in</span> certs/san_domain_com.csr.pem -out certs/san_domain_com.cert.pem<br><br><span class="hljs-comment"># 或者 把v3.ext 改为 openssl.cnf</span><br>openssl x509 -req -sha256 -extfile openssl.cnf -CA certs/ca.cert.pem -CAkey private/ca.key.pem -CAcreateserial -<span class="hljs-keyword">in</span> certs/san_domain_com.csr.pem -out certs/san_domain_com.cert.pem<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">openssl ca -config openssl.cnf -extensions server_cert -days 1095 -md sha256 -<span class="hljs-keyword">in</span> certs/san_domain_com.csr.pem -out certs/san_domain_com.cert.pem<br><br><span class="hljs-comment"># 以下两个命令签署的证书不带 CA 信息，可能是用做客户端证书（未验证）</span><br>openssl x509 -req -sha256 -extfile v3.ext -CA certs/ca.cert.pem -CAkey private/ca.key.pem -CAcreateserial -<span class="hljs-keyword">in</span> certs/san_domain_com.csr.pem -out certs/san_domain_com.cert.pem<br><br><span class="hljs-comment"># 或者 把v3.ext 改为 openssl.cnf</span><br>openssl x509 -req -sha256 -extfile openssl.cnf -CA certs/ca.cert.pem -CAkey private/ca.key.pem -CAcreateserial -<span class="hljs-keyword">in</span> certs/san_domain_com.csr.pem -out certs/san_domain_com.cert.pem<br></code></pre></div></td></tr></table></figure>
 <blockquote>
 <p><strong>注意</strong>：</p>
 <hr>
