@@ -325,8 +325,7 @@
 <p><strong>提示</strong>：</p>
 <hr>
 <p>tomcat 使用 Nio 实现配置 https 时需要使用 p12（JKS）格式证书，转换方式：</p>
-<div class="hljs code-wrapper"><pre><code><figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">openssl pkcs12 -<span class="hljs-built_in">export</span> -out certs/san_domain_com.jks -<span class="hljs-keyword">in</span> certs/san_domain_com.cert.pem -inkey private/san_domain_com.key.pem<br></code></pre></div></td></tr></table></figure>
-</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">openssl pkcs12 -<span class="hljs-built_in">export</span> -out certs/san_domain_com.jks -<span class="hljs-keyword">in</span> certs/san_domain_com.cert.pem -inkey private/san_domain_com.key.pem<br></code></pre></div></td></tr></table></figure>
 </blockquote>
 <h3 id="第五步-自签名并创建（双向认证）客户端证书"><a class="header-anchor" href="#第五步-自签名并创建（双向认证）客户端证书">¶</a>第五步 自签名并创建（双向认证）客户端证书</h3>
 <p>抓包工具可以轻松获取到你请求的接口名称字段结构等，虽然不能修改本次请求，但是得到你的请求规则以后就可以脱离你的软件自行进行访问，这也是我们不想看到的，所以双向认证就是很有需要的了。</p>

@@ -1,0 +1,919 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" href="/images/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="When in doubt, use brute force.">
+  <meta name="author" content="Rabbituzki">
+  <meta name="keywords" content="">
+  <title>PGP 使用教程 - Rabbituzki 的笔记们</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/gruvbox-dark.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"blog.rabbituzki.com.cn","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"a9b0666290f750544a1900dff36c0349","google":"UA-127726236-2","gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TMgxzCpM2zFnsClsMHJY2LLc-gzGzoHsz","app_key":"1kPLieLtoBQWf0w6iNxLqkMV","server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Rabbituzki 的笔记们</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/images/background1.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="PGP 使用教程">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2023-11-17 00:00" pubdate>
+        2023年11月17日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      52
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">PGP 使用教程</h1>
+            
+            <div class="markdown-body">
+              <h1>PGP 使用教程</h1>
+<h2 id="一、基本使用"><a class="header-anchor" href="#一、基本使用">¶</a>一、基本使用</h2>
+<h3 id="1-生成"><a class="header-anchor" href="#1-生成">¶</a>1. 生成</h3>
+<h5 id="1-1-生成主密钥"><a class="header-anchor" href="#1-1-生成主密钥">¶</a>1.1 生成主密钥</h5>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">gpg --full-gen-key<br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p><strong>注意</strong></p>
+<hr>
+<p>这里不推荐使用 <code>gpg --gen-key</code></p>
+</blockquote>
+<p>选择密钥类型：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs angelscript">gpg (GnuPG) <span class="hljs-number">2.2</span><span class="hljs-number">.41</span>; Copyright (C) <span class="hljs-number">2022</span> g10 Code GmbH<br>This <span class="hljs-keyword">is</span> free software: you are free to change <span class="hljs-keyword">and</span> redistribute it.<br>There <span class="hljs-keyword">is</span> NO WARRANTY, to the extent permitted by law.<br><br>请选择您要使用的密钥类型：<br>   (<span class="hljs-number">1</span>) RSA 和 RSA （默认）<br>   (<span class="hljs-number">2</span>) DSA 和 Elgamal<br>   (<span class="hljs-number">3</span>) DSA（仅用于签名）<br>   (<span class="hljs-number">4</span>) RSA（仅用于签名）<br> （<span class="hljs-number">14</span>）卡中现有密钥<br>您的选择是？<br></code></pre></div></td></tr></table></figure>
+<p>设置密钥长度：</p>
+<figure class="highlight armasm"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs armasm"><span class="hljs-symbol">RSA</span> keys may <span class="hljs-keyword">be </span><span class="hljs-keyword">between </span><span class="hljs-number">1024</span> <span class="hljs-keyword">and </span><span class="hljs-number">4096</span> <span class="hljs-keyword">bits </span>long.<br><span class="hljs-symbol">What</span> keysize do you want? (<span class="hljs-number">3072</span>)<br></code></pre></div></td></tr></table></figure>
+<p>设置密钥的有效期：</p>
+<figure class="highlight excel"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs excel">Please specify how long the key should be valid.<br>         <span class="hljs-number">0</span> = key does <span class="hljs-built_in">not</span> expire<br>      &lt;<span class="hljs-built_in">n</span>&gt;  = key expires in <span class="hljs-built_in">n</span> <span class="hljs-built_in">days</span><br>      &lt;<span class="hljs-built_in">n</span>&gt;w = key expires in <span class="hljs-built_in">n</span> weeks<br>      &lt;<span class="hljs-built_in">n</span>&gt;m = key expires in <span class="hljs-built_in">n</span> months<br>      &lt;<span class="hljs-built_in">n</span>&gt;y = key expires in <span class="hljs-built_in">n</span> years<br>Key is valid for? (<span class="hljs-number">0</span>)  <span class="hljs-number">2</span>y<br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p><strong>提示</strong></p>
+<hr>
+<p>默认可以选 <code>0</code> ，即永不过期， 这里我选了 <code>2y</code>，因为到期之前随时可以更改你的过期时间，以确保你对此密钥仍拥有控制权。</p>
+</blockquote>
+<p>设置个人信息：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs routeros">GnuPG needs <span class="hljs-keyword">to</span> construct a<span class="hljs-built_in"> user </span>ID <span class="hljs-keyword">to</span> identify your key.<br><br>Real name:  linus   # 这里名字可以是网名，可以是任意名字，如果你注重隐私就不要输入自己真名了 <br>Email address: linus@outlook.com  <br>Comment:     # 备注可以留空<br></code></pre></div></td></tr></table></figure>
+<p>确认个人信息：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs groovy">You selected <span class="hljs-keyword">this</span> USER-<span class="hljs-string">ID:</span><br>    <span class="hljs-string">"linus &lt;linust@outlook.com&gt;"</span><br><br>Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? o<br></code></pre></div></td></tr></table></figure>
+<p>设置 PGP 访问密码：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs markdown">┌──────────────────────────────────────────────────────┐<br>│ Please enter the passphrase to                       │<br>│ protect your new key                                 │ <br>│                                                      │<br>│ Passphrase: <span class="hljs-strong">_____</span><span class="hljs-strong">_____</span><span class="hljs-strong">_____</span><span class="hljs-strong">_____</span><span class="hljs-strong">_____</span><span class="hljs-strong">_____</span><span class="hljs-strong">_____</span><span class="hljs-strong">_____</span> │<br>│                                                      │<br>│       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">OK</span>&gt;</span></span>                              <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Cancel</span>&gt;</span></span>     │<br>└──────────────────────────────────────────────────────┘<br></code></pre></div></td></tr></table></figure>
+<p>完成：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql">gpg: key <span class="hljs-number">99</span>F583599B7E31F1 marked <span class="hljs-keyword">as</span> ultimately <span class="hljs-keyword">trusted</span><br>gpg: revocation certificate stored <span class="hljs-keyword">as</span> <span class="hljs-string">'/root/.gnupg/openpgp-revocs.d/705358AB85366CAB05C0220F99F583599B7E31F1.rev'</span><br><span class="hljs-built_in">public</span> <span class="hljs-keyword">and</span> secret key created <span class="hljs-keyword">and</span> signed.<br><br>pub   rsa3072 <span class="hljs-number">2021</span><span class="hljs-number">-01</span><span class="hljs-number">-11</span> [SC]<br>      <span class="hljs-number">705358</span>AB85366CAB05C0220F99F583599B7E31F1			 # 你的 key id<br>uid                      linus &lt;linus@outlook.com&gt;<br>sub   rsa3072 <span class="hljs-number">2021</span><span class="hljs-number">-01</span><span class="hljs-number">-11</span> [E] 		 # 这个是自动生成的用于加密的子密钥，E 代表 Encrypt 加密<br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p><strong>提示</strong></p>
+<hr>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">密钥用途</th>
+<th style="text-align:center">含义</th>
+<th style="text-align:center">释义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>A</code></td>
+<td style="text-align:center">Authentication</td>
+<td style="text-align:center">身份鉴别</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>C</code></td>
+<td style="text-align:center">Certify</td>
+<td style="text-align:center">身份认证、签署证书</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>E</code></td>
+<td style="text-align:center">Encrypt</td>
+<td style="text-align:center">加密</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>S</code></td>
+<td style="text-align:center">Sign</td>
+<td style="text-align:center">签名</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>?</code></td>
+<td style="text-align:center">Unknown capability</td>
+<td style="text-align:center">未知用途</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>sec</code></td>
+<td style="text-align:center">Secret Key</td>
+<td style="text-align:center">私钥</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>ssb</code></td>
+<td style="text-align:center">Secret SubKey</td>
+<td style="text-align:center">子私钥</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>pub</code></td>
+<td style="text-align:center">Public Key</td>
+<td style="text-align:center">公钥</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>sub</code></td>
+<td style="text-align:center">Public SubKey</td>
+<td style="text-align:center">子公钥</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h5 id="1-2-生成子密钥"><a class="header-anchor" href="#1-2-生成子密钥">¶</a>1.2 生成子密钥</h5>
+<blockquote>
+<p><strong>注意</strong></p>
+<hr>
+<p>日常使用应该使用子密钥，主密钥除了签发新的子密钥不要使用。<br>
+建议为不同环境，不同用途都单独生成子密钥，互不干扰。</p>
+</blockquote>
+<p>编辑主密钥，进入 GPG 交互界面：</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">gpg --edit-key linus <span class="hljs-comment"># 或者 key id</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight angelscript"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs angelscript">gpg (GnuPG) <span class="hljs-number">2.2</span><span class="hljs-number">.20</span>; Copyright (C) <span class="hljs-number">2020</span> Free Software Foundation, Inc.<br>This <span class="hljs-keyword">is</span> free software: you are free to change <span class="hljs-keyword">and</span> redistribute it.<br>There <span class="hljs-keyword">is</span> NO WARRANTY, to the extent permitted by law.<br><br>Secret key <span class="hljs-keyword">is</span> available.<br><br>sec  rsa3072/<span class="hljs-number">99</span>F583599B7E31F1<br>     created: <span class="hljs-number">2021</span><span class="hljs-number">-01</span><span class="hljs-number">-11</span>  expires: never       usage: SC<br>     trust: ultimate      validity: ultimate<br>ssb  rsa3072/<span class="hljs-number">6</span>FE9C71CFED44076<br>     created: <span class="hljs-number">2021</span><span class="hljs-number">-01</span><span class="hljs-number">-11</span>  expires: never       usage: E<br>[ultimate] (<span class="hljs-number">1</span>). linus &lt;<span class="hljs-symbol">linus@</span>outlook.com&gt;C<br></code></pre></div></td></tr></table></figure>
+<p>添加子密钥：</p>
+<figure class="highlight shell"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell"><span class="hljs-meta">gpg&gt;</span><span class="bash"> addkey</span><br></code></pre></div></td></tr></table></figure>
+<p>根据用途选择， 这里生成一个只用于签名的子密钥（sign only）：</p>
+<figure class="highlight sql"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql">Please <span class="hljs-keyword">select</span> what kind <span class="hljs-keyword">of</span> <span class="hljs-keyword">key</span> you want:<br>   (<span class="hljs-number">3</span>) DSA (<span class="hljs-keyword">sign</span> <span class="hljs-keyword">only</span>)<br>   (<span class="hljs-number">4</span>) RSA (<span class="hljs-keyword">sign</span> <span class="hljs-keyword">only</span>)<br>   (<span class="hljs-number">5</span>) Elgamal (<span class="hljs-keyword">encrypt</span> <span class="hljs-keyword">only</span>)<br>   (<span class="hljs-number">6</span>) RSA (<span class="hljs-keyword">encrypt</span> <span class="hljs-keyword">only</span>)<br>  (<span class="hljs-number">14</span>) Existing <span class="hljs-keyword">key</span> <span class="hljs-keyword">from</span> card<br>Your selection? <span class="hljs-number">4</span><br></code></pre></div></td></tr></table></figure>
+<p>完成：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs angelscript">sec  rsa3072/<span class="hljs-number">99</span>F583599B7E31F1<br>     created: <span class="hljs-number">2021</span><span class="hljs-number">-01</span><span class="hljs-number">-11</span>  expires: never       usage: SC<br>     trust: ultimate      validity: ultimate<br>ssb  rsa3072/<span class="hljs-number">6</span>FE9C71CFED44076<br>     created: <span class="hljs-number">2021</span><span class="hljs-number">-01</span><span class="hljs-number">-11</span>  expires: never       usage: E<br>ssb  rsa3072/FDB960B857D397F6<br>     created: <span class="hljs-number">2021</span><span class="hljs-number">-01</span><span class="hljs-number">-11</span>  expires: never       usage: S<br>[ultimate] (<span class="hljs-number">1</span>). linus &lt;<span class="hljs-symbol">linus@</span>outlook.com&gt;<br></code></pre></div></td></tr></table></figure>
+<p>保存子密钥：</p>
+<figure class="highlight fortran"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs fortran">gpg&gt; <span class="hljs-keyword">save</span><br></code></pre></div></td></tr></table></figure>
+<h3 id="2-撤销"><a class="header-anchor" href="#2-撤销">¶</a>2. 撤销</h3>
+<h4 id="2-1-生成撤销证书"><a class="header-anchor" href="#2-1-生成撤销证书">¶</a>2.1 生成撤销证书</h4>
+<p>假如你忘了主密钥的密码，或者丢失了对主密钥的控制权（丢失，被夺取）如果没有撤销凭证的话，你需要一个个通知你的朋友们你不再使用这个密钥。</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">gpg --gen-revoke -ao revoke.pgp   linus <span class="hljs-comment"># uid 或者 key id</span><br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p><strong>提示</strong></p>
+<hr>
+<ul>
+<li><code>-a, --armor</code>：创建 ASCII 字符封装的输出，不指定则以二进制形式输出。</li>
+<li><code>-o, --output FILE</code>：写输出到 FILE</li>
+</ul>
+</blockquote>
+<p>选择撤销原因：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs angelscript">sec  rsa3072/<span class="hljs-number">99</span>F583599B7E31F1 <span class="hljs-number">2021</span><span class="hljs-number">-01</span><span class="hljs-number">-11</span> linus &lt;<span class="hljs-symbol">linus@</span>outlook.com&gt;<br><br>Create a revocation certificate <span class="hljs-keyword">for</span> <span class="hljs-keyword">this</span> key? (y/N) y<br>Please select the reason <span class="hljs-keyword">for</span> the revocation:<br>  <span class="hljs-number">0</span> = No reason specified<br>  <span class="hljs-number">1</span> = Key has been compromised<br>  <span class="hljs-number">2</span> = Key <span class="hljs-keyword">is</span> superseded<br>  <span class="hljs-number">3</span> = Key <span class="hljs-keyword">is</span> no longer used<br>  Q = Cancel<br>(Probably you want to select <span class="hljs-number">1</span> here) <span class="hljs-number">3</span><br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p><strong>提示</strong></p>
+<hr>
+<p>生成的 <code>revoke.pgp</code> 就是撤销凭证，有了这个撤销凭证，你可以在没有密码的情况下使一个公钥失效，所以一定要妥善保存，而且最好比主密钥多一份。</p>
+</blockquote>
+<blockquote>
+<p><strong>注意</strong></p>
+<hr>
+<p>由于PGP没有提供任何将吊销信息通知其他用户的方式，他不能保证没人会使用撤销了的已经变得不安全的密钥。</p>
+<p>你丢失的私钥仍然可以被攻击者使用，并用来解密那些没有更新你的公钥的人发送的加密消息。  revoke 子密钥并更新公钥后，若有人用老的公钥加密信息，虽然你仍然可以解密，但是攻击者同样可以，这时候是极度不安全的。</p>
+<p>例如：如果A的私人密钥被盗，她将发出一个密钥撤销证书（key revocation  certificate），但是由于这个密钥的分发是非正式的且将费大量的时间和口舌，故不能保证密钥环中每一个有A公开密钥的用户都能收到。由于A必须用她的私人密钥签名撤消的证书，所以如果A同时丢失了私人密钥，她就不能撤销密钥。密钥的撤销问题被认为是整个系统最薄弱的环节。</p>
+<p>所以在你将密钥撤销后，请将撤销后的公钥发布到你一贯公布公钥的地方， 并尽可能通知其他人。</p>
+</blockquote>
+<h4 id="2-2-撤销主密钥"><a class="header-anchor" href="#2-2-撤销主密钥">¶</a>2.2 撤销主密钥</h4>
+<p>在一台新的电脑上导入你的公钥：</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">gpg --import gpg-linus.asc<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight groovy"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs groovy"><span class="hljs-string">gpg:</span> key <span class="hljs-number">99</span><span class="hljs-string">F583599B7E31F1:</span> <span class="hljs-string">"linus &lt;linus@outlook.com&gt;"</span> not changed<br><span class="hljs-string">gpg:</span> Total number <span class="hljs-string">processed:</span> <span class="hljs-number">1</span><br><span class="hljs-string">gpg:</span>              <span class="hljs-string">unchanged:</span> <span class="hljs-number">1</span><br></code></pre></div></td></tr></table></figure>
+<p>导入你备份的撤销凭证：</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">gpg --import revoke<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight angelscript"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs angelscript">gpg: key <span class="hljs-number">99</span>F583599B7E31F1: <span class="hljs-string">"linus &lt;linus@outlook.com&gt;"</span> revocation certificate imported<br>gpg: Total number processed: <span class="hljs-number">1</span><br>gpg:    new key revocations: <span class="hljs-number">1</span><br>gpg: marginals needed: <span class="hljs-number">3</span>  completes needed: <span class="hljs-number">1</span>  trust model: pgp<br>gpg: depth: <span class="hljs-number">0</span>  valid:   <span class="hljs-number">1</span>  signed:   <span class="hljs-number">1</span>  trust: <span class="hljs-number">0</span>-, <span class="hljs-number">0</span>q, <span class="hljs-number">0</span>n, <span class="hljs-number">0</span>m, <span class="hljs-number">0f</span>, <span class="hljs-number">1</span>u<br>gpg: depth: <span class="hljs-number">1</span>  valid:   <span class="hljs-number">1</span>  signed:   <span class="hljs-number">0</span>  trust: <span class="hljs-number">1</span>-, <span class="hljs-number">0</span>q, <span class="hljs-number">0</span>n, <span class="hljs-number">0</span>m, <span class="hljs-number">0f</span>, <span class="hljs-number">0</span>u<br>gpg: next trustdb check due at <span class="hljs-number">2021</span><span class="hljs-number">-09</span><span class="hljs-number">-29</span><br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p><strong>注意</strong></p>
+<hr>
+<p><strong>导入撤销凭证会直接导致密钥不可用</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">gpg -k<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight angelscript"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs angelscript">pub   rsa3072 <span class="hljs-number">2021</span><span class="hljs-number">-01</span><span class="hljs-number">-11</span> [SC] [revoked: <span class="hljs-number">2021</span><span class="hljs-number">-01</span><span class="hljs-number">-11</span>]<br>      <span class="hljs-number">705358</span>AB85366CAB05C0220F99F583599B7E31F1<br>uid           [ revoked] linus &lt;<span class="hljs-symbol">linus@</span>outlook.com&gt;<br></code></pre></div></td></tr></table></figure>
+</blockquote>
+<h4 id="2-3-撤销子密钥"><a class="header-anchor" href="#2-3-撤销子密钥">¶</a>2.3 撤销子密钥</h4>
+<p>进入交互模式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">gpg --edit-key linus<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight gauss"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs gauss">gpg &gt;   list      <span class="hljs-meta"># 列出你所有的子密钥</span><br>gpg &gt;   <span class="hljs-built_in">key</span>  &#123;n&#125;  <span class="hljs-meta"># 选择你要销毁的子密钥的 序号</span><br>gpg &gt;   revkey<br>gpg &gt;   <span class="hljs-keyword">save</span><br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p><strong>注意</strong></p>
+<hr>
+<p>退出前一定要 <code>save</code>, 不然所有更改不会生效。</p>
+</blockquote>
+<h3 id="3-列出密钥"><a class="header-anchor" href="#3-列出密钥">¶</a>3. 列出密钥</h3>
+<h4 id="3-1-列出所有公钥、子公钥"><a class="header-anchor" href="#3-1-列出所有公钥、子公钥">¶</a>3.1 列出所有公钥、子公钥</h4>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">gpg --list-keys <span class="hljs-comment"># 或 -k</span><br></code></pre></div></td></tr></table></figure>
+<h4 id="3-2-列出所有私钥、子私钥"><a class="header-anchor" href="#3-2-列出所有私钥、子私钥">¶</a>3.2 列出所有私钥、子私钥</h4>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">gpg --list-secret-keys <span class="hljs-comment"># 或 -K</span><br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p><strong>提示</strong></p>
+<hr>
+<ul>
+<li>加 <code>--keyid-format long</code>：输出长 ID。</li>
+<li>加 <code>--fingerprint</code>：输出指纹信息。</li>
+</ul>
+<p>可以修改 gpg 配置文件 <em>~/.gpupg/gpg.conf</em> 固化上面两个选项：</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs livecodeserver"><span class="hljs-comment"># ~/.gnupg/gpg.conf</span><br><br>keyid-<span class="hljs-built_in">format</span> <span class="hljs-number">0</span>xlong<br><span class="hljs-keyword">with</span>-fingerprint<br></code></pre></div></td></tr></table></figure>
+</blockquote>
+<h3 id="4-备份密钥"><a class="header-anchor" href="#4-备份密钥">¶</a>4.  备份密钥</h3>
+<h4 id="4-1-导出公钥："><a class="header-anchor" href="#4-1-导出公钥：">¶</a>4.1 导出公钥：</h4>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">gpg -ao public-key.txt --<span class="hljs-built_in">export</span> linus<br></code></pre></div></td></tr></table></figure>
+<h4 id="4-2-导出私钥和子密钥："><a class="header-anchor" href="#4-2-导出私钥和子密钥：">¶</a>4.2 导出私钥和子密钥：</h4>
+<blockquote>
+<p><strong>注意</strong></p>
+<hr>
+<p>这里最后 要带上 <code>!</code>， 不然会导出全部子密钥。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">gpg -ao secret-key --<span class="hljs-built_in">export</span>-secret-key 99F583599B7E31F1!            <span class="hljs-comment"># 导出主私钥，建议 secret-key 替换为你的加密设备备份文件的路径，直接导入到设备中</span><br>gpg -ao sign-subkey --<span class="hljs-built_in">export</span>-secret-subkeys FDB960B857D397F6!       <span class="hljs-comment">#导出有 [S] 标识、签名用子私钥</span><br>gpg -ao encrypt-subkey --<span class="hljs-built_in">export</span>-secret-subkeys 6FE9C71CFED44076!    <span class="hljs-comment">#导出有 [E] 标识、加密用子私钥 ,这里的 ID 替换为你的子密钥 ID</span><br></code></pre></div></td></tr></table></figure>
+<h3 id="5-删除密钥"><a class="header-anchor" href="#5-删除密钥">¶</a>5. 删除密钥</h3>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">gpg --delete-secret-keys linus  <span class="hljs-comment"># 删除私钥，  UID 也可以替换成子密钥 ID, 主密钥 Key ID</span><br>gpg --delete-keys linus	        <span class="hljs-comment"># 删除公钥</span><br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p><strong>提示</strong></p>
+<hr>
+<p>如果想全部删除推荐直接删文件夹,即删除 <em>~/.gnupg</em>。</p>
+</blockquote>
+<h3 id="6-导入密钥"><a class="header-anchor" href="#6-导入密钥">¶</a>6. 导入密钥</h3>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">gpg --import [密钥文件]   <span class="hljs-comment"># 备份的子密钥文件， 或者其他人的公钥</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight angelscript"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs angelscript">sec#   rsa3072/<span class="hljs-number">0x99F583599B7E31F1</span> <span class="hljs-number">2021</span><span class="hljs-number">-01</span><span class="hljs-number">-11</span> [SC]		                   # sec 后面带有 # 号说明主密钥未导入，是安全的<br>      Key fingerprint = <span class="hljs-number">7053</span> <span class="hljs-number">58</span>AB <span class="hljs-number">8536</span> <span class="hljs-number">6</span>CAB <span class="hljs-number">05</span>C0  <span class="hljs-number">220</span>F <span class="hljs-number">99</span>F5 <span class="hljs-number">8359</span> <span class="hljs-number">9</span>B7E <span class="hljs-number">31</span>F1 #指纹信息<br>uid                   [unknown] linus &lt;<span class="hljs-symbol">linus@</span>outlook.com&gt;<br>ssb#    rsa3072/<span class="hljs-number">0x6FE9C71CFED44076</span> <span class="hljs-number">2021</span><span class="hljs-number">-01</span><span class="hljs-number">-11</span> [E]                          # 带有 # 号说明该子密钥已导入<br></code></pre></div></td></tr></table></figure>
+<h3 id="7-签名和验证"><a class="header-anchor" href="#7-签名和验证">¶</a>7. 签名和验证</h3>
+<h4 id="7-1-签名文件"><a class="header-anchor" href="#7-1-签名文件">¶</a>7.1 签名文件</h4>
+<p>第一种方式，生成二进制签名文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">gpg --sign input.txt  <span class="hljs-comment"># 当然也可以加上 --output 参数</span><br></code></pre></div></td></tr></table></figure>
+<p>第二种方式，生成 ASCII 格式签名：</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">gpg --clearsign input.txt<br></code></pre></div></td></tr></table></figure>
+<p>第三种，签名和原文本分开（前两种的签名文件中包含了所有原文本，所以体积会比较大）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">gpg --armor --detach-sign input.txt  <span class="hljs-comment"># 不加 armor 生成会二进制</span><br></code></pre></div></td></tr></table></figure>
+<h4 id="7-2-验证签名文件："><a class="header-anchor" href="#7-2-验证签名文件：">¶</a>7.2 验证签名文件：</h4>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">gpg --verify demo.txt.asc demo.txt<br></code></pre></div></td></tr></table></figure>
+<h3 id="8-加解密"><a class="header-anchor" href="#8-加解密">¶</a>8. 加解密</h3>
+<h4 id="8-1-加密"><a class="header-anchor" href="#8-1-加密">¶</a>8.1 加密</h4>
+<ol>
+<li>
+<p>第一种形式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">gpg --recipient &#123;keyid/uid&#125; --output encrypt.txt --encrypt input.txt<br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p><strong>提示</strong></p>
+<hr>
+<ul>
+<li><code>--recipient</code> 指定接收者的公钥 ID。</li>
+<li>也可以按喜好加上 <code>--armor</code> 等选项。</li>
+</ul>
+</blockquote>
+</li>
+<li>
+<p>第二种形式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">gpg -se -o encrypt.txt -r &#123;keyid/uid&#125; input.txt<br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p><strong>提示</strong></p>
+<hr>
+<ul>
+<li><code>-s</code>：签名。</li>
+<li><code>-e</code>：加密。</li>
+<li><code>-o, --output</code>：输出文件。</li>
+<li><code>-r, --recipient</code>：接收者的 uid 或者 key id， 接收者的公钥必须已经导入过。</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<h4 id="8-2-解密"><a class="header-anchor" href="#8-2-解密">¶</a>8.2 解密</h4>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">gpg --decrypt encrypt.txt --output decrypt.txt<br></code></pre></div></td></tr></table></figure>
+<h2 id="二、进阶使用"><a class="header-anchor" href="#二、进阶使用">¶</a>二、进阶使用</h2>
+<h3 id="1-追加-UID"><a class="header-anchor" href="#1-追加-UID">¶</a>1. 追加 UID</h3>
+<h4 id="1-1-UID-概述"><a class="header-anchor" href="#1-1-UID-概述">¶</a>1.1 UID 概述</h4>
+<p>UID 即 User ID ，由三个部分组成：</p>
+<ul>
+<li>全名（现在的话网名即可）</li>
+<li>注释（用 ( ) 包括）</li>
+<li>邮箱地址（用 &lt; &gt; 包括）</li>
+</ul>
+<p>UID 的性质：</p>
+<ul>
+<li>一个密钥可以有多个 UID，方便不同场合使用。</li>
+<li>UID 与哪个子密钥无关，UID 是作用于整个密钥的。</li>
+<li>UID 可以随时添加，但已有的 UID 不能修改，只能单独吊销。</li>
+<li>UID 单独吊销后，只需要重新发布公钥即可。</li>
+</ul>
+<h4 id="1-2-添加-UID"><a class="header-anchor" href="#1-2-添加-UID">¶</a>1.2 添加 UID</h4>
+<p>进入交互模式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">gpg --edit-key &#123;keyid/uid&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell"><span class="hljs-meta">gpg&gt;</span><span class="bash"> adduid</span><br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p><strong>提示</strong></p>
+<hr>
+<p>使用 UID 的场景有哪些呢？ 如果你使用一个不常用的邮箱作为你的 Github/Gitlab 账号，你主要的邮箱生成的 PGP 密钥就不能用来签名了。</p>
+<p>这时候为了保护隐私 且 只要管理一个密钥，就可以 在 Github 设置里把 Keep my email addresses private 勾上，将为你生成的随机邮箱添加到 UID 中， 这样就只需要管理一个 PGP 密钥，可以同时为你不同的 Git 账号签名。</p>
+</blockquote>
+<h3 id="2-添加头像"><a class="header-anchor" href="#2-添加头像">¶</a>2. 添加头像</h3>
+<p>跟添加 UID 差不多，  在 gpg 交互 界面 输入 <code>addphoto</code> 就可以， 想要查看的话 输入 <code>showphoto</code>。</p>
+<h3 id="3-使用-PGP-为-git-commit-签名"><a class="header-anchor" href="#3-使用-PGP-为-git-commit-签名">¶</a>3. 使用 PGP 为 git commit 签名</h3>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">git commit -S -m your commit message<br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p><strong>注意</strong></p>
+<hr>
+<p>需要你 PGP 的 UID 包含 git config 中的邮箱。</p>
+</blockquote>
+<h3 id="4-使用-PGP-进行-SSH"><a class="header-anchor" href="#4-使用-PGP-进行-SSH">¶</a>4. 使用 PGP 进行 SSH</h3>
+<h4 id="4-1-生成身份鉴别（A）用子密钥"><a class="header-anchor" href="#4-1-生成身份鉴别（A）用子密钥">¶</a>4.1 生成身份鉴别（A）用子密钥</h4>
+<p>进入交互模式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">gpg --expert --edit-key &#123;keyid/uid&#125;<br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p><strong>提示</strong></p>
+<hr>
+<p>使用专家模式, 不然没有认证的选项。</p>
+</blockquote>
+<p>执行追加密钥命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell"><span class="hljs-meta">gpg&gt;</span><span class="bash"> addkey</span><br></code></pre></div></td></tr></table></figure>
+<p>这里选择 RSA 算法且自定义权限：</p>
+<figure class="highlight less"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs less"><span class="hljs-selector-tag">Please</span> <span class="hljs-selector-tag">select</span> <span class="hljs-selector-tag">what</span> <span class="hljs-selector-tag">kind</span> <span class="hljs-selector-tag">of</span> <span class="hljs-selector-tag">key</span> <span class="hljs-selector-tag">you</span> <span class="hljs-selector-tag">want</span>:<br>   (<span class="hljs-number">3</span>) <span class="hljs-selector-tag">DSA</span> (sign only)<br>   (<span class="hljs-number">4</span>) <span class="hljs-selector-tag">RSA</span> (sign only)<br>   (<span class="hljs-number">5</span>) <span class="hljs-selector-tag">Elgamal</span> (encrypt only)<br>   (<span class="hljs-number">6</span>) <span class="hljs-selector-tag">RSA</span> (encrypt only)<br>   (<span class="hljs-number">7</span>) <span class="hljs-selector-tag">DSA</span> (set your own capabilities)<br>   (<span class="hljs-number">8</span>) <span class="hljs-selector-tag">RSA</span> (set your own capabilities)<br>  (<span class="hljs-number">10</span>) <span class="hljs-selector-tag">ECC</span> (sign only)<br>  (<span class="hljs-number">11</span>) <span class="hljs-selector-tag">ECC</span> (set your own capabilities)<br>  (<span class="hljs-number">12</span>) <span class="hljs-selector-tag">ECC</span> (encrypt only)<br>  (<span class="hljs-number">13</span>) <span class="hljs-selector-tag">Existing</span> <span class="hljs-selector-tag">key</span><br><span class="hljs-selector-tag">Your</span> <span class="hljs-selector-tag">selection</span>? <span class="hljs-selector-tag">8</span><br></code></pre></div></td></tr></table></figure>
+<p>选择密钥用途：</p>
+<figure class="highlight mathematica"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs mathematica">Possible actions for a RSA key: <span class="hljs-keyword">Sign</span> <span class="hljs-keyword">Encrypt</span> <span class="hljs-keyword">Authenticate</span><br>Current allowed actions: <span class="hljs-keyword">Sign</span> <span class="hljs-keyword">Encrypt</span>                               ## 这里显示默认有<span class="hljs-keyword">Sign</span>和<span class="hljs-keyword">Encrypt</span>两种权限<br><br>   (S) <span class="hljs-keyword">Toggle</span> the sign capability<br>   (E) <span class="hljs-keyword">Toggle</span> the encrypt capability<br>   (A) <span class="hljs-keyword">Toggle</span> the authenticate capability<br>   (Q) Finished<br><br>Your selection? S                                                   ## 关闭<span class="hljs-keyword">Sign</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight mathematica"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs mathematica">Possible actions for a RSA key: <span class="hljs-keyword">Sign</span> <span class="hljs-keyword">Encrypt</span> <span class="hljs-keyword">Authenticate</span><br>Current allowed actions: <span class="hljs-keyword">Encrypt</span><br><br>   (S) <span class="hljs-keyword">Toggle</span> the sign capability<br>   (E) <span class="hljs-keyword">Toggle</span> the encrypt capability<br>   (A) <span class="hljs-keyword">Toggle</span> the authenticate capability<br>   (Q) Finished<br><br>Your selection? E                                                   ## 关闭<span class="hljs-keyword">Encrypt</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight mathematica"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs mathematica">Possible actions for a RSA key: <span class="hljs-keyword">Sign</span> <span class="hljs-keyword">Encrypt</span> <span class="hljs-keyword">Authenticate</span><br>Current allowed actions:<br><br>   (S) <span class="hljs-keyword">Toggle</span> the sign capability<br>   (E) <span class="hljs-keyword">Toggle</span> the encrypt capability<br>   (A) <span class="hljs-keyword">Toggle</span> the authenticate capability<br>   (Q) Finished<br><br>Your selection? A                                                   ## 开启<span class="hljs-keyword">Authenticate</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight mathematica"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs mathematica">Possible actions for a RSA key: <span class="hljs-keyword">Sign</span> <span class="hljs-keyword">Encrypt</span> <span class="hljs-keyword">Authenticate</span><br>Current allowed actions: <span class="hljs-keyword">Authenticate</span><br><br>   (S) <span class="hljs-keyword">Toggle</span> the sign capability<br>   (E) <span class="hljs-keyword">Toggle</span> the encrypt capability<br>   (A) <span class="hljs-keyword">Toggle</span> the authenticate capability<br>   (Q) Finished<br><br>Your selection? Q                                                    ## 退出<br></code></pre></div></td></tr></table></figure>
+<p>设置密钥有效期：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs angelscript">RSA keys may be between <span class="hljs-number">1024</span> <span class="hljs-keyword">and</span> <span class="hljs-number">4096</span> bits long.<br>What keysize <span class="hljs-keyword">do</span> you want? (<span class="hljs-number">2048</span>) <span class="hljs-number">4096</span><br>Requested keysize <span class="hljs-keyword">is</span> <span class="hljs-number">4096</span> bits<br>Please specify how long the key should be valid.<br>         <span class="hljs-number">0</span> = key does <span class="hljs-keyword">not</span> expire<br>      &lt;n&gt;  = key expires <span class="hljs-keyword">in</span> n days<br>      &lt;n&gt;w = key expires <span class="hljs-keyword">in</span> n weeks<br>      &lt;n&gt;m = key expires <span class="hljs-keyword">in</span> n months<br>      &lt;n&gt;y = key expires <span class="hljs-keyword">in</span> n years<br>Key <span class="hljs-keyword">is</span> valid <span class="hljs-keyword">for</span>? (<span class="hljs-number">0</span>) <span class="hljs-number">1</span>y                                             ## 有效期<br>Key expires at Tue Jan  <span class="hljs-number">7</span> <span class="hljs-number">11</span>:<span class="hljs-number">33</span>:<span class="hljs-number">54</span> <span class="hljs-number">2020</span> CST<br>Is <span class="hljs-keyword">this</span> correct? (y/N) y<br>Really create? (y/N) y<br>We need to generate a lot of random bytes. It <span class="hljs-keyword">is</span> a good idea to perform<br>some other action (type on the keyboard, move the mouse, utilize the<br>disks) during the prime generation; <span class="hljs-keyword">this</span> gives the random number<br>generator a better chance to gain enough entropy.<br><br>sec  rsa2048/<span class="hljs-number">7</span>DEFA5351BCE3C55<br>     created: <span class="hljs-number">2019</span><span class="hljs-number">-01</span><span class="hljs-number">-07</span>  expires: <span class="hljs-number">2021</span><span class="hljs-number">-01</span><span class="hljs-number">-06</span>  usage: SC<br>     trust: ultimate      validity: ultimate<br>ssb  rsa2048/<span class="hljs-number">2</span>FCE923F8ECB63F6<br>     created: <span class="hljs-number">2019</span><span class="hljs-number">-01</span><span class="hljs-number">-07</span>  expires: <span class="hljs-number">2021</span><span class="hljs-number">-01</span><span class="hljs-number">-06</span>  usage: E<br>ssb  rsa4096/<span class="hljs-number">19</span>D32A8839DCAA1F<br>     created: <span class="hljs-number">2019</span><span class="hljs-number">-01</span><span class="hljs-number">-07</span>  expires: <span class="hljs-number">2020</span><span class="hljs-number">-01</span><span class="hljs-number">-07</span>  usage: A<br>[ultimate] (<span class="hljs-number">1</span>). hhhhh &lt;<span class="hljs-symbol">h@</span>mail.com&gt;<br></code></pre></div></td></tr></table></figure>
+<p>保存更改：</p>
+<figure class="highlight fortran"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs fortran">gpg&gt; <span class="hljs-keyword">save</span><br></code></pre></div></td></tr></table></figure>
+<h4 id="4-2-修改配置文件"><a class="header-anchor" href="#4-2-修改配置文件">¶</a>4.2 修改配置文件</h4>
+<p>编辑 <em>~/.bashrc</em> 文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> GPG_TTY=$(tty)<br><span class="hljs-built_in">export</span> SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)<br><span class="hljs-built_in">echo</span> UPDATESTARTUPTTY | gpg-connect-agent 1&gt; /dev/null<br></code></pre></div></td></tr></table></figure>
+<p>编辑 <em>~/.gnupg/gpg-agent.conf</em> 文件，增加：</p>
+<figure class="highlight elm"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs elm"><span class="hljs-title">enable</span>-ssh-sup<span class="hljs-keyword">port</span><br></code></pre></div></td></tr></table></figure>
+<p>查看刚刚新加的带有 <code>[A]</code> 标志的子密钥的 keygrip：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs actionscript">&gt; gpg -k --<span class="hljs-keyword">with</span>-keygrip<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight angelscript"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs angelscript">~/.gnupg/pubring.kbx<br>-----------------------------<br>pub   rsa2048 <span class="hljs-number">2019</span><span class="hljs-number">-01</span><span class="hljs-number">-07</span> [SC] [expires: <span class="hljs-number">2021</span><span class="hljs-number">-01</span><span class="hljs-number">-06</span>]<br>      <span class="hljs-number">8</span>A9FC025A44AA4824C1F4AE27DEFA5351BCE3C55<br>      Keygrip = BEFCCDFE36CC5442B888B8459265C68B60A4ABD2<br>uid           [ultimate] hhhhh &lt;<span class="hljs-symbol">h@</span>mail.com&gt;<br>sub   rsa2048/<span class="hljs-number">0xF681DAEBBAB82124</span> <span class="hljs-number">2019</span><span class="hljs-number">-01</span><span class="hljs-number">-07</span> [E] [expires: <span class="hljs-number">2021</span><span class="hljs-number">-01</span><span class="hljs-number">-06</span>]<br>      Keygrip = <span class="hljs-number">422922</span>ACFD099E79863D93B93333528F225C90FC<br>sub   rsa2048/<span class="hljs-number">0x501DEDC36BD409C8</span> <span class="hljs-number">2019</span><span class="hljs-number">-01</span><span class="hljs-number">-07</span> [A] [expires: <span class="hljs-number">2020</span><span class="hljs-number">-01</span><span class="hljs-number">-07</span>]<br>      Keygrip = <span class="hljs-number">999</span>A87A51CFE82DAA494BEB42F585051307F9E33<br></code></pre></div></td></tr></table></figure>
+<p>即：<code>999A87A51CFE82DAA494BEB42F585051307F9E33</code>。</p>
+<p>将其加入到 <em>~/.gnupg/sshcontrol</em>，运行 <code>ssh-add -l</code>，查看是否已经加入。</p>
+<h4 id="4-3-在服务器配置公钥"><a class="header-anchor" href="#4-3-在服务器配置公钥">¶</a>4.3 在服务器配置公钥</h4>
+<p>导出 SSH 公钥：</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">gpg --<span class="hljs-built_in">export</span>-ssh-key &#123;keyid&#125;!<br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p><strong>注意</strong></p>
+<hr>
+<ul>
+<li>
+<p>使用 <code>--export-ssh-key</code> 参数。</p>
+</li>
+<li>
+<p>这里只能使用 key id，不能使用 UID，否则报错：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs groovy"><span class="hljs-string">gpg:</span> key <span class="hljs-string">"uid"</span> not <span class="hljs-string">found:</span> Unusable <span class="hljs-keyword">public</span> key<br><span class="hljs-string">gpg:</span> export <span class="hljs-keyword">as</span> ssh key <span class="hljs-string">failed:</span> Unusable <span class="hljs-keyword">public</span> key<br></code></pre></div></td></tr></table></figure>
+</li>
+<li>
+<p>注意 <code>{keyid}!</code> 后面的 <code>!</code>。</p>
+</li>
+</ul>
+</blockquote>
+<p>将公钥上传到服务器中。</p>
+<h3 id="5-使用公钥服务器-KeyServer"><a class="header-anchor" href="#5-使用公钥服务器-KeyServer">¶</a>5. 使用公钥服务器 KeyServer</h3>
+<h4 id="5-1-主流公钥服务器"><a class="header-anchor" href="#5-1-主流公钥服务器">¶</a>5.1 主流公钥服务器</h4>
+<ol>
+<li>
+<p><a href="http://sks-keyservers.net/" target="_blank" rel="noopener">SKS Keyserver Pool</a></p>
+<p>当今世界最大的 Key Server 池， 符合它的标准的世界各地的公钥服务器会定期相互通信，同步，比较目录，数据完全开放下载。 现在一般说起 KeyServer 说的就是这个。</p>
+<p>KeyServer 虽然一直是 PGP 的重要基础设置，但 SKS Keyserver Pool 其实目前只有不到 20 台服务器，GnuPG 默认用的服务器是其中的 <a href="https://hkps.pool.sks-keyservers.net" target="_blank" rel="noopener">HKPS pool</a>，只有四台服务器。</p>
+</li>
+<li>
+<p>Base  Modern Software KeyServer</p>
+<p>有一些 KeyServer 没有用 SKS 的软件，运行的是更下现代和稳定的软件，比较有代表性的是 <strong><a href="http://keyserver.ubuntu.com/" target="_blank" rel="noopener">Ubuntu keyserver</a></strong>,  基于 Hockeypuck ， 这些服务器仍然会和 SKS pool 保持同步。</p>
+</li>
+<li>
+<p>独立 KeyServer</p>
+<p>这些服务器不与 SKS pool 同步数据，由中心化的运营者运行， 会对公钥上传者做一定的认证， 并且支持删除自己的公钥。</p>
+<p>比较有代表性的有， <a href="https://keys.openpgp.org/" target="_blank" rel="noopener">keys.openpgp.org</a>，KeyBase 等等。</p>
+</li>
+</ol>
+<h4 id="5-2-目前国内可以访问的-KeyServer"><a class="header-anchor" href="#5-2-目前国内可以访问的-KeyServer">¶</a>5.2 目前国内可以访问的 KeyServer</h4>
+<ul>
+<li><a href="http://keyserver.ubuntu.com" target="_blank" rel="noopener">keyserver.ubuntu.com</a></li>
+<li><a href="http://pgp.mit.edu" target="_blank" rel="noopener">pgp.mit.edu</a></li>
+<li><a href="http://subkeys.pgp.net" target="_blank" rel="noopener">subkeys.pgp.net</a></li>
+<li><a href="http://www.gpg-server.de" target="_blank" rel="noopener">www.gpg-server.de</a></li>
+</ul>
+<h4 id="5-3-在-gpg-中使用"><a class="header-anchor" href="#5-3-在-gpg-中使用">¶</a>5.3 在 gpg 中使用</h4>
+<ol>
+<li>
+<p>发布公钥：</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">gpg --send-keys &#123;keyid/uid&#125;<br></code></pre></div></td></tr></table></figure>
+</li>
+<li>
+<p>下载公钥：</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">gpg --recv-keys &#123;keyid/uid&#125;<br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p><strong>提示</strong></p>
+<hr>
+<p>此时有可能报错：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs groovy"><span class="hljs-string">gpg:</span> <span class="hljs-string">"xxxxxr"</span> not a key <span class="hljs-string">ID:</span> skipping<br></code></pre></div></td></tr></table></figure>
+<p>这时换个 KeyServer 就行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">gpg  --keyserver hkps://keyserver.ubuntu.com --recv-keys &#123;keyid/uid&#125;<br></code></pre></div></td></tr></table></figure>
+</blockquote>
+</li>
+<li>
+<p>签名和验证他人的公钥</p>
+<p>验证公钥真实性依靠多渠道确认的公钥指纹。一般来说为别人的公钥签名后，需要发还给他，或者发到公钥服务器（最好经过本人同意）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs hljs hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">gpg --sign-key  &#123;keyid/uid&#125;   <span class="hljs-comment"># 为已经导入的他人钥签名，你为他签名，意味着你将为他的身份真实性背书，请谨慎</span><br></code></pre></div></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="参考文献"><a class="header-anchor" href="#参考文献">¶</a>参考文献</h2>
+<section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a href="https://ulyc.github.io/2021/01/13/2021%E5%B9%B4-%E7%94%A8%E6%9B%B4%E7%8E%B0%E4%BB%A3%E7%9A%84%E6%96%B9%E6%B3%95%E4%BD%BF%E7%94%A8PGP-%E4%B8%8A/" target="_blank" rel="noopener">2021年，用更现代的方法使用PGP（上）</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a href="https://ulyc.github.io/2021/01/18/2021%E5%B9%B4-%E7%94%A8%E6%9B%B4%E7%8E%B0%E4%BB%A3%E7%9A%84%E6%96%B9%E6%B3%95%E4%BD%BF%E7%94%A8PGP-%E4%B8%AD/" target="_blank" rel="noopener">2021年，用更现代的方法使用PGP（中）</a>
+<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span><a href="https://ulyc.github.io/2021/01/26/2021%E5%B9%B4-%E7%94%A8%E6%9B%B4%E7%8E%B0%E4%BB%A3%E7%9A%84%E6%96%B9%E6%B3%95%E4%BD%BF%E7%94%A8PGP-%E4%B8%8B/" target="_blank" rel="noopener">2021年，用更现代的方法使用PGP（下）</a>
+<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%AC%94%E8%AE%B0/%E6%95%99%E7%A8%8B/">教程</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/OpenSSL/">OpenSSL</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
+                    
+                      <a class="hover-with-bg" href="/tags/SSH/">SSH</a>
+                    
+                      <a class="hover-with-bg" href="/tags/PGP/">PGP</a>
+                    
+                      <a class="hover-with-bg" href="/tags/GPG/">GPG</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/04/23/%E8%A7%A3%E5%86%B3-PowerShell-7-%E5%9C%A8%E8%84%B1%E6%9C%BA%E7%8A%B6%E6%80%81%E4%B8%8B%E5%90%AF%E5%8A%A8%E8%80%97%E6%97%B6%E9%95%BF%E7%9A%84%E9%97%AE%E9%A2%98/">
+                        <span class="hidden-mobile">解决 PowerShell 7 在脱机状态下启动耗时长的问题</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "TMgxzCpM2zFnsClsMHJY2LLc-gzGzoHsz",
+          app_key: "1kPLieLtoBQWf0w6iNxLqkMV",
+          placeholder: "说点什么....",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="https://valine.js.org" target="_blank" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> &nbsp;and&nbsp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a9b0666290f750544a1900dff36c0349";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+    <!-- Google Analytics -->
+    <script defer>
+      window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) };
+      ga.l = +new Date;
+      ga('create', 'UA-127726236-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
